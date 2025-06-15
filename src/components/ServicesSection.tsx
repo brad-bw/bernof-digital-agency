@@ -19,7 +19,7 @@ const ServicesSection = () => {
         { name: "Performance Optimization", description: "Speed, SEO, mobile responsiveness" },
       ],
       technologies: ["React", "Next.js", "Node.js", "TypeScript", "Tailwind CSS"],
-      priceRange: "€700 - €2,200",
+      priceRange: "From €700",
       timeline: "2-8 weeks",
       deliverables: "Full website, mobile-responsive design, admin panel, documentation",
       pattern: "angular"
@@ -37,7 +37,7 @@ const ServicesSection = () => {
         { name: "Brand Guidelines", description: "Comprehensive style guides" },
       ],
       technologies: ["Adobe Creative Suite", "Figma", "After Effects", "Cinema 4D"],
-      priceRange: "€200 - €2,000+",
+      priceRange: "From €200",
       timeline: "1-6 weeks",
       deliverables: "Brand identity package, style guide, source files, usage guidelines",
       pattern: "curved"
@@ -55,7 +55,7 @@ const ServicesSection = () => {
         { name: "Conversion Optimization", description: "Landing pages, A/B testing" },
       ],
       technologies: ["Google Analytics", "SEMrush", "Google Ads", "Facebook Business"],
-      priceRange: "€300 - €1,500/month",
+      priceRange: "From €300/month",
       timeline: "Ongoing",
       deliverables: "Monthly reports, strategy documents, campaign assets, performance dashboards",
       pattern: "geometric"
