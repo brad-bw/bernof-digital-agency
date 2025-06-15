@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import LogoSection from "./LogoSection";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,13 +19,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm z-50 border-b border-gray-100">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <img 
-              src="/lovable-uploads/613fce62-2528-4b81-8930-4efa7f665b35.png" 
-              alt="Bernoff Co Logo" 
-              className="h-12 w-auto"
-            />
-          </div>
+          <LogoSection />
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
@@ -33,6 +28,12 @@ const Header = () => {
               className="text-gray-600 hover:text-primary transition-colors font-medium"
             >
               Services
+            </button>
+            <button 
+              onClick={() => scrollToSection('portfolio')}
+              className="text-gray-600 hover:text-primary transition-colors font-medium"
+            >
+              Portfolio
             </button>
             <button 
               onClick={() => scrollToSection('about')}
@@ -72,6 +73,12 @@ const Header = () => {
                 className="text-gray-600 hover:text-primary transition-colors font-medium text-left"
               >
                 Services
+              </button>
+              <button 
+                onClick={() => scrollToSection('portfolio')}
+                className="text-gray-600 hover:text-primary transition-colors font-medium text-left"
+              >
+                Portfolio
               </button>
               <button 
                 onClick={() => scrollToSection('about')}

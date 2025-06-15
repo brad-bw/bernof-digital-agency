@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import LogoSection from "./LogoSection";
 
 const Footer = () => {
   const scrollToSection = (sectionId: string) => {
@@ -16,12 +17,10 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             {/* Company Info */}
             <div className="md:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <img 
-                  src="/lovable-uploads/613fce62-2528-4b81-8930-4efa7f665b35.png" 
-                  alt="Bernoff Co Logo" 
-                  className="h-10 w-auto brightness-0 invert"
-                />
+              <div className="mb-6">
+                <div className="filter brightness-0 invert">
+                  <LogoSection />
+                </div>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
                 Managing the future through comprehensive digital solutions. 
@@ -65,10 +64,10 @@ const Footer = () => {
                 </li>
                 <li>
                   <button 
-                    onClick={() => scrollToSection('discovery-call')}
+                    onClick={() => scrollToSection('portfolio')}
                     className="hover:text-accent transition-colors"
                   >
-                    Discovery Call
+                    Portfolio
                   </button>
                 </li>
               </ul>
