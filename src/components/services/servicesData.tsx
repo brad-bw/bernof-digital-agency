@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Code, Palette, TrendingUp } from "lucide-react";
 
 export interface ServiceFeature {
