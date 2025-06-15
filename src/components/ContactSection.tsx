@@ -212,21 +212,26 @@ const ContactSection = () => {
               </CardHeader>
               <CardContent>
                 {isSubmitted ? (
-                  <div className="text-center py-8">
-                    <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                      Your message has been sent successfully!
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-8">
+                      <CheckCircle className="w-12 h-12 text-accent" />
+                    </div>
+                    <h3 className="font-playfair text-2xl font-bold text-gray-900 mb-4">
+                      Thank You!
                     </h3>
-                    <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                    <h4 className="text-xl font-semibold text-gray-900 mb-6">
+                      Your message has been sent successfully!
+                    </h4>
+                    <p className="text-gray-600 text-lg leading-relaxed mb-6 max-w-md mx-auto">
                       Thank you for reaching out to us. One of our consultants will review your inquiry and get back to you within 1 business day.
                     </p>
-                    <p className="text-gray-500 text-sm mb-6">
+                    <p className="text-gray-500 text-base mb-8 max-w-md mx-auto">
                       We'll contact you at the email address you provided to discuss your project requirements in detail.
                     </p>
                     <Button 
                       onClick={() => setIsSubmitted(false)}
                       variant="outline"
-                      className="text-primary border-primary hover:bg-primary hover:text-white"
+                      className="text-primary border-primary hover:bg-primary hover:text-white font-semibold px-8 py-3"
                     >
                       Send Another Message
                     </Button>
