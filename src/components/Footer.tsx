@@ -31,9 +31,7 @@ const Footer = () => {
             {/* Company Info */}
             <div className="md:col-span-2">
               <div className="mb-6">
-                <div className="filter brightness-0 invert">
-                  <FooterLogoSection />
-                </div>
+                <FooterLogoSection />
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
                 Managing the future through comprehensive digital solutions. 
