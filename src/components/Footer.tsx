@@ -1,6 +1,6 @@
+
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import FooterLogoSection from "./FooterLogoSection";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -27,13 +27,11 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white py-16">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {/* Company Info */}
-            <div className="md:col-span-2">
-              <div className="mb-6">
-                <FooterLogoSection />
-              </div>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
+            <div>
+              <h4 className="text-xl font-semibold mb-6">Bernoff Co.</h4>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
                 Managing the future through comprehensive digital solutions. 
                 We transform businesses with cutting-edge technology and strategic expertise.
               </p>
