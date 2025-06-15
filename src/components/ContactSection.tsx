@@ -31,7 +31,8 @@ const ContactSection = () => {
         "API Development & Integration",
         "Database Design & Management",
         "Cloud Solutions & Migration",
-        "Technical Consulting"
+        "Technical Consulting",
+        "Other"
       ]
     },
     "creative-design": {
@@ -44,7 +45,8 @@ const ContactSection = () => {
         "Graphic Design & Marketing Materials",
         "Print Design",
         "Packaging Design",
-        "Design System Development"
+        "Design System Development",
+        "Other"
       ]
     },
     "strategic-marketing": {
@@ -57,8 +59,13 @@ const ContactSection = () => {
         "Email Marketing Campaigns",
         "Pay-Per-Click (PPC) Advertising",
         "Marketing Analytics & Reporting",
-        "Growth Hacking & Optimization"
+        "Growth Hacking & Optimization",
+        "Other"
       ]
+    },
+    "other": {
+      label: "Other",
+      subServices: []
     }
   };
 
@@ -200,7 +207,7 @@ const ContactSection = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -268,7 +275,7 @@ const ContactSection = () => {
                       </Select>
                     </div>
                     
-                    {formData.serviceInterest && (
+                    {formData.serviceInterest && formData.serviceInterest !== 'other' && (
                       <div>
                         <label htmlFor="subService" className="block text-sm font-medium text-gray-700 mb-2">
                           Specific Service
