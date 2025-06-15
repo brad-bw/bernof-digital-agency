@@ -1,7 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import LogoSection from "./LogoSection";
+import FooterLogoSection from "./FooterLogoSection";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -33,7 +32,7 @@ const Footer = () => {
             <div className="md:col-span-2">
               <div className="mb-6">
                 <div className="filter brightness-0 invert">
-                  <LogoSection />
+                  <FooterLogoSection />
                 </div>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
