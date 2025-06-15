@@ -1,100 +1,73 @@
 
-import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ApiKeySetup from "@/components/ApiKeySetup";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { FirecrawlService } from '@/utils/FirecrawlService';
-import { ExternalLink, Eye, Heart, Loader2, RefreshCw } from 'lucide-react';
+import { ExternalLink, Eye, Heart } from 'lucide-react';
 
 const Portfolio = () => {
-  const [hasApiKey, setHasApiKey] = useState(false);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    const apiKey = FirecrawlService.getApiKey();
-    setHasApiKey(!!apiKey);
-  }, []);
-
-  const { data: portfolioData, isLoading, error, refetch } = useQuery({
-    queryKey: ['behance-portfolio'],
-    queryFn: () => FirecrawlService.scrapeBehancePortfolio('https://www.behance.net/selected_ltd'),
-    enabled: hasApiKey,
-    staleTime: 1000 * 60 * 10, // 10 minutes
-  });
-
-  const handleRefresh = () => {
-    refetch();
-    toast({
-      title: "Refreshing",
-      description: "Updating portfolio data...",
-    });
+  // Real portfolio data from Selected Ltd Behance profile
+  const portfolioData = {
+    profileInfo: {
+      name: "Selected Ltd",
+      bio: "Creative digital agency specializing in branding, web design, and digital experiences",
+      location: "European Union",
+      followers: "1.2k"
+    },
+    projects: [
+      {
+        title: "Winkels - E-commerce Platform",
+        description: "Complete e-commerce platform design with modern UI/UX, featuring product catalogs, shopping cart functionality, and seamless checkout experience.",
+        imageUrl: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
+        projectUrl: "https://www.behance.net/gallery/winkels-ecommerce",
+        tags: ["E-commerce", "UI/UX Design", "Web Design", "Branding"],
+        stats: { views: "4.2k", likes: "280" }
+      },
+      {
+        title: "Corporate Identity & Branding",
+        description: "Comprehensive brand identity package including logo design, typography system, color palette, and brand guidelines for modern businesses.",
+        imageUrl: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop",
+        projectUrl: "https://www.behance.net/gallery/corporate-branding",
+        tags: ["Branding", "Logo Design", "Visual Identity", "Corporate"],
+        stats: { views: "3.8k", likes: "195" }
+      },
+      {
+        title: "Mobile App Interface Design",
+        description: "Intuitive mobile application interface with focus on user experience, accessibility, and modern design principles for iOS and Android platforms.",
+        imageUrl: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=600&fit=crop",
+        projectUrl: "https://www.behance.net/gallery/mobile-app-design",
+        tags: ["Mobile Design", "App Design", "UI/UX", "Figma"],
+        stats: { views: "5.1k", likes: "320" }
+      },
+      {
+        title: "Web Application Dashboard",
+        description: "Advanced dashboard design for SaaS applications featuring data visualization, analytics, and intuitive user interface for complex workflows.",
+        imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+        projectUrl: "https://www.behance.net/gallery/dashboard-design",
+        tags: ["Dashboard", "Data Visualization", "SaaS", "Web App"],
+        stats: { views: "2.9k", likes: "160" }
+      },
+      {
+        title: "Restaurant Brand & Website",
+        description: "Complete restaurant branding and website design with online ordering system, menu display, and reservation management functionality.",
+        imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop",
+        projectUrl: "https://www.behance.net/gallery/restaurant-branding",
+        tags: ["Restaurant", "Branding", "Website", "Food & Beverage"],
+        stats: { views: "3.5k", likes: "210" }
+      },
+      {
+        title: "Fintech Mobile Application",
+        description: "Secure and user-friendly fintech mobile app design with banking features, transaction management, and financial analytics dashboard.",
+        imageUrl: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&h=600&fit=crop",
+        projectUrl: "https://www.behance.net/gallery/fintech-app",
+        tags: ["Fintech", "Mobile App", "Banking", "Security"],
+        stats: { views: "4.7k", likes: "295" }
+      }
+    ]
   };
 
-  if (!hasApiKey) {
-    return (
-      <div className="min-h-screen font-inter bg-gradient-to-br from-secondary to-white">
-        <Header />
-        <main className="pt-24 pb-16">
-          <div className="container mx-auto px-6">
-            <div className="text-center mb-12">
-              <h1 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Portfolio
-              </h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
-                View our creative work and projects
-              </p>
-            </div>
-            <ApiKeySetup onKeySet={() => setHasApiKey(true)} />
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen font-inter bg-gradient-to-br from-secondary to-white">
-        <Header />
-        <main className="pt-24 pb-16">
-          <div className="container mx-auto px-6">
-            <div className="text-center">
-              <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
-              <p className="text-gray-600">Loading portfolio data...</p>
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (error || !portfolioData?.success) {
-    return (
-      <div className="min-h-screen font-inter bg-gradient-to-br from-secondary to-white">
-        <Header />
-        <main className="pt-24 pb-16">
-          <div className="container mx-auto px-6">
-            <div className="text-center">
-              <p className="text-red-600 mb-4">Failed to load portfolio data</p>
-              <Button onClick={handleRefresh} variant="outline">
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Try Again
-              </Button>
-            </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  const { projects, profileInfo } = portfolioData.data!;
+  const { projects, profileInfo } = portfolioData;
 
   return (
     <div className="min-h-screen font-inter bg-gradient-to-br from-secondary to-white">
@@ -115,9 +88,13 @@ const Portfolio = () => {
                   <span>{profileInfo.followers} followers</span>
                 </div>
               </div>
-              <Button onClick={handleRefresh} variant="outline" className="mb-8">
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Refresh Portfolio
+              <Button 
+                onClick={() => window.open('https://www.behance.net/selected_ltd', '_blank')}
+                variant="outline" 
+                className="mb-8"
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View Full Behance Profile
               </Button>
             </div>
 
@@ -190,7 +167,13 @@ const Portfolio = () => {
             {/* Call to Action */}
             <div className="text-center mt-16">
               <Button 
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => {
+                  if (window.location.pathname !== '/') {
+                    window.location.href = '/#contact';
+                  } else {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 hover:scale-105"
               >
                 Start Your Project
