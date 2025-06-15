@@ -32,7 +32,7 @@ const TermsOfService = () => {
                     Agreement to Terms
                   </h2>
                   <p className="text-gray-700 leading-relaxed">
-                    By accessing and using Bernoff Co's website and services, you accept and agree to be bound by the terms and provision of this agreement. These Terms of Service govern your use of our digital development, creative design, and strategic marketing services.
+                    By accessing and using Bernof Co's website and services, you accept and agree to be bound by the terms and provision of this agreement. These Terms of Service govern your use of our digital development, creative design, and strategic marketing services.
                   </p>
                 </section>
 
@@ -42,7 +42,7 @@ const TermsOfService = () => {
                     Services Description
                   </h2>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    Bernoff Co provides comprehensive digital solutions including:
+                    Bernof Co provides comprehensive digital solutions including:
                   </p>
                   <ul className="list-disc list-inside text-gray-700 space-y-2 ml-4">
                     <li>Web development and application development</li>
@@ -129,7 +129,7 @@ const TermsOfService = () => {
                   <p className="text-gray-700 leading-relaxed">
                     For questions regarding these Terms of Service, please contact us at:
                     <br />
-                    <strong>Email:</strong> legal@bernoff.co
+                    <strong>Email:</strong> legal@bernof.co
                     <br />
                     <strong>Phone:</strong> +1 (555) 123-4567
                   </p>

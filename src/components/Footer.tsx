@@ -30,7 +30,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {/* Company Info */}
             <div>
-              <h4 className="text-xl font-semibold mb-6">Bernoff Co.</h4>
+              <h4 className="text-xl font-semibold mb-6">Bernof Co.</h4>
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
                 Managing the future through comprehensive digital solutions. 
                 We transform businesses with cutting-edge technology and strategic expertise.
@@ -88,10 +88,10 @@ const Footer = () => {
               <ul className="space-y-3 text-gray-300">
                 <li>
                   <a 
-                    href="mailto:hello@bernoff.co"
+                    href="mailto:hello@bernof.co"
                     className="hover:text-accent transition-colors"
                   >
-                    hello@bernoff.co
+                    hello@bernof.co
                   </a>
                 </li>
                 <li>
@@ -121,7 +121,7 @@ const Footer = () => {
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm mb-4 md:mb-0">
-                © 2025 Bernoff Co. All rights reserved. Managing the future of digital excellence.
+                © 2025 Bernof Co. All rights reserved. Managing the future of digital excellence.
               </p>
               <div className="flex space-x-6 text-sm text-gray-400">
                 <Link to="/privacy-policy" className="hover:text-accent transition-colors">

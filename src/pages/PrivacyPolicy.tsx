@@ -32,7 +32,7 @@ const PrivacyPolicy = () => {
                     Introduction
                   </h2>
                   <p className="text-gray-700 leading-relaxed">
-                    At Bernoff Co ("we," "our," or "us"), we respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.
+                    At Bernof Co ("we," "our," or "us"), we respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you visit our website or use our services.
                   </p>
                 </section>
 
@@ -118,7 +118,7 @@ const PrivacyPolicy = () => {
                   <p className="text-gray-700 leading-relaxed">
                     If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us at:
                     <br />
-                    <strong>Email:</strong> privacy@bernoff.co
+                    <strong>Email:</strong> privacy@bernof.co
                     <br />
                     <strong>Phone:</strong> +1 (555) 123-4567
                   </p>
