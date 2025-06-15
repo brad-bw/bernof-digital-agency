@@ -5,9 +5,9 @@ const LogoSection = () => {
   return (
     <div className="flex items-center space-x-4">
       <img 
-        src="/lovable-uploads/a186bd42-37e6-4030-84e9-666eed67d5b0.png"
-        alt="Bernoff Co. Logo"
-        width="60"
+        src="/lovable-uploads/1ae84dd7-47db-491c-9099-013be249fce1.png"
+        alt="Bernof Co. Logo"
+        width="240"
         height="60"
         className="transition-transform duration-300 hover:scale-105"
       />
