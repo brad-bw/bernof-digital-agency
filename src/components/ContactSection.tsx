@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -17,6 +17,7 @@ const ContactSection = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
   const serviceOptions = {
@@ -76,10 +77,11 @@ const ContactSection = () => {
     setTimeout(() => {
       toast({
         title: "Message Sent!",
-        description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
+        description: "Thank you for your inquiry. One of our consultants will be in touch within 1 business day.",
       });
       setFormData({ name: '', email: '', company: '', serviceInterest: '', subService: '', message: '' });
       setIsSubmitting(false);
+      setIsSubmitted(true);
     }, 1000);
   };
 
@@ -109,19 +111,19 @@ const ContactSection = () => {
     {
       icon: <Mail className="w-6 h-6 text-accent" />,
       title: "Email Us",
-      content: "hello@bernof.co",
-      action: "mailto:hello@bernof.co"
+      content: "info@bernofco.com",
+      action: "mailto:info@bernofco.com"
     },
     {
       icon: <Phone className="w-6 h-6 text-accent" />,
       title: "Call Us",
-      content: "+1 (555) 123-4567",
-      action: "tel:+15551234567"
+      content: "+44 20 3000 0000",
+      action: "tel:+442030000000"
     },
     {
       icon: <MapPin className="w-6 h-6 text-accent" />,
       title: "Location",
-      content: "European Union",
+      content: "United Kingdom",
       action: null
     }
   ];
@@ -189,6 +191,9 @@ const ContactSection = () => {
                 <p className="text-white/90 mb-4">
                   Book a free 30-minute discovery call to discuss your project in detail.
                 </p>
+                <p className="text-white/80 text-sm mb-4">
+                  Available Monday - Friday, 9:00 AM - 6:00 PM GMT
+                </p>
                 <Button 
                   onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })}
                   className="bg-accent hover:bg-accent/90 text-white"
@@ -198,128 +203,150 @@ const ContactSection = () => {
               </div>
             </div>
 
-            {/* Contact Form */}
+            {/* Contact Form or Confirmation */}
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-900">
-                  Send Us a Message
+                  {isSubmitted ? "Thank You!" : "Send Us a Message"}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name *
-                      </label>
-                      <Input
-                        id="name"
-                        name="name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full"
-                        placeholder="Your full name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
-                      </label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full"
-                        placeholder="your@email.com"
-                      />
-                    </div>
+                {isSubmitted ? (
+                  <div className="text-center py-8">
+                    <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                      Your message has been sent successfully!
+                    </h3>
+                    <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                      Thank you for reaching out to us. One of our consultants will review your inquiry and get back to you within 1 business day.
+                    </p>
+                    <p className="text-gray-500 text-sm mb-6">
+                      We'll contact you at the email address you provided to discuss your project requirements in detail.
+                    </p>
+                    <Button 
+                      onClick={() => setIsSubmitted(false)}
+                      variant="outline"
+                      className="text-primary border-primary hover:bg-primary hover:text-white"
+                    >
+                      Send Another Message
+                    </Button>
                   </div>
-                  
-                  <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                      Company Name
-                    </label>
-                    <Input
-                      id="company"
-                      name="company"
-                      type="text"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full"
-                      placeholder="Your company name"
-                    />
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <label htmlFor="serviceInterest" className="block text-sm font-medium text-gray-700 mb-2">
-                        Service Interest *
-                      </label>
-                      <Select onValueChange={handleServiceChange} value={formData.serviceInterest}>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a service" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Object.entries(serviceOptions).map(([key, service]) => (
-                            <SelectItem key={key} value={key}>
-                              {service.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                          Full Name *
+                        </label>
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="w-full"
+                          placeholder="Your full name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                          Email Address *
+                        </label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="w-full"
+                          placeholder="your@email.com"
+                        />
+                      </div>
                     </div>
                     
-                    {formData.serviceInterest && formData.serviceInterest !== 'other' && (
+                    <div>
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                        Company Name
+                      </label>
+                      <Input
+                        id="company"
+                        name="company"
+                        type="text"
+                        value={formData.company}
+                        onChange={handleChange}
+                        className="w-full"
+                        placeholder="Your company name"
+                      />
+                    </div>
+
+                    <div className="space-y-4">
                       <div>
-                        <label htmlFor="subService" className="block text-sm font-medium text-gray-700 mb-2">
-                          Specific Service
+                        <label htmlFor="serviceInterest" className="block text-sm font-medium text-gray-700 mb-2">
+                          Service Interest *
                         </label>
-                        <Select onValueChange={handleSubServiceChange} value={formData.subService}>
+                        <Select onValueChange={handleServiceChange} value={formData.serviceInterest}>
                           <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select specific service" />
+                            <SelectValue placeholder="Select a service" />
                           </SelectTrigger>
                           <SelectContent>
-                            {serviceOptions[formData.serviceInterest as keyof typeof serviceOptions]?.subServices.map((subService) => (
-                              <SelectItem key={subService} value={subService}>
-                                {subService}
+                            {Object.entries(serviceOptions).map(([key, service]) => (
+                              <SelectItem key={key} value={key}>
+                                {service.label}
                               </SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
                       </div>
-                    )}
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      required
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={5}
-                      className="w-full"
-                      placeholder="Tell us about your project, goals, and how we can help..."
-                    />
-                  </div>
-                  
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 flex items-center justify-center gap-2"
-                  >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                    <Send size={18} />
-                  </Button>
-                </form>
+                      
+                      {formData.serviceInterest && formData.serviceInterest !== 'other' && (
+                        <div>
+                          <label htmlFor="subService" className="block text-sm font-medium text-gray-700 mb-2">
+                            Specific Service
+                          </label>
+                          <Select onValueChange={handleSubServiceChange} value={formData.subService}>
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select specific service" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {serviceOptions[formData.serviceInterest as keyof typeof serviceOptions]?.subServices.map((subService) => (
+                                <SelectItem key={subService} value={subService}>
+                                  {subService}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                        Message *
+                      </label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        required
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows={5}
+                        className="w-full"
+                        placeholder="Tell us about your project, goals, and how we can help..."
+                      />
+                    </div>
+                    
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 flex items-center justify-center gap-2"
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      <Send size={18} />
+                    </Button>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </div>
