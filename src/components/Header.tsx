@@ -2,17 +2,30 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import LogoSection from "./LogoSection";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
+    // If we're not on the home page, navigate there first
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+    setIsMenuOpen(false);
   };
 
   return (
@@ -24,7 +37,9 @@ const Header = () => {
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="relative">
-            <LogoSection />
+            <Link to="/">
+              <LogoSection />
+            </Link>
             <div className="absolute -top-1 -right-1 w-2 h-2 bg-accent/30 rounded-full animate-pulse"></div>
           </div>
           
@@ -37,13 +52,13 @@ const Header = () => {
               Services
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
             </button>
-            <button 
-              onClick={() => scrollToSection('portfolio')}
+            <Link 
+              to="/portfolio"
               className="text-gray-600 hover:text-primary transition-colors font-medium relative group"
             >
               Portfolio
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
-            </button>
+            </Link>
             <button 
               onClick={() => scrollToSection('about')}
               className="text-gray-600 hover:text-primary transition-colors font-medium relative group"
@@ -89,13 +104,14 @@ const Header = () => {
                 Services
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
               </button>
-              <button 
-                onClick={() => scrollToSection('portfolio')}
+              <Link 
+                to="/portfolio"
                 className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Portfolio
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
-              </button>
+              </Link>
               <button 
                 onClick={() => scrollToSection('about')}
                 className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"

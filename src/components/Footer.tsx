@@ -1,13 +1,26 @@
 
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoSection from "./LogoSection";
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    // If we're not on the home page, navigate there first
+    if (window.location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -64,12 +77,12 @@ const Footer = () => {
                   </button>
                 </li>
                 <li>
-                  <button 
-                    onClick={() => scrollToSection('portfolio')}
+                  <Link 
+                    to="/portfolio"
                     className="hover:text-accent transition-colors"
                   >
                     Portfolio
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </div>
