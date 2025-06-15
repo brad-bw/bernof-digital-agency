@@ -71,14 +71,6 @@ const Footer = () => {
                     Strategic Marketing
                   </button>
                 </li>
-                <li>
-                  <Link 
-                    to="/portfolio"
-                    className="hover:text-accent transition-colors"
-                  >
-                    Portfolio
-                  </Link>
-                </li>
               </ul>
             </div>
 
