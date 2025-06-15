@@ -1,5 +1,6 @@
 
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import LogoSection from "./LogoSection";
 
 const Footer = () => {
@@ -115,9 +116,15 @@ const Footer = () => {
                 © 2025 Bernoff Co. All rights reserved. Managing the future of digital excellence.
               </p>
               <div className="flex space-x-6 text-sm text-gray-400">
-                <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-accent transition-colors">Terms of Service</a>
-                <a href="#" className="hover:text-accent transition-colors">Cookie Policy</a>
+                <Link to="/privacy-policy" className="hover:text-accent transition-colors">
+                  Privacy Policy
+                </Link>
+                <Link to="/terms-of-service" className="hover:text-accent transition-colors">
+                  Terms of Service
+                </Link>
+                <Link to="/cookie-policy" className="hover:text-accent transition-colors">
+                  Cookie Policy
+                </Link>
               </div>
             </div>
           </div>
