@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -12,10 +13,54 @@ const ContactSection = () => {
     name: '',
     email: '',
     company: '',
+    serviceInterest: '',
+    subService: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  const serviceOptions = {
+    "web-development": {
+      label: "Web Development & Tech Solutions",
+      subServices: [
+        "Custom Website Development",
+        "E-commerce Platform Development",
+        "Web Application Development",
+        "Mobile App Development", 
+        "API Development & Integration",
+        "Database Design & Management",
+        "Cloud Solutions & Migration",
+        "Technical Consulting"
+      ]
+    },
+    "creative-design": {
+      label: "Creative Design & Branding",
+      subServices: [
+        "Brand Identity Design",
+        "Logo Design & Visual Identity",
+        "UI/UX Design",
+        "Website Design & Prototyping",
+        "Graphic Design & Marketing Materials",
+        "Print Design",
+        "Packaging Design",
+        "Design System Development"
+      ]
+    },
+    "strategic-marketing": {
+      label: "Strategic Marketing & Growth",
+      subServices: [
+        "Digital Marketing Strategy",
+        "Search Engine Optimization (SEO)",
+        "Social Media Marketing",
+        "Content Marketing & Creation",
+        "Email Marketing Campaigns",
+        "Pay-Per-Click (PPC) Advertising",
+        "Marketing Analytics & Reporting",
+        "Growth Hacking & Optimization"
+      ]
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +72,7 @@ const ContactSection = () => {
         title: "Message Sent!",
         description: "Thank you for your inquiry. We'll get back to you within 24 hours.",
       });
-      setFormData({ name: '', email: '', company: '', message: '' });
+      setFormData({ name: '', email: '', company: '', serviceInterest: '', subService: '', message: '' });
       setIsSubmitting(false);
     }, 1000);
   };
@@ -39,12 +84,27 @@ const ContactSection = () => {
     });
   };
 
+  const handleServiceChange = (value: string) => {
+    setFormData({
+      ...formData,
+      serviceInterest: value,
+      subService: '' // Reset sub-service when main service changes
+    });
+  };
+
+  const handleSubServiceChange = (value: string) => {
+    setFormData({
+      ...formData,
+      subService: value
+    });
+  };
+
   const contactInfo = [
     {
       icon: <Mail className="w-6 h-6 text-accent" />,
       title: "Email Us",
-      content: "hello@bernoff.co",
-      action: "mailto:hello@bernoff.co"
+      content: "hello@bernof.co",
+      action: "mailto:hello@bernof.co"
     },
     {
       icon: <Phone className="w-6 h-6 text-accent" />,
@@ -187,6 +247,46 @@ const ContactSection = () => {
                       className="w-full"
                       placeholder="Your company name"
                     />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="serviceInterest" className="block text-sm font-medium text-gray-700 mb-2">
+                        Service Interest *
+                      </label>
+                      <Select onValueChange={handleServiceChange} value={formData.serviceInterest}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select a service" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.entries(serviceOptions).map(([key, service]) => (
+                            <SelectItem key={key} value={key}>
+                              {service.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    {formData.serviceInterest && (
+                      <div>
+                        <label htmlFor="subService" className="block text-sm font-medium text-gray-700 mb-2">
+                          Specific Service
+                        </label>
+                        <Select onValueChange={handleSubServiceChange} value={formData.subService}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select specific service" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {serviceOptions[formData.serviceInterest as keyof typeof serviceOptions]?.subServices.map((subService) => (
+                              <SelectItem key={subService} value={subService}>
+                                {subService}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    )}
                   </div>
                   
                   <div>
