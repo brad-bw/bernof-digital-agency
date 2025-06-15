@@ -1,7 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import LogoSection from "./LogoSection";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -32,9 +31,13 @@ const Footer = () => {
             {/* Company Info */}
             <div className="md:col-span-2">
               <div className="mb-6">
-                <div className="filter brightness-0 invert">
-                  <LogoSection />
-                </div>
+                <img 
+                  src="/lovable-uploads/a186bd42-37e6-4030-84e9-666eed67d5b0.png"
+                  alt="Bernoff Co. Logo"
+                  width="80"
+                  height="80"
+                  className="transition-transform duration-300 hover:scale-105"
+                />
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
                 Managing the future through comprehensive digital solutions. 
