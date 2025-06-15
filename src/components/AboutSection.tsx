@@ -1,6 +1,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, Award, Users, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, Award, Users, Zap, ArrowRight, Clock, Gift, Shield } from "lucide-react";
 
 const AboutSection = () => {
   const values = [
@@ -31,6 +32,27 @@ const AboutSection = () => {
     "Accessibility compliance (WCAG 2.1 AA)",
     "Satisfaction guarantee on all projects",
     "Post-launch support included"
+  ];
+
+  const ctaFeatures = [
+    {
+      icon: <Clock className="w-5 h-5 text-white" />,
+      title: "Free",
+      subtitle: "30-minute consultation",
+      description: "No strings attached strategy session"
+    },
+    {
+      icon: <Gift className="w-5 h-5 text-white" />,
+      title: "Custom",
+      subtitle: "Tailored proposals",
+      description: "Solutions designed for your needs"
+    },
+    {
+      icon: <Shield className="w-5 h-5 text-white" />,
+      title: "Guaranteed",
+      subtitle: "Satisfaction promise",
+      description: "100% commitment to your success"
+    }
   ];
 
   const getPatternElement = (pattern: string) => {
@@ -119,37 +141,61 @@ const AboutSection = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-primary to-primary/90 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
-            {/* Logo-inspired decorative elements */}
-            <div className="absolute top-0 right-0 w-20 h-20 bg-white/5 rounded-full blur-xl"></div>
-            <div className="absolute bottom-0 left-0 w-16 h-16 bg-accent/20 transform rotate-45 rounded-tl-xl"></div>
-            <div className="absolute top-1/2 left-1/4 w-3 h-3 bg-white/10 rounded-full"></div>
-            <div className="absolute bottom-1/4 right-1/3 w-4 h-4 bg-accent/30 rounded-full"></div>
+          {/* Redesigned CTA Section */}
+          <div className="relative">
+            {/* Background with subtle patterns */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-primary/90 rounded-3xl"></div>
+            <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-accent/10 transform rotate-45 rounded-tl-3xl blur-2xl"></div>
             
-            <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-4">
-                Ready to Transform Your Digital Presence?
-              </h3>
-              <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-                Join successful businesses who trust Bernoff Co to manage their digital future. 
-                Let's discuss how we can drive your growth.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-8 justify-center">
-                <div className="text-center relative">
-                  <div className="absolute -top-2 -left-2 w-3 h-3 bg-accent/30 rounded-full"></div>
-                  <div className="text-2xl font-bold">Free</div>
-                  <div className="text-sm opacity-90">30-minute consultation</div>
-                </div>
-                <div className="text-center relative">
-                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-white/20 transform rotate-45"></div>
-                  <div className="text-2xl font-bold">Custom</div>
-                  <div className="text-sm opacity-90">Tailored proposals</div>
-                </div>
-                <div className="text-center relative">
-                  <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-accent/20 rounded-tl-full"></div>
-                  <div className="text-2xl font-bold">Guaranteed</div>
-                  <div className="text-sm opacity-90">Satisfaction promise</div>
-                </div>
+            <div className="relative z-10 p-8 md:p-12 text-center text-white">
+              <div className="max-w-3xl mx-auto mb-12">
+                <h3 className="text-3xl md:text-4xl font-bold mb-4 font-playfair">
+                  Ready to Transform Your Digital Presence?
+                </h3>
+                <p className="text-xl opacity-90 leading-relaxed">
+                  Join successful businesses who trust Bernoff Co to manage their digital future. 
+                  Let's discuss how we can drive your growth together.
+                </p>
+              </div>
+
+              {/* Feature cards in a more elegant layout */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                {ctaFeatures.map((feature, index) => (
+                  <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300 group relative">
+                    <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <div className="flex items-center justify-center mb-4">
+                      <div className="p-3 bg-white/20 rounded-xl">
+                        {feature.icon}
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="text-2xl font-bold text-accent">{feature.title}</h4>
+                      <p className="font-semibold text-white">{feature.subtitle}</p>
+                      <p className="text-sm text-white/80">{feature.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Call to action button */}
+              <div className="flex flex-col items-center space-y-4">
+                <Button 
+                  onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-accent hover:bg-accent/90 text-white font-semibold px-10 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-lg flex items-center gap-3 relative overflow-hidden group shadow-lg"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                  <div className="relative z-10 flex items-center gap-3">
+                    Start Your Transformation
+                    <ArrowRight size={20} />
+                  </div>
+                </Button>
+                
+                <p className="text-sm text-white/70">
+                  Book your free consultation • No commitment required
+                </p>
               </div>
             </div>
           </div>
