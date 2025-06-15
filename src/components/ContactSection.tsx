@@ -207,7 +207,7 @@ const ContactSection = () => {
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-900">
-                  {isSubmitted ? "Thank You!" : "Send Us a Message"}
+                  {isSubmitted ? "Message Sent" : "Send Us a Message"}
                 </CardTitle>
               </CardHeader>
               <CardContent>
