@@ -1,35 +1,63 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Code, Palette, TrendingUp, ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Code, Palette, TrendingUp, ArrowRight, CheckCircle } from "lucide-react";
 
 const ServicesSection = () => {
   const services = [
     {
       icon: <Code className="w-12 h-12 text-primary" />,
-      title: "Development Solutions",
-      description: "Custom websites, e-commerce platforms, and full-stack applications built with cutting-edge technology.",
-      features: ["UI/UX Design", "Website Development", "E-Commerce Solutions", "Front-End & Back-End Development"],
+      title: "Web Development & Tech Solutions",
+      description: "From concept to launch, we build high-performance websites and applications that drive results.",
+      detailedDescription: "We specialize in modern web technologies including React, Next.js, and full-stack development. Our solutions are built for scale, performance, and user experience.",
+      features: [
+        { name: "Custom Website Development", description: "Tailored solutions built from scratch" },
+        { name: "E-Commerce Platforms", description: "Shopify, WooCommerce, custom stores" },
+        { name: "Web Applications", description: "SaaS platforms, dashboards, tools" },
+        { name: "API Integration", description: "Third-party services, payment gateways" },
+        { name: "Performance Optimization", description: "Speed, SEO, mobile responsiveness" },
+      ],
+      technologies: ["React", "Next.js", "Node.js", "TypeScript", "Tailwind CSS"],
       priceRange: "€700 - €2,200",
       timeline: "2-8 weeks",
+      deliverables: "Full website, mobile-responsive design, admin panel, documentation",
       pattern: "angular"
     },
     {
       icon: <Palette className="w-12 h-12 text-primary" />,
-      title: "Creative Design Services",
-      description: "Compelling visual identity, motion graphics, and video production that captures your brand essence.",
-      features: ["Visual Identity & Branding", "Motion Design & Animation", "Video Production", "Publication Design"],
+      title: "Brand Design & Visual Identity",
+      description: "Create a memorable brand presence that resonates with your audience and stands out in the market.",
+      detailedDescription: "We craft comprehensive visual identities that tell your brand story through strategic design, from logo creation to complete brand guidelines.",
+      features: [
+        { name: "Logo & Brand Identity", description: "Complete visual identity systems" },
+        { name: "Motion Graphics", description: "Animated logos, social media content" },
+        { name: "Video Production", description: "Promotional videos, explainer content" },
+        { name: "Print & Digital Design", description: "Business cards, brochures, web graphics" },
+        { name: "Brand Guidelines", description: "Comprehensive style guides" },
+      ],
+      technologies: ["Adobe Creative Suite", "Figma", "After Effects", "Cinema 4D"],
       priceRange: "€200 - €2,000+",
       timeline: "1-6 weeks",
+      deliverables: "Brand identity package, style guide, source files, usage guidelines",
       pattern: "curved"
     },
     {
       icon: <TrendingUp className="w-12 h-12 text-primary" />,
-      title: "Strategic Marketing & Growth",
-      description: "Data-driven marketing campaigns and SEO strategies that deliver measurable business results.",
-      features: ["SEO Optimization", "Social Media Management", "Advertising Campaigns", "Marketing Audits"],
+      title: "Digital Marketing & Growth",
+      description: "Data-driven strategies that increase visibility, drive traffic, and convert visitors into customers.",
+      detailedDescription: "We combine technical SEO expertise with creative marketing campaigns to deliver measurable growth for your business.",
+      features: [
+        { name: "SEO Optimization", description: "Technical & content SEO audits" },
+        { name: "Social Media Strategy", description: "Content planning, community management" },
+        { name: "PPC Advertising", description: "Google Ads, Facebook Ads optimization" },
+        { name: "Analytics & Reporting", description: "Performance tracking, insights" },
+        { name: "Conversion Optimization", description: "Landing pages, A/B testing" },
+      ],
+      technologies: ["Google Analytics", "SEMrush", "Google Ads", "Facebook Business"],
       priceRange: "€300 - €1,500/month",
       timeline: "Ongoing",
+      deliverables: "Monthly reports, strategy documents, campaign assets, performance dashboards",
       pattern: "geometric"
     }
   ];
@@ -54,8 +82,8 @@ const ServicesSection = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-white relative overflow-hidden">
-      {/* Logo-inspired background pattern */}
+    <section id="services" className="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+      {/* Background pattern */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-10 left-1/4 w-2 h-2 bg-primary/5 rounded-full"></div>
@@ -68,57 +96,85 @@ const ServicesSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-16">
           <h2 className="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6 relative inline-block">
-            Our Service Pillars
+            Our Expertise Areas
             <div className="absolute -top-3 -right-3 w-4 h-4 bg-accent rounded-full opacity-30"></div>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Three comprehensive service pillars designed to transform your digital presence 
-            and drive sustainable business growth.
+            Comprehensive digital solutions that combine technical expertise with creative excellence 
+            to help your business thrive in the digital landscape.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-0 shadow-lg bg-gradient-to-br from-white to-gray-50 relative overflow-hidden"
+              className="group hover:shadow-xl transition-all duration-500 hover:-translate-y-3 border-0 shadow-lg bg-white relative overflow-hidden h-full"
             >
               {getPatternElement(service.pattern, index)}
               
-              {/* Subtle gradient overlay inspired by logo */}
-              <div className="absolute inset-0 bg-gradient-to-br from-transparent via-primary/2 to-accent/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
-              <CardHeader className="text-center pb-4 relative z-10">
-                <div className="mx-auto mb-4 p-4 bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl w-fit group-hover:scale-110 transition-transform duration-300 relative">
+              <CardHeader className="text-center pb-6 relative z-10">
+                <div className="mx-auto mb-6 p-4 bg-gradient-to-br from-primary/10 to-accent/10 rounded-3xl w-fit group-hover:scale-110 transition-transform duration-500 relative">
                   {service.icon}
-                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-accent/20 rounded-full"></div>
+                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-accent/30 rounded-full"></div>
                 </div>
-                <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
+                <CardTitle className="text-2xl font-bold text-gray-900 mb-3">
                   {service.title}
                 </CardTitle>
-                <CardDescription className="text-gray-600 text-base leading-relaxed">
+                <CardDescription className="text-gray-600 text-base leading-relaxed mb-4">
                   {service.description}
                 </CardDescription>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  {service.detailedDescription}
+                </p>
               </CardHeader>
               
-              <CardContent className="pt-0 relative z-10">
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-gray-700">
-                      <div className="w-2 h-2 bg-gradient-to-r from-accent to-primary rounded-full mr-3"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="border-t pt-4 space-y-2 bg-gradient-to-r from-gray-50/50 to-white/50 p-4 rounded-lg">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Investment:</span>
-                    <span className="font-semibold text-primary">{service.priceRange}</span>
+              <CardContent className="pt-0 relative z-10 flex flex-col flex-grow">
+                <div className="mb-6">
+                  <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
+                    <CheckCircle className="w-4 h-4 text-primary mr-2" />
+                    What We Deliver
+                  </h4>
+                  <ul className="space-y-3">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="text-sm">
+                        <div className="font-medium text-gray-800">{feature.name}</div>
+                        <div className="text-gray-600 text-xs mt-1">{feature.description}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mb-6">
+                  <h4 className="font-semibold text-gray-900 mb-2">Technologies</h4>
+                  <div className="flex flex-wrap gap-1">
+                    {service.technologies.map((tech, idx) => (
+                      <Badge key={idx} variant="secondary" className="text-xs">
+                        {tech}
+                      </Badge>
+                    ))}
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Timeline:</span>
-                    <span className="font-semibold text-primary">{service.timeline}</span>
+                </div>
+                
+                <div className="mt-auto">
+                  <div className="border-t pt-4 space-y-3 bg-gradient-to-r from-gray-50/80 to-white/80 p-4 rounded-lg">
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="text-gray-500 block">Investment</span>
+                        <span className="font-bold text-primary">{service.priceRange}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-500 block">Timeline</span>
+                        <span className="font-bold text-primary">{service.timeline}</span>
+                      </div>
+                    </div>
+                    <div className="pt-2 border-t border-gray-100">
+                      <span className="text-gray-500 text-xs block mb-1">Includes:</span>
+                      <span className="text-xs text-gray-700">{service.deliverables}</span>
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -127,13 +183,17 @@ const ServicesSection = () => {
         </div>
 
         <div className="text-center">
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Ready to Transform Your Digital Presence?</h3>
+            <p className="text-gray-600">Let's discuss how we can help you achieve your business goals</p>
+          </div>
           <Button 
             onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105 text-lg flex items-center gap-2 mx-auto relative overflow-hidden group"
+            className="bg-primary hover:bg-primary/90 text-white font-semibold px-10 py-4 rounded-xl transition-all duration-300 hover:scale-105 text-lg flex items-center gap-3 mx-auto relative overflow-hidden group shadow-lg"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            <div className="relative z-10 flex items-center gap-2">
-              Discuss Your Project
+            <div className="relative z-10 flex items-center gap-3">
+              Schedule Free Consultation
               <ArrowRight size={20} />
             </div>
           </Button>
