@@ -1,0 +1,131 @@
+
+import { Button } from "@/components/ui/button";
+
+const Footer = () => {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <footer className="bg-gray-900 text-white py-16">
+      <div className="container mx-auto px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            {/* Company Info */}
+            <div className="md:col-span-2">
+              <div className="flex items-center space-x-3 mb-6">
+                <img 
+                  src="/lovable-uploads/613fce62-2528-4b81-8930-4efa7f665b35.png" 
+                  alt="Bernoff Co Logo" 
+                  className="h-10 w-auto brightness-0 invert"
+                />
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
+                Managing the future through comprehensive digital solutions. 
+                We transform businesses with cutting-edge technology and strategic expertise.
+              </p>
+              <Button 
+                onClick={() => scrollToSection('discovery-call')}
+                className="bg-accent hover:bg-accent/90 text-white font-semibold"
+              >
+                Start Your Project
+              </Button>
+            </div>
+
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-xl font-semibold mb-6">Services</h4>
+              <ul className="space-y-3 text-gray-300">
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="hover:text-accent transition-colors"
+                  >
+                    Development Solutions
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="hover:text-accent transition-colors"
+                  >
+                    Creative Design
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('services')}
+                    className="hover:text-accent transition-colors"
+                  >
+                    Strategic Marketing
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('discovery-call')}
+                    className="hover:text-accent transition-colors"
+                  >
+                    Discovery Call
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <h4 className="text-xl font-semibold mb-6">Contact</h4>
+              <ul className="space-y-3 text-gray-300">
+                <li>
+                  <a 
+                    href="mailto:hello@bernoff.co"
+                    className="hover:text-accent transition-colors"
+                  >
+                    hello@bernoff.co
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="tel:+15551234567"
+                    className="hover:text-accent transition-colors"
+                  >
+                    +1 (555) 123-4567
+                  </a>
+                </li>
+                <li className="text-gray-400">
+                  European Union
+                </li>
+                <li>
+                  <button 
+                    onClick={() => scrollToSection('contact')}
+                    className="hover:text-accent transition-colors"
+                  >
+                    Get In Touch
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="border-t border-gray-800 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center">
+              <p className="text-gray-400 text-sm mb-4 md:mb-0">
+                © 2025 Bernoff Co. All rights reserved. Managing the future of digital excellence.
+              </p>
+              <div className="flex space-x-6 text-sm text-gray-400">
+                <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>
+                <a href="#" className="hover:text-accent transition-colors">Terms of Service</a>
+                <a href="#" className="hover:text-accent transition-colors">Cookie Policy</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
