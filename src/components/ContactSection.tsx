@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -73,16 +74,51 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      console.log('Submitting form data:', formData);
+      
+      const { data, error } = await supabase
+        .from('contact_submissions')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            company: formData.company || null,
+            service_interest: formData.serviceInterest,
+            sub_service: formData.subService || null,
+            message: formData.message
+          }
+        ]);
+
+      console.log('Supabase response:', { data, error });
+
+      if (error) {
+        console.error('Error submitting form:', error);
+        toast({
+          title: "Error",
+          description: "There was an error submitting your message. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       toast({
         title: "Message Sent!",
         description: "Thank you for your inquiry. One of our consultants will be in touch within 1 business day.",
       });
+      
       setFormData({ name: '', email: '', company: '', serviceInterest: '', subService: '', message: '' });
-      setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1000);
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Error",
+        description: "There was an unexpected error. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
