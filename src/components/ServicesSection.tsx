@@ -3,6 +3,7 @@ import { ServiceCard } from "./services/ServiceCard";
 import { ServicesHeader } from "./services/ServicesHeader";
 import { ServicesCallToAction } from "./services/ServicesCallToAction";
 import { ServicesBackground } from "./services/ServicesBackground";
+import { PaymentMethodsSection } from "./services/PaymentMethodsSection";
 import { servicesData } from "./services/servicesData";
 
 const ServicesSection = () => {
@@ -13,7 +14,7 @@ const ServicesSection = () => {
       <div className="container mx-auto px-6 relative z-10">
         <ServicesHeader />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {servicesData.map((service, index) => (
             <ServiceCard
               key={index}
@@ -31,6 +32,8 @@ const ServicesSection = () => {
             />
           ))}
         </div>
+
+        <PaymentMethodsSection />
 
         <ServicesCallToAction />
       </div>
