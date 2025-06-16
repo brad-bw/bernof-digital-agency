@@ -129,9 +129,9 @@ const TermsOfService = () => {
                   <p className="text-gray-700 leading-relaxed">
                     For questions regarding these Terms of Service, please contact us at:
                     <br />
-                    <strong>Email:</strong> legal@bernof.co
+                    <strong>Email:</strong> info@bernofco.com
                     <br />
-                    <strong>Phone:</strong> +1 (555) 123-4567
+                    <strong>Phone:</strong> +44 20 3000 0000
                   </p>
                 </section>
               </div>

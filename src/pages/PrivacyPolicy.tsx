@@ -118,9 +118,9 @@ const PrivacyPolicy = () => {
                   <p className="text-gray-700 leading-relaxed">
                     If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us at:
                     <br />
-                    <strong>Email:</strong> privacy@bernof.co
+                    <strong>Email:</strong> info@bernofco.com
                     <br />
-                    <strong>Phone:</strong> +1 (555) 123-4567
+                    <strong>Phone:</strong> +44 20 3000 0000
                   </p>
                 </section>
               </div>
