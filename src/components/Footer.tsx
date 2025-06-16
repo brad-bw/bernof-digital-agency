@@ -80,7 +80,7 @@ const Footer = () => {
               <ul className="space-y-3 text-gray-300">
                 <li>
                   <a 
-                    href="mailto:hello@bernof.co"
+                    href="mailto:info@bernofco.com"
                     className="hover:text-accent transition-colors"
                   >
                     hello@bernof.co
@@ -88,14 +88,14 @@ const Footer = () => {
                 </li>
                 <li>
                   <a 
-                    href="tel:+15551234567"
+                    href="tel:+44 20 3000 0000"
                     className="hover:text-accent transition-colors"
                   >
-                    +1 (555) 123-4567
+                    +44 20 3000 0000
                   </a>
                 </li>
                 <li className="text-gray-400">
-                  European Union
+                  Newcastle Upon Tyne, United Kingdom.
                 </li>
                 <li>
                   <button 
