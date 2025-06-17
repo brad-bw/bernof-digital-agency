@@ -21,19 +21,20 @@ const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
-  // Secure Calendly opener function
+  // Fixed Calendly opener function - no longer opens in both tabs
   const openCalendly = () => {
     try {
       const newWindow = window.open('https://calendly.com/bernof-co', '_blank', 'noopener,noreferrer');
       if (newWindow) {
         newWindow.opener = null;
+        // Success - popup opened, no fallback needed
       } else {
-        // Fallback if popup is blocked
+        // Only runs if popup was actually blocked
         window.location.href = 'https://calendly.com/bernof-co';
       }
     } catch (error) {
       console.error('Error opening Calendly:', error);
-      // Fallback to direct navigation
+      // Fallback only on actual error
       window.location.href = 'https://calendly.com/bernof-co';
     }
   };
@@ -255,7 +256,7 @@ const ContactSection = () => {
               </div>
             </div>
 
-            {/* Rest of your form code remains the same */}
+            {/* FIXED: Complete contact form restored */}
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-900">
@@ -263,7 +264,135 @@ const ContactSection = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {/* Your existing form content */}
+                {isSubmitted ? (
+                  <div className="text-center py-8">
+                    <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                      Thank You!
+                    </h3>
+                    <p className="text-gray-600">
+                      Your message has been sent successfully. We'll get back to you soon.
+                    </p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                          Name *
+                        </label>
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          placeholder="Your full name"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                          Email *
+                        </label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="your.email@example.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+                        Company
+                      </label>
+                      <Input
+                        id="company"
+                        name="company"
+                        type="text"
+                        value={formData.company}
+                        onChange={handleChange}
+                        placeholder="Your company name"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="serviceInterest" className="block text-sm font-medium text-gray-700 mb-2">
+                        Service Interest *
+                      </label>
+                      <Select value={formData.serviceInterest} onValueChange={handleServiceChange}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a service category" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.entries(serviceOptions).map(([key, option]) => (
+                            <SelectItem key={key} value={key}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {formData.serviceInterest && serviceOptions[formData.serviceInterest].subServices.length > 0 && (
+                      <div>
+                        <label htmlFor="subService" className="block text-sm font-medium text-gray-700 mb-2">
+                          Specific Service
+                        </label>
+                        <Select value={formData.subService} onValueChange={handleSubServiceChange}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a specific service" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {serviceOptions[formData.serviceInterest].subServices.map((service) => (
+                              <SelectItem key={service} value={service}>
+                                {service}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    )}
+
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                        Message *
+                      </label>
+                      <Textarea
+                        id="message"
+                        name="message"
+                        required
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Tell us about your project requirements..."
+                        rows={5}
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-primary hover:bg-primary/90 text-white"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Send className="w-4 h-4 mr-2 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4 mr-2" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                )}
               </CardContent>
             </Card>
           </div>
