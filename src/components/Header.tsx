@@ -52,6 +52,13 @@ const Header = () => {
               Services
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
             </button>
+            <Link
+              to="/startup-development"
+              className="text-gray-600 hover:text-primary transition-colors font-medium relative group"
+            >
+              For Startups
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
+            </Link>
             <button 
               onClick={() => scrollToSection('about')}
               className="text-gray-600 hover:text-primary transition-colors font-medium relative group"
@@ -97,6 +104,14 @@ const Header = () => {
                 Services
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
               </button>
+              <Link
+                to="/startup-development"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"
+              >
+                For Startups
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
+              </Link>
               <button 
                 onClick={() => scrollToSection('about')}
                 className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"
