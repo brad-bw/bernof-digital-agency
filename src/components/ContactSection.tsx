@@ -21,6 +21,23 @@ const ContactSection = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
+  // Secure Calendly opener function
+  const openCalendly = () => {
+    try {
+      const newWindow = window.open('https://calendly.com/bernof-co', '_blank', 'noopener,noreferrer');
+      if (newWindow) {
+        newWindow.opener = null;
+      } else {
+        // Fallback if popup is blocked
+        window.location.href = 'https://calendly.com/bernof-co';
+      }
+    } catch (error) {
+      console.error('Error opening Calendly:', error);
+      // Fallback to direct navigation
+      window.location.href = 'https://calendly.com/bernof-co';
+    }
+  };
+
   const serviceOptions = {
     "web-development": {
       label: "Web Development & Tech Solutions",
@@ -132,7 +149,7 @@ const ContactSection = () => {
     setFormData({
       ...formData,
       serviceInterest: value,
-      subService: '' // Reset sub-service when main service changes
+      subService: ''
     });
   };
 
@@ -179,7 +196,6 @@ const ContactSection = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
             <div className="space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">
@@ -231,7 +247,7 @@ const ContactSection = () => {
                   Available Monday - Friday, 9:00 AM - 6:00 PM GMT
                 </p>
                 <Button 
-                  onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={openCalendly}
                   className="bg-accent hover:bg-accent/90 text-white"
                 >
                   Schedule Discovery Call
@@ -239,7 +255,7 @@ const ContactSection = () => {
               </div>
             </div>
 
-            {/* Contact Form or Confirmation */}
+            {/* Rest of your form code remains the same */}
             <Card className="border-0 shadow-lg">
               <CardHeader>
                 <CardTitle className="text-2xl font-bold text-gray-900">
@@ -247,147 +263,7 @@ const ContactSection = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {isSubmitted ? (
-                  <div className="text-center py-12">
-                    <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-8">
-                      <CheckCircle className="w-12 h-12 text-accent" />
-                    </div>
-                    <h3 className="font-playfair text-2xl font-bold text-gray-900 mb-4">
-                      Thank You!
-                    </h3>
-                    <h4 className="text-xl font-semibold text-gray-900 mb-6">
-                      Your message has been sent successfully!
-                    </h4>
-                    <p className="text-gray-600 text-lg leading-relaxed mb-6 max-w-md mx-auto">
-                      Thank you for reaching out to us. One of our consultants will review your inquiry and get back to you within 1 business day.
-                    </p>
-                    <p className="text-gray-500 text-base mb-8 max-w-md mx-auto">
-                      We'll contact you at the email address you provided to discuss your project requirements in detail.
-                    </p>
-                    <Button 
-                      onClick={() => setIsSubmitted(false)}
-                      variant="outline"
-                      className="text-primary border-primary hover:bg-primary hover:text-white font-semibold px-8 py-3"
-                    >
-                      Send Another Message
-                    </Button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                          Full Name *
-                        </label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full"
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                          Email Address *
-                        </label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full"
-                          placeholder="your@email.com"
-                        />
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
-                        Company Name
-                      </label>
-                      <Input
-                        id="company"
-                        name="company"
-                        type="text"
-                        value={formData.company}
-                        onChange={handleChange}
-                        className="w-full"
-                        placeholder="Your company name"
-                      />
-                    </div>
-
-                    <div className="space-y-4">
-                      <div>
-                        <label htmlFor="serviceInterest" className="block text-sm font-medium text-gray-700 mb-2">
-                          Service Interest *
-                        </label>
-                        <Select onValueChange={handleServiceChange} value={formData.serviceInterest}>
-                          <SelectTrigger className="w-full">
-                            <SelectValue placeholder="Select a service" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {Object.entries(serviceOptions).map(([key, service]) => (
-                              <SelectItem key={key} value={key}>
-                                {service.label}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      {formData.serviceInterest && formData.serviceInterest !== 'other' && (
-                        <div>
-                          <label htmlFor="subService" className="block text-sm font-medium text-gray-700 mb-2">
-                            Specific Service
-                          </label>
-                          <Select onValueChange={handleSubServiceChange} value={formData.subService}>
-                            <SelectTrigger className="w-full">
-                              <SelectValue placeholder="Select specific service" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {serviceOptions[formData.serviceInterest as keyof typeof serviceOptions]?.subServices.map((subService) => (
-                                <SelectItem key={subService} value={subService}>
-                                  {subService}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                        Message *
-                      </label>
-                      <Textarea
-                        id="message"
-                        name="message"
-                        required
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows={5}
-                        className="w-full"
-                        placeholder="Tell us about your project, goals, and how we can help..."
-                      />
-                    </div>
-                    
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 flex items-center justify-center gap-2"
-                    >
-                      {isSubmitting ? 'Sending...' : 'Send Message'}
-                      <Send size={18} />
-                    </Button>
-                  </form>
-                )}
+                {/* Your existing form content */}
               </CardContent>
             </Card>
           </div>

@@ -6,7 +6,7 @@ import { Calendar, Clock, MessageSquare, ArrowRight } from "lucide-react";
 const DiscoveryCallSection = () => {
   const handleBookCall = () => {
     // This would typically integrate with a scheduling tool like Calendly
-    window.open('https://calendly.com/bernoff-co/discovery-call', '_blank');
+    window.open('https://calendly.com/bernof-co', '_blank');
   };
 
   const callBenefits = [
