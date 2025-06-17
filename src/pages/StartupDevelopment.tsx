@@ -5,7 +5,6 @@ import StartupHero from "@/components/startup/StartupHero";
 import StartupValueProps from "@/components/startup/StartupValueProps";
 import StartupProcess from "@/components/startup/StartupProcess";
 import StartupPricing from "@/components/startup/StartupPricing";
-import StartupTestimonials from "@/components/startup/StartupTestimonials";
 import StartupFAQ from "@/components/startup/StartupFAQ";
 import StartupCTA from "@/components/startup/StartupCTA";
 
@@ -18,7 +17,6 @@ const StartupDevelopment = () => {
         <StartupValueProps />
         <StartupProcess />
         <StartupPricing />
-        <StartupTestimonials />
         <StartupFAQ />
         <StartupCTA />
       </main>

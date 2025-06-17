@@ -1,13 +1,13 @@
 
 import { Check, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PaymentMethodsSection } from "@/components/services/PaymentMethodsSection";
 
 const StartupPricing = () => {
   const pricingPlans = [
     {
       name: "MVP Validation",
-      price: "£2,999",
-      originalPrice: "£5,999",
+      price: "from £2,999",
       description: "Perfect for testing your idea with a basic working prototype",
       features: [
         "Market research & validation",
@@ -23,8 +23,7 @@ const StartupPricing = () => {
     },
     {
       name: "Full MVP Launch",
-      price: "£7,999",
-      originalPrice: "£15,999",
+      price: "starts at £7,999",
       description: "Complete MVP ready for real users and investor presentations",
       features: [
         "Everything in MVP Validation",
@@ -42,8 +41,7 @@ const StartupPricing = () => {
     },
     {
       name: "Scale-Ready Platform",
-      price: "£14,999",
-      originalPrice: "£29,999",
+      price: "from £14,999",
       description: "Enterprise-ready solution built to handle growth and scaling",
       features: [
         "Everything in Full MVP Launch",
@@ -81,12 +79,12 @@ const StartupPricing = () => {
               </span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              No hidden fees, no ongoing contracts. Pay once, own forever. 
+              No hidden fees, no ongoing contracts. Final pricing based on project scope and requirements. 
               Optional maintenance available per project basis.
             </p>
             <div className="inline-flex items-center px-4 py-2 bg-green-100 rounded-full text-green-800 font-semibold">
               <Star className="w-4 h-4 mr-2" />
-              Limited Time: 50% off all packages for early founders
+              Custom pricing based on your specific needs
             </div>
           </div>
 
@@ -116,11 +114,8 @@ const StartupPricing = () => {
                   <div className="mb-4">
                     <div className="flex items-center justify-center space-x-2">
                       <span className="text-4xl font-bold text-gray-900">{plan.price}</span>
-                      <div className="text-left">
-                        <div className="text-gray-400 line-through text-sm">{plan.originalPrice}</div>
-                        <div className="text-sm text-gray-600">one-time</div>
-                      </div>
                     </div>
+                    <div className="text-sm text-gray-600 mt-1">Custom quote based on requirements</div>
                   </div>
                   
                   <div className="text-accent font-semibold">{plan.timeline}</div>
@@ -150,8 +145,11 @@ const StartupPricing = () => {
             ))}
           </div>
 
+          {/* Payment Methods */}
+          <PaymentMethodsSection />
+
           {/* Additional Info */}
-          <div className="bg-gray-50 rounded-2xl p-8 text-center">
+          <div className="bg-gray-50 rounded-2xl p-8 text-center mt-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Maintenance Made Simple
             </h3>
@@ -162,15 +160,15 @@ const StartupPricing = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">£99</div>
+                <div className="text-2xl font-bold text-primary">from £99</div>
                 <div className="text-sm text-gray-600">Minor updates</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">£499</div>
+                <div className="text-2xl font-bold text-primary">from £499</div>
                 <div className="text-sm text-gray-600">New features</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">£999</div>
+                <div className="text-2xl font-bold text-primary">from £999</div>
                 <div className="text-sm text-gray-600">Major upgrades</div>
               </div>
             </div>
