@@ -83,7 +83,7 @@ const Footer = () => {
                     href="mailto:info@bernofco.com"
                     className="hover:text-accent transition-colors"
                   >
-                    hello@bernof.co
+                    info@bernofco.com
                   </a>
                 </li>
                 <li>
