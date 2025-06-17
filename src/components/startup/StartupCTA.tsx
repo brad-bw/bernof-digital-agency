@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Mail, Phone } from "lucide-react";
 
 const StartupCTA = () => {
+  const handleBookCall = () => {
+    // This would typically integrate with a scheduling tool like Calendly
+    window.open('https://calendly.com/bernof-co', '_blank');
+  }
   return (
     <section className="py-20 bg-gradient-to-br from-primary to-accent text-white relative overflow-hidden" id="startup-cta">
       {/* Background Elements */}
@@ -25,6 +29,7 @@ const StartupCTA = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
+                onClick={handleBookCall}
                 className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:scale-105"
               >
                 <Calendar className="w-5 h-5 mr-2" />

@@ -9,6 +9,10 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const ContactSection = () => {
+  const handleBookCall = () => {
+    // This would typically integrate with a scheduling tool like Calendly
+    window.open('https://calendly.com/bernof-co', '_blank');
+  }
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -231,7 +235,7 @@ const ContactSection = () => {
                   Available Monday - Friday, 9:00 AM - 6:00 PM GMT
                 </p>
                 <Button 
-                  onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={handleBookCall}
                   className="bg-accent hover:bg-accent/90 text-white"
                 >
                   Schedule Discovery Call
