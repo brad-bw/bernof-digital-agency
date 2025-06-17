@@ -32,7 +32,7 @@ const StartupCTA = () => {
               </Button>
               <Button 
                 variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300"
+                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-primary font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300"
               >
                 Get Project Estimate
                 <ArrowRight className="w-5 h-5 ml-2" />

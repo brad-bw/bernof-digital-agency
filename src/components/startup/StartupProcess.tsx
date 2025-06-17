@@ -42,92 +42,67 @@ const StartupProcess = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white" id="startup-process">
+    <section className="py-16 bg-gradient-to-br from-gray-50 to-white" id="startup-process">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               From Idea to Launch in{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                 4 Simple Steps
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our proven process ensures your startup gets to market quickly and efficiently, 
-              without the complexity of managing a development team.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Our proven process ensures your startup gets to market quickly and efficiently.
             </p>
           </div>
 
-          {/* Process Steps */}
-          <div className="space-y-8">
+          {/* Process Steps - Horizontal Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {processSteps.map((step, index) => (
-              <div key={index} className="relative">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  {/* Step Content */}
-                  <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                    <div className="space-y-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 flex items-center justify-center">
-                          {/* Geometric background inspired by uploaded images */}
-                          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-                            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-primary/5 via-transparent to-accent/5"></div>
-                            <div className="absolute top-0 right-0 w-8 h-8 bg-accent/10 rounded-full transform translate-x-2 -translate-y-2"></div>
-                          </div>
-                          <span className="relative z-10 text-primary font-bold text-xl">{step.step}</span>
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-gray-900">{step.title}</h3>
-                          <div className="text-accent font-semibold">{step.duration}</div>
-                        </div>
-                      </div>
-                      
-                      <p className="text-lg text-gray-600 leading-relaxed">
-                        {step.description}
-                      </p>
-                      
-                      <div className="space-y-2">
-                        <h4 className="font-semibold text-gray-900">Key Deliverables:</h4>
-                        <ul className="space-y-2">
-                          {step.deliverables.map((deliverable, idx) => (
-                            <li key={idx} className="flex items-center space-x-2">
-                              <CheckCircle className="w-5 h-5 text-green-500" />
-                              <span className="text-gray-700">{deliverable}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+              <div key={index} className="relative group">
+                {/* Step Card */}
+                <div className="bg-white rounded-xl border border-gray-200 p-6 h-full hover:shadow-lg transition-all duration-300 hover:border-primary/30">
+                  {/* Step Number */}
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">{step.step}</span>
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-sm font-semibold text-accent">{step.duration}</div>
                     </div>
                   </div>
-
-                  {/* Visual Element */}
-                  <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="relative">
-                      {/* Geometric pattern inspired by uploaded images */}
-                      <div className="w-full h-64 rounded-2xl border border-gray-200 bg-gradient-to-br from-gray-50 to-white overflow-hidden relative">
-                        {/* Background geometric shapes */}
-                        <div className="absolute inset-0">
-                          <div className="absolute top-4 left-4 w-16 h-16 bg-primary/10 rounded-full"></div>
-                          <div className="absolute top-8 right-8 w-12 h-12 bg-accent/10 rounded-lg transform rotate-45"></div>
-                          <div className="absolute bottom-6 left-8 w-20 h-20 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl transform -rotate-12"></div>
-                          <div className="absolute bottom-4 right-4 w-14 h-14 bg-primary/8 rounded-full"></div>
-                          
-                          {/* Central step indicator */}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-                              <span className="text-white font-bold text-2xl">{step.step}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  
+                  {/* Content */}
+                  <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
+                  <p className="text-sm text-gray-600 mb-4 leading-relaxed">
+                    {step.description}
+                  </p>
+                  
+                  {/* Key Deliverables */}
+                  <div className="space-y-1">
+                    <h4 className="text-xs font-semibold text-gray-900 uppercase tracking-wide">Key Deliverables:</h4>
+                    <ul className="space-y-1">
+                      {step.deliverables.slice(0, 2).map((deliverable, idx) => (
+                        <li key={idx} className="flex items-start space-x-2">
+                          <CheckCircle className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-xs text-gray-600">{deliverable}</span>
+                        </li>
+                      ))}
+                      {step.deliverables.length > 2 && (
+                        <li className="text-xs text-gray-500">+{step.deliverables.length - 2} more</li>
+                      )}
+                    </ul>
                   </div>
                 </div>
 
-                {/* Arrow */}
+                {/* Arrow - Only show on larger screens and not on last item */}
                 {index < processSteps.length - 1 && (
-                  <div className="flex justify-center py-8">
-                    <ArrowRight className="w-8 h-8 text-gray-300" />
+                  <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
+                    <div className="w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center">
+                      <ArrowRight className="w-3 h-3 text-gray-400" />
+                    </div>
                   </div>
                 )}
               </div>
@@ -135,7 +110,7 @@ const StartupProcess = () => {
           </div>
 
           {/* CTA */}
-          <div className="text-center mt-16">
+          <div className="text-center">
             <Button 
               onClick={() => scrollToSection('startup-pricing')}
               className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:scale-105"
