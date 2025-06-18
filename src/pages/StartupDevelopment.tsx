@@ -7,10 +7,15 @@ import StartupProcess from "@/components/startup/StartupProcess";
 import StartupPricing from "@/components/startup/StartupPricing";
 import StartupFAQ from "@/components/startup/StartupFAQ";
 import StartupCTA from "@/components/startup/StartupCTA";
+import SEO from "@/components/SEO";
+import { useSEO } from "@/hooks/useSEO";
 
 const StartupDevelopment = () => {
+  const seoData = useSEO('startup-development');
+
   return (
     <div className="min-h-screen font-inter">
+      <SEO {...seoData} />
       <Header />
       <main>
         <StartupHero />
