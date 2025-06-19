@@ -8,6 +8,7 @@ import StartupPricing from "@/components/startup/StartupPricing";
 import StartupFAQ from "@/components/startup/StartupFAQ";
 import StartupCTA from "@/components/startup/StartupCTA";
 import SEO from "@/components/SEO";
+import Breadcrumb from "@/components/Breadcrumb";
 import { useSEO } from "@/hooks/useSEO";
 
 const StartupDevelopment = () => {
@@ -18,7 +19,13 @@ const StartupDevelopment = () => {
       <SEO {...seoData} />
       <Header />
       <main>
-        <StartupHero />
+        <div className="container mx-auto px-6">
+          <Breadcrumb items={seoData.breadcrumbs || []} />
+        </div>
+        <section>
+          <h1 className="sr-only">Expert Startup Development Services - From MVP to Scale</h1>
+          <StartupHero />
+        </section>
         <StartupValueProps />
         <StartupProcess />
         <StartupPricing />
