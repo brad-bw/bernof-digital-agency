@@ -7,7 +7,6 @@ import DiscoveryCallSection from "@/components/DiscoveryCallSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
-import Breadcrumb from "@/components/Breadcrumb";
 import { useSEO } from "@/hooks/useSEO";
 
 const Index = () => {
@@ -18,9 +17,6 @@ const Index = () => {
       <SEO {...seoData} />
       <Header />
       <main>
-        <div className="container mx-auto px-6">
-          <Breadcrumb items={seoData.breadcrumbs || []} />
-        </div>
         <section>
           <h1 className="sr-only">Bernof Co - Premier Digital Solutions & Growth Services</h1>
           <HeroSection />

@@ -11,6 +11,7 @@ import Loading from "./components/Loading";
 import { useRouteTracking } from "./hooks/useRouteTracking";
 import { usePerformance } from "./hooks/usePerformance";
 import { useScrollDepth } from "./hooks/useScrollDepth";
+import { useSitemapGenerator } from "./hooks/useSitemapGenerator";
 
 // Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
@@ -35,6 +36,7 @@ const RouteTracker = () => {
   useRouteTracking();
   usePerformance();
   useScrollDepth();
+  useSitemapGenerator();
   return null;
 };
 
