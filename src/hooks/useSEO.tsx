@@ -17,9 +17,9 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
     switch (page) {
       case 'home':
         return {
-          title: 'Premier Digital Agency London | Web Development & Startup Services | Bernof Co',
-          description: 'Transform your business with London\'s leading digital agency. Expert web development, mobile apps, and startup services. From £2,999. 100+ successful projects. Book free consultation today.',
-          keywords: 'digital agency london, web development london, mobile app development, startup development services, MVP development, software development company london, UI/UX design agency, tech consulting london, react development, node.js development',
+          title: 'Premier Digital Agency | Web Development & Startup Services Europe/USA | Bernof Co',
+          description: 'Transform your business with Europe\'s leading digital agency. Expert web development, mobile apps, and startup services across USA, UK, and Europe. From $3,999. 100+ successful projects. Book free consultation today.',
+          keywords: 'digital agency europe, web development usa, mobile app development, startup development services, MVP development, software development company, UI/UX design agency, tech consulting, react development, node.js development, digital transformation',
           canonical: baseUrl,
           breadcrumbs: [
             { name: 'Home', url: baseUrl }
@@ -32,7 +32,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 "@id": `${baseUrl}/#organization`,
                 "name": "Bernof Co",
                 "alternateName": "Bernof Company",
-                "description": "Premier digital solutions company specializing in web development, mobile apps, and startup development services in London",
+                "description": "Premier digital solutions company specializing in web development, mobile apps, and startup development services across Europe and USA",
                 "url": baseUrl,
                 "logo": {
                   "@type": "ImageObject",
@@ -53,9 +53,8 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 ],
                 "address": {
                   "@type": "PostalAddress",
-                  "addressCountry": "GB",
-                  "addressLocality": "London",
-                  "addressRegion": "England"
+                  "addressCountry": ["GB", "US", "DE", "FR"],
+                  "addressRegion": ["Europe", "North America"]
                 },
                 "contactPoint": [
                   {
@@ -64,7 +63,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                     "contactType": "customer service",
                     "email": "info@bernofco.com",
                     "availableLanguage": ["English"],
-                    "areaServed": "GB"
+                    "areaServed": ["GB", "US", "EU"]
                   },
                   {
                     "@type": "ContactPoint",
@@ -87,7 +86,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 "@id": `${baseUrl}/#website`,
                 "url": baseUrl,
                 "name": "Bernof Co - Digital Solutions & Startup Development",
-                "description": "Premier digital agency offering web development, mobile app development, and comprehensive startup services",
+                "description": "Premier digital agency offering web development, mobile app development, and comprehensive startup services across Europe and USA",
                 "publisher": {
                   "@id": `${baseUrl}/#organization`
                 },
@@ -106,10 +105,28 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 "provider": {
                   "@id": `${baseUrl}/#organization`
                 },
-                "areaServed": {
-                  "@type": "Country",
-                  "name": "United Kingdom"
-                },
+                "areaServed": [
+                  {
+                    "@type": "Country",
+                    "name": "United States"
+                  },
+                  {
+                    "@type": "Country",
+                    "name": "United Kingdom"
+                  },
+                  {
+                    "@type": "Country",
+                    "name": "Germany"
+                  },
+                  {
+                    "@type": "Country",
+                    "name": "France"
+                  },
+                  {
+                    "@type": "Place",
+                    "name": "Europe"
+                  }
+                ],
                 "hasOfferCatalog": {
                   "@type": "OfferCatalog",
                   "name": "Digital Services",
@@ -122,7 +139,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                         "description": "Custom web application development using React, Node.js, and TypeScript"
                       },
                       "price": "4999",
-                      "priceCurrency": "GBP",
+                      "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock"
                     },
                     {
@@ -133,7 +150,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                         "description": "Native and cross-platform mobile application development"
                       },
                       "price": "7999",
-                      "priceCurrency": "GBP",
+                      "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock"
                     },
                     {
@@ -143,9 +160,8 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                         "name": "Startup Development",
                         "description": "End-to-end startup development from MVP to scaling"
                       },
-                      "price": "2999",
-                      "priceCurrency": "GBP",
-                      "priceCurrency": "GBP",
+                      "price": "3999",
+                      "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock"
                     }
                   ]
@@ -157,9 +173,9 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
       
       case 'startup-development':
         return {
-          title: 'Startup Development Services London | MVP to Scale | Expert Tech Partner | Bernof Co',
-          description: 'Launch your startup with confidence. Expert MVP development, technical consulting, and scaling solutions in London. 100+ successful startups launched. From £2,999. Book free consultation.',
-          keywords: 'startup development london, MVP development services, startup tech partner, idea to production, startup consulting london, outsource app development, startup CTO services, product development, startup launch, technical co-founder',
+          title: 'Startup Development Services Europe/USA | MVP to Scale | Expert Tech Partner | Bernof Co',
+          description: 'Launch your startup with confidence. Expert MVP development, technical consulting, and scaling solutions across Europe and USA. 100+ successful startups launched. From $3,999. Book free consultation.',
+          keywords: 'startup development europe, startup development usa, MVP development services, startup tech partner, idea to production, startup consulting, outsource app development, startup CTO services, product development, startup launch, technical co-founder',
           canonical: `${baseUrl}/startup-development`,
           breadcrumbs: [
             { name: 'Home', url: baseUrl },
@@ -172,7 +188,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 "@type": "Service",
                 "@id": `${baseUrl}/startup-development#service`,
                 "name": "Startup Development Services",
-                "description": "Comprehensive startup development services from MVP to scaling, including technical consulting, product development, and growth strategy for London-based and international startups",
+                "description": "Comprehensive startup development services from MVP to scaling, including technical consulting, product development, and growth strategy for European and American startups",
                 "provider": {
                   "@type": "Organization",
                   "@id": `${baseUrl}/#organization`
@@ -180,15 +196,23 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 "areaServed": [
                   {
                     "@type": "Place",
-                    "name": "London, UK"
+                    "name": "Europe"
                   },
                   {
                     "@type": "Place", 
+                    "name": "United States"
+                  },
+                  {
+                    "@type": "Place",
                     "name": "United Kingdom"
                   },
                   {
                     "@type": "Place",
-                    "name": "Worldwide"
+                    "name": "Germany"
+                  },
+                  {
+                    "@type": "Place",
+                    "name": "France"
                   }
                 ],
                 "serviceType": "Software Development",
@@ -208,8 +232,8 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                         "@type": "Service",
                         "name": "MVP Validation & Development"
                       },
-                      "price": "2999",
-                      "priceCurrency": "GBP",
+                      "price": "3999",
+                      "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock",
                       "validFrom": "2024-01-01",
                       "priceValidUntil": "2024-12-31"
@@ -221,8 +245,8 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                         "@type": "Service",
                         "name": "Complete MVP Launch Package"
                       },
-                      "price": "7999",
-                      "priceCurrency": "GBP",
+                      "price": "9999",
+                      "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock",
                       "validFrom": "2024-01-01",
                       "priceValidUntil": "2024-12-31"
@@ -234,8 +258,8 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                         "@type": "Service",
                         "name": "Scaling & Growth Services"
                       },
-                      "price": "15999",
-                      "priceCurrency": "GBP",
+                      "price": "19999",
+                      "priceCurrency": "USD",
                       "availability": "https://schema.org/InStock"
                     }
                   ]
@@ -285,9 +309,9 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
       
       default:
         return {
-          title: 'Bernof Co - Managing the Future | Digital Solutions London',
-          description: 'Digital solutions that drive growth. Expert development, creative design, and strategic marketing services in London.',
-          keywords: 'digital agency london, web development, software development, digital transformation',
+          title: 'Bernof Co - Managing the Future | Digital Solutions Europe/USA',
+          description: 'Digital solutions that drive growth. Expert development, creative design, and strategic marketing services across Europe and USA.',
+          keywords: 'digital agency europe, digital agency usa, web development, software development, digital transformation',
           canonical: baseUrl
         };
     }
