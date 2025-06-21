@@ -14,10 +14,10 @@ interface SEOProps {
 const SEO = ({
   title = "Bernof Co - Managing the Future | Digital Solutions & Growth Services",
   description = "Transform your digital presence with Bernof Co's comprehensive development, design, and marketing services. Book your discovery call today.",
-  keywords = "startup development, MVP development, outsource app development, startup tech partner, idea to production, development company, web development, mobile app development",
+  keywords = "startup development, MVP development, outsource app development, startup tech partner, idea to production, development company, web development, mobile app development, digital agency, digital transformation",
   canonical,
   ogType = "website",
-  ogImage = "https://lovable.dev/opengraph-image-p98pqg.png",
+  ogImage = "https://bernofco.com/public/bernofco-social-share.png",
   schemaData
 }: SEOProps) => {
   const currentUrl = canonical || window.location.href;
