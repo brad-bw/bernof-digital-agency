@@ -14,6 +14,12 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
   return useMemo(() => {
     const baseUrl = 'https://bernofco.com';
     
+    // Handle country-specific pages
+    if (page.includes('/')) {
+      const [countryCode, serviceType] = page.split('/');
+      return getCountrySEO(countryCode, serviceType, baseUrl);
+    }
+    
     switch (page) {
       case 'home':
         return {
@@ -316,4 +322,101 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
         };
     }
   }, [page]);
+};
+
+// New function to handle country-specific SEO
+const getCountrySEO = (countryCode: string, serviceType: string, baseUrl: string): SEOConfig => {
+  const { getCountryConfig } = require('@/config/countries');
+  const country = getCountryConfig(countryCode);
+  
+  if (!country) {
+    return {
+      title: 'Bernof Co - Digital Solutions',
+      description: 'Digital solutions that drive growth.',
+      keywords: 'digital agency, web development, software development'
+    };
+  }
+
+  const serviceTypeMap: Record<string, 'web' | 'software' | 'startup'> = {
+    'web-development': 'web',
+    'software-development': 'software',
+    'startup-development': 'startup'
+  };
+
+  const service = serviceTypeMap[serviceType] || 'web';
+  const keywords = country.seoKeywords[service].join(', ');
+
+  const serviceTitles = {
+    web: 'Web Development Services',
+    software: 'Software Development Services',
+    startup: 'Startup Development Services'
+  };
+
+  const serviceDescriptions = {
+    web: `Professional web development services in ${country.name}. Custom websites, e-commerce solutions, and digital marketing. Save 60-70% vs local agencies.`,
+    software: `Custom software development services in ${country.name}. Mobile apps, enterprise solutions, and AI integration. Expert developers at competitive rates.`,
+    startup: `Startup development services in ${country.name}. MVP development, technical consulting, and growth strategies. Launch your startup with confidence.`
+  };
+
+  const canonical = `${baseUrl}/${countryCode}/${serviceType}`;
+
+  return {
+    title: `${serviceTitles[service]} ${country.name} | Cost-Effective Solutions | Bernof Co`,
+    description: serviceDescriptions[service],
+    keywords: keywords,
+    canonical: canonical,
+    breadcrumbs: [
+      { name: 'Home', url: baseUrl },
+      { name: country.name, url: `${baseUrl}/${countryCode}` },
+      { name: serviceTitles[service], url: canonical }
+    ],
+    schemaData: {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Service",
+          "@id": `${canonical}#service`,
+          "name": `${serviceTitles[service]} - ${country.name}`,
+          "description": serviceDescriptions[service],
+          "provider": {
+            "@type": "Organization",
+            "@id": `${baseUrl}/#organization`
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": country.name
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": country.pricing[service]?.min.toString(),
+            "priceCurrency": country.currency,
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": baseUrl
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": country.name,
+              "item": `${baseUrl}/${countryCode}`
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": serviceTitles[service],
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    }
+  };
 };

@@ -1,4 +1,6 @@
 
+import { getAllCountries } from '@/config/countries';
+
 interface SitemapEntry {
   loc: string;
   lastmod: string;
@@ -11,6 +13,7 @@ export const generateSitemap = (): string => {
   const currentDate = new Date().toISOString().split('T')[0];
   
   const pages: SitemapEntry[] = [
+    // Main pages
     {
       loc: baseUrl,
       lastmod: currentDate,
@@ -23,6 +26,7 @@ export const generateSitemap = (): string => {
       changefreq: 'weekly',
       priority: 0.9
     },
+    // Legal pages
     {
       loc: `${baseUrl}/privacy-policy`,
       lastmod: currentDate,
@@ -42,6 +46,21 @@ export const generateSitemap = (): string => {
       priority: 0.3
     }
   ];
+
+  // Add country-specific pages
+  const countries = getAllCountries();
+  const services = ['web-development', 'software-development', 'startup-development'];
+  
+  countries.forEach(country => {
+    services.forEach(service => {
+      pages.push({
+        loc: `${baseUrl}/${country.code}/${service}`,
+        lastmod: currentDate,
+        changefreq: 'weekly',
+        priority: 0.8
+      });
+    });
+  });
 
   const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
