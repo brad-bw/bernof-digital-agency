@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -20,19 +21,22 @@ const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Country-specific pages
+// Country-specific pages - Switzerland
 const SwitzerlandWebDevelopment = lazy(() => import("./pages/countries/SwitzerlandWebDevelopment"));
 const SwitzerlandSoftwareDevelopment = lazy(() => import("./pages/countries/SwitzerlandSoftwareDevelopment"));
 const SwitzerlandStartupDevelopment = lazy(() => import("./pages/countries/SwitzerlandStartupDevelopment"));
 
+// Country-specific pages - UK
 const UKWebDevelopment = lazy(() => import("./pages/countries/UKWebDevelopment"));
 const UKSoftwareDevelopment = lazy(() => import("./pages/countries/UKSoftwareDevelopment"));
 const UKStartupDevelopment = lazy(() => import("./pages/countries/UKStartupDevelopment"));
 
+// Country-specific pages - USA
 const USAWebDevelopment = lazy(() => import("./pages/countries/USAWebDevelopment"));
 const USASoftwareDevelopment = lazy(() => import("./pages/countries/USASoftwareDevelopment"));
 const USAStartupDevelopment = lazy(() => import("./pages/countries/USAStartupDevelopment"));
 
+// Country-specific pages - Italy
 const ItalyWebDevelopment = lazy(() => import("./pages/countries/ItalyWebDevelopment"));
 const ItalySoftwareDevelopment = lazy(() => import("./pages/countries/ItalySoftwareDevelopment"));
 const ItalyStartupDevelopment = lazy(() => import("./pages/countries/ItalyStartupDevelopment"));
