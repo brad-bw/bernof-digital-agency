@@ -1,5 +1,6 @@
 
 import { useMemo } from 'react';
+import { getCountryConfig } from '@/config/countries';
 
 interface SEOConfig {
   title: string;
@@ -324,9 +325,8 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
   }, [page]);
 };
 
-// New function to handle country-specific SEO
+// Function to handle country-specific SEO
 const getCountrySEO = (countryCode: string, serviceType: string, baseUrl: string): SEOConfig => {
-  const { getCountryConfig } = require('@/config/countries');
   const country = getCountryConfig(countryCode);
   
   if (!country) {
