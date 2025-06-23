@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Users, TrendingDown } from "lucide-react";
+import { Calendar, Clock, Users, TrendingDown, Code, Zap, Shield } from "lucide-react";
 import { CountryConfig } from "@/config/countries";
 
 interface CountryHeroProps {
@@ -23,39 +23,49 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
         return {
           localCost: country.marketContext.heroStats.localCost,
           bernofCost: country.marketContext.heroStats.bernofCost,
-          savings: country.marketContext.heroStats.savings
+          savings: country.marketContext.heroStats.savings,
+          icon: Code
         };
       case 'software':
         return {
           localCost: `${country.currencySymbol}${(country.pricing.software.localMin / 1000).toFixed(0)}k-${(country.pricing.software.localMax / 1000).toFixed(0)}k`,
           bernofCost: `${country.currencySymbol}${(country.pricing.software.min / 1000).toFixed(0)}k-${(country.pricing.software.max / 1000).toFixed(0)}k`,
-          savings: '60% less'
+          savings: '60% less',
+          icon: Zap
         };
       case 'startup':
         return {
           localCost: `${country.currencySymbol}${(country.pricing.startup.localMin / 1000).toFixed(0)}k-${(country.pricing.startup.localMax / 1000).toFixed(0)}k`,
           bernofCost: `${country.currencySymbol}${(country.pricing.startup.min / 1000).toFixed(0)}k-${(country.pricing.startup.max / 1000).toFixed(0)}k`,
-          savings: '60% less'
+          savings: '60% less',
+          icon: Shield
         };
       default:
         return {
           localCost: country.marketContext.heroStats.localCost,
           bernofCost: country.marketContext.heroStats.bernofCost,
-          savings: country.marketContext.heroStats.savings
+          savings: country.marketContext.heroStats.savings,
+          icon: Code
         };
     }
   };
 
   const stats = getServiceStats();
+  const IconComponent = stats.icon;
 
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Geometric shapes */}
-        <div className="absolute top-20 left-20 w-32 h-32 border border-primary/20 rotate-45 rounded-lg"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 border-2 border-primary/20 rotate-45 rounded-lg"></div>
         <div className="absolute top-40 right-32 w-24 h-24 bg-accent/10 rounded-full"></div>
         <div className="absolute bottom-32 left-40 w-40 h-2 bg-gradient-to-r from-primary/30 to-transparent"></div>
+        <div className="absolute top-60 right-20 w-16 h-16 border border-accent/30 rounded-full"></div>
+        
+        {/* Floating elements */}
+        <div className="absolute top-80 left-1/4 w-6 h-6 bg-primary/20 rotate-45"></div>
+        <div className="absolute bottom-60 right-1/3 w-8 h-8 border border-accent/20 rounded-full"></div>
         
         {/* Gradient orbs */}
         <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
@@ -106,7 +116,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                 ))}
               </div>
 
-              {/* Primary CTA only */}
+              {/* Primary CTA */}
               <div className="pt-4">
                 <Button 
                   onClick={handlePrimaryAction}
@@ -128,7 +138,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                 
                 <div className="text-center mb-8 relative z-10">
                   <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-xl flex items-center justify-center">
-                    <TrendingDown className="w-8 h-8 text-primary" />
+                    <IconComponent className="w-8 h-8 text-primary" />
                   </div>
                   <h2 className="text-2xl font-bold text-white mb-2">Cost Comparison</h2>
                   <p className="text-gray-300">See how much you can save</p>
@@ -172,25 +182,25 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                 </div>
               </div>
 
-              {/* Quick Stats */}
+              {/* Quick Stats - Fixed readability */}
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
                   <Clock className="w-6 h-6 mx-auto mb-2 text-primary" />
                   <p className="text-2xl font-bold text-white">48h</p>
-                  <p className="text-xs text-gray-400">Project Start</p>
+                  <p className="text-xs text-gray-300">Project Start</p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-accent"></div>
                   <Users className="w-6 h-6 mx-auto mb-2 text-accent" />
                   <p className="text-2xl font-bold text-white">50+</p>
-                  <p className="text-xs text-gray-400">Expert Devs</p>
+                  <p className="text-xs text-gray-300">Expert Devs</p>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-1 bg-green-400"></div>
                   <TrendingDown className="w-6 h-6 mx-auto mb-2 text-green-400" />
                   <p className="text-2xl font-bold text-white">60%</p>
-                  <p className="text-xs text-gray-400">Cost Savings</p>
+                  <p className="text-xs text-gray-300">Cost Savings</p>
                 </div>
               </div>
             </div>

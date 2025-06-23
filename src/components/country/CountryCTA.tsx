@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { CountryConfig } from "@/config/countries";
-import { Calendar, Mail, Phone, ArrowRight, CheckCircle } from "lucide-react";
+import { Calendar, Mail, Phone, ArrowRight, CheckCircle, Clock, Users, TrendingDown, Shield } from "lucide-react";
 
 interface CountryCTAProps {
   country: CountryConfig;
@@ -82,6 +82,10 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
         <div className="absolute top-10 left-10 w-40 h-40 border border-primary/10 rotate-12 rounded-lg"></div>
         <div className="absolute bottom-20 right-20 w-32 h-32 bg-accent/5 rounded-full"></div>
         <div className="absolute top-1/2 left-1/4 w-64 h-2 bg-gradient-to-r from-primary/20 to-transparent rotate-45"></div>
+        
+        {/* Additional geometric elements */}
+        <div className="absolute top-32 right-1/4 w-20 h-20 border-2 border-accent/15 rounded-full"></div>
+        <div className="absolute bottom-40 left-1/3 w-12 h-12 bg-primary/10 rotate-45"></div>
         
         {/* Gradient orbs */}
         <div className="absolute top-20 left-20 w-96 h-96 bg-primary/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
@@ -184,32 +188,36 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
             </div>
           </div>
 
-          {/* Trust Indicators */}
+          {/* Trust Indicators - Fixed readability */}
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-accent to-green-400"></div>
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-white mb-4">Why {country.name} Businesses Choose Bernof Co</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-              <div className="relative">
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-primary/20 rounded-full"></div>
-                <div className="text-3xl font-bold text-primary mb-2">60%</div>
-                <div className="text-white/80">Cost Savings</div>
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+                <TrendingDown className="w-8 h-8 mx-auto mb-3 text-primary" />
+                <div className="text-4xl font-bold text-white mb-2">60%</div>
+                <div className="text-white/80 font-medium">Cost Savings</div>
               </div>
-              <div className="relative">
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent/20 rounded-full"></div>
-                <div className="text-3xl font-bold text-accent mb-2">48h</div>
-                <div className="text-white/80">Project Start</div>
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-accent"></div>
+                <Clock className="w-8 h-8 mx-auto mb-3 text-accent" />
+                <div className="text-4xl font-bold text-white mb-2">48h</div>
+                <div className="text-white/80 font-medium">Project Start</div>
               </div>
-              <div className="relative">
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-400/20 rounded-full"></div>
-                <div className="text-3xl font-bold text-green-400 mb-2">50+</div>
-                <div className="text-white/80">Expert Developers</div>
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-green-400"></div>
+                <Users className="w-8 h-8 mx-auto mb-3 text-green-400" />
+                <div className="text-4xl font-bold text-white mb-2">50+</div>
+                <div className="text-white/80 font-medium">Expert Developers</div>
               </div>
-              <div className="relative">
-                <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400/20 rounded-full"></div>
-                <div className="text-3xl font-bold text-blue-400 mb-2">100%</div>
-                <div className="text-white/80">Money-Back Guarantee</div>
+              <div className="bg-white/5 rounded-xl p-6 border border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-blue-400"></div>
+                <Shield className="w-8 h-8 mx-auto mb-3 text-blue-400" />
+                <div className="text-4xl font-bold text-white mb-2">100%</div>
+                <div className="text-white/80 font-medium">Money-Back Guarantee</div>
               </div>
             </div>
           </div>
