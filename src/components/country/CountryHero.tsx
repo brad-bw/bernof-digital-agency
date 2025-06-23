@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, TrendingDown, Clock, Users } from "lucide-react";
+import { Calendar, Clock, Users, TrendingDown } from "lucide-react";
 import { CountryConfig } from "@/config/countries";
 
 interface CountryHeroProps {
@@ -17,42 +17,31 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
     window.open('https://calendly.com/bernof-co', '_blank');
   };
 
-  const handleSecondaryAction = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const getServiceStats = () => {
     switch (service) {
       case 'web':
         return {
           localCost: country.marketContext.heroStats.localCost,
           bernofCost: country.marketContext.heroStats.bernofCost,
-          savings: country.marketContext.heroStats.savings,
-          icon: '🌐'
+          savings: country.marketContext.heroStats.savings
         };
       case 'software':
         return {
           localCost: `${country.currencySymbol}${(country.pricing.software.localMin / 1000).toFixed(0)}k-${(country.pricing.software.localMax / 1000).toFixed(0)}k`,
           bernofCost: `${country.currencySymbol}${(country.pricing.software.min / 1000).toFixed(0)}k-${(country.pricing.software.max / 1000).toFixed(0)}k`,
-          savings: '60% less',
-          icon: '💻'
+          savings: '60% less'
         };
       case 'startup':
         return {
           localCost: `${country.currencySymbol}${(country.pricing.startup.localMin / 1000).toFixed(0)}k-${(country.pricing.startup.localMax / 1000).toFixed(0)}k`,
           bernofCost: `${country.currencySymbol}${(country.pricing.startup.min / 1000).toFixed(0)}k-${(country.pricing.startup.max / 1000).toFixed(0)}k`,
-          savings: '60% less',
-          icon: '🚀'
+          savings: '60% less'
         };
       default:
         return {
           localCost: country.marketContext.heroStats.localCost,
           bernofCost: country.marketContext.heroStats.bernofCost,
-          savings: country.marketContext.heroStats.savings,
-          icon: '🌐'
+          savings: country.marketContext.heroStats.savings
         };
     }
   };
@@ -61,11 +50,17 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
 
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-72 h-72 bg-accent rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute -bottom-20 left-40 w-72 h-72 bg-primary/50 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        {/* Geometric shapes */}
+        <div className="absolute top-20 left-20 w-32 h-32 border border-primary/20 rotate-45 rounded-lg"></div>
+        <div className="absolute top-40 right-32 w-24 h-24 bg-accent/10 rounded-full"></div>
+        <div className="absolute bottom-32 left-40 w-40 h-2 bg-gradient-to-r from-primary/30 to-transparent"></div>
+        
+        {/* Gradient orbs */}
+        <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute -bottom-20 left-40 w-72 h-72 bg-primary/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10 pt-20 pb-32">
@@ -103,29 +98,22 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-gray-300 mb-4">The Reality in {country.name}:</h3>
                 {country.marketContext.painPoints.slice(0, 2).map((point, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 bg-red-900/20 rounded-xl border border-red-800/30">
+                  <div key={index} className="flex items-start space-x-3 p-4 bg-red-900/20 rounded-xl border border-red-800/30 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-red-400"></div>
                     <div className="w-2 h-2 bg-red-400 rounded-full mt-2 flex-shrink-0"></div>
                     <span className="text-gray-200 leading-relaxed">{point}</span>
                   </div>
                 ))}
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              {/* Primary CTA only */}
+              <div className="pt-4">
                 <Button 
                   onClick={handlePrimaryAction}
-                  className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-xl text-lg h-auto transition-all duration-300 hover:scale-105 shadow-lg"
+                  className="bg-primary hover:bg-primary/90 text-white font-semibold px-10 py-5 rounded-xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
                 >
-                  <Calendar className="w-5 h-5 mr-2" />
+                  <Calendar className="w-6 h-6 mr-3" />
                   {ctaPrimary}
-                </Button>
-                <Button 
-                  onClick={handleSecondaryAction}
-                  variant="outline"
-                  className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-gray-900 font-semibold px-8 py-4 rounded-xl text-lg h-auto transition-all duration-300"
-                >
-                  {ctaSecondary}
-                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </div>
             </div>
@@ -133,16 +121,23 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
             {/* Right Column - Cost Comparison */}
             <div className="space-y-8">
               {/* Cost Comparison Card */}
-              <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl">
-                <div className="text-center mb-8">
-                  <div className="text-6xl mb-4">{stats.icon}</div>
+              <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl relative overflow-hidden">
+                {/* Abstract design elements */}
+                <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-primary/20 rounded-tl-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 rounded-tr-3xl"></div>
+                
+                <div className="text-center mb-8 relative z-10">
+                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-xl flex items-center justify-center">
+                    <TrendingDown className="w-8 h-8 text-primary" />
+                  </div>
                   <h2 className="text-2xl font-bold text-white mb-2">Cost Comparison</h2>
                   <p className="text-gray-300">See how much you can save</p>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-6 relative z-10">
                   {/* Local Cost */}
-                  <div className="bg-red-900/30 rounded-xl p-6 border border-red-800/50">
+                  <div className="bg-red-900/30 rounded-xl p-6 border border-red-800/50 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-red-500/10 rounded-bl-xl"></div>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-gray-300 mb-1">Local {country.name} Agencies</p>
@@ -153,14 +148,16 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                   </div>
 
                   {/* VS Divider */}
-                  <div className="text-center">
-                    <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-bold text-xl">
-                      VS
-                    </span>
+                  <div className="text-center relative">
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-white/20"></div>
+                    </div>
+                    <span className="bg-gray-900 px-4 text-white font-bold text-xl">VS</span>
                   </div>
 
                   {/* Bernof Cost */}
-                  <div className="bg-green-900/30 rounded-xl p-6 border border-green-800/50">
+                  <div className="bg-green-900/30 rounded-xl p-6 border border-green-800/50 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-green-500/10 rounded-bl-xl"></div>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-gray-300 mb-1">Bernof Co</p>
@@ -177,17 +174,20 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
 
               {/* Quick Stats */}
               <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
+                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent"></div>
                   <Clock className="w-6 h-6 mx-auto mb-2 text-primary" />
                   <p className="text-2xl font-bold text-white">48h</p>
                   <p className="text-xs text-gray-400">Project Start</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
+                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent to-transparent"></div>
                   <Users className="w-6 h-6 mx-auto mb-2 text-accent" />
                   <p className="text-2xl font-bold text-white">50+</p>
                   <p className="text-xs text-gray-400">Expert Devs</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10">
+                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-transparent"></div>
                   <TrendingDown className="w-6 h-6 mx-auto mb-2 text-green-400" />
                   <p className="text-2xl font-bold text-white">60%</p>
                   <p className="text-xs text-gray-400">Cost Savings</p>
@@ -196,8 +196,24 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
             </div>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="mt-16 pt-8 border-t border-white/20">
+          {/* Secondary CTA Section */}
+          <div className="mt-20 pt-8 border-t border-white/20">
+            <div className="text-center mb-8">
+              <Button 
+                onClick={() => {
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                variant="outline"
+                className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-gray-900 font-semibold px-8 py-4 rounded-xl text-lg h-auto transition-all duration-300"
+              >
+                {ctaSecondary}
+              </Button>
+            </div>
+
+            {/* Trust Indicators */}
             <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-12 text-gray-300">
               <div className="flex items-center space-x-2">
                 <div className="w-3 h-3 bg-green-400 rounded-full"></div>

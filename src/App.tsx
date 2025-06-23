@@ -13,7 +13,7 @@ import { usePerformance } from "./hooks/usePerformance";
 import { useScrollDepth } from "./hooks/useScrollDepth";
 import { useSitemapGenerator } from "./hooks/useSitemapGenerator";
 
-// Lazy load pages for better performance
+// Lazy load pages for better performance - removed lazy loading for country pages to fix routing issues
 const Index = lazy(() => import("./pages/Index"));
 const StartupDevelopment = lazy(() => import("./pages/StartupDevelopment"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
@@ -21,25 +21,19 @@ const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Country-specific pages - Switzerland
-const SwitzerlandWebDevelopment = lazy(() => import("./pages/countries/SwitzerlandWebDevelopment"));
-const SwitzerlandSoftwareDevelopment = lazy(() => import("./pages/countries/SwitzerlandSoftwareDevelopment"));
-const SwitzerlandStartupDevelopment = lazy(() => import("./pages/countries/SwitzerlandStartupDevelopment"));
-
-// Country-specific pages - UK
-const UKWebDevelopment = lazy(() => import("./pages/countries/UKWebDevelopment"));
-const UKSoftwareDevelopment = lazy(() => import("./pages/countries/UKSoftwareDevelopment"));
-const UKStartupDevelopment = lazy(() => import("./pages/countries/UKStartupDevelopment"));
-
-// Country-specific pages - USA
-const USAWebDevelopment = lazy(() => import("./pages/countries/USAWebDevelopment"));
-const USASoftwareDevelopment = lazy(() => import("./pages/countries/USASoftwareDevelopment"));
-const USAStartupDevelopment = lazy(() => import("./pages/countries/USAStartupDevelopment"));
-
-// Country-specific pages - Italy
-const ItalyWebDevelopment = lazy(() => import("./pages/countries/ItalyWebDevelopment"));
-const ItalySoftwareDevelopment = lazy(() => import("./pages/countries/ItalySoftwareDevelopment"));
-const ItalyStartupDevelopment = lazy(() => import("./pages/countries/ItalyStartupDevelopment"));
+// Import country pages directly instead of lazy loading to fix routing issues
+import SwitzerlandWebDevelopment from "./pages/countries/SwitzerlandWebDevelopment";
+import SwitzerlandSoftwareDevelopment from "./pages/countries/SwitzerlandSoftwareDevelopment";
+import SwitzerlandStartupDevelopment from "./pages/countries/SwitzerlandStartupDevelopment";
+import UKWebDevelopment from "./pages/countries/UKWebDevelopment";
+import UKSoftwareDevelopment from "./pages/countries/UKSoftwareDevelopment";
+import UKStartupDevelopment from "./pages/countries/UKStartupDevelopment";
+import USAWebDevelopment from "./pages/countries/USAWebDevelopment";
+import USASoftwareDevelopment from "./pages/countries/USASoftwareDevelopment";
+import USAStartupDevelopment from "./pages/countries/USAStartupDevelopment";
+import ItalyWebDevelopment from "./pages/countries/ItalyWebDevelopment";
+import ItalySoftwareDevelopment from "./pages/countries/ItalySoftwareDevelopment";
+import ItalyStartupDevelopment from "./pages/countries/ItalyStartupDevelopment";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,41 +63,39 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <RouteTracker />
-            <Suspense fallback={<Loading type="page" />}>
-              <Routes>
-                {/* Main pages */}
-                <Route path="/" element={<Index />} />
-                <Route path="/startup-development" element={<StartupDevelopment />} />
-                
-                {/* Switzerland */}
-                <Route path="/ch/web-development" element={<SwitzerlandWebDevelopment />} />
-                <Route path="/ch/software-development" element={<SwitzerlandSoftwareDevelopment />} />
-                <Route path="/ch/startup-development" element={<SwitzerlandStartupDevelopment />} />
-                
-                {/* United Kingdom */}
-                <Route path="/uk/web-development" element={<UKWebDevelopment />} />
-                <Route path="/uk/software-development" element={<UKSoftwareDevelopment />} />
-                <Route path="/uk/startup-development" element={<UKStartupDevelopment />} />
-                
-                {/* United States */}
-                <Route path="/us/web-development" element={<USAWebDevelopment />} />
-                <Route path="/us/software-development" element={<USASoftwareDevelopment />} />
-                <Route path="/us/startup-development" element={<USAStartupDevelopment />} />
-                
-                {/* Italy */}
-                <Route path="/it/web-development" element={<ItalyWebDevelopment />} />
-                <Route path="/it/software-development" element={<ItalySoftwareDevelopment />} />
-                <Route path="/it/startup-development" element={<ItalyStartupDevelopment />} />
-                
-                {/* Legal pages */}
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/terms-of-service" element={<TermsOfService />} />
-                <Route path="/cookie-policy" element={<CookiePolicy />} />
-                
-                {/* Catch-all route must be last */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
+            <Routes>
+              {/* Main pages */}
+              <Route path="/" element={<Suspense fallback={<Loading type="page" />}><Index /></Suspense>} />
+              <Route path="/startup-development" element={<Suspense fallback={<Loading type="page" />}><StartupDevelopment /></Suspense>} />
+              
+              {/* Switzerland - direct imports, no lazy loading */}
+              <Route path="/ch/web-development" element={<SwitzerlandWebDevelopment />} />
+              <Route path="/ch/software-development" element={<SwitzerlandSoftwareDevelopment />} />
+              <Route path="/ch/startup-development" element={<SwitzerlandStartupDevelopment />} />
+              
+              {/* United Kingdom */}
+              <Route path="/uk/web-development" element={<UKWebDevelopment />} />
+              <Route path="/uk/software-development" element={<UKSoftwareDevelopment />} />
+              <Route path="/uk/startup-development" element={<UKStartupDevelopment />} />
+              
+              {/* United States */}
+              <Route path="/us/web-development" element={<USAWebDevelopment />} />
+              <Route path="/us/software-development" element={<USASoftwareDevelopment />} />
+              <Route path="/us/startup-development" element={<USAStartupDevelopment />} />
+              
+              {/* Italy */}
+              <Route path="/it/web-development" element={<ItalyWebDevelopment />} />
+              <Route path="/it/software-development" element={<ItalySoftwareDevelopment />} />
+              <Route path="/it/startup-development" element={<ItalyStartupDevelopment />} />
+              
+              {/* Legal pages */}
+              <Route path="/privacy-policy" element={<Suspense fallback={<Loading type="page" />}><PrivacyPolicy /></Suspense>} />
+              <Route path="/terms-of-service" element={<Suspense fallback={<Loading type="page" />}><TermsOfService /></Suspense>} />
+              <Route path="/cookie-policy" element={<Suspense fallback={<Loading type="page" />}><CookiePolicy /></Suspense>} />
+              
+              {/* Catch-all route must be last */}
+              <Route path="*" element={<Suspense fallback={<Loading type="page" />}><NotFound /></Suspense>} />
+            </Routes>
           </BrowserRouter>
         </TooltipProvider>
       </HelmetProvider>

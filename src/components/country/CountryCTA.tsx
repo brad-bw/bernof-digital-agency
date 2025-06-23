@@ -76,10 +76,16 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
 
   return (
     <section className="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden" id="cta">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        {/* Geometric patterns */}
+        <div className="absolute top-10 left-10 w-40 h-40 border border-primary/10 rotate-12 rounded-lg"></div>
+        <div className="absolute bottom-20 right-20 w-32 h-32 bg-accent/5 rounded-full"></div>
+        <div className="absolute top-1/2 left-1/4 w-64 h-2 bg-gradient-to-r from-primary/20 to-transparent rotate-45"></div>
+        
+        {/* Gradient orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -102,7 +108,8 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
             {/* Benefits Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto">
               {content.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                <div key={index} className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-green-400"></div>
                   <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
                   <span className="text-white font-medium">{benefit}</span>
                 </div>
@@ -132,7 +139,8 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
           {/* Contact Methods */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="text-center group">
-              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-8 h-8 bg-primary/10 rounded-bl-3xl"></div>
                 <Phone className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3">Direct Call</h3>
@@ -146,11 +154,12 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-8 h-8 bg-accent/10 rounded-bl-3xl"></div>
                 <Mail className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3">Email Us</h3>
-              <p className="text-white/80 mb-4">Detailed response within 4 hours</p>
+              <p className="text-white/80 mb-4">Detailed response within 1 business day</p>
               <a 
                 href="mailto:info@bernofco.com" 
                 className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
@@ -160,7 +169,8 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
             </div>
 
             <div className="text-center group">
-              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-8 h-8 bg-green-400/10 rounded-bl-3xl"></div>
                 <Calendar className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3">Book Meeting</h3>
@@ -175,24 +185,29 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
           </div>
 
           {/* Trust Indicators */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-accent to-green-400"></div>
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-white mb-4">Why {country.name} Businesses Choose Bernof Co</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-              <div>
+              <div className="relative">
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-primary/20 rounded-full"></div>
                 <div className="text-3xl font-bold text-primary mb-2">60%</div>
                 <div className="text-white/80">Cost Savings</div>
               </div>
-              <div>
+              <div className="relative">
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-accent/20 rounded-full"></div>
                 <div className="text-3xl font-bold text-accent mb-2">48h</div>
                 <div className="text-white/80">Project Start</div>
               </div>
-              <div>
+              <div className="relative">
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-400/20 rounded-full"></div>
                 <div className="text-3xl font-bold text-green-400 mb-2">50+</div>
                 <div className="text-white/80">Expert Developers</div>
               </div>
-              <div>
+              <div className="relative">
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400/20 rounded-full"></div>
                 <div className="text-3xl font-bold text-blue-400 mb-2">100%</div>
                 <div className="text-white/80">Money-Back Guarantee</div>
               </div>
