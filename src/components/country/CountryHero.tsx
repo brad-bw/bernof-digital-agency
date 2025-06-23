@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Users, TrendingDown, Code, Zap, Shield, DollarSign, Target, Sparkles } from "lucide-react";
+import { Calendar, Clock, Users, TrendingDown, Code, Zap, Shield, DollarSign, Target, Sparkles, Rocket } from "lucide-react";
 import { CountryConfig } from "@/config/countries";
 
 interface CountryHeroProps {
