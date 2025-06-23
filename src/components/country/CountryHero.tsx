@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Users, TrendingDown, Code, Zap, Shield } from "lucide-react";
+import { Calendar, Clock, Users, TrendingDown, Code, Zap, Shield, DollarSign, Target, Sparkles } from "lucide-react";
 import { CountryConfig } from "@/config/countries";
 
 interface CountryHeroProps {
@@ -17,6 +17,13 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
     window.open('https://calendly.com/bernof-co', '_blank');
   };
 
+  const handleSecondaryAction = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const getServiceStats = () => {
     switch (service) {
       case 'web':
@@ -24,28 +31,32 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
           localCost: country.marketContext.heroStats.localCost,
           bernofCost: country.marketContext.heroStats.bernofCost,
           savings: country.marketContext.heroStats.savings,
-          icon: Code
+          icon: Code,
+          iconBg: 'bg-blue-500'
         };
       case 'software':
         return {
           localCost: `${country.currencySymbol}${(country.pricing.software.localMin / 1000).toFixed(0)}k-${(country.pricing.software.localMax / 1000).toFixed(0)}k`,
           bernofCost: `${country.currencySymbol}${(country.pricing.software.min / 1000).toFixed(0)}k-${(country.pricing.software.max / 1000).toFixed(0)}k`,
           savings: '60% less',
-          icon: Zap
+          icon: Zap,
+          iconBg: 'bg-yellow-500'
         };
       case 'startup':
         return {
           localCost: `${country.currencySymbol}${(country.pricing.startup.localMin / 1000).toFixed(0)}k-${(country.pricing.startup.localMax / 1000).toFixed(0)}k`,
           bernofCost: `${country.currencySymbol}${(country.pricing.startup.min / 1000).toFixed(0)}k-${(country.pricing.startup.max / 1000).toFixed(0)}k`,
           savings: '60% less',
-          icon: Shield
+          icon: Rocket,
+          iconBg: 'bg-purple-500'
         };
       default:
         return {
           localCost: country.marketContext.heroStats.localCost,
           bernofCost: country.marketContext.heroStats.bernofCost,
           savings: country.marketContext.heroStats.savings,
-          icon: Code
+          icon: Code,
+          iconBg: 'bg-blue-500'
         };
     }
   };
@@ -137,8 +148,8 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 rounded-tr-3xl"></div>
                 
                 <div className="text-center mb-8 relative z-10">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-xl flex items-center justify-center">
-                    <IconComponent className="w-8 h-8 text-primary" />
+                  <div className={`w-20 h-20 mx-auto mb-4 ${stats.iconBg} rounded-2xl flex items-center justify-center shadow-lg`}>
+                    <IconComponent className="w-10 h-10 text-white" />
                   </div>
                   <h2 className="text-2xl font-bold text-white mb-2">Cost Comparison</h2>
                   <p className="text-gray-300">See how much you can save</p>
@@ -174,33 +185,42 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                         <p className="text-3xl font-bold text-green-400">{stats.bernofCost}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-green-400 font-bold text-lg">{stats.savings}</p>
-                        <p className="text-gray-300 text-sm">savings</p>
+                        <div className="bg-green-500 text-white px-4 py-2 rounded-lg font-bold text-lg mb-1 flex items-center gap-2">
+                          <DollarSign className="w-5 h-5" />
+                          60% LESS
+                        </div>
+                        <p className="text-gray-300 text-sm">You Save</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Quick Stats - Fixed readability */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+              {/* Quick Stats - Better aligned and spaced */}
+              <div className="grid grid-cols-3 gap-6">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
-                  <Clock className="w-6 h-6 mx-auto mb-2 text-primary" />
-                  <p className="text-2xl font-bold text-white">48h</p>
-                  <p className="text-xs text-gray-300">Project Start</p>
+                  <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <Clock className="w-6 h-6 text-primary" />
+                  </div>
+                  <p className="text-2xl font-bold text-white mb-1">48h</p>
+                  <p className="text-sm text-gray-300">Project Start</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-accent"></div>
-                  <Users className="w-6 h-6 mx-auto mb-2 text-accent" />
-                  <p className="text-2xl font-bold text-white">50+</p>
-                  <p className="text-xs text-gray-300">Expert Devs</p>
+                  <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <Users className="w-6 h-6 text-accent" />
+                  </div>
+                  <p className="text-2xl font-bold text-white mb-1">50+</p>
+                  <p className="text-sm text-gray-300">Expert Devs</p>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-green-400"></div>
-                  <TrendingDown className="w-6 h-6 mx-auto mb-2 text-green-400" />
-                  <p className="text-2xl font-bold text-white">60%</p>
-                  <p className="text-xs text-gray-300">Cost Savings</p>
+                  <div className="w-12 h-12 bg-green-400/20 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <Sparkles className="w-6 h-6 text-green-400" />
+                  </div>
+                  <p className="text-2xl font-bold text-white mb-1">60%</p>
+                  <p className="text-sm text-gray-300">Cost Savings</p>
                 </div>
               </div>
             </div>
@@ -210,12 +230,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
           <div className="mt-20 pt-8 border-t border-white/20">
             <div className="text-center mb-8">
               <Button 
-                onClick={() => {
-                  const element = document.getElementById('contact');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
+                onClick={handleSecondaryAction}
                 variant="outline"
                 className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-gray-900 font-semibold px-8 py-4 rounded-xl text-lg h-auto transition-all duration-300"
               >
