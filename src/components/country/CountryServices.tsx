@@ -1,6 +1,7 @@
 
 import { CountryConfig } from "@/config/countries";
 import { Button } from "@/components/ui/button";
+import { Check, ArrowRight, Zap, Shield, Rocket, Users } from "lucide-react";
 
 interface CountryServicesProps {
   country: CountryConfig;
@@ -12,150 +13,301 @@ const CountryServices = ({ country, serviceType }: CountryServicesProps) => {
     switch (serviceType) {
       case 'web':
         return {
-          title: 'Web Development Services',
-          subtitle: 'Complete digital solutions for your business growth',
-          services: [
+          title: `Complete Web Development Solutions for ${country.name}`,
+          subtitle: 'Everything you need to dominate your market online',
+          packages: [
             {
-              name: 'Custom Website Development',
-              description: 'Responsive, fast-loading websites built with modern technologies',
-              features: ['React/Next.js development', 'Mobile-first design', 'SEO optimization', 'Performance optimization'],
-              price: `${country.currencySymbol}${country.pricing.webDevelopment.min.toLocaleString()} - ${country.currencySymbol}${country.pricing.webDevelopment.max.toLocaleString()}`
+              name: 'Professional Website',
+              description: 'Perfect for established businesses looking to strengthen their online presence',
+              features: [
+                'Custom responsive design',
+                'Mobile-first development',
+                'SEO optimization included',
+                'GDPR compliance built-in',
+                'Local payment integration',
+                'Multi-language support',
+                'Performance optimization',
+                'Basic analytics setup'
+              ],
+              localPrice: `${country.currencySymbol}${country.pricing.web.localMin.toLocaleString()}-${country.currencySymbol}${country.pricing.web.localMax.toLocaleString()}`,
+              bernofPrice: `${country.currencySymbol}${country.pricing.web.min.toLocaleString()}-${country.currencySymbol}${country.pricing.web.max.toLocaleString()}`,
+              popular: false,
+              icon: <Zap className="w-6 h-6" />
             },
             {
-              name: 'E-commerce Solutions',
-              description: 'Full-featured online stores with payment integration',
-              features: ['Custom e-commerce platform', 'Payment gateway integration', 'Inventory management', 'Analytics dashboard'],
-              price: `${country.currencySymbol}${(country.pricing.webDevelopment.min * 1.5).toLocaleString()} - ${country.currencySymbol}${(country.pricing.webDevelopment.max * 1.5).toLocaleString()}`
+              name: 'E-Commerce Platform',
+              description: 'Complete online store solution with advanced features',
+              features: [
+                'Custom e-commerce platform',
+                'Payment gateway integration',
+                'Inventory management system',
+                'Customer account portal',
+                'Order management dashboard',
+                'Multi-currency support',
+                'Advanced analytics',
+                'Marketing automation setup'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.web.localMin * 1.5).toLocaleString()}-${country.currencySymbol}${Math.floor(country.pricing.web.localMax * 1.5).toLocaleString()}`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.web.min * 1.5).toLocaleString()}-${country.currencySymbol}${Math.floor(country.pricing.web.max * 1.5).toLocaleString()}`,
+              popular: true,
+              icon: <Rocket className="w-6 h-6" />
             },
             {
-              name: 'UI/UX Design',
-              description: 'User-centered design that converts visitors into customers',
-              features: ['User research & analysis', 'Wireframing & prototyping', 'Visual design', 'Usability testing'],
-              price: `${country.currencySymbol}${Math.floor(country.pricing.webDevelopment.min * 0.6).toLocaleString()} - ${country.currencySymbol}${Math.floor(country.pricing.webDevelopment.max * 0.6).toLocaleString()}`
-            },
-            {
-              name: 'Digital Marketing',
-              description: 'SEO, social media, and advertising campaigns',
-              features: ['Local SEO optimization', 'Social media management', 'Google Ads campaigns', 'Content marketing'],
-              price: `${country.currencySymbol}1,500 - ${country.currencySymbol}5,000/month`
+              name: 'Enterprise Web Solution',
+              description: 'Scalable platform for large organizations with complex needs',
+              features: [
+                'Custom web application',
+                'Enterprise integrations',
+                'Advanced security features',
+                'Scalable architecture',
+                'API development',
+                'User management system',
+                'Comprehensive analytics',
+                'Dedicated support'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.web.localMin * 2).toLocaleString()}+`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.web.min * 2).toLocaleString()}+`,
+              popular: false,
+              icon: <Shield className="w-6 h-6" />
             }
           ]
         };
       case 'software':
         return {
-          title: 'Software Development Services',
-          subtitle: 'Custom software solutions that scale with your business',
-          services: [
+          title: `Enterprise Software Development for ${country.name}`,
+          subtitle: 'Custom solutions that scale with your business',
+          packages: [
             {
               name: 'Custom Software Development',
               description: 'Tailored software solutions for your specific business needs',
-              features: ['Full-stack development', 'API development', 'Database design', 'Cloud deployment'],
-              price: `${country.currencySymbol}${country.pricing.softwareDevelopment.min.toLocaleString()} - ${country.currencySymbol}${country.pricing.softwareDevelopment.max.toLocaleString()}`
+              features: [
+                'Full-stack development',
+                'Custom database design',
+                'API development & integration',
+                'Cloud deployment included',
+                'Mobile app development',
+                'Enterprise security',
+                'Performance optimization',
+                'Technical documentation'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.software.localMin / 1000)}k-${Math.floor(country.pricing.software.localMax / 1000)}k`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.software.min / 1000)}k-${Math.floor(country.pricing.software.max / 1000)}k`,
+              popular: false,
+              icon: <Zap className="w-6 h-6" />
             },
             {
-              name: 'Mobile App Development',
-              description: 'Native and cross-platform mobile applications',
-              features: ['iOS & Android development', 'React Native/Flutter', 'App Store deployment', 'Push notifications'],
-              price: `${country.currencySymbol}${(country.pricing.softwareDevelopment.min * 0.8).toLocaleString()} - ${country.currencySymbol}${(country.pricing.softwareDevelopment.max * 0.8).toLocaleString()}`
+              name: 'Enterprise Platform',
+              description: 'Comprehensive business platform with advanced capabilities',
+              features: [
+                'Microservices architecture',
+                'Enterprise integrations',
+                'Advanced analytics',
+                'AI/ML capabilities',
+                'Automated workflows',
+                'Multi-tenant support',
+                'Advanced security',
+                'Dedicated support team'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.software.localMin * 1.5 / 1000)}k-${Math.floor(country.pricing.software.localMax * 1.5 / 1000)}k`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.software.min * 1.5 / 1000)}k-${Math.floor(country.pricing.software.max * 1.5 / 1000)}k`,
+              popular: true,
+              icon: <Rocket className="w-6 h-6" />
             },
             {
-              name: 'Enterprise Solutions',
-              description: 'Scalable enterprise software with advanced features',
-              features: ['Microservices architecture', 'Enterprise integrations', 'Advanced security', 'Performance monitoring'],
-              price: `${country.currencySymbol}${(country.pricing.softwareDevelopment.min * 1.5).toLocaleString()} - ${country.currencySymbol}${(country.pricing.softwareDevelopment.max * 1.5).toLocaleString()}`
-            },
-            {
-              name: 'AI Integration',
-              description: 'Artificial intelligence and automation solutions',
-              features: ['Machine learning models', 'Process automation', 'Chatbot development', 'Data analytics'],
-              price: `${country.currencySymbol}${(country.pricing.softwareDevelopment.min * 0.7).toLocaleString()} - ${country.currencySymbol}${(country.pricing.softwareDevelopment.max * 0.7).toLocaleString()}`
+              name: 'Development Team',
+              description: 'Dedicated development team for ongoing projects',
+              features: [
+                'Senior developers only',
+                'Project management included',
+                'Flexible scaling',
+                'Direct communication',
+                'European time zones',
+                'Quality assurance',
+                'DevOps support',
+                'Technical leadership'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.software.localMin * 2 / 1000)}k+/year`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.software.min * 2 / 1000)}k+/year`,
+              popular: false,
+              icon: <Users className="w-6 h-6" />
             }
           ]
         };
       case 'startup':
         return {
-          title: 'Startup Development Services',
+          title: `Startup Development Services for ${country.name}`,
           subtitle: 'From idea to market-ready product',
-          services: [
+          packages: [
             {
-              name: 'MVP Development',
-              description: 'Rapid prototype development to validate your idea',
-              features: ['4-8 week development', 'Core feature focus', 'User testing', 'Market validation'],
-              price: `${country.currencySymbol}${country.pricing.startupDevelopment.min.toLocaleString()} - ${country.currencySymbol}${Math.floor(country.pricing.startupDevelopment.max * 0.6).toLocaleString()}`
+              name: 'MVP Validation',
+              description: 'Validate your idea quickly and cost-effectively',
+              features: [
+                'Market research & analysis',
+                'User persona development',
+                'Rapid prototyping',
+                'User testing & feedback',
+                'Technical feasibility study',
+                'Go-to-market strategy',
+                'Basic analytics setup',
+                'Launch preparation'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.startup.localMin * 0.6 / 1000)}k-${Math.floor(country.pricing.startup.localMax * 0.6 / 1000)}k`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.startup.min * 0.6 / 1000)}k-${Math.floor(country.pricing.startup.max * 0.6 / 1000)}k`,
+              popular: false,
+              icon: <Zap className="w-6 h-6" />
             },
             {
-              name: 'Full Product Development',
-              description: 'Complete product development from concept to launch',
-              features: ['Technical architecture', 'Full development', 'Quality assurance', 'Deployment & launch'],
-              price: `${country.currencySymbol}${Math.floor(country.pricing.startupDevelopment.min * 1.2).toLocaleString()} - ${country.currencySymbol}${country.pricing.startupDevelopment.max.toLocaleString()}`
+              name: 'Complete MVP Launch',
+              description: 'Full MVP development with launch support',
+              features: [
+                'Complete product development',
+                'Professional UI/UX design',
+                'Mobile-responsive platform',
+                'User authentication system',
+                'Payment processing',
+                'Admin dashboard',
+                'Analytics & monitoring',
+                'Post-launch support'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.startup.localMin / 1000)}k-${Math.floor(country.pricing.startup.localMax / 1000)}k`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.startup.min / 1000)}k-${Math.floor(country.pricing.startup.max / 1000)}k`,
+              popular: true,
+              icon: <Rocket className="w-6 h-6" />
             },
             {
-              name: 'Technical Consulting',
-              description: 'Strategic technical guidance for your startup',
-              features: ['Technology selection', 'Architecture planning', 'Team scaling advice', 'Code review'],
-              price: `${country.currencySymbol}2,000 - ${country.currencySymbol}8,000/month`
-            },
-            {
-              name: 'Growth & Marketing',
-              description: 'Marketing strategies to accelerate your growth',
-              features: ['Growth strategy', 'User acquisition', 'Conversion optimization', 'Analytics setup'],
-              price: `${country.currencySymbol}3,000 - ${country.currencySymbol}12,000/month`
+              name: 'Scale & Growth',
+              description: 'Advanced features and scaling support',
+              features: [
+                'Advanced feature development',
+                'Scalable architecture',
+                'Performance optimization',
+                'Security enhancements',
+                'Third-party integrations',
+                'Growth marketing setup',
+                'Investor pitch support',
+                'Technical due diligence'
+              ],
+              localPrice: `${country.currencySymbol}${Math.floor(country.pricing.startup.localMin * 1.5 / 1000)}k+`,
+              bernofPrice: `${country.currencySymbol}${Math.floor(country.pricing.startup.min * 1.5 / 1000)}k+`,
+              popular: false,
+              icon: <Shield className="w-6 h-6" />
             }
           ]
         };
       default:
-        return { title: '', subtitle: '', services: [] };
+        return { title: '', subtitle: '', packages: [] };
     }
   };
 
   const serviceData = getServiceData();
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-              {serviceData.title} for {country.name}
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              {serviceData.title}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
               {serviceData.subtitle}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {serviceData.services.map((service, index) => (
-              <div key={index} className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300">
-                <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{service.name}</h3>
-                  <p className="text-gray-600 mb-4">{service.description}</p>
-                  <div className="text-2xl font-bold text-primary">{service.price}</div>
+          {/* Packages Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+            {serviceData.packages.map((pkg, index) => (
+              <div key={index} className={`relative bg-white rounded-3xl p-8 shadow-lg border-2 transition-all duration-300 hover:shadow-xl hover:scale-105 ${
+                pkg.popular ? 'border-primary bg-gradient-to-b from-primary/5 to-white' : 'border-gray-200'
+              }`}>
+                {pkg.popular && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-primary text-white px-6 py-2 rounded-full text-sm font-semibold">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+
+                <div className="mb-8">
+                  <div className="flex items-center mb-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${
+                      pkg.popular ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600'
+                    }`}>
+                      {pkg.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">{pkg.name}</h3>
+                  </div>
+                  <p className="text-gray-600 mb-6">{pkg.description}</p>
+                  
+                  {/* Pricing Comparison */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
+                      <span className="text-gray-700 font-medium">Local agencies:</span>
+                      <span className="text-red-600 font-bold line-through">{pkg.localPrice}</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
+                      <span className="text-gray-700 font-medium">Bernof Co:</span>
+                      <span className="text-green-600 font-bold text-xl">{pkg.bernofPrice}</span>
+                    </div>
+                    <div className="text-center">
+                      <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-bold text-lg">
+                        Save 60%
+                      </span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-3 mb-6">
-                  {service.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
+                <div className="space-y-4 mb-8">
+                  {pkg.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-start space-x-3">
+                      <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                       <span className="text-gray-700">{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                <Button className="w-full bg-primary hover:bg-primary/90 text-white">
-                  Get Quote for {service.name}
+                <Button 
+                  className={`w-full font-semibold py-3 rounded-xl transition-all duration-300 ${
+                    pkg.popular 
+                      ? 'bg-primary hover:bg-primary/90 text-white' 
+                      : 'bg-gray-900 hover:bg-gray-800 text-white'
+                  }`}
+                  onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
+                >
+                  Get Started
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button 
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-4"
-              onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-            >
-              Schedule Free Consultation
-            </Button>
+          {/* Bottom CTA Section */}
+          <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-12 text-center text-white">
+            <h3 className="text-3xl font-bold mb-4">Not Sure Which Package is Right?</h3>
+            <p className="text-xl mb-8 opacity-90">
+              Book a free consultation and we'll help you choose the perfect solution
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-xl text-lg"
+                onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
+              >
+                Schedule Free Consultation
+              </Button>
+              <Button 
+                variant="outline"
+                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-gray-900 font-semibold px-8 py-4 rounded-xl text-lg"
+                onClick={() => {
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Get Custom Quote
+              </Button>
+            </div>
           </div>
         </div>
       </div>

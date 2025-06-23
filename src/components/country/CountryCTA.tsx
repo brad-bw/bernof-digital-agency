@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { CountryConfig } from "@/config/countries";
-import { Calendar, Mail, Phone } from "lucide-react";
+import { Calendar, Mail, Phone, ArrowRight, CheckCircle } from "lucide-react";
 
 interface CountryCTAProps {
   country: CountryConfig;
@@ -9,145 +9,192 @@ interface CountryCTAProps {
 }
 
 const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
-  const getServiceCTAs = () => {
+  const getServiceContent = () => {
     switch (serviceType) {
       case 'web':
         return {
-          primary: 'Get Your Website Quote',
-          secondary: 'Schedule Web Development Call',
-          title: 'Ready to Transform Your Web Presence?',
-          subtitle: `Join successful ${country.name} businesses who chose Bernof Co for their web development needs.`
+          title: `Ready to Save 60% on Your ${country.name} Web Development?`,
+          subtitle: `Join successful ${country.name} businesses who chose Bernof Co over expensive local agencies`,
+          primaryCta: 'Get Your Web Development Quote',
+          secondaryCta: 'Schedule Free Consultation',
+          benefits: [
+            'Professional website delivered in 4-6 weeks',
+            '60% cost savings vs local agencies',
+            'GDPR compliant & mobile-optimized',
+            'Free consultation & project planning'
+          ]
         };
       case 'software':
         return {
-          primary: 'Discuss Your Software Project',
-          secondary: 'Get Technical Assessment',
-          title: 'Ready to Build Your Software Solution?',
-          subtitle: `Transform your business with custom software built specifically for the ${country.name} market.`
+          title: `Stop Overpaying for Software Development in ${country.name}`,
+          subtitle: `Get enterprise-grade software at 60% less cost than local development teams`,
+          primaryCta: 'Discuss Your Software Project',
+          secondaryCta: 'Get Technical Assessment',
+          benefits: [
+            'Senior developers at 60% lower cost',
+            'Scalable architecture & modern tech stack',
+            'No recruitment delays or employment costs',
+            'European standards & compliance included'
+          ]
         };
       case 'startup':
         return {
-          primary: 'Validate Your Startup Idea',
-          secondary: 'Book Startup Strategy Call',
-          title: 'Ready to Launch Your Startup?',
-          subtitle: `Join successful ${country.name} entrepreneurs who chose Bernof Co to build their MVPs and scale their startups.`
+          title: `Launch Your ${country.name} Startup Without Burning Your Budget`,
+          subtitle: `Build your MVP for 60% less and extend your runway by 8+ months`,
+          primaryCta: 'Validate Your Startup Idea',
+          secondaryCta: 'Book Strategy Session',
+          benefits: [
+            'MVP ready in 8-12 weeks, not 6+ months',
+            '60% cost savings = 8+ months extra runway',
+            'Investor-ready documentation included',
+            'Technical co-founder expertise without equity'
+          ]
         };
       default:
         return {
-          primary: 'Get Started',
-          secondary: 'Schedule Call',
           title: 'Ready to Get Started?',
-          subtitle: 'Let\'s discuss your project.'
+          subtitle: 'Let\'s discuss your project',
+          primaryCta: 'Get Started',
+          secondaryCta: 'Schedule Call',
+          benefits: []
         };
     }
   };
 
-  const ctas = getServiceCTAs();
+  const content = getServiceContent();
 
   const handlePrimaryAction = () => {
+    window.open('https://calendly.com/bernof-co', '_blank');
+  };
+
+  const handleSecondaryAction = () => {
     const element = document.getElementById('contact');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const handleSecondaryAction = () => {
-    window.open('https://calendly.com/bernof-co', '_blank');
-  };
-
   return (
-    <section className="py-20 bg-gradient-to-br from-primary to-accent text-white relative overflow-hidden" id="cta">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+    <section className="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden" id="cta">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Country Badge */}
-          <div className="inline-flex items-center space-x-2 bg-white/10 rounded-full px-6 py-2 mb-8">
-            <span className="text-2xl">{country.flag}</span>
-            <span className="text-white font-semibold">Serving {country.name}</span>
-          </div>
+        <div className="max-w-6xl mx-auto">
+          {/* Main CTA Section */}
+          <div className="text-center mb-16">
+            {/* Country Badge */}
+            <div className="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-8 py-3 mb-8 border border-white/20">
+              <span className="text-3xl">{country.flag}</span>
+              <span className="text-white font-semibold text-lg">Serving {country.name}</span>
+            </div>
 
-          {/* Main CTA */}
-          <div className="mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold mb-6">
-              {ctas.title}
+            <h2 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+              {content.title}
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-              {ctas.subtitle}
+            <p className="text-xl lg:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
+              {content.subtitle}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                onClick={handleSecondaryAction}
-                className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:scale-105"
-              >
-                <Calendar className="w-5 h-5 mr-2" />
-                {ctas.secondary}
-              </Button>
+            {/* Benefits Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto">
+              {content.benefits.map((benefit, index) => (
+                <div key={index} className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                  <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
+                  <span className="text-white font-medium">{benefit}</span>
+                </div>
+              ))}
+            </div>
+            
+            {/* Primary CTAs */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <Button 
                 onClick={handlePrimaryAction}
-                variant="outline"
-                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-primary font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300"
+                className="bg-primary hover:bg-primary/90 text-white font-bold px-10 py-5 rounded-2xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
               >
-                {ctas.primary}
+                <Calendar className="w-6 h-6 mr-3" />
+                {content.primaryCta}
+              </Button>
+              <Button 
+                onClick={handleSecondaryAction}
+                variant="outline"
+                className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-gray-900 font-bold px-10 py-5 rounded-2xl text-xl h-auto transition-all duration-300"
+              >
+                {content.secondaryCta}
+                <ArrowRight className="w-6 h-6 ml-3" />
               </Button>
             </div>
           </div>
 
-          {/* Contact Options */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Phone className="w-8 h-8 text-white" />
+          {/* Contact Methods */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
+                <Phone className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Call Us</h3>
-              <p className="text-white/80 mb-2">Speak directly with our team</p>
-              <a href="tel:+442030000000" className="text-white hover:text-white/80 font-semibold">
+              <h3 className="text-xl font-bold mb-3">Direct Call</h3>
+              <p className="text-white/80 mb-4">Speak with our team immediately</p>
+              <a 
+                href="tel:+442030000000" 
+                className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
+              >
                 +44 20 3000 0000
               </a>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-8 h-8 text-white" />
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
+                <Mail className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Email Us</h3>
-              <p className="text-white/80 mb-2">Get detailed response within 24h</p>
-              <a href="mailto:info@bernofco.com" className="text-white hover:text-white/80 font-semibold">
+              <h3 className="text-xl font-bold mb-3">Email Us</h3>
+              <p className="text-white/80 mb-4">Detailed response within 4 hours</p>
+              <a 
+                href="mailto:info@bernofco.com" 
+                className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
+              >
                 info@bernofco.com
               </a>
             </div>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-8 h-8 text-white" />
+            <div className="text-center group">
+              <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20">
+                <Calendar className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">Schedule Call</h3>
-              <p className="text-white/80 mb-2">Free consultation</p>
-              <span className="text-white font-semibold">
-                Available GMT
-              </span>
+              <h3 className="text-xl font-bold mb-3">Book Meeting</h3>
+              <p className="text-white/80 mb-4">Free 30-minute consultation</p>
+              <button 
+                onClick={handlePrimaryAction}
+                className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
+              >
+                Available Now
+              </button>
             </div>
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-16 pt-8 border-t border-white/20">
-            <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 text-white/80">
-              <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 bg-green-400 rounded-full"></div>
-                <span>Free consultation</span>
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold text-white mb-4">Why {country.name} Businesses Choose Bernof Co</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div className="text-3xl font-bold text-primary mb-2">60%</div>
+                <div className="text-white/80">Cost Savings</div>
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 bg-green-400 rounded-full"></div>
-                <span>No upfront payment</span>
+              <div>
+                <div className="text-3xl font-bold text-accent mb-2">48h</div>
+                <div className="text-white/80">Project Start</div>
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 bg-green-400 rounded-full"></div>
-                <span>Money-back guarantee</span>
+              <div>
+                <div className="text-3xl font-bold text-green-400 mb-2">50+</div>
+                <div className="text-white/80">Expert Developers</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-blue-400 mb-2">100%</div>
+                <div className="text-white/80">Money-Back Guarantee</div>
               </div>
             </div>
           </div>

@@ -9,6 +9,11 @@ export interface CountryConfig {
     painPoints: string[];
     opportunities: string[];
     keyStats: string[];
+    heroStats: {
+      localCost: string;
+      bernofCost: string;
+      savings: string;
+    };
   };
   seoKeywords: {
     web: string[];
@@ -16,9 +21,9 @@ export interface CountryConfig {
     startup: string[];
   };
   pricing: {
-    webDevelopment: { min: number; max: number };
-    softwareDevelopment: { min: number; max: number };
-    startupDevelopment: { min: number; max: number };
+    web: { min: number; max: number; localMin: number; localMax: number };
+    software: { min: number; max: number; localMin: number; localMax: number };
+    startup: { min: number; max: number; localMin: number; localMax: number };
   };
 }
 
@@ -27,37 +32,42 @@ export const countriesConfig: Record<string, CountryConfig> = {
     code: 'ch',
     name: 'Switzerland',
     currency: 'CHF',
-    currencySymbol: 'CHF',
+    currencySymbol: '€',
     flag: '🇨🇭',
     marketContext: {
       painPoints: [
-        'Extremely high local talent costs (CHF 80,000-120,000+ annually)',
-        'Severe IT talent shortage with 25,000+ unfilled positions',
-        'Strict data protection and compliance requirements',
-        'Competition from major financial and tech hubs'
+        'Swiss web agencies charge €120-€180 per hour - 3.2x higher than EU average',
+        'Switzerland faces a 15,000 IT specialist shortage with 4-6 month hiring delays',
+        'Swiss web projects take 3-6 months longer than EU average due to overbooked agencies',
+        'Average Swiss business website costs €15,000-€35,000 vs €6,000-€14,000 with Bernof Co'
       ],
       opportunities: [
-        'High purchasing power and premium market positioning',
-        'Strong economy with stable business environment',
-        'Gateway to European markets',
-        'Innovation-focused culture with high R&D investment'
+        'Access top European talent without Swiss premium pricing',
+        'Same timezone, European business culture, GDPR compliance',
+        '60% cost savings while maintaining enterprise-grade quality',
+        'Immediate project start - no waiting lists or recruitment delays'
       ],
       keyStats: [
-        'Average developer salary: CHF 95,000-140,000',
-        'IT skills gap: 25,000+ unfilled positions',
-        'Digital economy: 8.2% of GDP',
-        'Startup funding: CHF 2.1B+ annually'
-      ]
+        'Swiss Agency Average: €120-€180/hour vs Bernof Co: €50-€70/hour',
+        'Local Website Cost: €15,000-€35,000 vs Bernof Co: €6,000-€14,000',
+        'IT Talent Shortage: 15,000+ unfilled positions',
+        'Average Hiring Time: 4-6 months vs Bernof Co: 48 hours project start'
+      ],
+      heroStats: {
+        localCost: '€15,000-€35,000',
+        bernofCost: '€6,000-€14,000',
+        savings: '60% less'
+      }
     },
     seoKeywords: {
-      web: ['Switzerland web development', 'Swiss website design', 'Zurich web developers', 'Geneva web design', 'Swiss e-commerce development'],
-      software: ['Switzerland software development', 'Swiss app development', 'Zurich software company', 'Geneva software solutions', 'Swiss enterprise software'],
-      startup: ['Switzerland startup development', 'Swiss MVP development', 'Zurich startup services', 'Geneva startup consulting', 'Swiss tech startup']
+      web: ['web development Switzerland', 'Swiss website design', 'Zurich web developers', 'Geneva web design', 'Swiss e-commerce development', 'GDPR compliant web development Switzerland'],
+      software: ['software development Switzerland', 'Swiss app development', 'Zurich software company', 'Geneva software solutions', 'Swiss enterprise software', 'custom software development Switzerland'],
+      startup: ['startup development Switzerland', 'Swiss MVP development', 'Zurich startup services', 'Geneva startup consulting', 'Swiss tech startup', 'MVP development Switzerland cost']
     },
     pricing: {
-      webDevelopment: { min: 4999, max: 19999 },
-      softwareDevelopment: { min: 9999, max: 49999 },
-      startupDevelopment: { min: 7999, max: 29999 }
+      web: { min: 6000, max: 14000, localMin: 15000, localMax: 35000 },
+      software: { min: 32000, max: 60000, localMin: 80000, localMax: 150000 },
+      startup: { min: 32000, max: 60000, localMin: 80000, localMax: 150000 }
     }
   },
   uk: {
@@ -68,33 +78,38 @@ export const countriesConfig: Record<string, CountryConfig> = {
     flag: '🇬🇧',
     marketContext: {
       painPoints: [
-        'Post-Brexit talent mobility challenges',
-        'High competition in London and major cities',
-        'Rising development costs (£45,000-80,000+ salaries)',
-        'Regulatory changes and compliance complexity'
+        'UK web agencies charge £80-£120 per hour - post-Brexit talent costs rising',
+        'Digital skills gap: 2.6M unfilled roles by 2030 affecting project timelines',
+        'High competition in London drives development costs 40% above EU average',
+        'Average UK business website costs £12,000-£28,000 vs £4,800-£11,200 with Bernof Co'
       ],
       opportunities: [
-        'Strong fintech and digital innovation ecosystem',
-        'Government digital transformation initiatives',
-        'Access to European and global markets',
-        'Established startup and scale-up culture'
+        'Access European talent pool without visa complications',
+        'Same business hours, cultural alignment, native English communication',
+        '60% cost savings compared to London and major UK city agencies',
+        'Immediate team scaling without recruitment overhead'
       ],
       keyStats: [
-        'Average developer salary: £45,000-85,000',
-        'Tech sector contribution: £149B to UK economy',
-        'Digital skills gap: 2.6M unfilled roles by 2030',
-        'Startup ecosystem value: $1T+ (3rd globally)'
-      ]
+        'UK Agency Average: £80-£120/hour vs Bernof Co: £32-£48/hour',
+        'Local Website Cost: £12,000-£28,000 vs Bernof Co: £4,800-£11,200',
+        'Tech Sector Value: £149B contribution to UK economy',
+        'Startup Ecosystem: $1T+ value (3rd globally) but high development costs'
+      ],
+      heroStats: {
+        localCost: '£12,000-£28,000',
+        bernofCost: '£4,800-£11,200',
+        savings: '60% less'
+      }
     },
     seoKeywords: {
-      web: ['UK web development', 'British website design', 'London web developers', 'Manchester web design', 'UK e-commerce development'],
-      software: ['UK software development', 'British app development', 'London software company', 'Manchester software solutions', 'UK enterprise software'],
-      startup: ['UK startup development', 'British MVP development', 'London startup services', 'Manchester startup consulting', 'UK tech startup']
+      web: ['web development UK', 'British website design', 'London web developers', 'Manchester web design', 'UK e-commerce development', 'post-Brexit web development'],
+      software: ['software development UK', 'British app development', 'London software company', 'Manchester software solutions', 'UK enterprise software', 'fintech development UK'],
+      startup: ['startup development UK', 'British MVP development', 'London startup services', 'Manchester startup consulting', 'UK tech startup', 'MVP development London cost']
     },
     pricing: {
-      webDevelopment: { min: 3999, max: 15999 },
-      softwareDevelopment: { min: 7999, max: 39999 },
-      startupDevelopment: { min: 5999, max: 24999 }
+      web: { min: 4800, max: 11200, localMin: 12000, localMax: 28000 },
+      software: { min: 25600, max: 48000, localMin: 64000, localMax: 120000 },
+      startup: { min: 25600, max: 48000, localMin: 64000, localMax: 120000 }
     }
   },
   us: {
@@ -105,33 +120,38 @@ export const countriesConfig: Record<string, CountryConfig> = {
     flag: '🇺🇸',
     marketContext: {
       painPoints: [
-        'Extremely competitive talent market',
-        'High development costs ($70,000-150,000+ salaries)',
-        'Rapid technology evolution pressure',
-        'Complex multi-state compliance requirements'
+        'US web agencies charge $100-$200 per hour - Silicon Valley premium affects entire market',
+        'Developer shortage: 1.2M unfilled positions driving up costs nationwide',
+        'Average US business website costs $15,000-$40,000 vs $6,000-$16,000 with Bernof Co',
+        'Rapid technology evolution pressure requires constant expensive upgrades'
       ],
       opportunities: [
-        'Largest global market with high purchasing power',
-        'Innovation-driven economy and culture',
-        'Access to venture capital and funding',
-        'Leading edge technology adoption'
+        'Access European expertise at fraction of Silicon Valley costs',
+        'Overlap business hours with US East Coast, professional English communication',
+        '60% cost savings compared to major US metropolitan areas',
+        'European data privacy standards exceed US requirements'
       ],
       keyStats: [
-        'Average developer salary: $75,000-160,000',
-        'Tech industry value: $1.8T (10% of GDP)',
-        'Developer shortage: 1.2M unfilled positions',
-        'Startup funding: $240B+ annually'
-      ]
+        'US Agency Average: $100-$200/hour vs Bernof Co: $40-$80/hour',
+        'Local Website Cost: $15,000-$40,000 vs Bernof Co: $6,000-$16,000',
+        'Tech Industry Value: $1.8T (10% of GDP)',
+        'Annual Startup Funding: $240B+ but high development costs limit runway'
+      ],
+      heroStats: {
+        localCost: '$15,000-$40,000',
+        bernofCost: '$6,000-$16,000',
+        savings: '60% less'
+      }
     },
     seoKeywords: {
-      web: ['USA web development', 'American website design', 'New York web developers', 'Silicon Valley web design', 'US e-commerce development'],
-      software: ['USA software development', 'American app development', 'Silicon Valley software company', 'New York software solutions', 'US enterprise software'],
-      startup: ['USA startup development', 'American MVP development', 'Silicon Valley startup services', 'New York startup consulting', 'US tech startup']
+      web: ['web development USA', 'American website design', 'New York web developers', 'Silicon Valley web design alternative', 'US e-commerce development', 'cost-effective web development USA'],
+      software: ['software development USA', 'American app development', 'Silicon Valley alternative software', 'New York software solutions', 'US enterprise software', 'affordable software development USA'],
+      startup: ['startup development USA', 'American MVP development', 'Silicon Valley startup alternative', 'New York startup consulting', 'US tech startup', 'affordable MVP development USA']
     },
     pricing: {
-      webDevelopment: { min: 4999, max: 19999 },
-      softwareDevelopment: { min: 9999, max: 49999 },
-      startupDevelopment: { min: 7999, max: 29999 }
+      web: { min: 6000, max: 16000, localMin: 15000, localMax: 40000 },
+      software: { min: 32000, max: 64000, localMin: 80000, localMax: 160000 },
+      startup: { min: 32000, max: 64000, localMin: 80000, localMax: 160000 }
     }
   },
   it: {
@@ -142,33 +162,38 @@ export const countriesConfig: Record<string, CountryConfig> = {
     flag: '🇮🇹',
     marketContext: {
       painPoints: [
-        'Digital transformation lag in traditional industries',
-        'Limited local tech talent pool',
-        'Bureaucratic complexity for digital initiatives',
-        'Competition from Northern European tech hubs'
+        'Italian web agencies charge €60-€100 per hour but limited advanced expertise',
+        'Digital transformation lag: traditional industries 18 months behind EU average',
+        'Limited local tech talent pool concentrated in Milan/Rome areas',
+        'Average Italian business website costs €10,000-€24,000 vs €4,000-€9,600 with Bernof Co'
       ],
       opportunities: [
-        'Large untapped market for digitalization',
-        'Government incentives for digital transformation',
-        'Strong manufacturing base needing modernization',
-        'Growing Milan tech ecosystem'
+        'Access advanced European development expertise for Italian market',
+        'Same timezone, cultural understanding, Italian language capabilities',
+        '60% cost savings while gaining access to cutting-edge technologies',
+        'Bridge digital transformation gap with modern solutions'
       ],
       keyStats: [
-        'Average developer salary: €35,000-65,000',
-        'Digital economy: 4.2% of GDP (below EU average)',
-        'Tech skills gap: 135,000 unfilled positions by 2025',
-        'Startup funding: €800M+ annually'
-      ]
+        'Italian Agency Average: €60-€100/hour vs Bernof Co: €24-€40/hour',
+        'Local Website Cost: €10,000-€24,000 vs Bernof Co: €4,000-€9,600',
+        'Digital Economy: 4.2% of GDP (below EU average of 8.2%)',
+        'Tech Skills Gap: 135,000 unfilled positions by 2025'
+      ],
+      heroStats: {
+        localCost: '€10,000-€24,000',
+        bernofCost: '€4,000-€9,600',
+        savings: '60% less'
+      }
     },
     seoKeywords: {
-      web: ['Italy web development', 'Italian website design', 'Milan web developers', 'Rome web design', 'Italian e-commerce development'],
-      software: ['Italy software development', 'Italian app development', 'Milan software company', 'Rome software solutions', 'Italian enterprise software'],
-      startup: ['Italy startup development', 'Italian MVP development', 'Milan startup services', 'Rome startup consulting', 'Italian tech startup']
+      web: ['web development Italy', 'Italian website design', 'Milan web developers', 'Rome web design', 'Italian e-commerce development', 'sviluppo web Italia'],
+      software: ['software development Italy', 'Italian app development', 'Milan software company', 'Rome software solutions', 'Italian enterprise software', 'sviluppo software Italia'],
+      startup: ['startup development Italy', 'Italian MVP development', 'Milan startup services', 'Rome startup consulting', 'Italian tech startup', 'sviluppo MVP Italia']
     },
     pricing: {
-      webDevelopment: { min: 3499, max: 13999 },
-      softwareDevelopment: { min: 6999, max: 34999 },
-      startupDevelopment: { min: 5499, max: 21999 }
+      web: { min: 4000, max: 9600, localMin: 10000, localMax: 24000 },
+      software: { min: 20000, max: 38400, localMin: 50000, localMax: 96000 },
+      startup: { min: 20000, max: 38400, localMin: 50000, localMax: 96000 }
     }
   }
 };
