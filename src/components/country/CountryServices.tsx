@@ -1,4 +1,3 @@
-
 import { CountryConfig } from "@/config/countries";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Zap, Shield, Rocket, Users } from "lucide-react";
@@ -202,88 +201,103 @@ const CountryServices = ({ country, serviceType }: CountryServicesProps) => {
   const serviceData = getServiceData();
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               {serviceData.title}
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
               {serviceData.subtitle}
             </p>
           </div>
 
-          {/* Packages Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            {serviceData.packages.map((pkg, index) => (
-              <div key={index} className={`relative bg-white rounded-3xl p-8 shadow-lg border-2 transition-all duration-300 hover:shadow-xl hover:scale-105 ${
-                pkg.popular ? 'border-primary bg-gradient-to-b from-primary/5 to-white' : 'border-gray-200'
-              }`}>
-                {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-primary text-white px-6 py-2 rounded-full text-sm font-semibold">
-                      Most Popular
-                    </span>
+          {/* Services Grid - Redesigned Modern Cards */}
+          <div className="space-y-8 mb-16">
+            {serviceData.packages.slice(0, 3).map((pkg, index) => (
+              <div key={index} className="group relative">
+                {/* Background Card with Abstract Elements */}
+                <div className="relative bg-white dark:bg-gray-800 rounded-3xl border border-gray-100 dark:border-gray-700 hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-500 hover:shadow-2xl overflow-hidden">
+                  {/* Abstract Background Elements */}
+                  <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full blur-3xl group-hover:from-primary/10 group-hover:to-accent/10 transition-all duration-700"></div>
+                    <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-accent/5 to-primary/5 rounded-full blur-2xl group-hover:from-accent/10 group-hover:to-primary/10 transition-all duration-700"></div>
+                    <div className="absolute top-8 right-8 w-24 h-24 border border-primary/10 group-hover:border-primary/20 transition-all duration-500 rounded-2xl rotate-12"></div>
                   </div>
-                )}
 
-                <div className="mb-8">
-                  <div className="flex items-center mb-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${
-                      pkg.popular ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600'
-                    }`}>
-                      {pkg.icon}
+                  <div className="relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 p-8 items-center">
+                    {/* Service Info */}
+                    <div className="lg:col-span-2">
+                      <div className="flex items-center mb-4">
+                        <div className="w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center text-white mr-4 group-hover:scale-110 transition-transform duration-300">
+                          {pkg.icon}
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors duration-300">
+                            {pkg.name}
+                          </h3>
+                        </div>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{pkg.description}</p>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900">{pkg.name}</h3>
-                  </div>
-                  <p className="text-gray-600 mb-6">{pkg.description}</p>
-                  
-                  {/* Pricing Comparison */}
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg border border-red-200">
-                      <span className="text-gray-700 font-medium">Local agencies:</span>
-                      <span className="text-red-600 font-bold line-through">{pkg.localPrice}</span>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-200">
-                      <span className="text-gray-700 font-medium">Bernof Co:</span>
-                      <span className="text-green-600 font-bold text-xl">{pkg.bernofPrice}</span>
-                    </div>
+
+                    {/* Market Challenge */}
                     <div className="text-center">
-                      <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent font-bold text-lg">
-                        Save 60%
-                      </span>
+                      <div className="mb-2">
+                        <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                          {country.name} Market Challenge
+                        </span>
+                      </div>
+                      <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/30 rounded-xl p-4">
+                        <div className="text-red-600 dark:text-red-400 font-bold text-lg line-through">
+                          {pkg.localPrice}
+                        </div>
+                        <div className="text-red-500 dark:text-red-400 text-sm font-medium mt-1">
+                          {index === 0 ? 'local cost' : index === 1 ? 'annual talent cost' : 'MVP costs'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Bernof Solution */}
+                    <div className="text-center">
+                      <div className="mb-2">
+                        <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                          Bernof Co Solution
+                        </span>
+                      </div>
+                      <div className="bg-primary/5 border border-primary/20 rounded-xl p-4">
+                        <div className="text-primary font-bold text-lg">
+                          {pkg.bernofPrice}
+                        </div>
+                        <div className="text-primary/80 text-sm font-medium mt-1">
+                          delivery
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Savings & CTA */}
+                    <div className="text-center">
+                      <div className="bg-primary text-white px-6 py-3 rounded-xl font-bold text-xl mb-4 group-hover:bg-primary/90 transition-colors duration-300">
+                        60% savings
+                      </div>
+                      <Button 
+                        className="bg-accent hover:bg-accent/90 text-white font-semibold px-6 py-2 rounded-xl transition-all duration-300 hover:scale-105 group-hover:shadow-lg"
+                        onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
+                      >
+                        Explore Service
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
                     </div>
                   </div>
                 </div>
-
-                <div className="space-y-4 mb-8">
-                  {pkg.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-start space-x-3">
-                      <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Button 
-                  className={`w-full font-semibold py-3 rounded-xl transition-all duration-300 ${
-                    pkg.popular 
-                      ? 'bg-primary hover:bg-primary/90 text-white' 
-                      : 'bg-gray-900 hover:bg-gray-800 text-white'
-                  }`}
-                  onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-                >
-                  Get Started
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
               </div>
             ))}
           </div>
 
           {/* Bottom CTA Section */}
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-3xl p-12 text-center text-white">
+          <div className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-gray-800 dark:to-gray-700 rounded-3xl p-12 text-center text-white">
             <h3 className="text-3xl font-bold mb-4">Not Sure Which Package is Right?</h3>
             <p className="text-xl mb-8 opacity-90">
               Book a free consultation and we'll help you choose the perfect solution

@@ -1,10 +1,11 @@
-
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { Linkedin, Mail, Phone, MapPin, ArrowUpRight, Moon, Sun } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Footer = () => {
   const navigate = useNavigate();
+  const { theme, setTheme } = useTheme();
 
   const scrollToSection = (sectionId: string) => {
     if (window.location.pathname !== '/') {
@@ -23,6 +24,10 @@ const Footer = () => {
     }
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   const services = [
     { name: 'Web Development', action: () => scrollToSection('services') },
     { name: 'Software Development', action: () => scrollToSection('services') },
@@ -38,15 +43,13 @@ const Footer = () => {
   ];
 
   const company = [
-    { name: 'About Us', action: () => scrollToSection('about') },
-    { name: 'Contact', action: () => scrollToSection('contact') },
     { name: 'Privacy Policy', to: '/privacy-policy' },
     { name: 'Terms of Service', to: '/terms-of-service' },
     { name: 'Cookie Policy', to: '/cookie-policy' }
   ];
 
   return (
-    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 text-white overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-20 w-64 h-64 border border-primary/20 rounded-full"></div>
@@ -79,12 +82,12 @@ const Footer = () => {
                   </Button>
                 </div>
 
-                {/* Social Links */}
+                {/* Social Links & Theme Toggle */}
                 <div>
                   <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
                     Connect With Us
                   </h4>
-                  <div className="flex space-x-4">
+                  <div className="flex items-center space-x-4">
                     <a 
                       href="https://www.linkedin.com/company/bernof-co/"
                       target="_blank"
@@ -93,6 +96,19 @@ const Footer = () => {
                     >
                       <Linkedin className="w-6 h-6 text-gray-300 group-hover:text-primary transition-colors" />
                     </a>
+                    
+                    {/* Dark Mode Toggle */}
+                    <button
+                      onClick={toggleTheme}
+                      className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-accent/20 transition-all duration-300 group"
+                      title="Toggle theme"
+                    >
+                      {theme === "light" ? (
+                        <Moon className="w-6 h-6 text-gray-300 group-hover:text-accent transition-colors" />
+                      ) : (
+                        <Sun className="w-6 h-6 text-gray-300 group-hover:text-accent transition-colors" />
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -127,10 +143,10 @@ const Footer = () => {
                 </ul>
               </div>
 
-              {/* Global Services */}
+              {/* Global Coverage */}
               <div className="lg:col-span-2">
                 <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-6">
-                  Global Services
+                  Global Coverage
                 </h4>
                 <ul className="space-y-4">
                   {globalServices.map((service, index) => (
@@ -180,21 +196,12 @@ const Footer = () => {
                     <ul className="space-y-3">
                       {company.map((item, index) => (
                         <li key={index}>
-                          {item.to ? (
-                            <Link 
-                              to={item.to}
-                              className="text-gray-400 hover:text-gray-300 transition-colors text-sm"
-                            >
-                              {item.name}
-                            </Link>
-                          ) : (
-                            <button 
-                              onClick={item.action}
-                              className="text-gray-400 hover:text-gray-300 transition-colors text-sm text-left"
-                            >
-                              {item.name}
-                            </button>
-                          )}
+                          <Link 
+                            to={item.to}
+                            className="text-gray-400 hover:text-gray-300 transition-colors text-sm"
+                          >
+                            {item.name}
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -204,7 +211,7 @@ const Footer = () => {
             </div>
 
             {/* Bottom Section */}
-            <div className="border-t border-gray-800 pt-8">
+            <div className="border-t border-gray-800 dark:border-gray-700 pt-8">
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-8">
                   <p className="text-gray-400 text-sm">
