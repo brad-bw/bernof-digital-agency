@@ -1,12 +1,14 @@
-
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, TrendingUp, Shield, Clock, Users, ChevronRight, ExternalLink } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useSitemapGenerator } from "@/hooks/useSitemapGenerator";
 
 const UKHub = () => {
+  useSitemapGenerator();
+
   const services = [
     {
       title: 'Web Development',
@@ -74,8 +76,8 @@ const UKHub = () => {
 
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden pt-20">
+      {/* Hero Section - Optimized spacing and removed badge */}
+      <section className="relative min-h-[85vh] bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-32 h-32 border-2 border-white/20 rotate-45 rounded-lg"></div>
@@ -83,16 +85,8 @@ const UKHub = () => {
           <div className="absolute bottom-32 left-40 w-40 h-2 bg-gradient-to-r from-white/30 to-transparent"></div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 pt-20 pb-32">
+        <div className="container mx-auto px-6 relative z-10 pt-24 pb-16">
           <div className="max-w-7xl mx-auto">
-            {/* Country Badge */}
-            <div className="flex items-center justify-center mb-8">
-              <div className="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-8 py-3 border border-white/20">
-                <span className="text-3xl">🇬🇧</span>
-                <span className="text-white font-semibold text-lg">United Kingdom Hub</span>
-              </div>
-            </div>
-
             <div className="text-center mb-16">
               <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-8">
                 <span className="bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">

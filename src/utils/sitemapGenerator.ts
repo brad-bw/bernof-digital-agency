@@ -26,6 +26,25 @@ export const generateSitemap = (): string => {
       changefreq: 'weekly',
       priority: 0.9
     },
+    {
+      loc: `${baseUrl}/global-services`,
+      lastmod: currentDate,
+      changefreq: 'weekly',
+      priority: 0.9
+    },
+    // Country hubs
+    {
+      loc: `${baseUrl}/global-services/ch`,
+      lastmod: currentDate,
+      changefreq: 'weekly',
+      priority: 0.8
+    },
+    {
+      loc: `${baseUrl}/global-services/uk`,
+      lastmod: currentDate,
+      changefreq: 'weekly',
+      priority: 0.8
+    },
     // Legal pages
     {
       loc: `${baseUrl}/privacy-policy`,
@@ -47,7 +66,7 @@ export const generateSitemap = (): string => {
     }
   ];
 
-  // Add country-specific pages
+  // Add country-specific service pages
   const countries = getAllCountries();
   const services = ['web-development', 'software-development', 'startup-development'];
   
@@ -63,7 +82,7 @@ export const generateSitemap = (): string => {
   });
 
   const xmlContent = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${pages.map(page => `  <url>
     <loc>${page.loc}</loc>
     <lastmod>${page.lastmod}</lastmod>
