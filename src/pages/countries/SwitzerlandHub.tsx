@@ -86,8 +86,8 @@ const SwitzerlandHub = () => {
         <meta name="description" content="Switzerland's premier digital development partner. Save 60% on web development, software solutions, and startup services. GDPR-compliant, serving Zurich, Geneva, Basel with European excellence." />
         <meta name="keywords" content="Switzerland digital services, Swiss web development, Zurich software development, Geneva startup development, Swiss GDPR compliance, Switzerland tech solutions" />
         <link rel="canonical" href="https://bernofco.com/global-services/ch" />
-        <link rel="hreflang" hreflang="en-ch" href="https://bernofco.com/global-services/ch" />
-        <link rel="hreflang" hreflang="x-default" href="https://bernofco.com/global-services" />
+        <link rel="hreflang" hrefLang="en-ch" href="https://bernofco.com/global-services/ch" />
+        <link rel="hreflang" hrefLang="x-default" href="https://bernofco.com/global-services" />
       </Helmet>
 
       <Header />

@@ -68,8 +68,8 @@ const UKHub = () => {
         <meta name="description" content="UK's premier digital development partner. Save 60% on web development, software solutions, and startup services. Post-Brexit European talent access, serving London, Manchester, Edinburgh." />
         <meta name="keywords" content="UK digital services, British web development, London software development, Manchester startup development, post-Brexit tech solutions, UK European talent" />
         <link rel="canonical" href="https://bernofco.com/global-services/uk" />
-        <link rel="hreflang" hreflang="en-gb" href="https://bernofco.com/global-services/uk" />
-        <link rel="hreflang" hreflang="x-default" href="https://bernofco.com/global-services" />
+        <link rel="hreflang" hrefLang="en-gb" href="https://bernofco.com/global-services/uk" />
+        <link rel="hreflang" hrefLang="x-default" href="https://bernofco.com/global-services" />
       </Helmet>
 
       <Header />
