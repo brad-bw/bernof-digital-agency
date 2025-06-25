@@ -1,11 +1,10 @@
+
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { Linkedin, Mail, Phone, MapPin, ArrowUpRight, Moon, Sun } from "lucide-react";
-import { useTheme } from "@/components/ThemeProvider";
+import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
 
 const Footer = () => {
   const navigate = useNavigate();
-  const { theme, setTheme } = useTheme();
 
   const scrollToSection = (sectionId: string) => {
     if (window.location.pathname !== '/') {
@@ -24,10 +23,6 @@ const Footer = () => {
     }
   };
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
-
   const services = [
     { name: 'Web Development', action: () => scrollToSection('services') },
     { name: 'Software Development', action: () => scrollToSection('services') },
@@ -37,7 +32,7 @@ const Footer = () => {
   ];
 
   const globalServices = [
-    { name: 'Switzerland', to: '/global-services/ch' },
+    { name: 'Switzerland', to: '/global-services/switzerland' },
     { name: 'United Kingdom', to: '/global-services/uk' },
     { name: 'All Countries', to: '/global-services' }
   ];
@@ -49,7 +44,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 text-white overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-20 w-64 h-64 border border-primary/20 rounded-full"></div>
@@ -82,7 +77,7 @@ const Footer = () => {
                   </Button>
                 </div>
 
-                {/* Social Links & Theme Toggle */}
+                {/* Social Links */}
                 <div>
                   <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
                     Connect With Us
@@ -96,19 +91,6 @@ const Footer = () => {
                     >
                       <Linkedin className="w-6 h-6 text-gray-300 group-hover:text-primary transition-colors" />
                     </a>
-                    
-                    {/* Dark Mode Toggle */}
-                    <button
-                      onClick={toggleTheme}
-                      className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-accent/20 transition-all duration-300 group"
-                      title="Toggle theme"
-                    >
-                      {theme === "light" ? (
-                        <Moon className="w-6 h-6 text-gray-300 group-hover:text-accent transition-colors" />
-                      ) : (
-                        <Sun className="w-6 h-6 text-gray-300 group-hover:text-accent transition-colors" />
-                      )}
-                    </button>
                   </div>
                 </div>
               </div>
@@ -211,7 +193,7 @@ const Footer = () => {
             </div>
 
             {/* Bottom Section */}
-            <div className="border-t border-gray-800 dark:border-gray-700 pt-8">
+            <div className="border-t border-gray-800 pt-8">
               <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                 <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-8">
                   <p className="text-gray-400 text-sm">
