@@ -1,12 +1,13 @@
 
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LogoSection from "./LogoSection";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isGlobalServicesOpen, setIsGlobalServicesOpen] = useState(false);
   const navigate = useNavigate();
 
   const scrollToSection = (sectionId: string) => {
@@ -52,6 +53,67 @@ const Header = () => {
               Services
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
             </button>
+            
+            {/* Global Services Dropdown */}
+            <div className="relative group">
+              <Link
+                to="/global-services"
+                className="flex items-center text-gray-600 hover:text-primary transition-colors font-medium relative group"
+                onMouseEnter={() => setIsGlobalServicesOpen(true)}
+                onMouseLeave={() => setIsGlobalServicesOpen(false)}
+              >
+                Global Services
+                <ChevronDown className="w-4 h-4 ml-1" />
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
+              </Link>
+              
+              {/* Dropdown Menu */}
+              <div 
+                className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-200 py-4 transition-all duration-200 ${
+                  isGlobalServicesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                }`}
+                onMouseEnter={() => setIsGlobalServicesOpen(true)}
+                onMouseLeave={() => setIsGlobalServicesOpen(false)}
+              >
+                <Link
+                  to="/global-services/ch"
+                  className="flex items-center px-6 py-3 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-2xl mr-3">🇨🇭</span>
+                  <span className="text-gray-700 hover:text-primary">Switzerland</span>
+                </Link>
+                <Link
+                  to="/global-services/uk"
+                  className="flex items-center px-6 py-3 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-2xl mr-3">🇬🇧</span>
+                  <span className="text-gray-700 hover:text-primary">United Kingdom</span>
+                </Link>
+                <Link
+                  to="/global-services/us"
+                  className="flex items-center px-6 py-3 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-2xl mr-3">🇺🇸</span>
+                  <span className="text-gray-700 hover:text-primary">United States</span>
+                </Link>
+                <Link
+                  to="/global-services/it"
+                  className="flex items-center px-6 py-3 hover:bg-gray-50 transition-colors"
+                >
+                  <span className="text-2xl mr-3">🇮🇹</span>
+                  <span className="text-gray-700 hover:text-primary">Italy</span>
+                </Link>
+                <div className="border-t border-gray-200 mt-2 pt-2">
+                  <Link
+                    to="/global-services"
+                    className="flex items-center px-6 py-3 hover:bg-gray-50 transition-colors text-sm text-gray-500"
+                  >
+                    View All Countries →
+                  </Link>
+                </div>
+              </div>
+            </div>
+            
             <Link
               to="/startup-development"
               className="text-gray-600 hover:text-primary transition-colors font-medium relative group"
@@ -104,6 +166,14 @@ const Header = () => {
                 Services
                 <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
               </button>
+              <Link
+                to="/global-services"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"
+              >
+                Global Services
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
+              </Link>
               <Link
                 to="/startup-development"
                 onClick={() => setIsMenuOpen(false)}

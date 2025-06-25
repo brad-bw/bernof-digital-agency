@@ -13,13 +13,18 @@ import { usePerformance } from "./hooks/usePerformance";
 import { useScrollDepth } from "./hooks/useScrollDepth";
 import { useSitemapGenerator } from "./hooks/useSitemapGenerator";
 
-// Lazy load pages for better performance - removed lazy loading for country pages to fix routing issues
+// Lazy load pages for better performance
 const Index = lazy(() => import("./pages/Index"));
 const StartupDevelopment = lazy(() => import("./pages/StartupDevelopment"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
+// Global Services Hub Pages
+const GlobalServices = lazy(() => import("./pages/GlobalServices"));
+const SwitzerlandHub = lazy(() => import("./pages/countries/SwitzerlandHub"));
+const UKHub = lazy(() => import("./pages/countries/UKHub"));
 
 // Import country pages directly instead of lazy loading to fix routing issues
 import SwitzerlandWebDevelopment from "./pages/countries/SwitzerlandWebDevelopment";
@@ -67,6 +72,13 @@ const App = () => (
               {/* Main pages */}
               <Route path="/" element={<Suspense fallback={<Loading type="page" />}><Index /></Suspense>} />
               <Route path="/startup-development" element={<Suspense fallback={<Loading type="page" />}><StartupDevelopment /></Suspense>} />
+              
+              {/* Global Services Hub Routes */}
+              <Route path="/global-services" element={<Suspense fallback={<Loading type="page" />}><GlobalServices /></Suspense>} />
+              <Route path="/global-services/ch" element={<Suspense fallback={<Loading type="page" />}><SwitzerlandHub /></Suspense>} />
+              <Route path="/global-services/uk" element={<Suspense fallback={<Loading type="page" />}><UKHub /></Suspense>} />
+              <Route path="/global-services/us" element={<Suspense fallback={<Loading type="page" />}><GlobalServices /></Suspense>} />
+              <Route path="/global-services/it" element={<Suspense fallback={<Loading type="page" />}><GlobalServices /></Suspense>} />
               
               {/* Switzerland - direct imports, no lazy loading */}
               <Route path="/ch/web-development" element={<SwitzerlandWebDevelopment />} />

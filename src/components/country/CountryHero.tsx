@@ -32,7 +32,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
           bernofCost: country.marketContext.heroStats.bernofCost,
           savings: country.marketContext.heroStats.savings,
           icon: Code,
-          iconBg: 'bg-blue-500'
+          iconBg: 'bg-primary'
         };
       case 'software':
         return {
@@ -40,7 +40,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
           bernofCost: `${country.currencySymbol}${(country.pricing.software.min / 1000).toFixed(0)}k-${(country.pricing.software.max / 1000).toFixed(0)}k`,
           savings: '60% less',
           icon: Zap,
-          iconBg: 'bg-yellow-500'
+          iconBg: 'bg-accent'
         };
       case 'startup':
         return {
@@ -48,7 +48,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
           bernofCost: `${country.currencySymbol}${(country.pricing.startup.min / 1000).toFixed(0)}k-${(country.pricing.startup.max / 1000).toFixed(0)}k`,
           savings: '60% less',
           icon: Rocket,
-          iconBg: 'bg-purple-500'
+          iconBg: 'bg-accent'
         };
       default:
         return {
@@ -56,7 +56,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
           bernofCost: country.marketContext.heroStats.bernofCost,
           savings: country.marketContext.heroStats.savings,
           icon: Code,
-          iconBg: 'bg-blue-500'
+          iconBg: 'bg-primary'
         };
     }
   };
@@ -65,23 +65,23 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
   const IconComponent = stats.icon;
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Geometric shapes */}
-        <div className="absolute top-20 left-20 w-32 h-32 border-2 border-primary/20 rotate-45 rounded-lg"></div>
-        <div className="absolute top-40 right-32 w-24 h-24 bg-accent/10 rounded-full"></div>
-        <div className="absolute bottom-32 left-40 w-40 h-2 bg-gradient-to-r from-primary/30 to-transparent"></div>
-        <div className="absolute top-60 right-20 w-16 h-16 border border-accent/30 rounded-full"></div>
+        <div className="absolute top-20 left-20 w-32 h-32 border-2 border-white/20 rotate-45 rounded-lg"></div>
+        <div className="absolute top-40 right-32 w-24 h-24 bg-accent/20 rounded-full"></div>
+        <div className="absolute bottom-32 left-40 w-40 h-2 bg-gradient-to-r from-white/30 to-transparent"></div>
+        <div className="absolute top-60 right-20 w-16 h-16 border border-white/30 rounded-full"></div>
         
         {/* Floating elements */}
-        <div className="absolute top-80 left-1/4 w-6 h-6 bg-primary/20 rotate-45"></div>
-        <div className="absolute bottom-60 right-1/3 w-8 h-8 border border-accent/20 rounded-full"></div>
+        <div className="absolute top-80 left-1/4 w-6 h-6 bg-white/20 rotate-45"></div>
+        <div className="absolute bottom-60 right-1/3 w-8 h-8 border border-white/20 rounded-full"></div>
         
         {/* Gradient orbs */}
-        <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
         <div className="absolute top-40 right-20 w-72 h-72 bg-accent/10 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
-        <div className="absolute -bottom-20 left-40 w-72 h-72 bg-primary/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
+        <div className="absolute -bottom-20 left-40 w-72 h-72 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10 pt-20 pb-32">
@@ -131,7 +131,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
               <div className="pt-4">
                 <Button 
                   onClick={handlePrimaryAction}
-                  className="bg-primary hover:bg-primary/90 text-white font-semibold px-10 py-5 rounded-xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
+                  className="bg-accent hover:bg-accent/90 text-white font-semibold px-10 py-5 rounded-xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
                 >
                   <Calendar className="w-6 h-6 mr-3" />
                   {ctaPrimary}
@@ -144,7 +144,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
               {/* Cost Comparison Card */}
               <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl relative overflow-hidden">
                 {/* Abstract design elements */}
-                <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-primary/20 rounded-tl-3xl"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-white/20 rounded-tl-3xl"></div>
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent/5 rounded-tr-3xl"></div>
                 
                 <div className="text-center mb-8 relative z-10">
@@ -173,19 +173,19 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-full border-t border-white/20"></div>
                     </div>
-                    <span className="bg-gray-900 px-4 text-white font-bold text-xl">VS</span>
+                    <span className="bg-primary px-4 text-white font-bold text-xl">VS</span>
                   </div>
 
                   {/* Bernof Cost */}
-                  <div className="bg-green-900/30 rounded-xl p-6 border border-green-800/50 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-16 h-16 bg-green-500/10 rounded-bl-xl"></div>
+                  <div className="bg-primary/20 rounded-xl p-6 border border-primary/30 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-xl"></div>
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-gray-300 mb-1">Bernof Co</p>
-                        <p className="text-3xl font-bold text-green-400">{stats.bernofCost}</p>
+                        <p className="text-3xl font-bold text-white">{stats.bernofCost}</p>
                       </div>
                       <div className="text-right">
-                        <div className="bg-green-500 text-white px-4 py-2 rounded-lg font-bold text-lg mb-1 flex items-center gap-2">
+                        <div className="bg-accent text-white px-4 py-2 rounded-lg font-bold text-lg mb-1 flex items-center gap-2">
                           <DollarSign className="w-5 h-5" />
                           60% LESS
                         </div>
@@ -196,31 +196,31 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
                 </div>
               </div>
 
-              {/* Quick Stats - Better aligned and spaced */}
-              <div className="grid grid-cols-3 gap-6">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
-                  <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <Clock className="w-6 h-6 text-primary" />
-                  </div>
-                  <p className="text-2xl font-bold text-white mb-1">48h</p>
-                  <p className="text-sm text-gray-300">Project Start</p>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 relative overflow-hidden">
+              {/* Quick Stats */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
                   <div className="absolute top-0 left-0 w-full h-1 bg-accent"></div>
-                  <div className="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <Users className="w-6 h-6 text-accent" />
+                  <div className="w-10 h-10 bg-accent/20 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <Clock className="w-5 h-5 text-accent" />
                   </div>
-                  <p className="text-2xl font-bold text-white mb-1">50+</p>
-                  <p className="text-sm text-gray-300">Expert Devs</p>
+                  <p className="text-lg font-bold text-white mb-1">48h</p>
+                  <p className="text-xs text-gray-300">Project Start</p>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/10 relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-green-400"></div>
-                  <div className="w-12 h-12 bg-green-400/20 rounded-xl flex items-center justify-center mx-auto mb-3">
-                    <Sparkles className="w-6 h-6 text-green-400" />
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+                  <div className="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <Users className="w-5 h-5 text-primary" />
                   </div>
-                  <p className="text-2xl font-bold text-white mb-1">60%</p>
-                  <p className="text-sm text-gray-300">Cost Savings</p>
+                  <p className="text-lg font-bold text-white mb-1">50+</p>
+                  <p className="text-xs text-gray-300">Expert Devs</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/10 relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-1 bg-green-400"></div>
+                  <div className="w-10 h-10 bg-green-400/20 rounded-xl flex items-center justify-center mx-auto mb-2">
+                    <Sparkles className="w-5 h-5 text-green-400" />
+                  </div>
+                  <p className="text-lg font-bold text-white mb-1">60%</p>
+                  <p className="text-xs text-gray-300">Cost Savings</p>
                 </div>
               </div>
             </div>
@@ -232,7 +232,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
               <Button 
                 onClick={handleSecondaryAction}
                 variant="outline"
-                className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-gray-900 font-semibold px-8 py-4 rounded-xl text-lg h-auto transition-all duration-300"
+                className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-primary font-semibold px-8 py-4 rounded-xl text-lg h-auto transition-all duration-300"
               >
                 {ctaSecondary}
               </Button>

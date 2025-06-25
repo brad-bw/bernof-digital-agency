@@ -68,27 +68,32 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
   };
 
   const handleSecondaryAction = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (serviceType === 'software') {
+      // For software services, "Get Technical Assessment" should also book a call
+      window.open('https://calendly.com/bernof-co', '_blank');
+    } else {
+      const element = document.getElementById('contact');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white relative overflow-hidden" id="cta">
+    <section className="py-24 bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white relative overflow-hidden" id="cta">
       {/* Background Elements */}
       <div className="absolute inset-0">
         {/* Geometric patterns */}
-        <div className="absolute top-10 left-10 w-40 h-40 border border-primary/10 rotate-12 rounded-lg"></div>
+        <div className="absolute top-10 left-10 w-40 h-40 border border-white/10 rotate-12 rounded-lg"></div>
         <div className="absolute bottom-20 right-20 w-32 h-32 bg-accent/5 rounded-full"></div>
-        <div className="absolute top-1/2 left-1/4 w-64 h-2 bg-gradient-to-r from-primary/20 to-transparent rotate-45"></div>
+        <div className="absolute top-1/2 left-1/4 w-64 h-2 bg-gradient-to-r from-white/20 to-transparent rotate-45"></div>
         
         {/* Additional geometric elements */}
-        <div className="absolute top-32 right-1/4 w-20 h-20 border-2 border-accent/15 rounded-full"></div>
-        <div className="absolute bottom-40 left-1/3 w-12 h-12 bg-primary/10 rotate-45"></div>
+        <div className="absolute top-32 right-1/4 w-20 h-20 border-2 border-white/15 rounded-full"></div>
+        <div className="absolute bottom-40 left-1/3 w-12 h-12 bg-white/10 rotate-45"></div>
         
         {/* Gradient orbs */}
-        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+        <div className="absolute top-20 left-20 w-96 h-96 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-1000"></div>
       </div>
 
@@ -124,7 +129,7 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
               <Button 
                 onClick={handlePrimaryAction}
-                className="bg-primary hover:bg-primary/90 text-white font-bold px-10 py-5 rounded-2xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
+                className="bg-accent hover:bg-accent/90 text-white font-bold px-10 py-5 rounded-2xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
               >
                 <Calendar className="w-6 h-6 mr-3" />
                 {content.primaryCta}
@@ -132,7 +137,7 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
               <Button 
                 onClick={handleSecondaryAction}
                 variant="outline"
-                className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-gray-900 font-bold px-10 py-5 rounded-2xl text-xl h-auto transition-all duration-300"
+                className="border-2 border-white/30 text-white bg-transparent hover:bg-white hover:text-primary font-bold px-10 py-5 rounded-2xl text-xl h-auto transition-all duration-300"
               >
                 {content.secondaryCta}
                 <ArrowRight className="w-6 h-6 ml-3" />
@@ -144,14 +149,14 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="text-center group">
               <div className="w-20 h-20 bg-white/10 backdrop-blur-sm rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:bg-white/20 transition-all duration-300 border border-white/20 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-8 h-8 bg-primary/10 rounded-bl-3xl"></div>
+                <div className="absolute top-0 right-0 w-8 h-8 bg-white/10 rounded-bl-3xl"></div>
                 <Phone className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3">Direct Call</h3>
               <p className="text-white/80 mb-4">Speak with our team immediately</p>
               <a 
                 href="tel:+442030000000" 
-                className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
+                className="text-accent hover:text-accent/80 font-bold text-lg transition-colors"
               >
                 +44 20 3000 0000
               </a>
@@ -166,7 +171,7 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
               <p className="text-white/80 mb-4">Detailed response within 1 business day</p>
               <a 
                 href="mailto:info@bernofco.com" 
-                className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
+                className="text-accent hover:text-accent/80 font-bold text-lg transition-colors"
               >
                 info@bernofco.com
               </a>
@@ -181,29 +186,29 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
               <p className="text-white/80 mb-4">Free 30-minute consultation</p>
               <button 
                 onClick={handlePrimaryAction}
-                className="text-primary hover:text-primary/80 font-bold text-lg transition-colors"
+                className="text-accent hover:text-accent/80 font-bold text-lg transition-colors"
               >
                 Available Now
               </button>
             </div>
           </div>
 
-          {/* Trust Indicators - Fixed readability */}
+          {/* Trust Indicators */}
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-accent to-green-400"></div>
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-accent via-primary to-green-400"></div>
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-white mb-4">Why {country.name} Businesses Choose Bernof Co</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
               <div className="bg-white/5 rounded-xl p-6 border border-white/10 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
-                <TrendingDown className="w-8 h-8 mx-auto mb-3 text-primary" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-accent"></div>
+                <TrendingDown className="w-8 h-8 mx-auto mb-3 text-accent" />
                 <div className="text-4xl font-bold text-white mb-2">60%</div>
                 <div className="text-white/80 font-medium">Cost Savings</div>
               </div>
               <div className="bg-white/5 rounded-xl p-6 border border-white/10 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-accent"></div>
-                <Clock className="w-8 h-8 mx-auto mb-3 text-accent" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+                <Clock className="w-8 h-8 mx-auto mb-3 text-primary" />
                 <div className="text-4xl font-bold text-white mb-2">48h</div>
                 <div className="text-white/80 font-medium">Project Start</div>
               </div>
