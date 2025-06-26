@@ -5,7 +5,7 @@ import SEO from "@/components/SEO";
 import Breadcrumb from "@/components/Breadcrumb";
 import CountryHero from "@/components/country/CountryHero";
 import CountryPainPoints from "@/components/country/CountryPainPoints";
-import CountryServices from "@/components/country/CountryServices";
+import { CountryServices } from "@/components/country/CountryServices";
 import CountryCTA from "@/components/country/CountryCTA";
 import ContactSection from "@/components/ContactSection";
 import { useSEO } from "@/hooks/useSEO";
