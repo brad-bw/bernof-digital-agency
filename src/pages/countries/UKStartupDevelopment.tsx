@@ -12,11 +12,11 @@ import StartupCTA from "@/components/startup/StartupCTA";
 import ContactSection from "@/components/ContactSection";
 import CountryPainPoints from "@/components/country/CountryPainPoints";
 import { useSEO } from "@/hooks/useSEO";
-import { COUNTRIES } from "@/config/countries";
+import { getCountryConfig } from "@/config/countries";
 
 const UKStartupDevelopment = () => {
   const seoData = useSEO('uk/startup-development');
-  const ukCountry = COUNTRIES.find(c => c.code === 'GB')!;
+  const ukCountry = getCountryConfig('uk')!;
 
   return (
     <div className="min-h-screen font-inter">
