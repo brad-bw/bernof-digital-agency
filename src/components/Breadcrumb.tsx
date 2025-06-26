@@ -12,6 +12,8 @@ interface BreadcrumbProps {
 }
 
 const Breadcrumb = ({ items }: BreadcrumbProps) => {
+  if (!items || items.length === 0) return null;
+
   return (
     <nav aria-label="Breadcrumb" className="py-4">
       <ol className="flex items-center space-x-2 text-sm text-gray-600">
@@ -22,14 +24,14 @@ const Breadcrumb = ({ items }: BreadcrumbProps) => {
               <>
                 <Link 
                   to={item.url} 
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-brand-teal transition-colors font-inter"
                 >
                   {item.name}
                 </Link>
                 <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
               </>
             ) : (
-              <span className="text-gray-900 font-medium">{item.name}</span>
+              <span className="text-gray-900 font-medium font-inter">{item.name}</span>
             )}
           </li>
         ))}

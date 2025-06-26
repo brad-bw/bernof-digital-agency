@@ -18,13 +18,19 @@ const UKStartupDevelopment = () => {
   const seoData = useSEO('uk/startup-development');
   const ukCountry = getCountryConfig('uk')!;
 
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "United Kingdom", url: "/global-services/uk" },
+    { name: "Startup Development Services", url: "/uk/startup-development" }
+  ];
+
   return (
     <div className="min-h-screen font-inter">
       <SEO {...seoData} />
       <Header />
       <main>
         <div className="container mx-auto px-6">
-          <Breadcrumb items={seoData.breadcrumbs || []} />
+          <Breadcrumb items={breadcrumbItems} />
         </div>
         <section>
           <h1 className="sr-only">Expert UK Startup Development Services - From MVP to Scale</h1>

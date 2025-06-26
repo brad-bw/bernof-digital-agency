@@ -15,13 +15,19 @@ const USAWebDevelopment = () => {
   const seoData = useSEO('us/web-development');
   const country = getCountryConfig('us')!;
 
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "United States", url: "/global-services/us" },
+    { name: "Web Development Services", url: "/us/web-development" }
+  ];
+
   return (
     <div className="min-h-screen font-inter">
       <SEO {...seoData} />
       <Header />
       <main>
         <div className="container mx-auto px-6">
-          <Breadcrumb items={seoData.breadcrumbs || []} />
+          <Breadcrumb items={breadcrumbItems} />
         </div>
         <CountryHero 
           country={country}

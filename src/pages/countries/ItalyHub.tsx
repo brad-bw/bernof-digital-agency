@@ -15,13 +15,19 @@ const ItalyHub = () => {
   const seoData = useSEO('global-services/it');
   const country = getCountryConfig('it')!;
 
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "Global Services", url: "/global-services" },
+    { name: "Italy", url: "/global-services/it" }
+  ];
+
   return (
     <div className="min-h-screen font-inter">
       <SEO {...seoData} />
       <Header />
       <main>
         <div className="container mx-auto px-6">
-          <Breadcrumb items={seoData.breadcrumbs || []} />
+          <Breadcrumb items={breadcrumbItems} />
         </div>
         <CountryHero 
           country={country}

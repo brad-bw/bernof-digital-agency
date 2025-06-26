@@ -14,13 +14,18 @@ import { useSEO } from "@/hooks/useSEO";
 const StartupDevelopment = () => {
   const seoData = useSEO('startup-development');
 
+  const breadcrumbItems = [
+    { name: "Home", url: "/" },
+    { name: "Startup Development Services", url: "/startup-development" }
+  ];
+
   return (
     <div className="min-h-screen font-inter">
       <SEO {...seoData} />
       <Header />
       <main>
         <div className="container mx-auto px-6">
-          <Breadcrumb items={seoData.breadcrumbs || []} />
+          <Breadcrumb items={breadcrumbItems} />
         </div>
         <section>
           <h1 className="sr-only">Expert Startup Development Services - From MVP to Scale</h1>
