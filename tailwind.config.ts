@@ -21,7 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'inter': ['Inter', 'sans-serif'],
-				'playfair': ['Playfair Display', 'serif'],
+				// Removed Playfair Display for consistency
 			},
 			colors: {
 				border: 'hsl(var(--border))',

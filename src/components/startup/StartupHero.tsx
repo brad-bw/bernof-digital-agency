@@ -24,12 +24,12 @@ const StartupHero = () => {
             {/* Left Content */}
             <div className="space-y-8">
               <div className="space-y-6">
-                <div className="inline-flex items-center px-4 py-2 bg-accent/10 rounded-full text-accent font-semibold text-sm">
+                <div className="inline-flex items-center px-4 py-2 bg-accent/10 rounded-full text-accent font-semibold text-sm font-inter">
                   <Rocket className="w-4 h-4 mr-2" />
                   Startup Development Experts
                 </div>
                 
-                <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight font-inter">
                   Turn Your{" "}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                     Startup Idea
@@ -37,7 +37,7 @@ const StartupHero = () => {
                   Into Reality
                 </h1>
                 
-                <p className="text-xl text-gray-600 leading-relaxed">
+                <p className="text-xl text-gray-600 leading-relaxed font-inter">
                   From concept to launch - we handle the tech so you can focus on growth. 
                   No massive upfront investment, no ongoing contracts. Just results.
                 </p>
@@ -46,7 +46,7 @@ const StartupHero = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   onClick={() => scrollToSection('startup-pricing')}
-                  className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:scale-105"
+                  className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:scale-105 font-inter"
                 >
                   Get Your MVP Quote
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -54,7 +54,7 @@ const StartupHero = () => {
                 <Button 
                   variant="outline"
                   onClick={() => scrollToSection('startup-process')}
-                  className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300"
+                  className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 font-inter"
                 >
                   How It Works
                 </Button>
@@ -63,16 +63,16 @@ const StartupHero = () => {
               {/* Quick Stats */}
               <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">2-4</div>
-                  <div className="text-sm text-gray-600">Weeks to MVP</div>
+                  <div className="text-2xl font-bold text-primary font-inter">2-4</div>
+                  <div className="text-sm text-gray-600 font-inter">Weeks to MVP</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">70%</div>
-                  <div className="text-sm text-gray-600">Cost Savings</div>
+                  <div className="text-2xl font-bold text-primary font-inter">70%</div>
+                  <div className="text-sm text-gray-600 font-inter">Cost Savings</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">100+</div>
-                  <div className="text-sm text-gray-600">Startups Launched</div>
+                  <div className="text-2xl font-bold text-primary font-inter">100+</div>
+                  <div className="text-sm text-gray-600 font-inter">Startups Launched</div>
                 </div>
               </div>
             </div>
@@ -82,34 +82,34 @@ const StartupHero = () => {
               <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-gray-900">Your Startup Journey</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 font-inter">Your Startup Journey</h3>
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                   </div>
                   
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                       <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">1</span>
+                        <span className="text-white text-sm font-bold font-inter">1</span>
                       </div>
-                      <span className="text-gray-700">Idea Validation & Planning</span>
+                      <span className="text-gray-700 font-inter">Idea Validation & Planning</span>
                     </div>
                     <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                       <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">2</span>
+                        <span className="text-white text-sm font-bold font-inter">2</span>
                       </div>
-                      <span className="text-gray-700">MVP Development</span>
+                      <span className="text-gray-700 font-inter">MVP Development</span>
                     </div>
                     <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                       <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">3</span>
+                        <span className="text-white text-sm font-bold font-inter">3</span>
                       </div>
-                      <span className="text-gray-700">Testing & Refinement</span>
+                      <span className="text-gray-700 font-inter">Testing & Refinement</span>
                     </div>
                     <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
                       <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                        <span className="text-white text-sm font-bold">4</span>
+                        <span className="text-white text-sm font-bold font-inter">4</span>
                       </div>
-                      <span className="text-gray-700">Launch & Scale</span>
+                      <span className="text-gray-700 font-inter">Launch & Scale</span>
                     </div>
                   </div>
                 </div>
