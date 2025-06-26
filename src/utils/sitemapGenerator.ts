@@ -32,18 +32,30 @@ export const generateSitemap = (): string => {
       changefreq: 'weekly',
       priority: 0.9
     },
-    // Country hubs
+    // Country hub pages - THESE WERE MISSING!
     {
       loc: `${baseUrl}/global-services/ch`,
       lastmod: currentDate,
       changefreq: 'weekly',
-      priority: 0.8
+      priority: 0.85
     },
     {
       loc: `${baseUrl}/global-services/uk`,
       lastmod: currentDate,
       changefreq: 'weekly',
-      priority: 0.8
+      priority: 0.85
+    },
+    {
+      loc: `${baseUrl}/global-services/us`,
+      lastmod: currentDate,
+      changefreq: 'weekly',
+      priority: 0.85
+    },
+    {
+      loc: `${baseUrl}/global-services/it`,
+      lastmod: currentDate,
+      changefreq: 'weekly',
+      priority: 0.85
     },
     // Legal pages
     {
