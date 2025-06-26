@@ -10,10 +10,13 @@ import StartupPricing from "@/components/startup/StartupPricing";
 import StartupFAQ from "@/components/startup/StartupFAQ";
 import StartupCTA from "@/components/startup/StartupCTA";
 import ContactSection from "@/components/ContactSection";
+import CountryPainPoints from "@/components/country/CountryPainPoints";
 import { useSEO } from "@/hooks/useSEO";
+import { COUNTRIES } from "@/config/countries";
 
 const UKStartupDevelopment = () => {
   const seoData = useSEO('uk/startup-development');
+  const ukCountry = COUNTRIES.find(c => c.code === 'GB')!;
 
   return (
     <div className="min-h-screen font-inter">
@@ -27,6 +30,7 @@ const UKStartupDevelopment = () => {
           <h1 className="sr-only">Expert UK Startup Development Services - From MVP to Scale</h1>
           <UKStartupHero />
         </section>
+        <CountryPainPoints country={ukCountry} serviceType="startup" />
         <StartupValueProps />
         <StartupProcess />
         <StartupPricing />
