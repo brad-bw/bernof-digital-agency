@@ -41,6 +41,14 @@ export default {
 					DEFAULT: '#20B2AA',
 					foreground: '#FFFFFF'
 				},
+				// Brand colors from the geometric pattern
+				brand: {
+					'teal-dark': '#1F4B47',
+					'teal': '#2D5A56',
+					'teal-light': '#4A7C78',
+					'sage': '#8FB3AE',
+					'sage-light': '#B8D3CE'
+				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
 					foreground: 'hsl(var(--destructive-foreground))'

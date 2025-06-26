@@ -84,7 +84,21 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter;
+  }
+
+  /* Ensure consistent modern typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-inter font-semibold;
+  }
+
+  p, span, div {
+    @apply font-inter;
+  }
+
+  /* Override any potentially inconsistent font families */
+  .font-inconsistent {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
   }
 }
 
