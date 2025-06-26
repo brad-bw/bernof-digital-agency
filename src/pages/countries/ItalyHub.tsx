@@ -25,15 +25,15 @@ const ItalyHub = () => {
         </div>
         <CountryHero 
           country={country}
-          service="hub"
+          service="startup"
           title="Digital Services for Italian Businesses"
           subtitle="Bridge Italy's digital transformation gap with cutting-edge solutions and European excellence at exceptional value."
           ctaPrimary="Explore Italian Services"
           ctaSecondary="Book Consultation"
         />
-        <CountryPainPoints country={country} serviceType="hub" />
-        <CountryServices country={country} serviceType="hub" />
-        <CountryCTA country={country} serviceType="hub" />
+        <CountryPainPoints country={country} serviceType="startup" />
+        <CountryServices country={country} serviceType="startup" />
+        <CountryCTA country={country} serviceType="startup" />
         <ContactSection />
       </main>
       <Footer />

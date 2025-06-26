@@ -1,6 +1,5 @@
-
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Code, Rocket, Users, Pound, Clock, TrendingUp } from "lucide-react";
+import { ArrowRight, Code, Rocket, Users, PoundSterling, Clock, TrendingUp } from "lucide-react";
 
 const UKStartupHero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -58,7 +57,7 @@ const UKStartupHero = () => {
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Why Choose UK for Your Startup?</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center space-x-3">
-                    <Pound className="w-5 h-5 text-green-600" />
+                    <PoundSterling className="w-5 h-5 text-green-600" />
                     <span className="text-sm text-gray-700">£2.3B VC Investment (2024)</span>
                   </div>
                   <div className="flex items-center space-x-3">

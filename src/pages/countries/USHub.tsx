@@ -25,15 +25,15 @@ const USHub = () => {
         </div>
         <CountryHero 
           country={country}
-          service="hub"
+          service="startup"
           title="Digital Services for US Businesses"
           subtitle="Compete in America's demanding digital marketplace with European expertise and Silicon Valley quality at 60% cost savings."
           ctaPrimary="Explore US Services"
           ctaSecondary="Book Strategy Call"
         />
-        <CountryPainPoints country={country} serviceType="hub" />
-        <CountryServices country={country} serviceType="hub" />
-        <CountryCTA country={country} serviceType="hub" />
+        <CountryPainPoints country={country} serviceType="startup" />
+        <CountryServices country={country} serviceType="startup" />
+        <CountryCTA country={country} serviceType="startup" />
         <ContactSection />
       </main>
       <Footer />
