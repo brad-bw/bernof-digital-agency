@@ -32,7 +32,7 @@ const Footer = () => {
   ];
 
   const globalServices = [
-    { name: 'Switzerland', to: '/global-services/switzerland' },
+    { name: 'Switzerland', to: '/global-services/ch' },
     { name: 'United Kingdom', to: '/global-services/uk' },
     { name: 'All Countries', to: '/global-services' }
   ];

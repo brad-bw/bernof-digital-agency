@@ -75,7 +75,7 @@ const Header = () => {
                 onMouseLeave={() => setIsGlobalCoverageOpen(false)}
               >
                 <Link
-                  to="/global-services/switzerland"
+                  to="/global-services/ch"
                   className="flex items-center px-6 py-3 hover:bg-gray-50 transition-colors"
                 >
                   <span className="text-2xl mr-3">🇨🇭</span>

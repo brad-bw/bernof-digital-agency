@@ -49,7 +49,7 @@ const App = () => {
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/global-services" element={<GlobalServices />} />
-                    <Route path="/global-services/switzerland" element={<SwitzerlandHub />} />
+                    <Route path="/global-services/ch" element={<SwitzerlandHub />} />
                     <Route path="/global-services/uk" element={<UKHub />} />
                     <Route path="/startup-development" element={<StartupDevelopment />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
