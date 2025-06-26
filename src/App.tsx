@@ -20,6 +20,8 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 const SwitzerlandHub = lazy(() => import("./pages/countries/SwitzerlandHub"));
 const UKHub = lazy(() => import("./pages/countries/UKHub"));
+const USHub = lazy(() => import("./pages/countries/USHub"));
+const ItalyHub = lazy(() => import("./pages/countries/ItalyHub"));
 const SwitzerlandWebDevelopment = lazy(() => import("./pages/countries/SwitzerlandWebDevelopment"));
 const SwitzerlandSoftwareDevelopment = lazy(() => import("./pages/countries/SwitzerlandSoftwareDevelopment"));
 const SwitzerlandStartupDevelopment = lazy(() => import("./pages/countries/SwitzerlandStartupDevelopment"));
@@ -51,6 +53,8 @@ const App = () => {
                     <Route path="/global-services" element={<GlobalServices />} />
                     <Route path="/global-services/ch" element={<SwitzerlandHub />} />
                     <Route path="/global-services/uk" element={<UKHub />} />
+                    <Route path="/global-services/us" element={<USHub />} />
+                    <Route path="/global-services/it" element={<ItalyHub />} />
                     <Route path="/startup-development" element={<StartupDevelopment />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms-of-service" element={<TermsOfService />} />

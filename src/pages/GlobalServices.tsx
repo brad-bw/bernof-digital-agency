@@ -1,7 +1,7 @@
 
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Globe, TrendingUp, Users, Clock } from "lucide-react";
+import { ArrowRight, CheckCircle, Globe, TrendingUp, Users, Clock, Zap, Shield, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -50,6 +50,24 @@ const GlobalServices = () => {
     }
   ];
 
+  const features = [
+    {
+      icon: <Zap className="w-8 h-8 text-accent" />,
+      title: "Lightning Fast Delivery",
+      description: "Projects delivered 3x faster than industry standard"
+    },
+    {
+      icon: <Shield className="w-8 h-8 text-primary" />,
+      title: "European Quality Standards",
+      description: "ISO-certified processes with military-grade security"
+    },
+    {
+      icon: <Award className="w-8 h-8 text-accent" />,
+      title: "Award-Winning Results",
+      description: "Recognition from leading industry publications"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
@@ -61,70 +79,111 @@ const GlobalServices = () => {
 
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden pt-20">
-        {/* Background Elements */}
+      {/* Modern Hero Section */}
+      <section className="relative min-h-[90vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+        {/* Advanced Background Elements */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-32 h-32 border-2 border-white/20 rotate-45 rounded-lg"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 bg-accent/20 rounded-full"></div>
-          <div className="absolute bottom-32 left-40 w-40 h-2 bg-gradient-to-r from-white/30 to-transparent"></div>
-          <div className="absolute top-60 right-20 w-16 h-16 border border-white/30 rounded-full"></div>
+          <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-tl from-accent/15 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/5 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-white/10 rounded-full"></div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 pt-20 pb-32">
-          <div className="max-w-7xl mx-auto text-center">
-            <div className="inline-flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-8 py-3 mb-8 border border-white/20">
-              <Globe className="w-6 h-6 text-white" />
-              <span className="text-white font-semibold text-lg">Global Services</span>
+        <div className="container mx-auto px-6 relative z-10 pt-32 pb-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              {/* Left Content */}
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <h1 className="text-6xl lg:text-7xl font-bold leading-tight">
+                    <span className="block text-white mb-2">European</span>
+                    <span className="block text-white mb-2">Excellence,</span>
+                    <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+                      Global Reach
+                    </span>
+                  </h1>
+
+                  <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed max-w-2xl">
+                    Serving businesses across Europe and beyond with 60% cost savings on premium digital development services. Choose your market and unlock European expertise at unmatched value.
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <Button 
+                    onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
+                    className="bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent/80 text-white font-bold px-10 py-6 rounded-2xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-xl"
+                  >
+                    Start Your Global Project
+                    <ArrowRight className="w-6 h-6 ml-3" />
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    className="border-2 border-white/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 font-bold px-10 py-6 rounded-2xl text-xl h-auto"
+                    onClick={() => {
+                      document.getElementById('countries')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    Explore Markets
+                  </Button>
+                </div>
+              </div>
+
+              {/* Right Stats Grid */}
+              <div className="grid grid-cols-2 gap-6">
+                {[
+                  { value: "60%", label: "Average Savings", icon: <TrendingUp className="w-8 h-8" /> },
+                  { value: "50+", label: "Expert Developers", icon: <Users className="w-8 h-8" /> },
+                  { value: "48h", label: "Project Start", icon: <Clock className="w-8 h-8" /> },
+                  { value: "100%", label: "Success Rate", icon: <Award className="w-8 h-8" /> }
+                ].map((stat, index) => (
+                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                    <div className="text-accent mb-4">{stat.icon}</div>
+                    <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
+                    <div className="text-gray-300 text-sm">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Floating Elements */}
+        <div className="absolute top-1/4 right-1/4 w-4 h-4 bg-accent rounded-full animate-pulse"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-6">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold text-gray-900 mb-6">Why Choose Global Excellence?</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Experience the perfect blend of European craftsmanship and global accessibility
+              </p>
             </div>
 
-            <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-8">
-              <span className="bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
-                European Excellence,
-              </span>
-              <br />
-              <span className="text-accent">Global Reach</span>
-            </h1>
-
-            <p className="text-xl lg:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-              Serving businesses across Europe and beyond with 60% cost savings on premium digital development services. Choose your market and unlock European expertise at unmatched value.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-4xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                <TrendingUp className="w-8 h-8 text-accent mb-4 mx-auto" />
-                <div className="text-3xl font-bold text-white mb-2">60%</div>
-                <div className="text-white/80">Average Savings</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                <Users className="w-8 h-8 text-accent mb-4 mx-auto" />
-                <div className="text-3xl font-bold text-white mb-2">50+</div>
-                <div className="text-white/80">Expert Developers</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                <Clock className="w-8 h-8 text-accent mb-4 mx-auto" />
-                <div className="text-3xl font-bold text-white mb-2">48h</div>
-                <div className="text-white/80">Project Start</div>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {features.map((feature, index) => (
+                <div key={index} className="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                  <div className="mb-6 p-4 bg-gray-50 rounded-2xl w-fit group-hover:bg-primary/10 transition-colors">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                </div>
+              ))}
             </div>
-
-            <Button 
-              onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-              className="bg-accent hover:bg-accent/90 text-white font-bold px-10 py-5 rounded-xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
-            >
-              Start Your Global Project
-              <ArrowRight className="w-6 h-6 ml-3" />
-            </Button>
           </div>
         </div>
       </section>
 
       {/* Country Selection Section */}
-      <section className="py-24 bg-white">
+      <section id="countries" className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-5xl font-bold text-gray-900 mb-6">
                 Choose Your Market
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto">
@@ -137,7 +196,7 @@ const GlobalServices = () => {
                 <Link
                   key={country.code}
                   to={country.link}
-                  className="group bg-white rounded-3xl p-8 shadow-lg border-2 border-gray-200 hover:border-primary hover:shadow-xl transition-all duration-300"
+                  className="group bg-white rounded-3xl p-8 shadow-lg border-2 border-gray-200 hover:border-primary hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center space-x-4">
@@ -197,55 +256,6 @@ const GlobalServices = () => {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Global Advantages Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Why Choose Our Global Approach?
-              </h2>
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-                We combine European excellence with local market understanding to deliver unmatched value worldwide.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  title: 'Local Market Expertise',
-                  description: 'Deep understanding of local regulations, payment systems, and business cultures in each country we serve.',
-                  benefits: ['GDPR & Local Compliance', 'Native Payment Integration', 'Cultural Adaptation', 'Local Language Support']
-                },
-                {
-                  title: 'European Quality Standards',
-                  description: 'Rigorous development processes, security standards, and quality assurance that meet the highest European requirements.',
-                  benefits: ['ISO Certified Processes', 'Advanced Security', 'Quality Assurance', 'European Data Protection']
-                },
-                {
-                  title: 'Global Cost Efficiency',
-                  description: 'Leverage our European operations to deliver premium services at 60% less cost than local alternatives.',
-                  benefits: ['60% Cost Savings', 'No Hidden Fees', 'Transparent Pricing', 'Fixed-Price Projects']
-                }
-              ].map((advantage, index) => (
-                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{advantage.title}</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{advantage.description}</p>
-                  <div className="space-y-3">
-                    {advantage.benefits.map((benefit, benefitIndex) => (
-                      <div key={benefitIndex} className="flex items-center space-x-3">
-                        <CheckCircle className="w-5 h-5 text-primary" />
-                        <span className="text-gray-700">{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
