@@ -210,11 +210,11 @@ const Footer = () => {
                   info@bernofco.com
                 </a>
                 <a 
-                  href="tel:+442030000000"
+                  href="tel:+442080580773"
                   className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm"
                 >
                   <Phone className="w-4 h-4 mr-2" />
-                  +44 20 3000 0000
+                  +44 20 80 580 773
                 </a>
                 <div className="flex items-start text-gray-600 text-sm">
                   <MapPin className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />

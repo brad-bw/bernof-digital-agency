@@ -157,8 +157,8 @@ const ContactSection = () => {
     {
       icon: <Phone className="w-6 h-6 text-accent" />,
       title: "Call Us",
-      content: "+44 20 3000 0000",
-      action: "tel:+442030000000"
+      content: "+44 20 80 580 773",
+      action: "tel:+442080580773"
     },
     {
       icon: <MapPin className="w-6 h-6 text-accent" />,

@@ -155,10 +155,10 @@ const CountryCTA = ({ country, serviceType }: CountryCTAProps) => {
               <h3 className="text-xl font-bold mb-3">Direct Call</h3>
               <p className="text-white/80 mb-4">Speak with our team immediately</p>
               <a 
-                href="tel:+442030000000" 
+                href="tel:+442080580773" 
                 className="text-accent hover:text-accent/80 font-bold text-lg transition-colors"
               >
-                +44 20 3000 0000
+                +44 20 80 580 773
               </a>
             </div>
 

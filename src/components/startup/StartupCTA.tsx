@@ -53,8 +53,8 @@ const StartupCTA = () => {
               </div>
               <h3 className="text-lg font-semibold mb-2">Call Us</h3>
               <p className="text-white/80 mb-2">Speak directly with our team</p>
-              <a href="tel:+442030000000" className="text-white hover:text-white/80 font-semibold">
-                +44 20 3000 0000
+              <a href="tel:+442080580773" className="text-white hover:text-white/80 font-semibold">
+                +44 20 80 580 773
               </a>
             </div>
 
