@@ -3,28 +3,7 @@ import { MapPin, X } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import OptimizedImage from "@/components/OptimizedImage";
-
-interface CaseStudy {
-  id: number;
-  title: string;
-  subtitle: string;
-  company: string;
-  location: string;
-  description: string;
-  fullDescription: string;
-  category: string;
-  technologies: string[];
-  duration: string;
-  team: string;
-  results: string;
-  challenge: string;
-  solution: string;
-  impact: string;
-  thumbnail: string;
-  images: string[];
-  gradient: string;
-  year: string;
-}
+import { CaseStudy } from "./types";
 
 interface CaseStudyModalProps {
   selectedCase: CaseStudy | null;

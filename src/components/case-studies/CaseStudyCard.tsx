@@ -3,23 +3,7 @@ import { ExternalLink, Clock, Users, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import OptimizedImage from "@/components/OptimizedImage";
-
-interface CaseStudy {
-  id: number;
-  title: string;
-  subtitle: string;
-  company: string;
-  location: string;
-  description: string;
-  category: string;
-  technologies: string[];
-  duration: string;
-  team: string;
-  results: string;
-  thumbnail: string;
-  gradient: string;
-  year: string;
-}
+import { CaseStudy } from "./types";
 
 interface CaseStudyCardProps {
   study: CaseStudy;
