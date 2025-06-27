@@ -13,7 +13,6 @@ import Loading from "@/components/Loading";
 const Index = lazy(() => import("./pages/Index"));
 const GlobalServices = lazy(() => import("./pages/GlobalServices"));
 const StartupDevelopment = lazy(() => import("./pages/StartupDevelopment"));
-const CaseStudies = lazy(() => import("./pages/CaseStudies"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
@@ -57,7 +56,6 @@ const App = () => {
                     <Route path="/global-services/us" element={<USHub />} />
                     <Route path="/global-services/it" element={<ItalyHub />} />
                     <Route path="/startup-development" element={<StartupDevelopment />} />
-                    <Route path="/case-studies" element={<CaseStudies />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms-of-service" element={<TermsOfService />} />
                     <Route path="/cookie-policy" element={<CookiePolicy />} />
