@@ -37,6 +37,24 @@ const TRACKING_CONFIG: TrackyConfig = {
   // }
 };
 
+// Extend the Window interface to include amplitude
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+    amplitude: {
+      getInstance: () => {
+        init: (apiKey: string) => void;
+      };
+      track: (eventName: string, properties?: Record<string, any>) => void;
+      setUserId: (userId: string) => void;
+      identify: (identify: any) => void;
+      Identify: new () => {
+        setOnce: (properties: Record<string, any>) => any;
+      };
+    };
+  }
+}
+
 const Tracky = () => {
   useEffect(() => {
     // Initialize Google Analytics

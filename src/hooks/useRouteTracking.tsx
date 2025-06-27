@@ -12,10 +12,3 @@ export const useRouteTracking = () => {
 
   return location;
 };
-
-// Extend the Window interface to include gtag
-declare global {
-  interface Window {
-    gtag: (...args: any[]) => void;
-  }
-}
