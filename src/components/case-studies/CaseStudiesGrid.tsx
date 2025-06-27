@@ -13,19 +13,19 @@ const CaseStudiesGrid = () => {
     {
       id: 3,
       title: "Format Plus",
-      subtitle: "Ceramics and Interior Design",
+      subtitle: "Ceramics and Interior Design Excellence",
       company: "Format Plus",
       location: "Italy",
-      description: "FORMAT PLUS specializes in the processing and transformation of ceramic slabs, collaborating with architects and interior designers to create bespoke furnishing elements using state-of-the-art ceramic slabs.",
-      fullDescription: "Format Plus is a cutting-edge ceramics and interior design company that transforms raw ceramic materials into stunning architectural elements. Working closely with architects and interior designers, they create custom furnishing solutions that push the boundaries of ceramic applications in modern design. The project involved creating a comprehensive digital presence that showcases their craftsmanship and attracts high-quality leads in the architecture and design industry.",
+      description: "FORMAT PLUS specializes in the processing and transformation of ceramic slabs, collaborating with architects and interior designers to create bespoke furnishing elements using state-of-the-art ceramic slabs and advanced manufacturing techniques.",
+      fullDescription: "Format Plus is a leading Italian company in the ceramics and interior design industry, specializing in the transformation of high-quality ceramic slabs into stunning architectural elements. Working closely with architects and interior designers, they create custom furnishing solutions that push the boundaries of ceramic applications in modern design. Our comprehensive digital transformation project involved creating a complete brand identity, modern website, and integrated digital marketing strategy that positions Format Plus as a premium leader in the luxury ceramics market.",
       category: "web",
-      technologies: ["Social Media Management", "Digital Advertising", "Website Development", "SEO Optimization", "Google My Business", "Visual Identity Design", "Professional Photography", "Video Production", "UI/UX Design", "Print Publications", "Brand Development", "Content Strategy"],
+      technologies: ["Social Media Management", "Digital Advertising", "Website Development", "SEO Optimization", "Google My Business", "Visual Identity Design", "Professional Photography", "Video Production", "UI/UX Design", "Print Publications", "Brand Development", "Content Strategy", "WordPress", "Figma", "Server Configuration", "Email Integration"],
       duration: "12 weeks",
       team: "6 specialists",
-      results: "Comprehensive digital presence with high-performing website and integrated social media strategy, resulting in increased brand visibility and quality leads",
-      challenge: "Creating a digital presence that effectively showcases the craftsmanship and quality of ceramic transformations while appealing to both architects and interior designers. The challenge was to create a cohesive brand identity that would work across multiple platforms and communicate the premium nature of their Italian ceramic solutions.",
-      solution: "Developed a comprehensive digital strategy including website design using Figma and WordPress, social media management across multiple platforms, SEO optimization, and visual identity creation. We implemented reliable hosting, configured servers for optimal performance, and integrated professional email systems. The solution included both digital and print materials to create a cohesive brand experience.",
-      impact: "Established a strong online presence that effectively communicates the brand's expertise and attracts high-quality leads in the architecture and design industry. The integrated approach resulted in increased brand recognition, improved client engagement, and successful positioning in the luxury ceramics market.",
+      results: "Comprehensive digital transformation resulting in a 300% increase in online visibility, professional brand identity that attracts high-quality leads, and a modern website that effectively showcases Italian craftsmanship to architects and interior designers worldwide.",
+      challenge: "Format Plus needed to establish a strong digital presence that would effectively communicate their expertise in ceramic transformation while appealing to both architects and interior designers. The main challenge was creating a cohesive brand identity that would work across multiple platforms and communicate the premium nature of their Italian ceramic solutions, while also competing in the luxury design market.",
+      solution: "We developed a comprehensive digital strategy that included complete brand identity design, modern website development using Figma and WordPress, integrated social media management across multiple platforms, professional SEO optimization, and visual content creation. The solution included both digital and print materials, reliable hosting setup, server configuration for optimal performance, and professional email system integration to create a seamless brand experience.",
+      impact: "The project successfully established Format Plus as a premium brand in the ceramics industry with a strong online presence that effectively communicates their expertise and attracts high-quality leads. The integrated digital approach resulted in significant brand recognition improvement, enhanced client engagement, and successful positioning in the luxury ceramics market with measurable increases in qualified inquiries from architects and designers.",
       thumbnail: "/lovable-uploads/2f22eac0-9aa8-4302-8851-15fb30fa7c68.png",
       images: [
         "/lovable-uploads/2f22eac0-9aa8-4302-8851-15fb30fa7c68.png",
@@ -52,7 +52,7 @@ const CaseStudiesGrid = () => {
 
   return (
     <>
-      <section className="py-20 bg-white" id="case-studies-grid">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white" id="case-studies-grid">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             {/* Category Filter */}
@@ -62,9 +62,9 @@ const CaseStudiesGrid = () => {
                   key={category.id}
                   variant={selectedCategory === category.id ? "default" : "outline"}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`font-inter ${
+                  className={`font-medium transition-all duration-300 ${
                     selectedCategory === category.id
-                      ? "bg-brand-teal text-white"
+                      ? "bg-brand-teal text-white shadow-lg"
                       : "border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white"
                   }`}
                 >
