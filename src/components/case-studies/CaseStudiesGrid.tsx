@@ -49,11 +49,10 @@ const CaseStudiesGrid = () => {
       challenge: "Complex healthcare workflows required seamless integration between multiple stakeholders while maintaining strict compliance standards.",
       solution: "Built a comprehensive platform with role-based access, real-time communication, and automated workflow management.",
       impact: "Reduced administrative overhead by 35% and improved patient satisfaction scores by 28%.",
-      thumbnail: "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
+      thumbnail: "/lovable-uploads/c84d23ac-a325-4a8b-b7b9-9ad980fdde19.png",
       images: [
-        "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800",
-        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800"
+        "/lovable-uploads/50e45f8e-a679-43be-bdca-3af149fa4772.png",
+        "/lovable-uploads/4ff32a07-73a8-4244-b613-81dfffbd6568.png"
       ],
       gradient: "from-blue-500 to-cyan-600",
       year: "2024"
@@ -74,114 +73,35 @@ const CaseStudiesGrid = () => {
       challenge: "Creating a secure, empathetic digital environment for sensitive mental health interactions while integrating AI capabilities.",
       solution: "Developed an AI-powered platform with secure video sessions, mood tracking, and personalized therapy recommendations.",
       impact: "Improved therapy access by 60% and reduced session scheduling time by 45%.",
-      thumbnail: "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
+      thumbnail: "/lovable-uploads/c84d23ac-a325-4a8b-b7b9-9ad980fdde19.png",
       images: [
-        "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-        "https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=800",
-        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800"
+        "/lovable-uploads/4ff32a07-73a8-4244-b613-81dfffbd6568.png"
       ],
       gradient: "from-purple-500 to-pink-600",
       year: "2024"
     },
     {
       id: 3,
-      title: "Startup Accelerator Platform",
-      subtitle: "Business Development",
-      company: "TechStars Partner",
-      location: "Europe",
-      description: "A comprehensive platform for startup accelerators to manage cohorts, mentorship, and funding processes.",
-      fullDescription: "Built for a leading European startup accelerator, this platform streamlines the entire startup development lifecycle. From application processing to mentor matching, cohort management, and investor relations, the system provides end-to-end support for accelerator programs with integrated communication tools and performance analytics.",
-      category: "startup",
-      technologies: ["React", "Node.js", "MongoDB", "Docker", "AWS"],
-      duration: "14 weeks",
-      team: "7 developers",
-      results: "3x faster cohort management process",
-      challenge: "Complex startup ecosystem required integration of multiple stakeholders with different needs and workflows.",
-      solution: "Created a multi-tenant platform with role-based dashboards for startups, mentors, and accelerator staff.",
-      impact: "Reduced administrative overhead by 50% and improved mentor-startup matching efficiency by 70%.",
-      thumbnail: "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-      images: [
-        "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-        "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800",
-        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800"
-      ],
-      gradient: "from-green-500 to-teal-600",
-      year: "2024"
-    },
-    {
-      id: 4,
-      title: "E-commerce Marketplace",
-      subtitle: "Retail Technology",
-      company: "Nordic Retail Group",
-      location: "Scandinavia",
-      description: "A multi-vendor e-commerce platform serving Nordic markets with advanced inventory management.",
-      fullDescription: "Developed a sophisticated multi-vendor marketplace platform that serves the unique needs of Nordic retail markets. The system handles complex inventory management across multiple vendors, supports multiple currencies and languages, and provides advanced analytics for both vendors and platform administrators.",
+      title: "Format Plus",
+      subtitle: "Ceramics and Interior Design",
+      company: "Format Plus",
+      location: "Italy",
+      description: "FORMAT PLUS specializes in the processing and transformation of ceramic slabs, collaborating with architects and interior designers to create bespoke furnishing elements using state-of-the-art ceramic slabs.",
+      fullDescription: "Format Plus is a cutting-edge ceramics and interior design company that transforms raw ceramic materials into stunning architectural elements. Working closely with architects and interior designers, they create custom furnishing solutions that push the boundaries of ceramic applications in modern design.",
       category: "web",
-      technologies: ["React", "Node.js", "PostgreSQL", "Redis", "Stripe"],
-      duration: "18 weeks",
-      team: "9 developers",
-      results: "€2M+ in first-year transactions",
-      challenge: "Multi-vendor complexity with diverse product catalogs, payment methods, and regional compliance requirements.",
-      solution: "Built a scalable marketplace with vendor management, automated inventory sync, and localized payment processing.",
-      impact: "Enabled 200+ vendors to reach new markets and increased average order value by 35%.",
-      thumbnail: "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
+      technologies: ["Social Media", "Advertising", "Website", "SEO", "Google My Business", "Visual Identity", "Photography", "Video", "UI/UX", "Publication"],
+      duration: "12 weeks",
+      team: "6 developers",
+      results: "High-performing website showcasing FormatPlus's services effectively",
+      challenge: "Creating a digital presence that effectively showcases the craftsmanship and quality of ceramic transformations while appealing to both architects and interior designers.",
+      solution: "Developed a comprehensive digital strategy including website design, social media management, SEO optimization, and visual identity creation.",
+      impact: "Established a strong online presence that effectively communicates the brand's expertise and attracts high-quality leads in the architecture and design industry.",
+      thumbnail: "/lovable-uploads/ff64d8fb-43d3-42d1-ba4e-9170f8ca98aa.png",
       images: [
-        "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800",
-        "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800"
+        "/lovable-uploads/ff64d8fb-43d3-42d1-ba4e-9170f8ca98aa.png"
       ],
       gradient: "from-orange-500 to-red-600",
-      year: "2023"
-    },
-    {
-      id: 5,
-      title: "SaaS Analytics Dashboard",
-      subtitle: "Business Intelligence",
-      company: "DataFlow Solutions",
-      location: "Switzerland",
-      description: "Advanced analytics platform providing real-time business intelligence and predictive insights.",
-      fullDescription: "Created a comprehensive business intelligence platform that transforms raw data into actionable insights. The system integrates with multiple data sources, provides real-time analytics, and offers predictive modeling capabilities to help businesses make data-driven decisions with confidence.",
-      category: "startup",
-      technologies: ["React", "Python", "MongoDB", "D3.js", "Machine Learning"],
-      duration: "22 weeks",
-      team: "12 developers",
-      results: "500+ enterprise clients onboarded",
-      challenge: "Processing large datasets in real-time while providing intuitive visualization and predictive analytics.",
-      solution: "Developed a scalable analytics engine with customizable dashboards and AI-powered insights.",
-      impact: "Helped clients increase operational efficiency by 45% through data-driven decision making.",
-      thumbnail: "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-      images: [
-        "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800"
-      ],
-      gradient: "from-indigo-500 to-blue-600",
-      year: "2023"
-    },
-    {
-      id: 6,
-      title: "Mobile Banking App",
-      subtitle: "Fintech Solution",
-      company: "European Digital Bank",
-      location: "Germany",
-      description: "Secure mobile banking application with advanced security features and seamless user experience.",
-      fullDescription: "Developed a cutting-edge mobile banking application that combines security with exceptional user experience. The app features biometric authentication, real-time transaction processing, advanced security protocols, and intuitive financial management tools that have redefined digital banking standards.",
-      category: "mobile",
-      technologies: ["React Native", "Node.js", "PostgreSQL", "Blockchain", "Biometric Auth"],
-      duration: "24 weeks",
-      team: "15 developers",
-      results: "1M+ downloads in 6 months",
-      challenge: "Balancing maximum security with seamless user experience while ensuring regulatory compliance across multiple jurisdictions.",
-      solution: "Implemented multi-layer security with biometric authentication and real-time fraud detection.",
-      impact: "Achieved 98% customer satisfaction rate and reduced transaction processing time by 60%.",
-      thumbnail: "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-      images: [
-        "/lovable-uploads/318342bc-a760-4a85-b783-36a81fe5a5ea.png",
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800",
-        "https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=800"
-      ],
-      gradient: "from-emerald-500 to-green-600",
-      year: "2023"
+      year: "2024"
     }
   ];
 
@@ -357,7 +277,7 @@ const CaseStudiesGrid = () => {
                 {/* Hero Image */}
                 <div className="relative h-64 rounded-lg overflow-hidden">
                   <OptimizedImage
-                    src={selectedCase.images[0]}
+                    src={selectedCase.thumbnail}
                     alt={selectedCase.title}
                     className="w-full h-full object-cover"
                   />
@@ -441,15 +361,15 @@ const CaseStudiesGrid = () => {
                 </div>
 
                 {/* Additional Images */}
-                {selectedCase.images.length > 1 && (
+                {selectedCase.images.length > 0 && (
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-4 font-inter">Project Gallery</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {selectedCase.images.slice(1).map((image, index) => (
+                      {selectedCase.images.map((image, index) => (
                         <div key={index} className="relative h-48 rounded-lg overflow-hidden">
                           <OptimizedImage
                             src={image}
-                            alt={`${selectedCase.title} - Image ${index + 2}`}
+                            alt={`${selectedCase.title} - Image ${index + 1}`}
                             className="w-full h-full object-cover"
                           />
                         </div>
