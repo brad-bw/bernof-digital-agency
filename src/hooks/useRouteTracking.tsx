@@ -1,21 +1,13 @@
 
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { trackPageView } from '@/utils/trackingUtils';
 
 export const useRouteTracking = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Track page view in Google Analytics
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('config', 'G-BYCC3QQSTC', {
-        page_path: location.pathname + location.search,
-        page_title: document.title,
-      });
-    }
-
-    // Log route change for debugging
-    console.log('Route changed to:', location.pathname);
+    trackPageView(location.pathname + location.search);
   }, [location]);
 
   return location;
