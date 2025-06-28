@@ -52,6 +52,7 @@ declare global {
         setOnce: (properties: Record<string, any>) => any;
       };
     };
+    amplitudeReady?: boolean;
   }
 }
 
@@ -71,14 +72,32 @@ const Tracky = () => {
 
     // Initialize Amplitude
     if (TRACKING_CONFIG.amplitude.enabled) {
+      console.log('🔄 Loading Amplitude...');
       const script = document.createElement('script');
       script.src = 'https://cdn.amplitude.com/libs/amplitude-8.21.9-min.gz.js';
       script.async = true;
       script.onload = () => {
+        console.log('📦 Amplitude script loaded');
         if (window.amplitude) {
-          window.amplitude.getInstance().init(TRACKING_CONFIG.amplitude.apiKey);
-          console.log('✅ Amplitude initialized');
+          try {
+            window.amplitude.getInstance().init(TRACKING_CONFIG.amplitude.apiKey);
+            window.amplitudeReady = true;
+            console.log('✅ Amplitude initialized with API key:', TRACKING_CONFIG.amplitude.apiKey);
+            
+            // Test tracking
+            window.amplitude.track('Amplitude Initialized', {
+              timestamp: new Date().toISOString(),
+              page: window.location.pathname
+            });
+          } catch (error) {
+            console.error('❌ Amplitude initialization failed:', error);
+          }
+        } else {
+          console.error('❌ Amplitude object not found after script load');
         }
+      };
+      script.onerror = () => {
+        console.error('❌ Failed to load Amplitude script');
       };
       document.head.appendChild(script);
     }
