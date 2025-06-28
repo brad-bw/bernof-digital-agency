@@ -9,11 +9,11 @@ const BlogCategories = () => {
 
   if (isLoading) {
     return (
-      <section className="py-12 bg-white border-b border-gray-100">
-        <div className="container mx-auto px-4">
+      <section className="py-8 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-6">
           <div className="flex gap-3 justify-center">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-10 w-24 bg-gray-200 rounded-full animate-pulse"></div>
+              <div key={i} className="h-9 w-24 bg-gray-200 rounded-full animate-pulse"></div>
             ))}
           </div>
         </div>
@@ -22,34 +22,35 @@ const BlogCategories = () => {
   }
 
   return (
-    <section className="py-12 bg-white border-b border-gray-100">
-      <div className="container mx-auto px-4">
+    <section className="py-8 bg-white border-b border-gray-50">
+      <div className="container mx-auto px-6">
         <div className="flex flex-wrap gap-3 justify-center">
+          {/* All Articles */}
           <Badge
-            variant={selectedCategory === null ? "default" : "outline"}
-            className={`px-6 py-3 text-sm font-medium cursor-pointer transition-all duration-200 rounded-full ${
+            variant="outline"
+            className={`px-4 py-2 text-sm font-medium cursor-pointer transition-all duration-200 rounded-full border-2 ${
               selectedCategory === null 
-                ? "bg-primary text-white hover:bg-primary/90" 
-                : "hover:bg-gray-100"
+                ? "bg-gray-900 text-white border-gray-900 hover:bg-gray-800" 
+                : "bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-800"
             }`}
             onClick={() => setSelectedCategory(null)}
           >
-            All Articles
+            All articles
           </Badge>
           
+          {/* Category badges */}
           {categories?.map((category) => (
             <Badge
               key={category.id}
-              variant={selectedCategory === category.slug ? "default" : "outline"}
-              className={`px-6 py-3 text-sm font-medium cursor-pointer transition-all duration-200 rounded-full ${
+              variant="outline"
+              className={`px-4 py-2 text-sm font-medium cursor-pointer transition-all duration-200 rounded-full border-2 ${
                 selectedCategory === category.slug 
-                  ? "text-white hover:opacity-90" 
-                  : "hover:bg-gray-100"
+                  ? "text-white border-transparent"
+                  : "bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-800"
               }`}
               style={{
                 backgroundColor: selectedCategory === category.slug ? category.color : undefined,
-                borderColor: category.color,
-                color: selectedCategory === category.slug ? 'white' : category.color
+                borderColor: selectedCategory === category.slug ? category.color : undefined,
               }}
               onClick={() => setSelectedCategory(
                 selectedCategory === category.slug ? null : category.slug
