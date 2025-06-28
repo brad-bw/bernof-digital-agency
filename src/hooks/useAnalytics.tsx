@@ -1,8 +1,25 @@
 
 import { useCallback } from 'react';
-import { trackEvent, identifyUser } from '@/utils/trackingUtils';
 
 export const useAnalytics = () => {
+  const trackEvent = useCallback((eventName: string, parameters?: Record<string, any>) => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', eventName, {
+        event_category: 'engagement',
+        event_label: parameters?.label || '',
+        value: parameters?.value || 0,
+        ...parameters
+      });
+    }
+
+    // Also track in Amplitude if available
+    if (typeof window !== 'undefined' && window.amplitude) {
+      window.amplitude.track(eventName, parameters);
+    }
+
+    console.log(`Analytics Event: ${eventName}`, parameters);
+  }, []);
+
   const trackConversion = useCallback((conversionType: string, value?: number) => {
     trackEvent('conversion', {
       conversion_type: conversionType,
@@ -10,7 +27,7 @@ export const useAnalytics = () => {
       currency: 'GBP'
     });
 
-    // Enhanced ecommerce tracking for GA
+    // Enhanced ecommerce tracking
     if (typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'purchase', {
         transaction_id: `conv_${Date.now()}`,
@@ -25,15 +42,15 @@ export const useAnalytics = () => {
         }]
       });
     }
-  }, []);
+  }, [trackEvent]);
 
   const trackFormSubmission = useCallback((formName: string, formData?: Record<string, any>) => {
     trackEvent('form_submit', {
       form_name: formName,
       ...formData
     });
-    trackConversion('form_submission', 100);
-  }, [trackConversion]);
+    trackConversion('form_submission', 100); // Assign £100 value to form submissions
+  }, [trackEvent, trackConversion]);
 
   const trackCTAClick = useCallback((ctaName: string, location: string) => {
     trackEvent('cta_click', {
@@ -41,14 +58,14 @@ export const useAnalytics = () => {
       cta_location: location,
       page_path: window.location.pathname
     });
-  }, []);
+  }, [trackEvent]);
 
   const trackScrollDepth = useCallback((depth: number) => {
     trackEvent('scroll_depth', {
       scroll_depth: depth,
       page_path: window.location.pathname
     });
-  }, []);
+  }, [trackEvent]);
 
   const trackServiceInquiry = useCallback((serviceName: string, packageType?: string) => {
     trackEvent('service_inquiry', {
@@ -56,8 +73,8 @@ export const useAnalytics = () => {
       package_type: packageType,
       page_path: window.location.pathname
     });
-    trackConversion('service_inquiry', 500);
-  }, [trackConversion]);
+    trackConversion('service_inquiry', 500); // Assign £500 value to service inquiries
+  }, [trackEvent, trackConversion]);
 
   const trackPhoneClick = useCallback(() => {
     trackEvent('phone_click', {
@@ -65,7 +82,7 @@ export const useAnalytics = () => {
       page_path: window.location.pathname
     });
     trackConversion('phone_contact', 200);
-  }, [trackConversion]);
+  }, [trackEvent, trackConversion]);
 
   const trackEmailClick = useCallback(() => {
     trackEvent('email_click', {
@@ -73,7 +90,7 @@ export const useAnalytics = () => {
       page_path: window.location.pathname
     });
     trackConversion('email_contact', 150);
-  }, [trackConversion]);
+  }, [trackEvent, trackConversion]);
 
   return {
     trackEvent,
@@ -83,7 +100,13 @@ export const useAnalytics = () => {
     trackScrollDepth,
     trackServiceInquiry,
     trackPhoneClick,
-    trackEmailClick,
-    identifyUser
+    trackEmailClick
   };
 };
+
+// Extend window interface for amplitude
+declare global {
+  interface Window {
+    amplitude: any;
+  }
+}

@@ -66,7 +66,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 "contactPoint": [
                   {
                     "@type": "ContactPoint",
-                    "telephone": "+442080580773",
+                    "telephone": "+442030000000",
                     "contactType": "customer service",
                     "email": "info@bernofco.com",
                     "availableLanguage": ["English"],

@@ -1,3 +1,4 @@
+
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -8,7 +9,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Loading from "@/components/Loading";
-import Tracky from "@/components/Tracky";
 
 const Index = lazy(() => import("./pages/Index"));
 const GlobalServices = lazy(() => import("./pages/GlobalServices"));
@@ -44,7 +44,6 @@ const App = () => {
         <ThemeProvider defaultTheme="light" storageKey="bernof-ui-theme">
           <QueryClientProvider client={queryClient}>
             <TooltipProvider>
-              <Tracky />
               <Toaster />
               <Sonner />
               <BrowserRouter>
