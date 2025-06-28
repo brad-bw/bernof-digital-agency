@@ -17,7 +17,7 @@ export const useBlogPosts = (publishedOnly: boolean = true) => {
             color
           )
         `)
-        .order('published_at', { ascending: false, nullsLast: true });
+        .order('published_at', { ascending: false });
 
       if (publishedOnly) {
         query = query.eq('is_published', true);
