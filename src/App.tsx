@@ -1,4 +1,3 @@
-
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -11,6 +10,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Loading from "@/components/Loading";
 
 const Index = lazy(() => import("./pages/Index"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
 const GlobalServices = lazy(() => import("./pages/GlobalServices"));
 const StartupDevelopment = lazy(() => import("./pages/StartupDevelopment"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
@@ -50,6 +51,8 @@ const App = () => {
                 <Suspense fallback={<Loading />}>
                   <Routes>
                     <Route path="/" element={<Index />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:slug" element={<BlogPost />} />
                     <Route path="/global-services" element={<GlobalServices />} />
                     <Route path="/global-services/ch" element={<SwitzerlandHub />} />
                     <Route path="/global-services/uk" element={<UKHub />} />

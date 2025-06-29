@@ -1,4 +1,3 @@
-
 import { useMemo } from 'react';
 import { getCountryConfig } from '@/config/countries';
 
@@ -175,6 +174,33 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
                 }
               }
             ]
+          }
+        };
+      
+      case 'blog':
+        return {
+          title: 'Blog - Digital Insights & Industry Trends | Bernof Co',
+          description: 'Explore the latest insights on web development, startup growth, and digital innovation. Expert analysis and practical tips from industry professionals.',
+          keywords: 'web development blog, startup insights, digital marketing trends, tech innovation, business strategy, software development tips, digital transformation',
+          canonical: `${baseUrl}/blog`,
+          breadcrumbs: [
+            { name: 'Home', url: baseUrl },
+            { name: 'Blog', url: `${baseUrl}/blog` }
+          ],
+          schemaData: {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "@id": `${baseUrl}/blog#blog`,
+            "name": "Bernof Co Blog",
+            "description": "Digital insights and industry trends from Bernof Co - covering web development, startup growth, and digital innovation",
+            "url": `${baseUrl}/blog`,
+            "publisher": {
+              "@id": `${baseUrl}/#organization`
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${baseUrl}/blog`
+            }
           }
         };
       
