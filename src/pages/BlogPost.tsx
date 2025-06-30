@@ -55,6 +55,15 @@ const BlogPost = () => {
     }
   };
 
+  const placeholderImages = [
+    'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop',
+    'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
+  ];
+  
+  const randomImage = placeholderImages[Math.floor(Math.random() * placeholderImages.length)];
+  const imageUrl = post.featured_image || randomImage;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
@@ -88,7 +97,7 @@ const BlogPost = () => {
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <header className="mb-12">
             <div className="flex flex-wrap gap-2 mb-6">
-              {post.categories.map((category) => (
+              {post.categories?.map((category) => (
                 <Badge 
                   key={category} 
                   className="bg-[#1F5F5B] text-white hover:bg-[#2D5A56]"
@@ -155,56 +164,46 @@ const BlogPost = () => {
             </div>
           </header>
           
-          {post.featured_image && (
-            <div className="mb-12">
-              <img
-                src={post.featured_image}
-                alt={post.title}
-                className="w-full h-96 object-cover rounded-2xl shadow-lg"
-              />
-            </div>
-          )}
-          
-          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900">
-            {post.content && typeof post.content === 'object' && Array.isArray(post.content) ? (
-              post.content.map((block: any, index: number) => {
-                if (block._type === 'block') {
-                  const text = block.children?.map((child: any) => child.text).join('') || '';
-                  if (block.style === 'h1') {
-                    return <h1 key={index} className="text-3xl font-bold mb-4">{text}</h1>;
-                  } else if (block.style === 'h2') {
-                    return <h2 key={index} className="text-2xl font-semibold mb-3">{text}</h2>;
-                  } else if (block.style === 'h3') {
-                    return <h3 key={index} className="text-xl font-semibold mb-2">{text}</h3>;
-                  } else {
-                    return <p key={index} className="mb-4 leading-relaxed">{text}</p>;
-                  }
-                } else if (block._type === 'image') {
-                  return (
-                    <div key={index} className="my-8">
-                      <img 
-                        src={block.asset?.url || '/placeholder.svg'} 
-                        alt={block.alt || ''} 
-                        className="w-full rounded-lg shadow-md"
-                      />
-                    </div>
-                  );
-                }
-                return null;
-              })
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <p className="text-gray-600 mb-4">
-                  This article contains rich content that will be fully rendered once the Sanity CMS integration is complete.
-                </p>
-                <p className="text-sm text-gray-500">
-                  For now, enjoy the article structure and metadata above.
-                </p>
-              </div>
-            )}
+          <div className="mb-12">
+            <img
+              src={imageUrl}
+              alt={post.title}
+              className="w-full h-96 object-cover rounded-2xl shadow-lg"
+            />
           </div>
           
-          {post.tags.length > 0 && (
+          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900">
+            <div className="space-y-6">
+              <p className="text-lg leading-relaxed text-gray-700">
+                Welcome to the world of modern web development! This comprehensive guide will walk you through the essential concepts, tools, and best practices that every developer should know in 2025.
+              </p>
+              
+              <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">What is Modern Web Development?</h2>
+              <p className="leading-relaxed text-gray-700">
+                Modern web development encompasses a wide range of technologies, frameworks, and methodologies that have evolved to meet the demands of today's web applications. From responsive design to progressive web apps, developers now have access to powerful tools that make building robust, scalable applications easier than ever.
+              </p>
+              
+              <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Key Technologies to Master</h2>
+              <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                <li><strong>React & Next.js:</strong> Modern JavaScript frameworks for building interactive user interfaces</li>
+                <li><strong>TypeScript:</strong> Adding type safety to JavaScript for better development experience</li>
+                <li><strong>Tailwind CSS:</strong> Utility-first CSS framework for rapid UI development</li>
+                <li><strong>Node.js:</strong> JavaScript runtime for server-side development</li>
+                <li><strong>GraphQL:</strong> Query language for APIs that gives clients exactly what they need</li>
+              </ul>
+              
+              <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Best Practices for Success</h2>
+              <p className="leading-relaxed text-gray-700">
+                To excel in modern web development, focus on writing clean, maintainable code, staying updated with the latest trends, and continuously learning new technologies. Remember that the web development landscape is constantly evolving, so adaptability is key.
+              </p>
+              
+              <blockquote className="border-l-4 border-[#1F5F5B] pl-6 italic text-gray-600 my-8">
+                "The best way to learn web development is by building real projects and solving actual problems. Don't just follow tutorials – create something meaningful."
+              </blockquote>
+            </div>
+          </div>
+          
+          {post.tags && post.tags.length > 0 && (
             <div className="mt-12 pt-8 border-t border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
               <div className="flex flex-wrap gap-2">

@@ -7,6 +7,8 @@ export const useBlogPosts = (category?: string, featured?: boolean) => {
   return useQuery({
     queryKey: ['blog-posts', category, featured],
     queryFn: async () => {
+      console.log('Fetching blog posts with category:', category, 'featured:', featured);
+      
       let query = supabase
         .from('blog_posts')
         .select('*')
@@ -15,7 +17,10 @@ export const useBlogPosts = (category?: string, featured?: boolean) => {
         .order('published_at', { ascending: false });
 
       if (category && category !== 'all') {
-        query = query.contains('categories', [category]);
+        // Convert category slug back to category name for filtering
+        const categoryName = category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        console.log('Filtering by category name:', categoryName);
+        query = query.contains('categories', [categoryName]);
       }
 
       if (featured) {
@@ -29,6 +34,7 @@ export const useBlogPosts = (category?: string, featured?: boolean) => {
         throw error;
       }
 
+      console.log('Blog posts fetched:', data?.length, 'posts');
       return data as BlogPost[];
     },
   });

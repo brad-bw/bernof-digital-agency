@@ -7,6 +7,8 @@ export const useBlogCategories = () => {
   return useQuery({
     queryKey: ['blog-categories'],
     queryFn: async () => {
+      console.log('Fetching blog categories...');
+      
       // First, get all unique categories from blog posts
       const { data: posts, error: postsError } = await supabase
         .from('blog_posts')
@@ -19,9 +21,13 @@ export const useBlogCategories = () => {
         throw postsError;
       }
 
+      console.log('Blog posts data:', posts);
+
       // Extract unique categories
       const allCategories = posts?.flatMap(post => post.categories || []) || [];
       const uniqueCategories = [...new Set(allCategories)];
+      
+      console.log('Unique categories found:', uniqueCategories);
 
       // Try to get categories from the blog_categories table
       const { data: categoryData, error: categoryError } = await supabase
@@ -32,6 +38,8 @@ export const useBlogCategories = () => {
       if (categoryError) {
         console.log('No categories table data, using post categories:', categoryError);
       }
+
+      console.log('Category data from table:', categoryData);
 
       // Create category objects, preferring database data when available
       const categories: BlogCategory[] = uniqueCategories.map(categoryName => {
@@ -46,6 +54,7 @@ export const useBlogCategories = () => {
         };
       });
 
+      console.log('Final categories:', categories);
       return categories;
     },
   });

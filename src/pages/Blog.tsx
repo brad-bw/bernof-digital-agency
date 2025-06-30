@@ -12,6 +12,9 @@ const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showDebug, setShowDebug] = useState(false);
 
+  // Only show debug in development
+  const isDevelopment = import.meta.env.DEV;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
@@ -25,17 +28,19 @@ const Blog = () => {
       <main>
         <BlogHero />
         
-        {/* Debug toggle button - remove this after testing */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <button 
-            onClick={() => setShowDebug(!showDebug)}
-            className="bg-red-500 text-white px-4 py-2 rounded text-sm"
-          >
-            {showDebug ? 'Hide Debug' : 'Show Debug'}
-          </button>
-        </div>
+        {/* Debug toggle button - only shown in development */}
+        {isDevelopment && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <button 
+              onClick={() => setShowDebug(!showDebug)}
+              className="bg-red-500 text-white px-4 py-2 rounded text-sm"
+            >
+              {showDebug ? 'Hide Debug' : 'Show Debug'}
+            </button>
+          </div>
+        )}
 
-        {showDebug && <BlogDebug />}
+        {showDebug && isDevelopment && <BlogDebug />}
         
         <section className="py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

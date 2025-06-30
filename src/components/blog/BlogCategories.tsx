@@ -1,7 +1,6 @@
 
 import { useBlogCategories } from '@/hooks/useBlogCategories';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
 interface BlogCategoriesProps {
   selectedCategory: string;
@@ -41,7 +40,10 @@ const BlogCategories = ({ selectedCategory, onCategoryChange }: BlogCategoriesPr
           key={category.slug}
           variant={selectedCategory === category.slug ? 'default' : 'outline'}
           size="sm"
-          onClick={() => onCategoryChange(category.slug)}
+          onClick={() => {
+            console.log('Category clicked:', category.slug);
+            onCategoryChange(category.slug);
+          }}
           className={`rounded-full px-6 py-2 font-medium transition-all duration-200 ${
             selectedCategory === category.slug
               ? 'bg-[#1F5F5B] text-white hover:bg-[#2D5A56] shadow-lg'
