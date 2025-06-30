@@ -1,7 +1,10 @@
+
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
 const BlogHero = () => {
-  return <section className="relative bg-gradient-to-br from-[#1F5F5B] via-[#2D5A56] to-[#1A4A47] text-white overflow-hidden">
+  return (
+    <section className="relative bg-gradient-to-br from-[#1F5F5B] via-[#2D5A56] to-[#1A4A47] text-white overflow-hidden">
       <div className="absolute inset-0 bg-black/5"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div className="max-w-4xl">
@@ -27,16 +30,21 @@ const BlogHero = () => {
               Explore Articles
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" size="lg" className="border-white/30 px-8 py-3 rounded-full backdrop-blur-sm bg-[brand-teal-dark] text-emerald-800 bg-slate-50 text-base font-medium">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-[#1F5F5B] px-8 py-3 rounded-full text-base font-medium transition-all duration-300"
+            >
               Subscribe to Newsletter
             </Button>
           </div>
         </div>
       </div>
       
-      {/* Decorative elements */}
       <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-[#20B2AA]/20 to-transparent rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 left-20 w-48 h-48 bg-gradient-to-tr from-[#4FD1C7]/20 to-transparent rounded-full blur-3xl"></div>
-    </section>;
+    </section>
+  );
 };
+
 export default BlogHero;

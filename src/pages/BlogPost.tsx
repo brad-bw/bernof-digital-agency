@@ -16,7 +16,7 @@ const BlogPost = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse">
@@ -51,13 +51,12 @@ const BlogPost = () => {
         console.log('Error sharing:', error);
       }
     } else {
-      // Fallback to copying URL to clipboard
       navigator.clipboard.writeText(window.location.href);
     }
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <Helmet>
         <title>{post.title} | Bernof Co Blog</title>
         <meta name="description" content={post.excerpt || `Read ${post.title} on Bernof Co blog`} />
@@ -74,8 +73,7 @@ const BlogPost = () => {
       <Header />
       
       <main>
-        {/* Back to Blog */}
-        <div className="bg-gray-50 border-b">
+        <div className="bg-white border-b">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <Link 
               to="/blog" 
@@ -87,14 +85,13 @@ const BlogPost = () => {
           </div>
         </div>
 
-        {/* Article Header */}
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <header className="mb-12">
             <div className="flex flex-wrap gap-2 mb-6">
               {post.categories.map((category) => (
                 <Badge 
                   key={category} 
-                  className="bg-[#1F5F5B]/10 text-[#1F5F5B] hover:bg-[#1F5F5B]/20"
+                  className="bg-[#1F5F5B] text-white hover:bg-[#2D5A56]"
                 >
                   {category}
                 </Badge>
@@ -158,7 +155,6 @@ const BlogPost = () => {
             </div>
           </header>
           
-          {/* Featured Image */}
           {post.featured_image && (
             <div className="mb-12">
               <img
@@ -169,19 +165,45 @@ const BlogPost = () => {
             </div>
           )}
           
-          {/* Article Content */}
-          <div className="prose prose-lg max-w-none">
-            <div className="text-gray-700 leading-relaxed">
-              {/* This would render the rich content from Sanity */}
-              <p className="text-center text-gray-500 py-12 bg-gray-50 rounded-lg">
-                Content from Sanity CMS will be rendered here once connected.
-                <br />
-                For now, this is a placeholder for the article content.
-              </p>
-            </div>
+          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900">
+            {post.content && typeof post.content === 'object' && Array.isArray(post.content) ? (
+              post.content.map((block: any, index: number) => {
+                if (block._type === 'block') {
+                  const text = block.children?.map((child: any) => child.text).join('') || '';
+                  if (block.style === 'h1') {
+                    return <h1 key={index} className="text-3xl font-bold mb-4">{text}</h1>;
+                  } else if (block.style === 'h2') {
+                    return <h2 key={index} className="text-2xl font-semibold mb-3">{text}</h2>;
+                  } else if (block.style === 'h3') {
+                    return <h3 key={index} className="text-xl font-semibold mb-2">{text}</h3>;
+                  } else {
+                    return <p key={index} className="mb-4 leading-relaxed">{text}</p>;
+                  }
+                } else if (block._type === 'image') {
+                  return (
+                    <div key={index} className="my-8">
+                      <img 
+                        src={block.asset?.url || '/placeholder.svg'} 
+                        alt={block.alt || ''} 
+                        className="w-full rounded-lg shadow-md"
+                      />
+                    </div>
+                  );
+                }
+                return null;
+              })
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-lg">
+                <p className="text-gray-600 mb-4">
+                  This article contains rich content that will be fully rendered once the Sanity CMS integration is complete.
+                </p>
+                <p className="text-sm text-gray-500">
+                  For now, enjoy the article structure and metadata above.
+                </p>
+              </div>
+            )}
           </div>
           
-          {/* Tags */}
           {post.tags.length > 0 && (
             <div className="mt-12 pt-8 border-t border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Tags</h3>
