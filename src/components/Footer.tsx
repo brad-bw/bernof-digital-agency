@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { Linkedin, Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -25,15 +25,19 @@ const Footer = () => {
 
   return (
     <footer className="bg-white border-t border-gray-200">
-      {/* Main Footer Content - Miro Style */}
+      {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-7xl mx-auto">
           {/* Top Section - Logo and CTA */}
           <div className="flex flex-col lg:flex-row justify-between items-start mb-16">
             <div className="mb-8 lg:mb-0">
-              <h3 className="text-4xl font-bold text-gray-900 mb-4">
-                Bernof Co.
-              </h3>
+              <img 
+                src="/lovable-uploads/b64adfc6-ccf9-4fa1-9cbb-583928ae96ec.png"
+                alt="Bernof Co."
+                width="240"
+                height="60"
+                className="mb-4 transition-transform duration-300 hover:scale-105"
+              />
               <p className="text-lg text-gray-600 max-w-md">
                 Managing the future through comprehensive digital solutions.
               </p>
@@ -42,7 +46,7 @@ const Footer = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 onClick={() => scrollToSection('discovery-call')}
-                className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-3 rounded-lg"
+                className="bg-[#2D8F86] hover:bg-[#1F5F5B] text-white font-semibold px-8 py-3 rounded-lg"
               >
                 Start Your Project
               </Button>
@@ -56,7 +60,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links Grid - Miro Style */}
+          {/* Links Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
             {/* Services */}
             <div>
@@ -180,6 +184,14 @@ const Footer = () => {
               <h4 className="font-semibold text-gray-900 mb-4">Resources</h4>
               <ul className="space-y-3">
                 <li>
+                  <Link 
+                    to="/blog"
+                    className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li>
                   <button 
                     onClick={() => scrollToSection('discovery-call')}
                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
@@ -241,8 +253,6 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            
-          
           </div>
         </div>
       </div>

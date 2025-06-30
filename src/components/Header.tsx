@@ -1,8 +1,8 @@
+
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LogoSection from "./LogoSection";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,81 +32,139 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-[#1F5F5B]">Bernof Co</div>
+            <img 
+              src="/lovable-uploads/1ae84dd7-47db-491c-9099-013be249fce1.png"
+              alt="Bernof Co."
+              width="180"
+              height="45"
+              className="transition-transform duration-300 hover:scale-105"
+            />
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors">
-              Home
-            </Link>
+            <button 
+              onClick={() => scrollToSection('services')}
+              className="text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors"
+            >
+              Services
+            </button>
             <div className="relative group">
               <button className="text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors flex items-center">
-                Services
+                Global Coverage
                 <ChevronDown className="ml-1 h-4 w-4" />
               </button>
-              <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <Link to="/global-services" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Global Services
-                </Link>
-                <Link to="/startup-development" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                  Startup Development
-                </Link>
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border border-gray-100">
+                <div className="py-2">
+                  <Link to="/global-services/ch" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <span className="mr-3">🇨🇭</span>
+                    Switzerland
+                  </Link>
+                  <Link to="/global-services/uk" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <span className="mr-3">🇬🇧</span>
+                    United Kingdom
+                  </Link>
+                  <Link to="/global-services/us" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <span className="mr-3">🇺🇸</span>
+                    United States
+                  </Link>
+                  <Link to="/global-services/it" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <span className="mr-3">🇮🇹</span>
+                    Italy
+                  </Link>
+                  <div className="border-t border-gray-100 mt-2 pt-2">
+                    <Link to="/global-services" className="block px-4 py-2 text-sm text-[#1F5F5B] hover:bg-gray-50 font-medium">
+                      View All Countries →
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
+            <Link to="/startup-development" className="text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors">
+              For Startups
+            </Link>
             <Link to="/blog" className="text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors">
               Blog
             </Link>
-            <Link to="/#contact" className="text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors">
-              Contact
-            </Link>
+            <Button 
+              onClick={() => scrollToSection('discovery-call')}
+              className="bg-[#2D8F86] hover:bg-[#1F5F5B] text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200"
+            >
+              Book Discovery Call
+            </Button>
           </nav>
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden p-2 relative"
+            className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} className="text-gray-900" /> : <Menu size={24} className="text-gray-900" />}
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-accent/40 rounded-full"></div>
           </button>
         </div>
       </div>
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <nav className="md:hidden mt-4 pb-4 border-t border-gray-100 pt-4 relative">
-          <div className="absolute top-0 right-0 w-8 h-8 bg-primary/3 rounded-full blur-lg"></div>
-          <div className="flex flex-col space-y-3 relative z-10">
+        <nav className="md:hidden bg-white border-t border-gray-100">
+          <div className="px-4 py-4 space-y-4">
             <button 
               onClick={() => scrollToSection('services')}
-              className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"
+              className="block w-full text-left text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors"
             >
               Services
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
             </button>
-            <Link
-              to="/global-services"
+            <div>
+              <button 
+                onClick={() => setIsGlobalCoverageOpen(!isGlobalCoverageOpen)}
+                className="flex items-center justify-between w-full text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors"
+              >
+                Global Coverage
+                <ChevronDown className={`h-4 w-4 transition-transform ${isGlobalCoverageOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isGlobalCoverageOpen && (
+                <div className="mt-2 ml-4 space-y-2">
+                  <Link to="/global-services/ch" onClick={() => setIsMenuOpen(false)} className="flex items-center text-sm text-gray-600 hover:text-[#1F5F5B]">
+                    <span className="mr-2">🇨🇭</span>
+                    Switzerland
+                  </Link>
+                  <Link to="/global-services/uk" onClick={() => setIsMenuOpen(false)} className="flex items-center text-sm text-gray-600 hover:text-[#1F5F5B]">
+                    <span className="mr-2">🇬🇧</span>
+                    United Kingdom
+                  </Link>
+                  <Link to="/global-services/us" onClick={() => setIsMenuOpen(false)} className="flex items-center text-sm text-gray-600 hover:text-[#1F5F5B]">
+                    <span className="mr-2">🇺🇸</span>
+                    United States
+                  </Link>
+                  <Link to="/global-services/it" onClick={() => setIsMenuOpen(false)} className="flex items-center text-sm text-gray-600 hover:text-[#1F5F5B]">
+                    <span className="mr-2">🇮🇹</span>
+                    Italy
+                  </Link>
+                  <Link to="/global-services" onClick={() => setIsMenuOpen(false)} className="block text-sm text-[#1F5F5B] font-medium">
+                    View All Countries →
+                  </Link>
+                </div>
+              )}
+            </div>
+            <Link 
+              to="/startup-development" 
               onClick={() => setIsMenuOpen(false)}
-              className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"
-            >
-              Global Coverage
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
-            </Link>
-            <Link
-              to="/startup-development"
-              onClick={() => setIsMenuOpen(false)}
-              className="text-gray-600 hover:text-primary transition-colors font-medium text-left relative group"
+              className="block text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors"
             >
               For Startups
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
+            </Link>
+            <Link 
+              to="/blog" 
+              onClick={() => setIsMenuOpen(false)}
+              className="block text-gray-700 hover:text-[#1F5F5B] font-medium transition-colors"
+            >
+              Blog
             </Link>
             <Button 
               onClick={() => scrollToSection('discovery-call')}
-              className="bg-accent hover:bg-accent/90 text-white font-semibold w-full mt-4 rounded-xl relative overflow-hidden group"
+              className="w-full bg-[#2D8F86] hover:bg-[#1F5F5B] text-white font-semibold px-6 py-2 rounded-lg transition-all duration-200"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              <span className="relative z-10">Book Discovery Call</span>
+              Book Discovery Call
             </Button>
           </div>
         </nav>

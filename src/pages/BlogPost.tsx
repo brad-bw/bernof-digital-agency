@@ -55,15 +55,6 @@ const BlogPost = () => {
     }
   };
 
-  const placeholderImages = [
-    'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop',
-    'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop',
-  ];
-  
-  const randomImage = placeholderImages[Math.floor(Math.random() * placeholderImages.length)];
-  const imageUrl = post.featured_image || randomImage;
-
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
@@ -120,21 +111,9 @@ const BlogPost = () => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-8 border-b border-gray-200">
               <div className="flex items-center gap-6 text-gray-600">
                 <div className="flex items-center gap-2">
-                  {post.author_image && (
-                    <img 
-                      src={post.author_image} 
-                      alt={post.author_name}
-                      className="w-10 h-10 rounded-full object-cover"
-                    />
-                  )}
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <User className="h-4 w-4" />
-                      <span className="font-medium text-gray-900">{post.author_name}</span>
-                    </div>
-                    {post.author_bio && (
-                      <p className="text-sm text-gray-500">{post.author_bio}</p>
-                    )}
+                  <div className="flex items-center gap-2">
+                    <User className="h-4 w-4" />
+                    <span className="font-medium text-gray-900">{post.author_name}</span>
                   </div>
                 </div>
                 
@@ -164,43 +143,45 @@ const BlogPost = () => {
             </div>
           </header>
           
-          <div className="mb-12">
-            <img
-              src={imageUrl}
-              alt={post.title}
-              className="w-full h-96 object-cover rounded-2xl shadow-lg"
-            />
-          </div>
+          {post.featured_image && (
+            <div className="mb-12">
+              <img
+                src={post.featured_image}
+                alt={post.title}
+                className="w-full h-96 object-cover rounded-2xl shadow-lg"
+              />
+            </div>
+          )}
           
           <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900">
-            <div className="space-y-6">
-              <p className="text-lg leading-relaxed text-gray-700">
-                Welcome to the world of modern web development! This comprehensive guide will walk you through the essential concepts, tools, and best practices that every developer should know in 2025.
-              </p>
-              
-              <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">What is Modern Web Development?</h2>
-              <p className="leading-relaxed text-gray-700">
-                Modern web development encompasses a wide range of technologies, frameworks, and methodologies that have evolved to meet the demands of today's web applications. From responsive design to progressive web apps, developers now have access to powerful tools that make building robust, scalable applications easier than ever.
-              </p>
-              
-              <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Key Technologies to Master</h2>
-              <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                <li><strong>React & Next.js:</strong> Modern JavaScript frameworks for building interactive user interfaces</li>
-                <li><strong>TypeScript:</strong> Adding type safety to JavaScript for better development experience</li>
-                <li><strong>Tailwind CSS:</strong> Utility-first CSS framework for rapid UI development</li>
-                <li><strong>Node.js:</strong> JavaScript runtime for server-side development</li>
-                <li><strong>GraphQL:</strong> Query language for APIs that gives clients exactly what they need</li>
-              </ul>
-              
-              <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Best Practices for Success</h2>
-              <p className="leading-relaxed text-gray-700">
-                To excel in modern web development, focus on writing clean, maintainable code, staying updated with the latest trends, and continuously learning new technologies. Remember that the web development landscape is constantly evolving, so adaptability is key.
-              </p>
-              
-              <blockquote className="border-l-4 border-[#1F5F5B] pl-6 italic text-gray-600 my-8">
-                "The best way to learn web development is by building real projects and solving actual problems. Don't just follow tutorials – create something meaningful."
-              </blockquote>
-            </div>
+            {post.content ? (
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            ) : (
+              <div className="space-y-6">
+                <p className="text-lg leading-relaxed text-gray-700">
+                  Welcome to our comprehensive guide on {post.title.toLowerCase()}. This article covers the essential concepts and best practices you need to know.
+                </p>
+                
+                <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Introduction</h2>
+                <p className="leading-relaxed text-gray-700">
+                  In today's rapidly evolving digital landscape, understanding the fundamentals is crucial for success. This guide will walk you through everything you need to know to get started.
+                </p>
+                
+                <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Key Concepts</h2>
+                <p className="leading-relaxed text-gray-700">
+                  Let's explore the main concepts that form the foundation of this topic. These principles will help you build a solid understanding and apply best practices in your work.
+                </p>
+                
+                <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Best Practices</h2>
+                <p className="leading-relaxed text-gray-700">
+                  Following industry best practices ensures that your implementation is robust, scalable, and maintainable. Here are the key recommendations from experts in the field.
+                </p>
+                
+                <blockquote className="border-l-4 border-[#1F5F5B] pl-6 italic text-gray-600 my-8">
+                  "Success in any field comes from understanding the fundamentals and applying them consistently with dedication and continuous learning."
+                </blockquote>
+              </div>
+            )}
           </div>
           
           {post.tags && post.tags.length > 0 && (
