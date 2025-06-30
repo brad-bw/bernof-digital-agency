@@ -27,7 +27,7 @@ const BlogHero = () => {
               Explore Articles
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button variant="outline" size="lg" className="border-white/30 px-8 py-3 rounded-full backdrop-blur-sm bg-[brand-teal-dark] text-emerald-800 bg-slate-50 font-light text-base">
+            <Button variant="outline" size="lg" className="border-white/30 px-8 py-3 rounded-full backdrop-blur-sm bg-[brand-teal-dark] text-emerald-800 bg-slate-50 text-base font-medium">
               Subscribe to Newsletter
             </Button>
           </div>
