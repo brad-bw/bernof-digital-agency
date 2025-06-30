@@ -55,6 +55,52 @@ const BlogPost = () => {
     }
   };
 
+  // Function to render content based on type
+  const renderContent = () => {
+    if (!post.content) {
+      return (
+        <div className="space-y-6">
+          <p className="text-lg leading-relaxed text-gray-700">
+            Welcome to our comprehensive guide on {post.title.toLowerCase()}. This article covers the essential concepts and best practices you need to know.
+          </p>
+        </div>
+      );
+    }
+
+    // If content is already HTML string
+    if (typeof post.content === 'string') {
+      return <div dangerouslySetInnerHTML={{ __html: post.content }} />;
+    }
+
+    // If content is Sanity blocks/JSONB, convert to readable text
+    if (Array.isArray(post.content)) {
+      return (
+        <div className="space-y-6">
+          {post.content.map((block: any, index: number) => {
+            if (block._type === 'block') {
+              return (
+                <p key={index} className="text-lg leading-relaxed text-gray-700">
+                  {block.children?.map((child: any) => child.text).join('') || ''}
+                </p>
+              );
+            }
+            return null;
+          })}
+        </div>
+      );
+    }
+
+    // Fallback for any other content structure
+    return (
+      <div className="space-y-6">
+        <p className="text-lg leading-relaxed text-gray-700">
+          {JSON.stringify(post.content).replace(/[{}"\[\]]/g, ' ').trim() || 
+           `Welcome to our comprehensive guide on ${post.title.toLowerCase()}. This article covers the essential concepts and best practices you need to know.`}
+        </p>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Helmet>
@@ -154,34 +200,7 @@ const BlogPost = () => {
           )}
           
           <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900">
-            {post.content ? (
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
-            ) : (
-              <div className="space-y-6">
-                <p className="text-lg leading-relaxed text-gray-700">
-                  Welcome to our comprehensive guide on {post.title.toLowerCase()}. This article covers the essential concepts and best practices you need to know.
-                </p>
-                
-                <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Introduction</h2>
-                <p className="leading-relaxed text-gray-700">
-                  In today's rapidly evolving digital landscape, understanding the fundamentals is crucial for success. This guide will walk you through everything you need to know to get started.
-                </p>
-                
-                <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Key Concepts</h2>
-                <p className="leading-relaxed text-gray-700">
-                  Let's explore the main concepts that form the foundation of this topic. These principles will help you build a solid understanding and apply best practices in your work.
-                </p>
-                
-                <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Best Practices</h2>
-                <p className="leading-relaxed text-gray-700">
-                  Following industry best practices ensures that your implementation is robust, scalable, and maintainable. Here are the key recommendations from experts in the field.
-                </p>
-                
-                <blockquote className="border-l-4 border-[#1F5F5B] pl-6 italic text-gray-600 my-8">
-                  "Success in any field comes from understanding the fundamentals and applying them consistently with dedication and continuous learning."
-                </blockquote>
-              </div>
-            )}
+            {renderContent()}
           </div>
           
           {post.tags && post.tags.length > 0 && (
