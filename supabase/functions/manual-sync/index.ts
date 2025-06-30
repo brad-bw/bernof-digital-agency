@@ -26,30 +26,87 @@ serve(async (req) => {
 
     console.log('Starting manual sync from Sanity project:', sanityProjectId)
 
-    // Fetch published posts from Sanity
-    const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v2021-10-21/data/query/production?query=*[_type == "post" && defined(publishedAt)] | order(publishedAt desc)`
+    // Fetch published posts from Sanity using the correct GROQ query format
+    const query = `*[_type == "post" && defined(publishedAt)] | order(publishedAt desc) {
+      _id,
+      _type,
+      title,
+      slug,
+      excerpt,
+      content,
+      author->{
+        name,
+        bio,
+        image{
+          asset->{
+            url
+          }
+        }
+      },
+      mainImage{
+        asset->{
+          url
+        }
+      },
+      categories[]->{
+        title,
+        slug
+      },
+      tags[]->{
+        title
+      },
+      publishedAt,
+      featured
+    }`
+    
+    const encodedQuery = encodeURIComponent(query)
+    const sanityUrl = `https://${sanityProjectId}.api.sanity.io/v2021-10-21/data/query/production?query=${encodedQuery}`
+    
+    console.log('Fetching from Sanity URL:', sanityUrl)
     
     const response = await fetch(sanityUrl, {
       headers: {
-        'Authorization': `Bearer ${sanityToken}`
+        'Authorization': `Bearer ${sanityToken}`,
+        'Content-Type': 'application/json'
       }
     })
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch from Sanity: ${response.statusText}`)
+      const errorText = await response.text()
+      console.error('Sanity API Error:', response.status, errorText)
+      throw new Error(`Failed to fetch from Sanity: ${response.status} ${response.statusText} - ${errorText}`)
     }
 
     const sanityData = await response.json()
     console.log('Fetched posts from Sanity:', sanityData.result?.length || 0)
+
+    if (!sanityData.result) {
+      console.log('No results from Sanity query')
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          syncedCount: 0, 
+          errors: [],
+          message: 'No posts found in Sanity' 
+        }),
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      )
+    }
 
     let syncedCount = 0
     let errors = []
 
     for (const post of sanityData.result || []) {
       try {
+        // Extract categories
         const categories = post.categories ? post.categories.map((cat: any) => cat.title || cat.name || cat) : []
+        
+        // Extract tags
         const tags = post.tags ? post.tags.map((tag: any) => tag.title || tag.name || tag) : []
         
+        // Calculate reading time
         let readingTime = 5
         if (post.content && Array.isArray(post.content)) {
           const wordCount = post.content
@@ -81,6 +138,8 @@ serve(async (req) => {
           published_at: post.publishedAt ? new Date(post.publishedAt).toISOString() : null,
         }
 
+        console.log('Syncing post:', post.title, 'with data:', JSON.stringify(blogPost, null, 2))
+
         const { error } = await supabaseClient
           .from('blog_posts')
           .upsert(blogPost, { 
@@ -89,12 +148,14 @@ serve(async (req) => {
           })
 
         if (error) {
-          errors.push({ post: post.title, error: error.message })
+          console.error('Error upserting post:', post.title, error)
+          errors.push({ post: post.title || post._id, error: error.message })
         } else {
           syncedCount++
-          console.log('Synced post:', post.title)
+          console.log('Successfully synced post:', post.title)
         }
       } catch (err) {
+        console.error('Error processing post:', post.title || post._id, err)
         errors.push({ post: post.title || post._id, error: err.message })
       }
     }
@@ -104,7 +165,8 @@ serve(async (req) => {
         success: true, 
         syncedCount, 
         errors,
-        message: `Successfully synced ${syncedCount} posts` 
+        totalPosts: sanityData.result?.length || 0,
+        message: `Successfully synced ${syncedCount} out of ${sanityData.result?.length || 0} posts` 
       }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
@@ -114,7 +176,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('Manual sync error:', error)
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: error.message,
+        details: error.stack 
+      }),
       { 
         status: 500,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
