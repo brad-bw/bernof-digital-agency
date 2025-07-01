@@ -18,7 +18,7 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen bg-gray-50">
         <Header />
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
             <div className="h-6 bg-gray-200 rounded w-1/2 mb-8"></div>
@@ -55,11 +55,7 @@ const BlogPost = () => {
     }
   };
 
-  // Function to render content properly
   const renderContent = () => {
-    console.log('Post content type:', typeof post.content);
-    console.log('Post content:', post.content);
-
     if (!post.content) {
       return (
         <div className="space-y-6">
@@ -70,19 +66,16 @@ const BlogPost = () => {
       );
     }
 
-    // If content is a string (HTML from database)
     if (typeof post.content === 'string') {
       return (
         <div 
-          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900 prose-ul:text-gray-700 prose-li:text-gray-700" 
+          className="prose prose-lg max-w-none" 
           dangerouslySetInnerHTML={{ __html: post.content }} 
         />
       );
     }
 
-    // If content is an object or array (from Sanity or JSONB)
     if (typeof post.content === 'object' && post.content !== null) {
-      // Check if it's an array of blocks (Sanity format)
       if (Array.isArray(post.content)) {
         return (
           <div className="space-y-6">
@@ -91,17 +84,17 @@ const BlogPost = () => {
                 const text = block.children?.map((child: any) => child.text).join('') || '';
                 
                 if (block.style === 'h1') {
-                  return <h1 key={index} className="text-3xl font-bold text-gray-900 mb-4">{text}</h1>;
+                  return <h1 key={index} className="text-3xl font-bold text-gray-900 mb-6">{text}</h1>;
                 }
                 if (block.style === 'h2') {
-                  return <h2 key={index} className="text-2xl font-bold text-gray-900 mb-3">{text}</h2>;
+                  return <h2 key={index} className="text-2xl font-bold text-gray-900 mb-4">{text}</h2>;
                 }
                 if (block.style === 'h3') {
-                  return <h3 key={index} className="text-xl font-bold text-gray-900 mb-2">{text}</h3>;
+                  return <h3 key={index} className="text-xl font-bold text-gray-900 mb-3">{text}</h3>;
                 }
                 
                 return (
-                  <p key={index} className="text-lg leading-relaxed text-gray-700">
+                  <p key={index} className="text-lg leading-relaxed text-gray-700 mb-4">
                     {text}
                   </p>
                 );
@@ -112,7 +105,6 @@ const BlogPost = () => {
         );
       }
 
-      // If it's a single object with children (single Sanity block)
       if (post.content.children && Array.isArray(post.content.children)) {
         const text = post.content.children.map((child: any) => child.text || '').join('');
         return (
@@ -122,7 +114,6 @@ const BlogPost = () => {
         );
       }
 
-      // Try to extract any text content from the object
       const extractText = (obj: any): string => {
         if (typeof obj === 'string') return obj;
         if (typeof obj === 'object' && obj !== null) {
@@ -145,7 +136,6 @@ const BlogPost = () => {
       }
     }
 
-    // Fallback content
     return (
       <div className="space-y-6">
         <p className="text-lg leading-relaxed text-gray-700">
@@ -172,12 +162,12 @@ const BlogPost = () => {
       
       <Header />
       
-      <main>
+      <main className="pt-24">
         <div className="bg-white border-b">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <Link 
               to="/blog" 
-              className="inline-flex items-center gap-2 text-[#1F5F5B] hover:text-[#2D5A56] transition-colors duration-200"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors duration-200"
             >
               <ArrowLeft className="h-4 w-4" />
               <span className="font-medium">Back to Blog</span>
@@ -191,7 +181,7 @@ const BlogPost = () => {
               {post.categories?.map((category) => (
                 <Badge 
                   key={category} 
-                  className="bg-[#1F5F5B] text-white hover:bg-[#2D5A56]"
+                  className="bg-primary text-white hover:bg-primary/90"
                 >
                   {category}
                 </Badge>
@@ -211,10 +201,8 @@ const BlogPost = () => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-8 border-b border-gray-200">
               <div className="flex items-center gap-6 text-gray-600">
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4" />
-                    <span className="font-medium text-gray-900">{post.author_name}</span>
-                  </div>
+                  <User className="h-4 w-4" />
+                  <span className="font-medium text-gray-900">{post.author_name}</span>
                 </div>
                 
                 <div className="flex items-center gap-4 text-sm">
@@ -253,7 +241,7 @@ const BlogPost = () => {
             </div>
           )}
           
-          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900">
+          <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-primary prose-strong:text-gray-900 prose-ul:text-gray-700 prose-li:text-gray-700">
             {renderContent()}
           </div>
           
@@ -265,7 +253,7 @@ const BlogPost = () => {
                   <Badge 
                     key={tag} 
                     variant="outline"
-                    className="text-gray-600 hover:text-[#1F5F5B] hover:border-[#1F5F5B]"
+                    className="text-gray-600 hover:text-primary hover:border-primary"
                   >
                     #{tag}
                   </Badge>
