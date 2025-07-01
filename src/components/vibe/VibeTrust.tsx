@@ -4,24 +4,21 @@ import { Star, Users, Clock, Shield } from "lucide-react";
 const VibeTrust = () => {
   const testimonials = [
     {
-      name: "Sarah Chen",
+      name: "Sarah",
       role: "Startup Founder",
-      company: "TechFlow",
-      content: "Bernof Co saved our startup. Our Cursor-generated app was crashing in production, and they had it stable and scalable within 48 hours. Incredible expertise!",
+      content: "Bernofco saved our Lovable-built MVP when we hit scaling issues. They migrated us to production in just 2 weeks!",
       rating: 5
     },
     {
-      name: "Marcus Rodriguez",
+      name: "Mike",
+      role: "Solo Developer", 
+      content: "My Cursor-generated app had mysterious bugs. Bernofco debugged it in hours, not days of burning credits.",
+      rating: 5
+    },
+    {
+      name: "Emma",
       role: "Product Manager",
-      company: "InnovateLabs",
-      content: "We were stuck with Bubble performance issues for weeks. Their team not only fixed the problems but taught us how to avoid them in the future.",
-      rating: 5
-    },
-    {
-      name: "Elena Kowalski",
-      role: "Developer",
-      company: "Freelancer",
-      content: "The emergency debugging service is a lifesaver. When my Lovable deployment failed at 2 AM, they were there to help immediately. Worth every penny.",
+      content: "Perfect bridge between AI tools and production reality. They understand both worlds perfectly.",
       rating: 5
     }
   ];
@@ -50,13 +47,13 @@ const VibeTrust = () => {
   ];
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Trusted by Developers Worldwide
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+            Success Stories
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Join hundreds of developers who've successfully transformed their AI prototypes 
             into production-ready applications with our help.
           </p>
@@ -64,32 +61,32 @@ const VibeTrust = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <stat.icon className="w-8 h-8 text-white" />
+            <div key={index} className="text-center bg-white rounded-2xl p-6 shadow-sm">
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center mx-auto mb-4">
+                <stat.icon className="w-6 h-6 text-white" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">{stat.number}</div>
-              <div className="text-gray-600">{stat.label}</div>
+              <div className="text-2xl font-bold text-gray-900 mb-2">{stat.number}</div>
+              <div className="text-gray-600 text-sm">{stat.label}</div>
             </div>
           ))}
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow duration-300">
+            <div key={index} className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100">
               <div className="flex items-center gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
               
-              <p className="text-gray-700 mb-6 italic">
+              <p className="text-gray-700 mb-6 italic text-sm leading-relaxed">
                 "{testimonial.content}"
               </p>
               
               <div className="border-t border-gray-200 pt-4">
                 <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                <div className="text-sm text-gray-600">{testimonial.role} at {testimonial.company}</div>
+                <div className="text-sm text-gray-600">{testimonial.role}</div>
               </div>
             </div>
           ))}

@@ -8,10 +8,11 @@ import VibeSolution from '@/components/vibe/VibeSolution';
 import VibeServices from '@/components/vibe/VibeServices';
 import VibeTrust from '@/components/vibe/VibeTrust';
 import VibeCTA from '@/components/vibe/VibeCTA';
+import VibeMarketInsights from '@/components/vibe/VibeMarketInsights';
 
 const VibeCoding = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white font-inter">
       <Helmet>
         <title>AI Coding Help & Vibe Coding Support | Fix Cursor, Lovable, Bubble Issues | Bernof Co</title>
         <meta name="description" content="When your AI-built app hits a wall, we break through. Expert help for Cursor crashes, Lovable scaling issues, Bubble debugging, and production-ready optimization." />
@@ -24,8 +25,9 @@ const VibeCoding = () => {
       
       <Header />
       
-      <main className="pt-24">
+      <main>
         <VibeHero />
+        <VibeMarketInsights />
         <VibeProblem />
         <VibeSolution />
         <VibeServices />

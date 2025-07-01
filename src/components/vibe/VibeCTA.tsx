@@ -4,10 +4,10 @@ import { ArrowRight, Phone, MessageSquare } from "lucide-react";
 
 const VibeCTA = () => {
   return (
-    <section id="vibe-cta" className="py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <section id="vibe-cta" className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-6xl font-bold mb-6">
+          <h2 className="text-3xl lg:text-5xl font-bold mb-6">
             Ready to{" "}
             <span className="text-transparent bg-gradient-to-r from-accent to-primary bg-clip-text">
               Unblock Your Vision?
@@ -20,12 +20,12 @@ const VibeCTA = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-colors duration-300">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-colors duration-300 border border-white/20">
             <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <MessageSquare className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold mb-4">Free Consultation</h3>
-            <p className="text-gray-300 mb-6">
+            <p className="text-gray-300 mb-6 text-sm">
               15-minute call to understand your challenges and recommend the best solution.
             </p>
             <Button 
@@ -38,12 +38,12 @@ const VibeCTA = () => {
             </Button>
           </div>
           
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-colors duration-300">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-colors duration-300 border border-white/20">
             <div className="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
               <Phone className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold mb-4">Emergency Support</h3>
-            <p className="text-gray-300 mb-6">
+            <p className="text-gray-300 mb-6 text-sm">
               Critical issue blocking your launch? Get immediate help from our emergency team.
             </p>
             <Button 
@@ -51,21 +51,21 @@ const VibeCTA = () => {
               className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-xl"
               onClick={() => window.location.href = 'tel:+442080580773'}
             >
-              Call Now: +44 20 80 580 773
+              Call Now
             </Button>
           </div>
           
-          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-colors duration-300">
-            <div className="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-colors duration-300 border border-white/20">
+            <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6">
               <ArrowRight className="w-8 h-8 text-white" />
             </div>
-            <h3 className="text-2xl font-bold mb-4">Service Packages</h3>
-            <p className="text-gray-300 mb-6">
+            <h3 className="text-2xl font-bold mb-4">View All Services</h3>
+            <p className="text-gray-300 mb-6 text-sm">
               Explore our comprehensive service packages designed for different needs and budgets.
             </p>
             <Button 
               size="lg"
-              className="w-full bg-accent hover:bg-accent/90 text-white font-semibold py-3 rounded-xl"
+              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-xl"
               onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View Packages
@@ -74,7 +74,7 @@ const VibeCTA = () => {
           </div>
         </div>
         
-        <div className="bg-accent/20 backdrop-blur-sm rounded-2xl p-8 text-center">
+        <div className="bg-primary/20 backdrop-blur-sm rounded-2xl p-8 text-center border border-primary/30">
           <h3 className="text-2xl font-bold mb-4">
             💡 Pro Tip: Don't Wait Until It's Too Late
           </h3>
@@ -85,7 +85,7 @@ const VibeCTA = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg"
-              className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-4 rounded-2xl"
+              className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-2xl"
               onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
             >
               Get Started Now
