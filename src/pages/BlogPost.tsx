@@ -55,8 +55,11 @@ const BlogPost = () => {
     }
   };
 
-  // Function to render content properly from Sanity
+  // Function to render content properly
   const renderContent = () => {
+    console.log('Post content type:', typeof post.content);
+    console.log('Post content:', post.content);
+
     if (!post.content) {
       return (
         <div className="space-y-6">
@@ -67,44 +70,49 @@ const BlogPost = () => {
       );
     }
 
-    // If content is HTML string from Supabase (for manually created articles)
+    // If content is a string (HTML from database)
     if (typeof post.content === 'string') {
-      return <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />;
-    }
-
-    // If content is Sanity blocks
-    if (Array.isArray(post.content)) {
       return (
-        <div className="space-y-6">
-          {post.content.map((block: any, index: number) => {
-            if (block._type === 'block') {
-              const text = block.children?.map((child: any) => child.text).join('') || '';
-              
-              if (block.style === 'h1') {
-                return <h1 key={index} className="text-3xl font-bold text-gray-900 mb-4">{text}</h1>;
-              }
-              if (block.style === 'h2') {
-                return <h2 key={index} className="text-2xl font-bold text-gray-900 mb-3">{text}</h2>;
-              }
-              if (block.style === 'h3') {
-                return <h3 key={index} className="text-xl font-bold text-gray-900 mb-2">{text}</h3>;
-              }
-              
-              return (
-                <p key={index} className="text-lg leading-relaxed text-gray-700">
-                  {text}
-                </p>
-              );
-            }
-            return null;
-          })}
-        </div>
+        <div 
+          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-[#1F5F5B] prose-strong:text-gray-900 prose-ul:text-gray-700 prose-li:text-gray-700" 
+          dangerouslySetInnerHTML={{ __html: post.content }} 
+        />
       );
     }
 
-    // If content is a Sanity object, try to extract meaningful text
+    // If content is an object or array (from Sanity or JSONB)
     if (typeof post.content === 'object' && post.content !== null) {
-      // Check if it has children array (Sanity block format)
+      // Check if it's an array of blocks (Sanity format)
+      if (Array.isArray(post.content)) {
+        return (
+          <div className="space-y-6">
+            {post.content.map((block: any, index: number) => {
+              if (block._type === 'block') {
+                const text = block.children?.map((child: any) => child.text).join('') || '';
+                
+                if (block.style === 'h1') {
+                  return <h1 key={index} className="text-3xl font-bold text-gray-900 mb-4">{text}</h1>;
+                }
+                if (block.style === 'h2') {
+                  return <h2 key={index} className="text-2xl font-bold text-gray-900 mb-3">{text}</h2>;
+                }
+                if (block.style === 'h3') {
+                  return <h3 key={index} className="text-xl font-bold text-gray-900 mb-2">{text}</h3>;
+                }
+                
+                return (
+                  <p key={index} className="text-lg leading-relaxed text-gray-700">
+                    {text}
+                  </p>
+                );
+              }
+              return null;
+            })}
+          </div>
+        );
+      }
+
+      // If it's a single object with children (single Sanity block)
       if (post.content.children && Array.isArray(post.content.children)) {
         const text = post.content.children.map((child: any) => child.text || '').join('');
         return (
@@ -113,7 +121,7 @@ const BlogPost = () => {
           </div>
         );
       }
-      
+
       // Try to extract any text content from the object
       const extractText = (obj: any): string => {
         if (typeof obj === 'string') return obj;

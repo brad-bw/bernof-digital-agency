@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Globe, TrendingUp, Users, Clock, Zap, Shield, Award } from "lucide-react";
@@ -79,9 +78,9 @@ const GlobalServices = () => {
 
       <Header />
 
-      {/* Modern Hero Section - Reduced padding */}
-      <section className="relative min-h-[70vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-        {/* Advanced Background Elements */}
+      {/* Hero Section - Fixed spacing */}
+      <section className="relative min-h-[80vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+        {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-tl from-accent/15 to-transparent rounded-full blur-3xl"></div>
@@ -89,9 +88,9 @@ const GlobalServices = () => {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-white/10 rounded-full"></div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 pt-20 pb-16">
+        <div className="container mx-auto px-6 relative z-10 py-16">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
               {/* Left Content */}
               <div className="space-y-6">
                 <div className="space-y-4">
@@ -146,10 +145,6 @@ const GlobalServices = () => {
             </div>
           </div>
         </div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-1/4 right-1/4 w-4 h-4 bg-accent rounded-full animate-pulse"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
       </section>
 
       {/* Features Section */}

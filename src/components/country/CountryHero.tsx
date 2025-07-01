@@ -67,7 +67,7 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
   const stats = getServiceStats();
 
   return (
-    <section className="relative min-h-[85vh] bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
+    <section className="relative min-h-[80vh] bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-32 h-32 border-2 border-white/20 rotate-45 rounded-lg"></div>
@@ -85,12 +85,12 @@ const CountryHero = ({ country, service, title, subtitle, ctaPrimary, ctaSeconda
         <div className="absolute -bottom-20 left-40 w-72 h-72 bg-white/5 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-2000"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 pt-24 pb-16">
+      <div className="container mx-auto px-6 relative z-10 py-16">
         <div className="max-w-7xl mx-auto">
-          {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          {/* Main Content Grid - Reduced spacing */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
             {/* Left Column - Problem Statement */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               <CountryHeroHeader
                 countryFlag={country.flag}
                 countryName={country.name}
