@@ -11,7 +11,7 @@ const VibeHero = () => {
   };
 
   return (
-    <section className="relative bg-white overflow-hidden pt-24">
+    <section className="relative bg-white overflow-hidden pt-16 pb-12">
       {/* Geometric background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -21,9 +21,9 @@ const VibeHero = () => {
         }}></div>
       </div>
       
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 bg-red-50 rounded-full px-4 py-2 mb-8">
+          <div className="inline-flex items-center justify-center gap-2 bg-red-50 rounded-full px-4 py-2 mb-6">
             <AlertTriangle className="w-4 h-4 text-red-500" />
             <span className="text-sm font-medium text-red-700">AI Development Crisis?</span>
           </div>
@@ -34,12 +34,12 @@ const VibeHero = () => {
             Hits a Wall, We Break Through
           </h1>
           
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
             From Cursor crashes to Bubble breakdowns - get expert help to scale your 
             vibe-coded dreams into production-ready reality.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button 
               onClick={scrollToConsultation}
               size="lg"

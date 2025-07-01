@@ -53,7 +53,7 @@ const VibeProblem = () => {
     },
     {
       name: "Windsurf",
-      logo: "https://windsurf.codeium.com/favicon.ico",
+      logo: "https://codeium.com/favicon.ico",
       issues: ["Environment configuration", "Dependency management", "Deployment issues"],
       color: "from-teal-500 to-teal-600"
     },
@@ -88,9 +88,12 @@ const VibeProblem = () => {
                   alt={`${tool.name} logo`} 
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement!.innerHTML = `<div class="w-8 h-8 text-gray-600 font-bold text-xs flex items-center justify-center">${tool.name.charAt(0)}</div>`;
+                    const fallbackDiv = document.createElement('div');
+                    fallbackDiv.className = 'w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 font-bold text-xs';
+                    fallbackDiv.textContent = tool.name.charAt(0);
+                    e.currentTarget.parentElement!.insertBefore(fallbackDiv, e.currentTarget);
                   }} 
-                  className="w-8 h-8 object-contain" 
+                  className="w-8 h-8 object-contain rounded" 
                 />
                 <h3 className="font-semibold text-gray-900 text-sm">{tool.name}</h3>
               </div>
@@ -107,26 +110,26 @@ const VibeProblem = () => {
           ))}
         </div>
         
-        <div className="border border-0 rounded-2xl p-8 max-w-4xl mx-auto bg-slate-50">
+        <div className="border border-0 rounded-2xl p-8 max-w-4xl mx-auto bg-gray-50">
           <div className="text-center">
-            <h3 className="font-bold mb-4 text-teal-700 text-4xl">
+            <h3 className="font-bold mb-4 text-primary text-4xl">
               Sound Familiar?
             </h3>
-            <p className="text-lg mb-8 text-emerald-700">
+            <p className="text-lg mb-8 text-gray-700">
               You're not alone. Thousands of developers hit these walls every day. 
               The good news? We've been solving these exact problems for years.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-6 text-center">
-                <div className="text-3xl font-bold text-emerald-600 mb-2">73%</div>
+                <div className="text-3xl font-bold text-primary mb-2">73%</div>
                 <div className="text-sm text-gray-600">Of AI-generated apps fail in production</div>
               </div>
               <div className="bg-white rounded-xl p-6 text-center">
-                <div className="text-3xl font-bold text-emerald-600 mb-2">48hrs</div>
+                <div className="text-3xl font-bold text-primary mb-2">48hrs</div>
                 <div className="text-sm text-gray-600">Average time stuck on deployment issues</div>
               </div>
               <div className="bg-white rounded-xl p-6 text-center">
-                <div className="text-3xl font-bold text-emerald-600 mb-2">$12K</div>
+                <div className="text-3xl font-bold text-primary mb-2">$12K</div>
                 <div className="text-sm text-gray-600">Average cost of starting over</div>
               </div>
             </div>
