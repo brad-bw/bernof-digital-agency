@@ -55,7 +55,7 @@ const BlogPost = () => {
     }
   };
 
-  // Function to render content based on type
+  // Function to render content properly from Sanity
   const renderContent = () => {
     if (!post.content) {
       return (
@@ -67,20 +67,32 @@ const BlogPost = () => {
       );
     }
 
-    // If content is already HTML string
+    // If content is HTML string from Supabase (for manually created articles)
     if (typeof post.content === 'string') {
-      return <div dangerouslySetInnerHTML={{ __html: post.content }} />;
+      return <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: post.content }} />;
     }
 
-    // If content is Sanity blocks/JSONB, convert to readable text
+    // If content is Sanity blocks
     if (Array.isArray(post.content)) {
       return (
         <div className="space-y-6">
           {post.content.map((block: any, index: number) => {
             if (block._type === 'block') {
+              const text = block.children?.map((child: any) => child.text).join('') || '';
+              
+              if (block.style === 'h1') {
+                return <h1 key={index} className="text-3xl font-bold text-gray-900 mb-4">{text}</h1>;
+              }
+              if (block.style === 'h2') {
+                return <h2 key={index} className="text-2xl font-bold text-gray-900 mb-3">{text}</h2>;
+              }
+              if (block.style === 'h3') {
+                return <h3 key={index} className="text-xl font-bold text-gray-900 mb-2">{text}</h3>;
+              }
+              
               return (
                 <p key={index} className="text-lg leading-relaxed text-gray-700">
-                  {block.children?.map((child: any) => child.text).join('') || ''}
+                  {text}
                 </p>
               );
             }
@@ -90,12 +102,46 @@ const BlogPost = () => {
       );
     }
 
-    // Fallback for any other content structure
+    // If content is a Sanity object, try to extract meaningful text
+    if (typeof post.content === 'object' && post.content !== null) {
+      // Check if it has children array (Sanity block format)
+      if (post.content.children && Array.isArray(post.content.children)) {
+        const text = post.content.children.map((child: any) => child.text || '').join('');
+        return (
+          <div className="space-y-6">
+            <p className="text-lg leading-relaxed text-gray-700">{text}</p>
+          </div>
+        );
+      }
+      
+      // Try to extract any text content from the object
+      const extractText = (obj: any): string => {
+        if (typeof obj === 'string') return obj;
+        if (typeof obj === 'object' && obj !== null) {
+          if (obj.text) return obj.text;
+          if (Array.isArray(obj)) {
+            return obj.map(extractText).join(' ');
+          }
+          return Object.values(obj).map(extractText).join(' ');
+        }
+        return '';
+      };
+      
+      const extractedText = extractText(post.content).trim();
+      if (extractedText) {
+        return (
+          <div className="space-y-6">
+            <p className="text-lg leading-relaxed text-gray-700">{extractedText}</p>
+          </div>
+        );
+      }
+    }
+
+    // Fallback content
     return (
       <div className="space-y-6">
         <p className="text-lg leading-relaxed text-gray-700">
-          {JSON.stringify(post.content).replace(/[{}"\[\]]/g, ' ').trim() || 
-           `Welcome to our comprehensive guide on ${post.title.toLowerCase()}. This article covers the essential concepts and best practices you need to know.`}
+          Welcome to our comprehensive guide on {post.title.toLowerCase()}. This article covers the essential concepts and best practices you need to know.
         </p>
       </div>
     );
