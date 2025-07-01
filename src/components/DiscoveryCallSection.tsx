@@ -1,35 +1,27 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, MessageSquare, ArrowRight } from "lucide-react";
-
 const DiscoveryCallSection = () => {
   const handleBookCall = () => {
     // This would typically integrate with a scheduling tool like Calendly
     window.open('https://calendly.com/bernof-co', '_blank');
   };
-
-  const callBenefits = [
-    {
-      icon: <MessageSquare className="w-6 h-6 text-accent" />,
-      title: "Strategic Consultation",
-      description: "Discuss your business goals and digital challenges with our experts",
-      pattern: "curved"
-    },
-    {
-      icon: <Calendar className="w-6 h-6 text-accent" />,
-      title: "Custom Roadmap",
-      description: "Receive a tailored strategy roadmap for your project",
-      pattern: "angular"
-    },
-    {
-      icon: <Clock className="w-6 h-6 text-accent" />,
-      title: "Quick Turnaround",
-      description: "Get your detailed proposal within 24-48 hours",
-      pattern: "geometric"
-    }
-  ];
-
+  const callBenefits = [{
+    icon: <MessageSquare className="w-6 h-6 text-accent" />,
+    title: "Strategic Consultation",
+    description: "Discuss your business goals and digital challenges with our experts",
+    pattern: "curved"
+  }, {
+    icon: <Calendar className="w-6 h-6 text-accent" />,
+    title: "Custom Roadmap",
+    description: "Receive a tailored strategy roadmap for your project",
+    pattern: "angular"
+  }, {
+    icon: <Clock className="w-6 h-6 text-accent" />,
+    title: "Quick Turnaround",
+    description: "Get your detailed proposal within 24-48 hours",
+    pattern: "geometric"
+  }];
   const getPatternElement = (pattern: string) => {
     switch (pattern) {
       case 'curved':
@@ -42,9 +34,7 @@ const DiscoveryCallSection = () => {
         return null;
     }
   };
-
-  return (
-    <section id="discovery-call" className="py-20 bg-gradient-to-br from-primary via-primary/95 to-primary/90 relative overflow-hidden">
+  return <section id="discovery-call" className="py-20 bg-gradient-to-br from-primary via-primary/95 to-primary/90 relative overflow-hidden">
       {/* Logo-inspired background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-40 h-40 bg-white/3 rounded-full blur-3xl"></div>
@@ -61,14 +51,10 @@ const DiscoveryCallSection = () => {
             <div className="absolute -top-4 -right-4 w-5 h-5 bg-accent rounded-full opacity-40"></div>
             <div className="absolute -bottom-2 -left-2 w-3 h-3 bg-white/20 transform rotate-45"></div>
           </h2>
-          <p className="text-xl opacity-90 mb-12 leading-relaxed">
-            Let's explore how Bernoff Co can transform your digital presence and drive your business growth. 
-            No commitment, just valuable insights.
-          </p>
+          <p className="text-xl opacity-90 mb-12 leading-relaxed">Let's explore how Bernof Co can transform your digital presence and drive your business growth. No commitment, just valuable insights.</p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {callBenefits.map((benefit, index) => (
-              <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 text-white relative overflow-hidden group hover:bg-white/15 transition-all duration-300">
+            {callBenefits.map((benefit, index) => <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 text-white relative overflow-hidden group hover:bg-white/15 transition-all duration-300">
                 {getPatternElement(benefit.pattern)}
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <CardHeader className="text-center pb-4 relative z-10">
@@ -85,8 +71,7 @@ const DiscoveryCallSection = () => {
                     {benefit.description}
                   </p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 mb-8 relative overflow-hidden">
@@ -112,10 +97,7 @@ const DiscoveryCallSection = () => {
             </div>
           </div>
 
-          <Button 
-            onClick={handleBookCall}
-            className="bg-accent hover:bg-accent/90 text-white font-semibold px-12 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-xl flex items-center gap-3 mx-auto relative overflow-hidden group"
-          >
+          <Button onClick={handleBookCall} className="bg-accent hover:bg-accent/90 text-white font-semibold px-12 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-xl flex items-center gap-3 mx-auto relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             <div className="relative z-10 flex items-center gap-3">
               Schedule Your Call Now
@@ -128,8 +110,6 @@ const DiscoveryCallSection = () => {
           </p>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default DiscoveryCallSection;
