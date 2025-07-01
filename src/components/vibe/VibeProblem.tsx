@@ -85,26 +85,26 @@ const VibeProblem = () => {
             </div>)}
         </div>
         
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-8 max-w-4xl mx-auto">
+        <div className="border border-0 rounded-2xl p-8 max-w-4xl mx-auto bg-slate-50">
           <div className="text-center">
-            <h3 className="text-2xl font-bold text-red-900 mb-4">
+            <h3 className="font-bold mb-4 text-teal-700 text-4xl">
               Sound Familiar?
             </h3>
-            <p className="text-lg text-red-700 mb-8">
+            <p className="text-lg mb-8 text-emerald-700">
               You're not alone. Thousands of developers hit these walls every day. 
               The good news? We've been solving these exact problems for years.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-6 text-center">
-                <div className="text-3xl font-bold text-red-600 mb-2">73%</div>
+                <div className="text-3xl font-bold text-emerald-600 mb-2">73%</div>
                 <div className="text-sm text-gray-600">Of AI-generated apps fail in production</div>
               </div>
               <div className="bg-white rounded-xl p-6 text-center">
-                <div className="text-3xl font-bold text-red-600 mb-2">48hrs</div>
+                <div className="text-3xl font-bold text-emerald-600 mb-2">48hrs</div>
                 <div className="text-sm text-gray-600">Average time stuck on deployment issues</div>
               </div>
               <div className="bg-white rounded-xl p-6 text-center">
-                <div className="text-3xl font-bold text-red-600 mb-2">$12K</div>
+                <div className="text-3xl font-bold text-emerald-600 mb-2">$12K</div>
                 <div className="text-sm text-gray-600">Average cost of starting over</div>
               </div>
             </div>

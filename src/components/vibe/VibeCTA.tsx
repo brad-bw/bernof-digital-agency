@@ -1,10 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, MessageSquare } from "lucide-react";
-
 const VibeCTA = () => {
-  return (
-    <section id="vibe-cta" className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+  return <section id="vibe-cta" className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-5xl font-bold mb-6">
@@ -21,18 +18,14 @@ const VibeCTA = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center hover:bg-white/20 transition-colors duration-300 border border-white/20">
-            <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 bg-emerald-400">
               <MessageSquare className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-2xl font-bold mb-4">Free Consultation</h3>
             <p className="text-gray-300 mb-6 text-sm">
               15-minute call to understand your challenges and recommend the best solution.
             </p>
-            <Button 
-              size="lg"
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-xl"
-              onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-            >
+            <Button size="lg" onClick={() => window.open('https://calendly.com/bernof-co', '_blank')} className="w-full text-white font-semibold py-3 rounded-xl bg-emerald-800 hover:bg-emerald-700">
               Book Free Call
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -46,11 +39,7 @@ const VibeCTA = () => {
             <p className="text-gray-300 mb-6 text-sm">
               Critical issue blocking your launch? Get immediate help from our emergency team.
             </p>
-            <Button 
-              size="lg"
-              className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-xl"
-              onClick={() => window.location.href = 'tel:+442080580773'}
-            >
+            <Button size="lg" className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 rounded-xl" onClick={() => window.location.href = 'tel:+442080580773'}>
               Call Now
             </Button>
           </div>
@@ -63,11 +52,9 @@ const VibeCTA = () => {
             <p className="text-gray-300 mb-6 text-sm">
               Explore our comprehensive service packages designed for different needs and budgets.
             </p>
-            <Button 
-              size="lg"
-              className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-xl"
-              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-            >
+            <Button size="lg" className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-xl" onClick={() => document.getElementById('services')?.scrollIntoView({
+            behavior: 'smooth'
+          })}>
               View Packages
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -83,27 +70,16 @@ const VibeCTA = () => {
             Book a consultation today and save yourself weeks of frustration.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-2xl"
-              onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-            >
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-2xl" onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}>
               Get Started Now
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button 
-              variant="outline"
-              size="lg"
-              className="border-white/30 bg-transparent text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-2xl"
-              onClick={() => window.location.href = 'mailto:info@bernofco.com?subject=Vibe Coding Support Inquiry'}
-            >
+            <Button variant="outline" size="lg" className="border-white/30 bg-transparent text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-2xl" onClick={() => window.location.href = 'mailto:info@bernofco.com?subject=Vibe Coding Support Inquiry'}>
               Email Us
             </Button>
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default VibeCTA;
