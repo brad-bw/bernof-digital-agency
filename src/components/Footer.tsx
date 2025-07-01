@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { Linkedin, Mail, Phone, MapPin } from "lucide-react";
@@ -78,6 +77,14 @@ const Footer = () => {
                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
                   >
                     Startup Development
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/vibe-coding"
+                    className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+                  >
+                    Vibe Coding
                   </Link>
                 </li>
                 <li>

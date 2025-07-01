@@ -1,3 +1,4 @@
+
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -14,6 +15,7 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const GlobalServices = lazy(() => import("./pages/GlobalServices"));
 const StartupDevelopment = lazy(() => import("./pages/StartupDevelopment"));
+const VibeCoding = lazy(() => import("./pages/VibeCoding"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
@@ -59,6 +61,7 @@ const App = () => {
                     <Route path="/global-services/us" element={<USHub />} />
                     <Route path="/global-services/it" element={<ItalyHub />} />
                     <Route path="/startup-development" element={<StartupDevelopment />} />
+                    <Route path="/vibe-coding" element={<VibeCoding />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms-of-service" element={<TermsOfService />} />
                     <Route path="/cookie-policy" element={<CookiePolicy />} />
