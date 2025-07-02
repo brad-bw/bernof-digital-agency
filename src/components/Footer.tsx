@@ -1,7 +1,6 @@
-
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
-import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { Linkedin, Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -25,15 +24,11 @@ const Footer = () => {
 
   return (
     <footer className="bg-white border-t border-gray-200">
-      {/* Main Footer Content - Miro Style */}
       <div className="container mx-auto px-6 py-16">
         <div className="max-w-7xl mx-auto">
-          {/* Top Section - Logo and CTA */}
           <div className="flex flex-col lg:flex-row justify-between items-start mb-16">
             <div className="mb-8 lg:mb-0">
-              <h3 className="text-4xl font-bold text-gray-900 mb-4">
-                Bernof Co.
-              </h3>
+              <h3 className="text-4xl font-bold text-gray-900 mb-4">Bernof Co.</h3>
               <p className="text-lg text-gray-600 max-w-md">
                 Managing the future through comprehensive digital solutions.
               </p>
@@ -56,9 +51,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links Grid - Miro Style */}
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-16">
-            {/* Services */}
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">Services</h4>
               <ul className="space-y-3">
@@ -87,6 +80,14 @@ const Footer = () => {
                   </Link>
                 </li>
                 <li>
+                  <Link 
+                    to="/vibe-coding"
+                    className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+                  >
+                    Vibe Coding
+                  </Link>
+                </li>
+                <li>
                   <button 
                     onClick={() => scrollToSection('services')}
                     className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
@@ -97,7 +98,6 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Global Services */}
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">Global</h4>
               <ul className="space-y-3">
@@ -136,7 +136,6 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Company */}
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">Company</h4>
               <ul className="space-y-3">
@@ -175,10 +174,17 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Resources */}
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">Resources</h4>
               <ul className="space-y-3">
+                <li>
+                  <Link 
+                    to="/blog"
+                    className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+                  >
+                    Blog
+                  </Link>
+                </li>
                 <li>
                   <button 
                     onClick={() => scrollToSection('discovery-call')}
@@ -198,7 +204,6 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Contact Info */}
             <div className="col-span-2">
               <h4 className="font-semibold text-gray-900 mb-4">Get in Touch</h4>
               <div className="space-y-3">
@@ -224,7 +229,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Bottom Section */}
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-200">
             <div className="flex items-center space-x-6 mb-4 md:mb-0">
               <p className="text-gray-500 text-sm">
@@ -241,8 +245,6 @@ const Footer = () => {
                 </a>
               </div>
             </div>
-            
-          
           </div>
         </div>
       </div>

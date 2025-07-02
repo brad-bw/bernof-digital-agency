@@ -11,8 +11,11 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Loading from "@/components/Loading";
 
 const Index = lazy(() => import("./pages/Index"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
 const GlobalServices = lazy(() => import("./pages/GlobalServices"));
 const StartupDevelopment = lazy(() => import("./pages/StartupDevelopment"));
+const VibeCoding = lazy(() => import("./pages/VibeCoding"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
@@ -50,12 +53,15 @@ const App = () => {
                 <Suspense fallback={<Loading />}>
                   <Routes>
                     <Route path="/" element={<Index />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:slug" element={<BlogPost />} />
                     <Route path="/global-services" element={<GlobalServices />} />
                     <Route path="/global-services/ch" element={<SwitzerlandHub />} />
                     <Route path="/global-services/uk" element={<UKHub />} />
                     <Route path="/global-services/us" element={<USHub />} />
                     <Route path="/global-services/it" element={<ItalyHub />} />
                     <Route path="/startup-development" element={<StartupDevelopment />} />
+                    <Route path="/vibe-coding" element={<VibeCoding />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/terms-of-service" element={<TermsOfService />} />
                     <Route path="/cookie-policy" element={<CookiePolicy />} />

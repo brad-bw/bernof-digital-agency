@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Globe, TrendingUp, Users, Clock, Zap, Shield, Award } from "lucide-react";
@@ -79,9 +78,9 @@ const GlobalServices = () => {
 
       <Header />
 
-      {/* Modern Hero Section */}
-      <section className="relative min-h-[90vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-        {/* Advanced Background Elements */}
+      {/* Hero Section - Fixed spacing */}
+      <section className="relative min-h-[80vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+        {/* Background Elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl"></div>
           <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-tl from-accent/15 to-transparent rounded-full blur-3xl"></div>
@@ -89,13 +88,13 @@ const GlobalServices = () => {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] border border-white/10 rounded-full"></div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 pt-32 pb-20">
+        <div className="container mx-auto px-6 relative z-10 py-16">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
               {/* Left Content */}
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <h1 className="text-6xl lg:text-7xl font-bold leading-tight">
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
                     <span className="block text-white mb-2">European</span>
                     <span className="block text-white mb-2">Excellence,</span>
                     <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
@@ -103,22 +102,22 @@ const GlobalServices = () => {
                     </span>
                   </h1>
 
-                  <p className="text-xl lg:text-2xl text-gray-300 leading-relaxed max-w-2xl">
+                  <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-2xl">
                     Serving businesses across Europe and beyond with 60% cost savings on premium digital development services. Choose your market and unlock European expertise at unmatched value.
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-6">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
                     onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-                    className="bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent/80 text-white font-bold px-10 py-6 rounded-2xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-xl"
+                    className="bg-gradient-to-r from-accent to-accent/90 hover:from-accent/90 hover:to-accent/80 text-white font-bold px-8 py-5 rounded-2xl text-lg h-auto transition-all duration-300 hover:scale-105 shadow-xl"
                   >
                     Start Your Global Project
-                    <ArrowRight className="w-6 h-6 ml-3" />
+                    <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                   <Button 
                     variant="outline"
-                    className="border-2 border-white/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 font-bold px-10 py-6 rounded-2xl text-xl h-auto"
+                    className="border-2 border-white/30 text-white bg-white/5 backdrop-blur-sm hover:bg-white/10 font-bold px-8 py-5 rounded-2xl text-lg h-auto"
                     onClick={() => {
                       document.getElementById('countries')?.scrollIntoView({ behavior: 'smooth' });
                     }}
@@ -129,16 +128,16 @@ const GlobalServices = () => {
               </div>
 
               {/* Right Stats Grid */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4">
                 {[
-                  { value: "60%", label: "Average Savings", icon: <TrendingUp className="w-8 h-8" /> },
-                  { value: "50+", label: "Expert Developers", icon: <Users className="w-8 h-8" /> },
-                  { value: "48h", label: "Project Start", icon: <Clock className="w-8 h-8" /> },
-                  { value: "100%", label: "Success Rate", icon: <Award className="w-8 h-8" /> }
+                  { value: "60%", label: "Average Savings", icon: <TrendingUp className="w-6 h-6" /> },
+                  { value: "50+", label: "Expert Developers", icon: <Users className="w-6 h-6" /> },
+                  { value: "48h", label: "Project Start", icon: <Clock className="w-6 h-6" /> },
+                  { value: "100%", label: "Success Rate", icon: <Award className="w-6 h-6" /> }
                 ].map((stat, index) => (
-                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300">
-                    <div className="text-accent mb-4">{stat.icon}</div>
-                    <div className="text-4xl font-bold text-white mb-2">{stat.value}</div>
+                  <div key={index} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300">
+                    <div className="text-accent mb-3">{stat.icon}</div>
+                    <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
                     <div className="text-gray-300 text-sm">{stat.label}</div>
                   </div>
                 ))}
@@ -146,18 +145,14 @@ const GlobalServices = () => {
             </div>
           </div>
         </div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-1/4 right-1/4 w-4 h-4 bg-accent rounded-full animate-pulse"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-3 h-3 bg-primary rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-5xl font-bold text-gray-900 mb-6">Why Choose Global Excellence?</h2>
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose Global Excellence?</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Experience the perfect blend of European craftsmanship and global accessibility
               </p>
@@ -166,10 +161,10 @@ const GlobalServices = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="group bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                  <div className="mb-6 p-4 bg-gray-50 rounded-2xl w-fit group-hover:bg-primary/10 transition-colors">
+                  <div className="mb-6 p-3 bg-gray-50 rounded-2xl w-fit group-hover:bg-primary/10 transition-colors">
                     {feature.icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </div>
               ))}
@@ -179,11 +174,11 @@ const GlobalServices = () => {
       </section>
 
       {/* Country Selection Section */}
-      <section id="countries" className="py-24 bg-white">
+      <section id="countries" className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Choose Your Market
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto">
@@ -262,7 +257,7 @@ const GlobalServices = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white">
+      <section className="py-20 bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
