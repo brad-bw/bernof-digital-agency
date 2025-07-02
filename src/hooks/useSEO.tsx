@@ -14,12 +14,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
   return useMemo(() => {
     const baseUrl = 'https://bernofco.com';
     
-    // Handle country hub pages
-    if (page === 'ch' || page === 'uk' || page === 'us' || page === 'it') {
-      return getCountryHubSEO(page, baseUrl);
-    }
-    
-    // Handle country-specific service pages
+    // Handle country-specific pages
     if (page.includes('/')) {
       const [countryCode, serviceType] = page.split('/');
       return getCountrySEO(countryCode, serviceType, baseUrl);
@@ -218,7 +213,131 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
           breadcrumbs: [
             { name: 'Home', url: baseUrl },
             { name: 'Startup Development', url: `${baseUrl}/startup-development` }
-          ]
+          ],
+          schemaData: {
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "Service",
+                "@id": `${baseUrl}/startup-development#service`,
+                "name": "Startup Development Services",
+                "description": "Comprehensive startup development services from MVP to scaling, including technical consulting, product development, and growth strategy for European and American startups",
+                "provider": {
+                  "@type": "Organization",
+                  "@id": `${baseUrl}/#organization`
+                },
+                "areaServed": [
+                  {
+                    "@type": "Place",
+                    "name": "Europe"
+                  },
+                  {
+                    "@type": "Place", 
+                    "name": "United States"
+                  },
+                  {
+                    "@type": "Place",
+                    "name": "United Kingdom"
+                  },
+                  {
+                    "@type": "Place",
+                    "name": "Germany"
+                  },
+                  {
+                    "@type": "Place",
+                    "name": "France"
+                  }
+                ],
+                "serviceType": "Software Development",
+                "category": ["Startup Services", "MVP Development", "Technical Consulting"],
+                "audience": {
+                  "@type": "Audience",
+                  "audienceType": "Entrepreneurs and Startups"
+                },
+                "hasOfferCatalog": {
+                  "@type": "OfferCatalog",
+                  "name": "Startup Development Packages",
+                  "itemListElement": [
+                    {
+                      "@type": "Offer",
+                      "name": "MVP Validation",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "MVP Validation & Development"
+                      },
+                      "price": "3999",
+                      "priceCurrency": "USD",
+                      "availability": "https://schema.org/InStock",
+                      "validFrom": "2024-01-01",
+                      "priceValidUntil": "2024-12-31"
+                    },
+                    {
+                      "@type": "Offer",
+                      "name": "Full MVP Launch",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Complete MVP Launch Package"
+                      },
+                      "price": "9999",
+                      "priceCurrency": "USD",
+                      "availability": "https://schema.org/InStock",
+                      "validFrom": "2024-01-01",
+                      "priceValidUntil": "2024-12-31"
+                    },
+                    {
+                      "@type": "Offer",
+                      "name": "Scale & Growth",
+                      "itemOffered": {
+                        "@type": "Service",
+                        "name": "Scaling & Growth Services"
+                      },
+                      "price": "19999",
+                      "priceCurrency": "USD",
+                      "availability": "https://schema.org/InStock"
+                    }
+                  ]
+                }
+              },
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": baseUrl
+                  },
+                  {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Startup Development",
+                    "item": `${baseUrl}/startup-development`
+                  }
+                ]
+              },
+              {
+                "@type": "FAQPage",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "How long does MVP development take?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "MVP development typically takes 4-8 weeks depending on complexity. We follow an agile approach to deliver working software quickly."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "What's included in the startup development package?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Our startup package includes MVP development, technical architecture, UI/UX design, testing, deployment, and 3 months of support."
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         };
       
       default:
@@ -232,53 +351,7 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
   }, [page]);
 };
 
-// Function to handle country hub SEO
-const getCountryHubSEO = (countryCode: string, baseUrl: string): SEOConfig => {
-  const country = getCountryConfig(countryCode);
-  
-  if (!country) {
-    return {
-      title: 'Bernof Co - Digital Solutions',
-      description: 'Digital solutions that drive growth.',
-      keywords: 'digital agency, web development, software development'
-    };
-  }
-
-  const canonical = `${baseUrl}/global-services/${countryCode}`;
-
-  return {
-    title: `Digital Solutions ${country.name} | Cost-Effective Development Services | Bernof Co`,
-    description: `Transform your ${country.name} business with cost-effective digital solutions. Web development, software development, and startup services tailored for the ${country.name} market.`,
-    keywords: country.seoKeywords.web.join(', '),
-    canonical: canonical,
-    breadcrumbs: [
-      { name: 'Home', url: baseUrl },
-      { name: 'Global Services', url: `${baseUrl}/global-services` },
-      { name: country.name, url: canonical }
-    ],
-    schemaData: {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Service",
-          "@id": `${canonical}#service`,
-          "name": `Digital Solutions - ${country.name}`,
-          "description": `Comprehensive digital solutions for businesses in ${country.name}`,
-          "provider": {
-            "@type": "Organization",
-            "@id": `${baseUrl}/#organization`
-          },
-          "areaServed": {
-            "@type": "Country",
-            "name": country.name
-          }
-        }
-      ]
-    }
-  };
-};
-
-// Function to handle country-specific service SEO
+// Function to handle country-specific SEO
 const getCountrySEO = (countryCode: string, serviceType: string, baseUrl: string): SEOConfig => {
   const country = getCountryConfig(countryCode);
   
