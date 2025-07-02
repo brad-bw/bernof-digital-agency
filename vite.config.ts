@@ -37,23 +37,31 @@ export default defineConfig(({ mode }) => ({
       hostname: 'https://bernofco.com',
       dynamicRoutes: [
         '/',
-        '/web-development',
-        '/software-development', 
-        '/startup-development',
+        '/blog',
         '/global-services',
+        '/global-services/ch',
+        '/global-services/uk', 
+        '/global-services/us',
+        '/global-services/it',
+        '/startup-development',
+        '/vibe-coding',
         '/privacy-policy',
         '/terms-of-service',
-        '/blog'
+        '/cookie-policy',
+        '/ch/web-development',
+        '/ch/software-development',
+        '/ch/startup-development',
+        '/uk/web-development',
+        '/uk/software-development',
+        '/uk/startup-development',
+        '/us/web-development',
+        '/us/software-development',
+        '/us/startup-development',
+        '/it/web-development',
+        '/it/software-development',
+        '/it/startup-development'
       ],
-      exclude: ['/admin'],
-      generateRobotsTxt: true,
-      robots: [
-        {
-          userAgent: '*',
-          allow: '/',
-          sitemap: 'https://bernofco.com/sitemap.xml'
-        }
-      ]
+      generateRobotsTxt: false  // Keep this false since robots.txt already works
     })
   ].filter(Boolean),
   resolve: {
