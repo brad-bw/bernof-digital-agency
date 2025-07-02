@@ -44,7 +44,7 @@ export const generateSitemap = (): string => {
       changefreq: 'weekly',
       priority: 0.9
     },
-    // Country hub pages - THESE WERE MISSING!
+    // Country hub pages
     {
       loc: `${baseUrl}/global-services/ch`,
       lastmod: currentDate,
@@ -129,7 +129,7 @@ export const downloadSitemap = () => {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  URL.revokeURLWithURL(url);
 };
 
 // Make it available globally for easy access
