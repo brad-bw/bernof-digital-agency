@@ -27,6 +27,18 @@ export const generateSitemap = (): string => {
       priority: 0.9
     },
     {
+      loc: `${baseUrl}/blog`,
+      lastmod: currentDate,
+      changefreq: 'daily',
+      priority: 0.8
+    },
+    {
+      loc: `${baseUrl}/vibe-coding`,
+      lastmod: currentDate,
+      changefreq: 'weekly',
+      priority: 0.8
+    },
+    {
       loc: `${baseUrl}/global-services`,
       lastmod: currentDate,
       changefreq: 'weekly',

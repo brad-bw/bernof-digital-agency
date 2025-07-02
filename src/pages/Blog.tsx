@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import BlogHero from '@/components/blog/BlogHero';
 import BlogCategories from '@/components/blog/BlogCategories';
 import BlogGrid from '@/components/blog/BlogGrid';
-import BlogAutoPopulate from '@/components/blog/BlogAutoPopulate';
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   return <div className="min-h-screen bg-gray-50">
@@ -16,7 +15,6 @@ const Blog = () => {
       </Helmet>
       
       <Header />
-      <BlogAutoPopulate />
       
       <main className="pt-24 py-0">
         <BlogHero />
