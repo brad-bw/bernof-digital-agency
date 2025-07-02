@@ -129,7 +129,7 @@ export const downloadSitemap = () => {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-  URL.revokeURLWithURL(url);
+  URL.revokeObjectURL(url);
 };
 
 // Make it available globally for easy access
