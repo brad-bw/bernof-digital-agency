@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -31,8 +30,31 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    mode === 'development' &&
-    componentTagger(),
+    // Only add componentTagger in development mode
+    mode === 'development' && componentTagger(),
+    // Only generate sitemap in production builds
+    mode === 'production' && Sitemap({
+      hostname: 'https://bernofco.com',
+      dynamicRoutes: [
+        '/',
+        '/web-development',
+        '/software-development', 
+        '/startup-development',
+        '/global-services',
+        '/privacy-policy',
+        '/terms-of-service',
+        '/blog'
+      ],
+      exclude: ['/admin'],
+      generateRobotsTxt: true,
+      robots: [
+        {
+          userAgent: '*',
+          allow: '/',
+          sitemap: 'https://bernofco.com/sitemap.xml'
+        }
+      ]
+    })
   ].filter(Boolean),
   resolve: {
     alias: {

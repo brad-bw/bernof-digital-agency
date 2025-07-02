@@ -1,2 +1,6 @@
-# SPA fallback - catch all routes and serve index.html
-/*    /index.html   200
+# Static files first - serve directly
+/sitemap.xml /sitemap.xml 200
+/robots.txt /robots.txt 200
+
+# SPA fallback - MUST be last
+/* /index.html 200
