@@ -15,7 +15,7 @@ const VibeHero = () => {
       {/* Geometric background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `url('/lovable-uploads/87978c55-5497-4099-bba4-4a5affd48d0b.png')`,
+          backgroundImage: `url('/images/87978c55-5497-4099-bba4-4a5affd48d0b.png')`,
           backgroundSize: '400px 400px',
           backgroundRepeat: 'repeat'
         }}></div>
