@@ -3,7 +3,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { ssgPlugin } from "@wroud/vite-plugin-ssg";
 import { VitePluginRadar } from "vite-plugin-radar";
 
 // https://vitejs.dev/config/
@@ -15,9 +14,6 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
-    ssgPlugin({
-      renderTimeout: 30000, // 30 seconds for complex pages
-    }),
     VitePluginRadar({
       analytics: { 
         id: process.env.VITE_GA_TRACKING_ID || 'G-BYCC3QQSTC'
@@ -42,8 +38,5 @@ export default defineConfig(({ mode }) => ({
       }
     }
   },
-  appType: 'spa',
-  ssr: {
-    noExternal: ['react-helmet-async'] // Fix SSG compatibility issues
-  }
+  appType: 'spa'
 }));
