@@ -1,4 +1,5 @@
 
+
 import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
@@ -32,14 +33,14 @@ export default defineConfig(({ command }) => {
       Sitemap({
         hostname: 'https://bernofco.com',
         dynamicRoutes: routes,
-        changefreq: (url) =>
+        changefreq: (url: string) =>
           url === '/' ? 'daily' :
           url === '/blog' ? 'weekly' : 'monthly',
-        priority: (url) =>
+        priority: (url: string) =>
           url === '/' ? 1.0 :
           url === '/startup-development' ? 0.9 : 0.8,
       }),
-      VitePluginRadar({
+      process.env.VITE_GA_TRACKING_ID && VitePluginRadar({
         analytics: { id: process.env.VITE_GA_TRACKING_ID },
       }),
     ].filter(Boolean),
@@ -54,3 +55,4 @@ export default defineConfig(({ command }) => {
     },
   }
 })
+
