@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { Toaster } from '@/components/ui/sonner'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import { SiddiAnalytics } from '@/components/SiddiAnalytics'
 
 // Import main page
 import HomePage from '@/components/HomePage'
@@ -28,6 +29,7 @@ function App() {
             </Routes>
           </Router>
           <Toaster />
+          <SiddiAnalytics />
         </ThemeProvider>
       </HelmetProvider>
     </ErrorBoundary>

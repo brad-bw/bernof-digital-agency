@@ -1,0 +1,14 @@
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /.netlify/
+Disallow: /private/
+
+# Sitemap
+Sitemap: https://bernofco.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
