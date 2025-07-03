@@ -1,3 +1,4 @@
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
@@ -7,6 +8,9 @@ const nextConfig = {
   },
   async generateBuildId() {
     return 'build'
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react']
   }
 }
 
