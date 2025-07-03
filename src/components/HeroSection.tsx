@@ -1,6 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-import Link from 'next/link';
 
 export default function HeroSection() {
   return (
@@ -23,11 +22,11 @@ export default function HeroSection() {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Button asChild size="lg" className="text-lg px-8 py-6">
-              <Link href="/#contact">Start Your Project</Link>
+            <Button size="lg" className="text-lg px-8 py-6">
+              Start Your Project
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
-              <Link href="/global-services">View Services</Link>
+            <Button variant="outline" size="lg" className="text-lg px-8 py-6">
+              View Services
             </Button>
           </div>
           

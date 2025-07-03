@@ -1,6 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-import Link from 'next/link';
 import { Code, Smartphone, Rocket, Palette } from 'lucide-react';
 
 const services = [
@@ -13,7 +12,7 @@ const services = [
   },
   {
     icon: Smartphone,
-    title: "Mobile Development",
+    title: "Mobile Development", 
     description: "Native and cross-platform mobile applications",
     features: ["iOS & Android", "React Native", "Flutter", "App Store Optimization"],
     href: "/ch/software-development"
@@ -21,7 +20,7 @@ const services = [
   {
     icon: Rocket,
     title: "Startup Development",
-    description: "From MVP to scale - complete startup development services",
+    description: "From MVP to scale - complete startup development services", 
     features: ["MVP Development", "Technical Strategy", "Product Launch", "Growth Optimization"],
     href: "/startup-development"
   },
@@ -59,8 +58,8 @@ export default function ServicesSection() {
                   </li>
                 ))}
               </ul>
-              <Button asChild variant="outline" className="w-full">
-                <Link href={service.href}>Learn More</Link>
+              <Button variant="outline" className="w-full">
+                Learn More
               </Button>
             </div>
           ))}

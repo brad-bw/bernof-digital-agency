@@ -1,11 +1,10 @@
 
 import { Button } from "@/components/ui/button";
-import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 
 const benefits = [
   "Free 30-minute consultation",
-  "Project roadmap & timeline",
+  "Project roadmap & timeline", 
   "Technology recommendations",
   "Cost estimation",
   "No obligation quote"
@@ -36,11 +35,11 @@ export default function DiscoveryCallSection() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary" className="text-lg px-8 py-6">
-              <Link href="/#contact">Book Discovery Call</Link>
+            <Button size="lg" variant="secondary" className="text-lg px-8 py-6">
+              Book Discovery Call
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-primary">
-              <Link href="/global-services">View Our Work</Link>
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-primary">
+              View Our Work
             </Button>
           </div>
         </div>
