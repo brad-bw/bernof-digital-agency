@@ -1,49 +1,59 @@
-import React from 'react';
+
 import { Helmet } from 'react-helmet-async';
 
 interface SEOProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   keywords?: string;
-  image?: string;
-  url?: string;
-  type?: string;
+  canonical?: string;
+  ogType?: string;
+  ogImage?: string;
+  schemaData?: object;
 }
 
-export const SEO: React.FC<SEOProps> = ({ 
-  title, 
-  description, 
-  keywords, 
-  image = '/bernofco-social-share.png', 
-  url = 'https://bernofco.com', 
-  type = 'website' 
-}) => {
-  const fullTitle = `${title} | Bernof Co`;
-  
+const SEO = ({
+  title = "Bernof Co - Managing the Future | Digital Solutions & Growth Services",
+  description = "Transform your digital presence with Bernof Co's comprehensive development, design, and marketing services. Book your discovery call today.",
+  keywords = "startup development, MVP development, outsource app development, startup tech partner, idea to production, development company, web development, mobile app development, digital agency, digital transformation",
+  canonical,
+  ogType = "website",
+  ogImage = "https://bernofco.com/public/bernofco-social-share.png",
+  schemaData
+}: SEOProps) => {
+  const currentUrl = canonical || window.location.href;
+
   return (
     <Helmet>
-      <title>{fullTitle}</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      <link rel="canonical" href={url} />
+      <meta name="keywords" content={keywords} />
+      <meta name="author" content="Bernof Co" />
       
       {/* Open Graph */}
-      <meta property="og:title" content={fullTitle} />
+      <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
-      <meta property="og:url" content={url} />
-      <meta property="og:type" content={type} />
-      <meta property="og:site_name" content="Bernof Co" />
+      <meta property="og:type" content={ogType} />
+      <meta property="og:url" content={currentUrl} />
+      <meta property="og:image" content={ogImage} />
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:site" content="@bernof_co" />
+      <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={ogImage} />
       
-      {/* Other meta tags */}
-      <meta name="robots" content="index, follow" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      {/* Canonical URL */}
+      <link rel="canonical" href={currentUrl} />
+      
+      {/* Structured Data */}
+      {schemaData && (
+        <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
+      )}
     </Helmet>
   );
 };
+
+export default SEO;
