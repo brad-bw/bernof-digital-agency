@@ -103,10 +103,3 @@ export const useAnalytics = () => {
     trackEmailClick
   };
 };
-
-// Extend window interface for amplitude
-declare global {
-  interface Window {
-    amplitude: any;
-  }
-}

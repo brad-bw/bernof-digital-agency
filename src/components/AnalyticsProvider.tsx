@@ -3,15 +3,6 @@ import { createContext, useContext, useEffect, ReactNode } from 'react';
 import { analyticsConfig, trackPageView } from '@/config/analytics';
 import { useLocation } from 'react-router-dom';
 
-// Extend window interface for Hotjar
-declare global {
-  interface Window {
-    hj?: (event: string, data?: any) => void;
-    gtag?: (...args: any[]) => void;
-    amplitude?: any;
-  }
-}
-
 const AnalyticsContext = createContext(analyticsConfig);
 
 interface AnalyticsProviderProps {
