@@ -1,3 +1,4 @@
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +13,20 @@ Allow: /
 
 User-agent: *
 Allow: /
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://bernofco.com/sitemap.xml
+
+# Block admin and utility pages
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_vite/
+Disallow: /node_modules/
+Disallow: /*.json$
+
+# Allow specific assets
+Allow: /assets/
+Allow: /images/
+Allow: /*.css$
+Allow: /*.js$

@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Loading from "@/components/Loading";
 
@@ -47,44 +48,46 @@ const App = () => {
         <ThemeProvider defaultTheme="light" storageKey="bernof-ui-theme">
           <QueryClientProvider client={queryClient}>
             <TooltipProvider>
-              <Toaster />
-              <Sonner />
               <BrowserRouter>
-                <Suspense fallback={<Loading />}>
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/:slug" element={<BlogPost />} />
-                    <Route path="/global-services" element={<GlobalServices />} />
-                    <Route path="/global-services/ch" element={<SwitzerlandHub />} />
-                    <Route path="/global-services/uk" element={<UKHub />} />
-                    <Route path="/global-services/us" element={<USHub />} />
-                    <Route path="/global-services/it" element={<ItalyHub />} />
-                    <Route path="/startup-development" element={<StartupDevelopment />} />
-                    <Route path="/vibe-coding" element={<VibeCoding />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                    <Route path="/terms-of-service" element={<TermsOfService />} />
-                    <Route path="/cookie-policy" element={<CookiePolicy />} />
-                    
-                    <Route path="/ch/web-development" element={<SwitzerlandWebDevelopment />} />
-                    <Route path="/ch/software-development" element={<SwitzerlandSoftwareDevelopment />} />
-                    <Route path="/ch/startup-development" element={<SwitzerlandStartupDevelopment />} />
-                    
-                    <Route path="/uk/web-development" element={<UKWebDevelopment />} />
-                    <Route path="/uk/software-development" element={<UKSoftwareDevelopment />} />
-                    <Route path="/uk/startup-development" element={<UKStartupDevelopment />} />
-                    
-                    <Route path="/us/web-development" element={<USAWebDevelopment />} />
-                    <Route path="/us/software-development" element={<USASoftwareDevelopment />} />
-                    <Route path="/us/startup-development" element={<USAStartupDevelopment />} />
-                    
-                    <Route path="/it/web-development" element={<ItalyWebDevelopment />} />
-                    <Route path="/it/software-development" element={<ItalySoftwareDevelopment />} />
-                    <Route path="/it/startup-development" element={<ItalyStartupDevelopment />} />
-                    
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
+                <AnalyticsProvider>
+                  <Toaster />
+                  <Sonner />
+                  <Suspense fallback={<Loading />}>
+                    <Routes>
+                      <Route path="/" element={<Index />} />
+                      <Route path="/blog" element={<Blog />} />
+                      <Route path="/blog/:slug" element={<BlogPost />} />
+                      <Route path="/global-services" element={<GlobalServices />} />
+                      <Route path="/global-services/ch" element={<SwitzerlandHub />} />
+                      <Route path="/global-services/uk" element={<UKHub />} />
+                      <Route path="/global-services/us" element={<USHub />} />
+                      <Route path="/global-services/it" element={<ItalyHub />} />
+                      <Route path="/startup-development" element={<StartupDevelopment />} />
+                      <Route path="/vibe-coding" element={<VibeCoding />} />
+                      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                      <Route path="/terms-of-service" element={<TermsOfService />} />
+                      <Route path="/cookie-policy" element={<CookiePolicy />} />
+                      
+                      <Route path="/ch/web-development" element={<SwitzerlandWebDevelopment />} />
+                      <Route path="/ch/software-development" element={<SwitzerlandSoftwareDevelopment />} />
+                      <Route path="/ch/startup-development" element={<SwitzerlandStartupDevelopment />} />
+                      
+                      <Route path="/uk/web-development" element={<UKWebDevelopment />} />
+                      <Route path="/uk/software-development" element={<UKSoftwareDevelopment />} />
+                      <Route path="/uk/startup-development" element={<UKStartupDevelopment />} />
+                      
+                      <Route path="/us/web-development" element={<USAWebDevelopment />} />
+                      <Route path="/us/software-development" element={<USASoftwareDevelopment />} />
+                      <Route path="/us/startup-development" element={<USAStartupDevelopment />} />
+                      
+                      <Route path="/it/web-development" element={<ItalyWebDevelopment />} />
+                      <Route path="/it/software-development" element={<ItalySoftwareDevelopment />} />
+                      <Route path="/it/startup-development" element={<ItalyStartupDevelopment />} />
+                      
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </Suspense>
+                </AnalyticsProvider>
               </BrowserRouter>
             </TooltipProvider>
           </QueryClientProvider>
