@@ -11,24 +11,6 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    watch: {
-      // Reduce the number of files being watched
-      ignored: [
-        '**/node_modules/**',
-        '**/.git/**',
-        '**/dist/**',
-        '**/build/**',
-        '**/.next/**',
-        '**/coverage/**',
-        '**/.nyc_output/**',
-        '**/tmp/**',
-        '**/temp/**'
-      ],
-      // Use polling instead of native file system events
-      usePolling: true,
-      // Reduce polling interval
-      interval: 1000
-    }
   },
   plugins: [
     react(),
@@ -39,9 +21,6 @@ export default defineConfig(({ mode }) => ({
     VitePluginRadar({
       analytics: { 
         id: process.env.VITE_GA_TRACKING_ID || 'G-BYCC3QQSTC'
-      },
-      amplitude: { 
-        apiKey: process.env.VITE_AMPLITUDE_API_KEY || '63ef5ba84b1fe4949bdfcfbdc0b1ebb8'
       }
     })
   ].filter(Boolean),
