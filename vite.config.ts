@@ -3,10 +3,23 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { componentTagger } from 'lovable-tagger'
 import { ssgPlugin } from '@wroud/vite-plugin-ssg'
+import Sitemap from 'vite-plugin-sitemap'
 import { VitePluginRadar } from 'vite-plugin-radar'
 
 export default defineConfig(({ command }) => {
   const isDev = command === 'serve'
+
+  // Only your top-level, SEO-critical pages
+  const routes = [
+    '/',
+    '/blog',
+    '/global-services',
+    '/startup-development',
+    '/vibe-coding',
+    '/cookie-policy',
+    '/privacy-policy',
+    '/terms-of-service',
+  ]
 
   return {
     appType: 'mpa',
@@ -16,34 +29,43 @@ export default defineConfig(({ command }) => {
       isDev && componentTagger(),
       ssgPlugin({
         renderTimeout: 30000,
-        routes: [
-          '/', '/blog', '/startup-development', '/vibe-coding',
-          '/global-services', /* … */, '/cookie-policy'
-        ]
+        routes,
+      }),
+      Sitemap({
+        hostname: 'https://bernofco.com',
+        dynamicRoutes: routes,
+        changefreq: (url) =>
+          url === '/' ? 'daily' :
+          url === '/blog' ? 'weekly' : 'monthly',
+        priority: (url) =>
+          url === '/' ? 1.0 :
+          url === '/startup-development' ? 0.9 : 0.8,
       }),
       VitePluginRadar({
-        analytics: { id: process.env.VITE_GA_TRACKING_ID || 'G-BYCC3QQSTC' }
-      })
+        analytics: { id: process.env.VITE_GA_TRACKING_ID },
+      }),
     ].filter(Boolean),
 
     resolve: {
-      alias: { '@': path.resolve(__dirname, './src') }
+      alias: { '@': path.resolve(__dirname, './src') },
     },
 
     build: {
-      target: 'esnext',             // support top-level await
+      target: 'esnext',
       outDir: 'dist',
       rollupOptions: {
-        input: {
-          // server entry for SSG + client entry for build
-          index: path.resolve(__dirname, 'src/main.tsx') + '?ssg-entry'
-        }
-        // manualChunks removed
+        // Generate one HTML entry per route
+        input: Object.fromEntries(
+          routes.map((r) => {
+            const name = r === '/' ? 'index' : r.slice(1).replace(/\//g, '-')
+            return [name, path.resolve(__dirname, 'src/main.tsx') + '?ssg-entry']
+          })
+        ),
       }
     },
 
     ssr: {
-      noExternal: ['react-helmet-async']
-    }
+      noExternal: ['react-helmet-async'],
+    },
   }
 })

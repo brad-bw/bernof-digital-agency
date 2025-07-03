@@ -1338,7 +1338,7 @@ const App = () => {
   ] }) }) }) }) }) }) });
 };
 
-const mainScriptUrl = "assets/index-CPeltAlO.js";
+const mainScriptUrl = "assets/terms-of-service-CSBQlABm.js";
 
 async function create(context) {
   return await create$1(App, context, mainScriptUrl);
