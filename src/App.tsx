@@ -20,6 +20,7 @@ const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
+const BlogPreview = lazy(() => import("./pages/BlogPreview"));
 
 const SwitzerlandHub = lazy(() => import("./pages/countries/SwitzerlandHub"));
 const UKHub = lazy(() => import("./pages/countries/UKHub"));
@@ -83,6 +84,7 @@ const App = () => {
                       <Route path="/it/startup-development" element={<ItalyStartupDevelopment />} />
                       
                       <Route path="/blog/:slug" element={<BlogPost />} />
+                      <Route path="/blog-preview" element={<BlogPreview />} />
                       
                       <Route path="*" element={<NotFound />} />
                     </Routes>
