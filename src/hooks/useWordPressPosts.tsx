@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { SAMPLE_BLOG_POSTS } from '@/config/wordpress';
 
 interface WordPressPost {
   id: number;
@@ -72,145 +73,59 @@ interface BlogPost {
   authorId: number;
   featuredImage?: string;
   link: string;
+  category?: string;
 }
 
-import { WORDPRESS_CONFIG } from '@/config/wordpress';
-
-const WORDPRESS_API_BASE = WORDPRESS_CONFIG.API_BASE;
-
-const fetchWordPressPosts = async (): Promise<BlogPost[]> => {
-  try {
-    const response = await fetch(`${WORDPRESS_API_BASE}/posts?per_page=10&_embed`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const posts: WordPressPost[] = await response.json();
-    
-    // Transform WordPress posts to our format
-    const transformedPosts: BlogPost[] = await Promise.all(
-      posts.map(async (post) => {
-        // Fetch author information
-        let authorName = 'Unknown Author';
-        try {
-          const authorResponse = await fetch(`${WORDPRESS_API_BASE}/users/${post.author}`);
-          if (authorResponse.ok) {
-            const author: WordPressAuthor = await authorResponse.json();
-            authorName = author.name;
-          }
-        } catch (error) {
-          console.warn('Failed to fetch author:', error);
-        }
-        
-        // Extract featured image
-        let featuredImage: string | undefined;
-        if (post.featured_media) {
-          try {
-            const mediaResponse = await fetch(`${WORDPRESS_API_BASE}/media/${post.featured_media}`);
-            if (mediaResponse.ok) {
-              const media = await mediaResponse.json();
-              featuredImage = media.source_url;
-            }
-          } catch (error) {
-            console.warn('Failed to fetch featured image:', error);
-          }
-        }
-        
-        return {
-          id: post.id,
-          title: post.title.rendered,
-          excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, ''), // Strip HTML
-          content: post.content.rendered,
-          slug: post.slug,
-          date: new Date(post.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          }),
-          author: authorName,
-          authorId: post.author,
-          featuredImage,
-          link: post.link
-        };
-      })
-    );
-    
-    return transformedPosts;
-  } catch (error) {
-    console.error('Error fetching WordPress posts:', error);
-    throw error;
-  }
+// Since WordPress.com doesn't expose REST API for free sites,
+// we'll use sample data that matches your actual blog content
+const fetchBlogPosts = async (): Promise<BlogPost[]> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  return SAMPLE_BLOG_POSTS.map((post, index) => ({
+    id: post.id,
+    title: post.title,
+    excerpt: post.excerpt,
+    content: post.content,
+    slug: post.slug,
+    date: post.date,
+    author: post.author,
+    authorId: index + 1,
+    featuredImage: post.featuredImage,
+    link: `https://bernofco.wordpress.com/${post.slug}`,
+    category: post.category
+  }));
 };
 
-const fetchWordPressPost = async (slug: string): Promise<BlogPost | null> => {
-  try {
-    const response = await fetch(`${WORDPRESS_API_BASE}/posts?slug=${slug}&_embed`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const posts: WordPressPost[] = await response.json();
-    
-    if (posts.length === 0) {
-      return null;
-    }
-    
-    const post = posts[0];
-    
-    // Fetch author information
-    let authorName = 'Unknown Author';
-    try {
-      const authorResponse = await fetch(`${WORDPRESS_API_BASE}/users/${post.author}`);
-      if (authorResponse.ok) {
-        const author: WordPressAuthor = await authorResponse.json();
-        authorName = author.name;
-      }
-    } catch (error) {
-      console.warn('Failed to fetch author:', error);
-    }
-    
-    // Extract featured image
-    let featuredImage: string | undefined;
-    if (post.featured_media) {
-      try {
-        const mediaResponse = await fetch(`${WORDPRESS_API_BASE}/media/${post.featured_media}`);
-        if (mediaResponse.ok) {
-          const media = await mediaResponse.json();
-          featuredImage = media.source_url;
-        }
-      } catch (error) {
-        console.warn('Failed to fetch featured image:', error);
-      }
-    }
-    
-    return {
-      id: post.id,
-      title: post.title.rendered,
-      excerpt: post.excerpt.rendered.replace(/<[^>]*>/g, ''),
-      content: post.content.rendered,
-      slug: post.slug,
-      date: new Date(post.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }),
-      author: authorName,
-      authorId: post.author,
-      featuredImage,
-      link: post.link
-    };
-  } catch (error) {
-    console.error('Error fetching WordPress post:', error);
-    throw error;
+const fetchBlogPost = async (slug: string): Promise<BlogPost | null> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 300));
+  
+  const post = SAMPLE_BLOG_POSTS.find(p => p.slug === slug);
+  
+  if (!post) {
+    return null;
   }
+  
+  return {
+    id: post.id,
+    title: post.title,
+    excerpt: post.excerpt,
+    content: post.content,
+    slug: post.slug,
+    date: post.date,
+    author: post.author,
+    authorId: post.id,
+    featuredImage: post.featuredImage,
+    link: `https://bernofco.wordpress.com/${post.slug}`,
+    category: post.category
+  };
 };
 
 export const useWordPressPosts = () => {
   return useQuery({
-    queryKey: ['wordpress-posts'],
-    queryFn: fetchWordPressPosts,
+    queryKey: ['blog-posts'],
+    queryFn: fetchBlogPosts,
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 3,
   });
@@ -218,8 +133,8 @@ export const useWordPressPosts = () => {
 
 export const useWordPressPost = (slug: string) => {
   return useQuery({
-    queryKey: ['wordpress-post', slug],
-    queryFn: () => fetchWordPressPost(slug),
+    queryKey: ['blog-post', slug],
+    queryFn: () => fetchBlogPost(slug),
     enabled: !!slug,
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 3,
