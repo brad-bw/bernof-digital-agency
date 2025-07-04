@@ -110,8 +110,39 @@ export default defineConfig(({ command, mode }) => {
     build: {
       target: 'esnext',
       outDir: 'dist',
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: !isDev,
+          drop_debugger: !isDev,
+        },
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'react-vendor': ['react', 'react-dom'],
+            'router': ['react-router-dom'],
+            'ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
+            'utils': ['clsx', 'tailwind-merge', 'class-variance-authority'],
+            'analytics': ['@amplitude/analytics-browser'],
+            'seo': ['react-helmet-async']
+          },
+          assetFileNames: (assetInfo) => {
+            const info = assetInfo.name?.split('.') || []
+            const ext = info[info.length - 1]
+            if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+              return `assets/images/[name]-[hash][extname]`
+            }
+            return `assets/[name]-[hash][extname]`
+          }
+        }
+      },
+      chunkSizeWarningLimit: 1000,
     },
     appType: 'mpa',
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-router-dom'],
+    },
   }
 })
 

@@ -1,63 +1,65 @@
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface OptimizedImageProps {
   src: string;
   alt: string;
-  className?: string;
   width?: number;
   height?: number;
-  loading?: 'lazy' | 'eager';
+  className?: string;
   priority?: boolean;
+  sizes?: string;
 }
 
-const OptimizedImage = ({ 
-  src, 
-  alt, 
-  className = '', 
-  width, 
-  height, 
-  loading = 'lazy',
-  priority = false 
-}: OptimizedImageProps) => {
+export const OptimizedImage: React.FC<OptimizedImageProps> = ({
+  src,
+  alt,
+  width,
+  height,
+  className = '',
+  priority = false,
+  sizes = '100vw'
+}) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [imageSrc, setImageSrc] = useState<string>('');
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    // Check if WebP is supported
-    const checkWebPSupport = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1;
-      canvas.height = 1;
-      return canvas.toDataURL('image/webp').indexOf('webp') !== -1;
-    };
+    // Preload priority images
+    if (priority) {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => setIsLoaded(true);
+      img.onerror = () => setError(true);
+    }
+  }, [src, priority]);
 
-    const supportsWebP = checkWebPSupport();
+  // Generate WebP and AVIF sources for next-gen formats
+  const generateSources = () => {
+    const baseUrl = src.split('.')[0];
+    const extension = src.split('.').pop();
     
-    // Use WebP if supported and available, otherwise fallback to original
-    if (supportsWebP && src.includes('.')) {
-      const webpSrc = src.replace(/\.(jpg|jpeg|png)$/, '.webp');
-      setImageSrc(webpSrc);
-    } else {
-      setImageSrc(src);
-    }
-  }, [src]);
-
-  const handleLoad = () => {
-    setIsLoaded(true);
+    return (
+      <>
+        <source
+          srcSet={`${baseUrl}.avif`}
+          type="image/avif"
+          sizes={sizes}
+        />
+        <source
+          srcSet={`${baseUrl}.webp`}
+          type="image/webp"
+          sizes={sizes}
+        />
+        <source
+          srcSet={src}
+          type={`image/${extension}`}
+          sizes={sizes}
+        />
+      </>
+    );
   };
 
-  const handleError = () => {
-    setIsError(true);
-    // Fallback to original image if WebP fails
-    if (imageSrc.includes('.webp')) {
-      setImageSrc(src);
-    }
-  };
-
-  if (isError && imageSrc === src) {
+  if (error && src === src) {
     return (
       <div className={`bg-gray-200 flex items-center justify-center ${className}`}>
         <span className="text-gray-500 text-sm">Image unavailable</span>
@@ -70,18 +72,25 @@ const OptimizedImage = ({
       {!isLoaded && (
         <Skeleton className="absolute inset-0 w-full h-full" />
       )}
-      <img
-        src={imageSrc}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={priority ? 'eager' : loading}
-        className={`transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        } ${className}`}
-        onLoad={handleLoad}
-        onError={handleError}
-      />
+      <picture>
+        {generateSources()}
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={`${className} ${isLoaded ? 'loaded' : ''}`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          onLoad={() => setIsLoaded(true)}
+          onError={() => setError(true)}
+          style={{
+            opacity: isLoaded ? 1 : 0,
+            transition: 'opacity 0.3s ease-in-out',
+            ...(width && height ? { aspectRatio: `${width}/${height}` } : {})
+          }}
+        />
+      </picture>
     </div>
   );
 };

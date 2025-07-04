@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, ReactNode } from 'react';
 import { analyticsConfig, trackPageView } from '@/config/analytics';
 import { useLocation } from 'react-router-dom';
@@ -13,30 +12,46 @@ export const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Initialize analytics on mount
-    if (analyticsConfig.GA_TRACKING_ID && typeof window !== 'undefined') {
-      // Google Analytics is already initialized in index.html
-      trackPageView(window.location.href, document.title);
-    }
-    
-    // Initialize Amplitude
-    if (analyticsConfig.AMPLITUDE_API_KEY && typeof window !== 'undefined') {
-      import('@amplitude/analytics-browser').then(({ init, track }) => {
-        init(analyticsConfig.AMPLITUDE_API_KEY!);
-        track('Page View', { url: window.location.href });
-      }).catch(console.error);
-    }
+    // Defer analytics initialization to reduce blocking
+    const initAnalytics = () => {
+      // Google Analytics - already loaded in index.html, just track
+      if (analyticsConfig.GA_TRACKING_ID && typeof window !== 'undefined') {
+        trackPageView(window.location.href, document.title);
+      }
+      
+      // Amplitude - load asynchronously
+      if (analyticsConfig.AMPLITUDE_API_KEY && typeof window !== 'undefined') {
+        import('@amplitude/analytics-browser').then(({ init, track }) => {
+          init(analyticsConfig.AMPLITUDE_API_KEY!);
+          track('Page View', { url: window.location.href });
+        }).catch(console.error);
+      }
 
-    // Initialize Hotjar
-    if (analyticsConfig.HOTJAR_ID && typeof window !== 'undefined' && window.hj) {
-      window.hj('trigger', 'page_view');
+      // Hotjar - load asynchronously
+      if (analyticsConfig.HOTJAR_ID && typeof window !== 'undefined') {
+        // Load Hotjar script dynamically
+        const script = document.createElement('script');
+        script.src = `https://static.hotjar.com/c/hotjar-${analyticsConfig.HOTJAR_ID}.js?sv=6`;
+        script.async = true;
+        document.head.appendChild(script);
+      }
+    };
+
+    // Defer analytics initialization
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAnalytics);
+    } else {
+      setTimeout(initAnalytics, 1000); // Defer by 1 second
     }
   }, []);
 
-  // Track route changes
+  // Track route changes with debouncing
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      trackPageView(window.location.href, document.title);
+      const timeoutId = setTimeout(() => {
+        trackPageView(window.location.href, document.title);
+      }, 100);
+      return () => clearTimeout(timeoutId);
     }
   }, [location]);
 

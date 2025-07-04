@@ -47,6 +47,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
+        role={asChild ? undefined : "button"}
+        aria-label={props['aria-label'] || (props.children ? undefined : 'Button')}
       />
     )
   }

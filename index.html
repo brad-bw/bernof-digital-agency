@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,18 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bernof Co</title>
     
-    <!-- Google Analytics -->
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Bernof Co" />
+    <link rel="apple-touch-icon" href="/bernofco-social-share.png" />
+    
+    <!-- Resource Hints for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="preconnect" href="https://cdn.eu.amplitude.com" />
+    <link rel="preconnect" href="https://static.hotjar.com" />
+    
+    <!-- DNS Prefetch for additional domains -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.tsx" as="script" />
+    <link rel="preload" href="/src/index.css" as="style" />
+    
+    <!-- Google Analytics - Load asynchronously -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYCC3QQSTC"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-BYCC3QQSTC');
+      gtag('config', 'G-BYCC3QQSTC', {
+        send_page_view: false // We'll send this manually after page load
+      });
     </script>
 
-     <!-- Amplitude Snippet -->
-    <script src="https://cdn.eu.amplitude.com/script/63ef5ba84b1fe4949bdfcfbdc0b1ebb8.js"></script>
-    <script>window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));window.amplitude.init('63ef5ba84b1fe4949bdfcfbdc0b1ebb8', {"fetchRemoteConfig":true,"serverZone":"EU","autocapture":true});
+    <!-- Amplitude - Load asynchronously -->
+    <script>
+      // Defer Amplitude loading
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.src = 'https://cdn.eu.amplitude.com/script/63ef5ba84b1fe4949bdfcfbdc0b1ebb8.js';
+          script.async = true;
+          document.head.appendChild(script);
+        }, 2000);
+      });
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+              console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
     </script>
 
     <!-- Single Page Apps for GitHub Pages -->
