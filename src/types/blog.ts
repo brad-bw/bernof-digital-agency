@@ -1,22 +1,12 @@
-
-export interface BlogPost {
-  id: string;
-  sanity_id: string;
+export interface BlogPostMeta {
   title: string;
-  slug: string;
+  date: string;
   excerpt?: string;
-  content: any; // JSONB content from Sanity
-  author_name: string;
-  author_image?: string;
-  author_bio?: string;
-  featured_image?: string;
-  categories: string[];
-  tags: string[];
-  reading_time: number;
-  is_featured: boolean;
-  published_at?: string;
-  created_at: string;
-  updated_at: string;
+  slug: string;
+}
+
+export interface BlogPost extends BlogPostMeta {
+  content: string;
 }
 
 export interface BlogCategory {
