@@ -10,6 +10,17 @@ interface OptimizedImageProps {
   placeholder?: string;
 }
 
+const getNextGenSources = (src: string) => {
+  // Only replace .png or .jpg/.jpeg
+  if (!src.match(/\.(png|jpe?g)$/i)) return null;
+  const base = src.replace(/\.(png|jpe?g)$/i, '');
+  return {
+    avif: `${base}.avif`,
+    webp: `${base}.webp`,
+    fallback: src
+  };
+};
+
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
   src,
   alt,
@@ -24,20 +35,17 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
 
   useEffect(() => {
     if (priority) {
-      const img = new Image();
+      const img = new window.Image();
       img.onload = () => setIsLoaded(true);
       img.onerror = () => setError(true);
       img.src = src;
     }
   }, [src, priority]);
 
-  const handleLoad = () => {
-    setIsLoaded(true);
-  };
+  const handleLoad = () => setIsLoaded(true);
+  const handleError = () => setError(true);
 
-  const handleError = () => {
-    setError(true);
-  };
+  const sources = getNextGenSources(src);
 
   // Generate responsive srcSet for different screen sizes
   const generateSrcSet = (imageSrc: string) => {
@@ -67,7 +75,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   }
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden ${className}`} style={{ width: width || undefined, height: height || undefined }}>
       {/* Placeholder */}
       {!isLoaded && (
         <div 
@@ -79,26 +87,27 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           }}
         />
       )}
-      
-      {/* Main Image */}
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={`transition-opacity duration-300 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        loading={priority ? 'eager' : 'lazy'}
-        decoding="async"
-        onLoad={handleLoad}
-        onError={handleError}
-        style={{
-          width: width ? `${width}px` : 'auto',
-          height: height ? `${height}px` : 'auto',
-          objectFit: 'cover'
-        }}
-      />
+      <picture>
+        {sources && <source srcSet={sources.avif} type="image/avif" />}
+        {sources && <source srcSet={sources.webp} type="image/webp" />}
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          onLoad={handleLoad}
+          onError={handleError}
+          style={{
+            width: width ? `${width}px` : 'auto',
+            height: height ? `${height}px` : 'auto',
+            objectFit: 'cover',
+            aspectRatio: width && height ? `${width} / ${height}` : undefined
+          }}
+        />
+      </picture>
     </div>
   );
 };

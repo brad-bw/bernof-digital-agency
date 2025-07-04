@@ -103,6 +103,7 @@ export default defineConfig(({ command, mode }) => {
   ]
 
   return {
+    base: '/',
     server: {
       port: 3000
     },
@@ -116,6 +117,7 @@ export default defineConfig(({ command, mode }) => {
       target: 'es2015',
       outDir: 'dist',
       minify: 'terser',
+      sourcemap: true,
       terserOptions: {
         compress: {
           drop_console: true,

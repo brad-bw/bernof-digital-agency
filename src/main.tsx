@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { HelmetProvider } from 'react-helmet-async'
 import App from './App'
+import './index.css'
 
 // Standard React entry point for Lovable compatibility
 const container = document.getElementById('root')
