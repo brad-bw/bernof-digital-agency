@@ -42,5 +42,9 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     target: 'esnext'
+  },
+  define: {
+    // Ensure proper browser environment detection
+    'process.env.NODE_ENV': JSON.stringify(mode)
   }
 }));
