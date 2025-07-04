@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:ssg": "vite build --mode ssg",
-    "build:test": "npm run build:ssg && npm run lighthouse",
+    "build:ssg": "vite build && node scripts/generate-static.js",
+    "preview": "vite preview",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@amplitude/analytics-browser": "^2.18.0",
@@ -76,7 +76,6 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
-    "@wroud/vite-plugin-ssg": "^5.2.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",

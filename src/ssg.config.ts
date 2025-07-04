@@ -1,11 +1,13 @@
-
-export const ssgConfig = {
+export default {
   routes: [
     '/',
     '/blog',
+    '/global-services',
     '/startup-development',
     '/vibe-coding',
-    '/global-services',
+    '/cookie-policy',
+    '/privacy-policy',
+    '/terms-of-service',
     '/global-services/ch',
     '/global-services/uk',
     '/global-services/us',
@@ -22,9 +24,9 @@ export const ssgConfig = {
     '/it/web-development',
     '/it/software-development',
     '/it/startup-development',
-    '/privacy-policy',
-    '/terms-of-service',
-    '/cookie-policy'
   ],
-  renderTimeout: 30000
-};
+  renderTimeout: 30000,
+  script: 'async',
+  formatting: 'minify',
+  criticalCSS: true,
+}

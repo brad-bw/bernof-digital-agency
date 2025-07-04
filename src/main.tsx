@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { HelmetProvider } from 'react-helmet-async'
 import App from './App'
 
-// Export your app component as the default export for SSG
-export default App
-
-// Client‐only bootstrap (won’t be used in SSR/SSG)
-if (import.meta.env.SSR === false) {
-  const root = ReactDOM.createRoot(document.getElementById('root')!)
-  root.render(<App />)
+// Standard React entry point for Lovable compatibility
+const container = document.getElementById('root')
+if (container) {
+  const root = ReactDOM.createRoot(container)
+  root.render(
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  )
 }
