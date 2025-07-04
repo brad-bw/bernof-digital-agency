@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import { componentTagger } from 'lovable-tagger'
 import Sitemap from 'vite-plugin-sitemap'
 import { VitePluginRadar } from 'vite-plugin-radar'
+import { resolve } from 'path'
 
 export default defineConfig(({ command, mode }) => {
   const isDev = command === 'serve'
@@ -37,7 +38,7 @@ export default defineConfig(({ command, mode }) => {
 
   const plugins = [
     react(),
-    isDev ? componentTagger() : null,
+    componentTagger(),
     Sitemap({
       hostname: 'https://bernofco.com',
       dynamicRoutes: routes,
@@ -94,48 +95,45 @@ export default defineConfig(({ command, mode }) => {
         '/terms-of-service': 0.3,
       },
     }),
-    process.env.VITE_GA_TRACKING_ID ? VitePluginRadar({
-      analytics: { id: process.env.VITE_GA_TRACKING_ID },
-    }) : null,
-  ].filter(Boolean)
+    VitePluginRadar({
+      analytics: {
+        id: 'G-BYCC3QQSTC'
+      }
+    })
+  ]
 
   return {
     server: {
-      port: 8080
+      port: 3000
     },
     plugins,
     resolve: {
-      alias: { '@': __dirname + '/src' },
+      alias: {
+        '@': resolve(__dirname, './src'),
+      },
     },
     build: {
-      target: 'esnext',
+      target: 'es2015',
       outDir: 'dist',
       minify: 'terser',
       terserOptions: {
         compress: {
-          drop_console: !isDev,
-          drop_debugger: !isDev,
+          drop_console: true,
+          drop_debugger: true,
         },
       },
       rollupOptions: {
         output: {
           manualChunks: {
-            'react-vendor': ['react', 'react-dom'],
-            'router': ['react-router-dom'],
-            'ui': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-toast'],
-            'utils': ['clsx', 'tailwind-merge', 'class-variance-authority'],
-            'analytics': ['@amplitude/analytics-browser'],
-            'seo': ['react-helmet-async']
+            vendor: ['react', 'react-dom'],
+            router: ['react-router-dom'],
+            ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-select'],
+            utils: ['clsx', 'tailwind-merge', 'lucide-react'],
           },
-          assetFileNames: (assetInfo) => {
-            const info = assetInfo.name?.split('.') || []
-            const ext = info[info.length - 1]
-            if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
-              return `assets/images/[name]-[hash][extname]`
-            }
-            return `assets/[name]-[hash][extname]`
-          }
-        }
+          chunkFileNames: 'assets/[name]-[hash].js',
+          entryFileNames: 'assets/[name]-[hash].js',
+          assetFileNames: 'assets/[name]-[hash].[ext]',
+        },
       },
       chunkSizeWarningLimit: 1000,
     },

@@ -4,57 +4,71 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bernof Co</title>
+    <meta name="description" content="Transform your digital presence with Bernof Co's comprehensive development, design, and marketing services. Book your discovery call today." />
+    <meta name="keywords" content="startup development, MVP development, outsource app development, startup tech partner, idea to production, development company, web development, mobile app development, digital agency, digital transformation" />
+    <meta name="author" content="Bernof Co" />
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+    <link rel="preconnect" href="https://cdn.amplitude.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/images/5f456e34-181a-4162-b70e-4047975ae6b3.png" as="image" />
+    <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bernof Co - Managing the Future | Digital Solutions & Growth Services" />
+    <meta property="og:description" content="Transform your digital presence with Bernof Co's comprehensive development, design, and marketing services. Book your discovery call today." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bernofco.com" />
+    <meta property="og:image" content="https://bernofco.com/bernofco-social-share.png" />
+    <meta property="og:site_name" content="Bernof Co" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bernof_co" />
+    <meta name="twitter:title" content="Bernof Co - Managing the Future | Digital Solutions & Growth Services" />
+    <meta name="twitter:description" content="Transform your digital presence with Bernof Co's comprehensive development, design, and marketing services. Book your discovery call today." />
+    <meta name="twitter:image" content="https://bernofco.com/bernofco-social-share.png" />
+    
+    <!-- Additional SEO -->
+    <link rel="canonical" href="https://bernofco.com" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#000000" />
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#000000" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Bernof Co" />
     <link rel="apple-touch-icon" href="/bernofco-social-share.png" />
     
-    <!-- Resource Hints for Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://www.google-analytics.com" />
-    <link rel="preconnect" href="https://cdn.eu.amplitude.com" />
-    <link rel="preconnect" href="https://static.hotjar.com" />
-    
-    <!-- DNS Prefetch for additional domains -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/src/main.tsx" as="script" />
-    <link rel="preload" href="/src/index.css" as="style" />
-    
-    <!-- Google Analytics - Load asynchronously -->
+    <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYCC3QQSTC"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-BYCC3QQSTC', {
-        send_page_view: false // We'll send this manually after page load
+        send_page_view: false,
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false
       });
     </script>
-
-    <!-- Amplitude - Load asynchronously -->
+    
+    <!-- Google Ads Conversion Tracking -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1234567890"></script>
     <script>
-      // Defer Amplitude loading
-      window.addEventListener('load', function() {
-        setTimeout(function() {
-          var script = document.createElement('script');
-          script.src = 'https://cdn.eu.amplitude.com/script/63ef5ba84b1fe4949bdfcfbdc0b1ebb8.js';
-          script.async = true;
-          document.head.appendChild(script);
-        }, 2000);
-      });
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-1234567890');
     </script>
-
+    
     <!-- Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
@@ -69,23 +83,41 @@
         });
       }
     </script>
-
-    <!-- Single Page Apps for GitHub Pages -->
-    <script type="text/javascript">
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Bernof Co - Managing the Future | Digital Solutions & Growth Services",
+      "description": "Transform your digital presence with Bernof Co's comprehensive development, design, and marketing services. Book your discovery call today.",
+      "url": "https://bernofco.com",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Bernof Co",
+        "url": "https://bernofco.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Bernof Co",
+        "url": "https://bernofco.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://bernofco.com/favicon.ico"
         }
-      }(window.location))
+      }
+    }
     </script>
+    
+    <title>Bernof Co - Managing the Future | Digital Solutions & Growth Services</title>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Google Ads Conversion Tracking (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=AW-1234567890" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
   </body>
 </html>
