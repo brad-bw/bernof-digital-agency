@@ -4,8 +4,8 @@ import { generateSitemap } from '@/utils/sitemapGenerator';
 
 export const useSitemapGenerator = () => {
   useEffect(() => {
-    // Auto-generate sitemap in development mode
-    if (import.meta.env.DEV) {
+    // Auto-generate sitemap in development mode (browser only)
+    if (import.meta.env.DEV && typeof window !== 'undefined') {
       console.log('Sitemap generated:', generateSitemap());
       console.log('To download sitemap, run: downloadSitemap() in console');
     }

@@ -121,6 +121,12 @@ ${urlElements}
 };
 
 export const downloadSitemap = () => {
+  // Only run in browser environment
+  if (typeof window === 'undefined') {
+    console.log('downloadSitemap can only be called in browser environment');
+    return;
+  }
+
   const sitemap = generateSitemap();
   const blob = new Blob([sitemap], { type: 'application/xml' });
   const url = URL.createObjectURL(blob);
@@ -133,7 +139,7 @@ export const downloadSitemap = () => {
   URL.revokeObjectURL(url);
 };
 
-// Make downloadSitemap available globally for console use
+// Make downloadSitemap available globally for console use (browser only)
 if (typeof window !== 'undefined') {
   (window as any).downloadSitemap = downloadSitemap;
 }
