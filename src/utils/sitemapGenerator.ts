@@ -44,7 +44,7 @@ export const generateSitemap = (): string => {
       changefreq: 'weekly',
       priority: 0.9
     },
-    // Country hub pages - THESE WERE MISSING!
+    // Country hub pages
     {
       loc: `${baseUrl}/global-services/ch`,
       lastmod: currentDate,
