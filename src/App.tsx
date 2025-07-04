@@ -1,4 +1,3 @@
-
 import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -13,7 +12,6 @@ import Loading from "@/components/Loading";
 
 const Index = lazy(() => import("./pages/Index"));
 const Blog = lazy(() => import("./pages/Blog"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
 const GlobalServices = lazy(() => import("./pages/GlobalServices"));
 const StartupDevelopment = lazy(() => import("./pages/StartupDevelopment"));
 const VibeCoding = lazy(() => import("./pages/VibeCoding"));
@@ -21,6 +19,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
 
 const SwitzerlandHub = lazy(() => import("./pages/countries/SwitzerlandHub"));
 const UKHub = lazy(() => import("./pages/countries/UKHub"));
@@ -56,7 +55,6 @@ const App = () => {
                     <Routes>
                       <Route path="/" element={<Index />} />
                       <Route path="/blog" element={<Blog />} />
-                      <Route path="/blog/:slug" element={<BlogPost />} />
                       <Route path="/global-services" element={<GlobalServices />} />
                       <Route path="/global-services/ch" element={<SwitzerlandHub />} />
                       <Route path="/global-services/uk" element={<UKHub />} />
@@ -83,6 +81,8 @@ const App = () => {
                       <Route path="/it/web-development" element={<ItalyWebDevelopment />} />
                       <Route path="/it/software-development" element={<ItalySoftwareDevelopment />} />
                       <Route path="/it/startup-development" element={<ItalyStartupDevelopment />} />
+                      
+                      <Route path="/blog/:slug" element={<BlogPost />} />
                       
                       <Route path="*" element={<NotFound />} />
                     </Routes>
