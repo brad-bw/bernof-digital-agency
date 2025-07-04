@@ -23,6 +23,8 @@ self.addEventListener('install', (event) => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
+  // Only handle same-origin requests
+  if (!event.request.url.startsWith(self.location.origin)) return;
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
