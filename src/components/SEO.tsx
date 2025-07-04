@@ -1,6 +1,4 @@
-
 import { Helmet } from 'react-helmet-async';
-import { useAnalytics } from '@/components/AnalyticsProvider';
 
 interface SEOProps {
   title?: string;
@@ -25,7 +23,6 @@ const SEO = ({
   url = "https://bernofco.com",
   type = "website"
 }: SEOProps) => {
-  const analytics = useAnalytics();
   const currentUrl = canonical || (typeof window !== 'undefined' ? window.location.href : url);
   const fullTitle = title.includes('Bernof Co') ? title : `${title} | Bernof Co`;
 

@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -110,10 +109,11 @@
 /* Custom geometric pattern utilities */
 @layer utilities {
   .geometric-bg-primary {
-    background-image: url('/lovable-uploads/5f456e34-181a-4162-b70e-4047975ae6b3.png');
+    background-image: url('/images/5f456e34-181a-4162-b70e-4047975ae6b3.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #f8fafc; /* Fallback color */
   }
   
   .geometric-pattern {
