@@ -16,7 +16,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
     <!-- Preload critical resources -->
-    <link rel="preload" href="/images/5f456e34-181a-4162-b70e-4047975ae6b3.png" as="image" />
     
     <!-- Open Graph -->
     <meta property="og:title" content="Bernof Co - Managing the Future | Digital Solutions & Growth Services" />
@@ -40,7 +39,7 @@
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Bernof Co" />
     <link rel="apple-touch-icon" href="/bernofco-social-share.png" />
@@ -108,7 +107,15 @@
     }
     </script>
     
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https:; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net https://cdn.amplitude.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://cdn.amplitude.com https://region1.google-analytics.com https://www.google.com https://googleads.g.doubleclick.net https://td.doubleclick.net; frame-src 'self' https://www.googletagmanager.com https://td.doubleclick.net;">
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://googleads.g.doubleclick.net;
+      connect-src 'self' https://www.google-analytics.com https://cdn.amplitude.com https://region1.google-analytics.com https://googleads.g.doubleclick.net https://td.doubleclick.net;
+      frame-src 'self' https://www.googletagmanager.com https://td.doubleclick.net;
+      img-src 'self' data: https:;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+    ">
     
     <title>Bernof Co - Managing the Future | Digital Solutions & Growth Services</title>
   </head>
