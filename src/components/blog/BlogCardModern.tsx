@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface BlogCardModernProps {
   post: {
@@ -13,10 +14,15 @@ interface BlogCardModernProps {
     featuredImage?: string;
   };
   hero?: boolean;
-  onClick?: () => void;
 }
 
-export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = false, onClick }) => {
+export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = false }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/blog/${post.slug}`);
+  };
+
   return (
     <div
       className={
@@ -26,7 +32,7 @@ export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = fal
           : 'bg-white text-gray-900 p-6 hover:bg-primary/90 hover:text-white')
       }
       style={{ minHeight: hero ? 420 : 280 }}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {/* Featured Image (optional) */}
       {post.featuredImage && hero && (
