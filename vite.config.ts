@@ -42,6 +42,7 @@ export default defineConfig(({ command, mode }) => {
     Sitemap({
       hostname: 'https://bernofco.com',
       dynamicRoutes: routes,
+      generateRobotsTxt: false,
       changefreq: {
         '/': 'daily',
         '/blog': 'weekly',
