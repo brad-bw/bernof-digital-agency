@@ -26,7 +26,7 @@ export const getWordPressApiUrl = (endpoint: string) => {
 // even when the WordPress.com API doesn't provide them
 export const MANUAL_AUTHOR_OVERRIDE = {
   "uk-startup-ecosystem-value-development-costs": {
-    author: "James Robertson",
+    author: "Kylie Frost",
     date: "January 27, 2025",
     authorImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
     authorBio: "UK Tech Market Analyst with 15 years experience in regional development economics"
