@@ -1,8 +1,8 @@
 [build]
-  publish = "dist-server"
+  publish = "dist"
 
 [[headers]]
-  for = "/blog*"
+  for = "/*"
   [headers.values]
     Content-Security-Policy = "default-src 'self'; connect-src 'self' https://public-api.wordpress.com; font-src 'self' https://fonts.cdnfonts.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval';"
 
