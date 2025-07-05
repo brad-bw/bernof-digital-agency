@@ -91,131 +91,39 @@ interface WordPressPost {
 
 interface BlogPost {
   id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  slug: string;
   date: string;
-  author: string;
-  authorId: number;
-  featuredImage?: string;
-  link: string;
-  category?: string;
-  authorImage?: string;
-  authorBio?: string;
-  tags?: string[];
+  slug: string;
+  title: { rendered: string };
+  excerpt: { rendered: string };
+  content: { rendered: string };
+  author: number;
+  featured_media: number;
+  categories: number[];
+  tags: number[];
 }
 
-// Real WordPress.com API integration
+// Update API base to self-hosted WordPress
+const WP_API_BASE = 'https://blog.bernofco.com/wp-json/wp/v2';
+
 const fetchBlogPosts = async (): Promise<BlogPost[]> => {
-  try {
-    const response = await fetch(`${WORDPRESS_CONFIG.API_BASE}/posts/?number=${WORDPRESS_CONFIG.POSTS_PER_PAGE}&status=publish`);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    
-    if (!data.posts || !Array.isArray(data.posts)) {
-      throw new Error('Invalid response format from WordPress API');
-    }
-    
-    return data.posts.map((post: WordPressPost) => {
-      const manualOverride = MANUAL_AUTHOR_OVERRIDE[post.slug as keyof typeof MANUAL_AUTHOR_OVERRIDE];
-      
-      // Extract categories from WordPress response
-      const categories = post.categories ? Object.keys(post.categories).filter(cat => cat !== 'Uncategorized') : [];
-      const category = categories.length > 0 ? categories[0] : undefined;
-      
-      // Extract tags
-      const tags = post.tags ? Object.keys(post.tags) : [];
-      
-      return {
-        id: post.ID,
-        title: post.title,
-        excerpt: post.excerpt.replace(/<[^>]*>/g, ''), // Strip HTML from excerpt
-        content: post.content,
-        slug: post.slug,
-        date: manualOverride?.date || new Date(post.date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }),
-        author: manualOverride?.author || post.author.name,
-        authorId: post.author.ID,
-        featuredImage: post.featured_image || post.post_thumbnail?.URL,
-        link: post.URL,
-        category: category,
-        authorImage: manualOverride?.authorImage || post.author.avatar_URL,
-        authorBio: manualOverride?.authorBio,
-        tags: tags
-      };
-    });
-  } catch (error) {
-    console.error('Error fetching WordPress posts:', error);
-    throw error;
-  }
+  const response = await fetch(`${WP_API_BASE}/posts?_embed`);
+  if (!response.ok) throw new Error('Failed to fetch blog posts');
+  return response.json();
 };
 
 const fetchBlogPost = async (slug: string): Promise<BlogPost | null> => {
-  try {
-    const response = await fetch(`${WORDPRESS_CONFIG.API_BASE}/posts/slug:${slug}/`);
-    
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const post: WordPressPost = await response.json();
-    
-    if (!post || post.status !== 'publish') {
-      return null;
-    }
-    
-    const manualOverride = MANUAL_AUTHOR_OVERRIDE[slug as keyof typeof MANUAL_AUTHOR_OVERRIDE];
-    
-    // Extract categories from WordPress response
-    const categories = post.categories ? Object.keys(post.categories).filter(cat => cat !== 'Uncategorized') : [];
-    const category = categories.length > 0 ? categories[0] : undefined;
-    
-    // Extract tags
-    const tags = post.tags ? Object.keys(post.tags) : [];
-    
-    return {
-      id: post.ID,
-      title: post.title,
-      excerpt: post.excerpt.replace(/<[^>]*>/g, ''), // Strip HTML from excerpt
-      content: post.content,
-      slug: post.slug,
-      date: manualOverride?.date || new Date(post.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      }),
-      author: manualOverride?.author || post.author.name,
-      authorId: post.author.ID,
-      featuredImage: post.featured_image || post.post_thumbnail?.URL,
-      link: post.URL,
-      category: category,
-      authorImage: manualOverride?.authorImage || post.author.avatar_URL,
-      authorBio: manualOverride?.authorBio,
-      tags: tags
-    };
-  } catch (error) {
-    console.error('Error fetching WordPress post:', error);
-    throw error;
-  }
+  const response = await fetch(`${WP_API_BASE}/posts?slug=${slug}&_embed`);
+  if (!response.ok) return null;
+  const posts = await response.json();
+  return posts.length > 0 ? posts[0] : null;
 };
 
 export const useWordPressPosts = () => {
   return useQuery({
     queryKey: ['blog-posts'],
     queryFn: fetchBlogPosts,
-    staleTime: WORDPRESS_CONFIG.CACHE_TIME,
-    retry: WORDPRESS_CONFIG.RETRY_ATTEMPTS,
+    staleTime: 5 * 60 * 1000,
+    retry: 3,
   });
 };
 
@@ -224,7 +132,7 @@ export const useWordPressPost = (slug: string) => {
     queryKey: ['blog-post', slug],
     queryFn: () => fetchBlogPost(slug),
     enabled: !!slug,
-    staleTime: WORDPRESS_CONFIG.CACHE_TIME,
-    retry: WORDPRESS_CONFIG.RETRY_ATTEMPTS,
+    staleTime: 5 * 60 * 1000,
+    retry: 3,
   });
 }; 

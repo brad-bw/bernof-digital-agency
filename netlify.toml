@@ -9,4 +9,9 @@
 [[headers]]
   for = "/fonts/*"
   [headers.values]
-    Access-Control-Allow-Origin = "*" 
+    Access-Control-Allow-Origin = "*"
+
+[[redirects]]
+  from = "/blog/*"
+  to = "https://blog.bernofco.com/:splat"
+  status = 200 

@@ -1,6 +1,5 @@
 User-agent: *
-Allow: /
-Sitemap: https://bernofco.com/sitemap.xml
+Disallow: /
 
 # Block admin and utility pages
 Disallow: /admin/
@@ -14,3 +13,5 @@ Allow: /assets/
 Allow: /images/
 Allow: /*.css$
 Allow: /*.js$
+
+Sitemap: https://bernofco.com/sitemap.xml
