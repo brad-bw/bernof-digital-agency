@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -20,6 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
+				'satoshi': ['Satoshi', 'Inter', 'sans-serif'],
 				'inter': ['Inter', 'sans-serif'],
 				// Removed Playfair Display for consistency
 			},

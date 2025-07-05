@@ -104,6 +104,11 @@
   .font-playfair {
     @apply font-inter;
   }
+
+  /* Blog and article pages use Satoshi font */
+  .blog-main, .blog-article, .blog-card, .blog-meta, .blog-hero {
+    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
+  }
 }
 
 /* Custom geometric pattern utilities */

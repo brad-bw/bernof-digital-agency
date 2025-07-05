@@ -57,10 +57,9 @@ const Blog: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white blog-main font-satoshi">
       <SEO {...seoData} />
       <Header />
-      
       {/* Blog Content */}
       <div className="bg-gray-50 py-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -75,17 +74,16 @@ const Blog: React.FC = () => {
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-teal-dark focus:border-transparent font-satoshi text-base"
                 />
               </div>
-              
               {/* Category Filter */}
               <div className="flex items-center gap-3">
                 <Filter className="text-gray-400 w-5 h-5" />
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-teal-dark focus:border-transparent font-satoshi text-base"
                 >
                   <option value="">All Categories</option>
                   {categories.map(category => (
@@ -95,7 +93,6 @@ const Blog: React.FC = () => {
               </div>
             </div>
           </div>
-
           {error ? (
             <div className="text-center py-12">
               <h2 className="text-2xl font-bold mb-4 text-red-600">Error loading blog posts</h2>
@@ -104,7 +101,7 @@ const Blog: React.FC = () => {
                 href="https://bernofco.wordpress.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-semibold"
+                className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold"
               >
                 Visit WordPress Blog
               </a>
@@ -124,7 +121,7 @@ const Blog: React.FC = () => {
                 href="https://bernofco.wordpress.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-semibold"
+                className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold"
               >
                 Visit WordPress Blog
               </a>
@@ -132,7 +129,6 @@ const Blog: React.FC = () => {
           )}
         </div>
       </div>
-      
       <Footer />
     </div>
   );

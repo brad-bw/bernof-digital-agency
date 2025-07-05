@@ -17,12 +17,16 @@ interface BlogGridModernProps {
 
 export const BlogGridModern: React.FC<BlogGridModernProps> = ({ posts }) => {
   if (!posts || posts.length === 0) return null;
-  
+  const [hero, ...rest] = posts;
   return (
-    <div className="w-full font-inter">
-      {/* Main grid */}
+    <div className="blog-main w-full flex flex-col gap-16">
+      {/* Hero card */}
+      <div className="mb-8">
+        <BlogCardModern post={hero} hero />
+      </div>
+      {/* Grid of other posts */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
+        {rest.map((post) => (
           <BlogCardModern key={post.id} post={post} />
         ))}
       </div>
