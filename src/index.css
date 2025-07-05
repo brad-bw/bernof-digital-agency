@@ -95,19 +95,71 @@
     @apply font-inter;
   }
 
-  /* Force consistent font family across all elements */
-  * {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
-  }
-
   /* Remove any Playfair Display usage */
   .font-playfair {
     @apply font-inter;
   }
 
-  /* Blog and article pages use Satoshi font */
-  .blog-main, .blog-article, .blog-card, .blog-meta, .blog-hero {
+  /* Blog and article pages use Satoshi font - OVERRIDE global font */
+  .blog-main, .blog-article, .blog-card, .blog-meta, .blog-hero,
+  .blog-main *, .blog-article *, .blog-card *, .blog-meta *, .blog-hero * {
     font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
+  }
+
+  /* Article content typography */
+  .blog-article .prose {
+    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
+  }
+
+  .blog-article .prose h1,
+  .blog-article .prose h2,
+  .blog-article .prose h3,
+  .blog-article .prose h4,
+  .blog-article .prose h5,
+  .blog-article .prose h6 {
+    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
+    font-weight: 600;
+    color: #1F4B47;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-article .prose p {
+    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #374151;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-article .prose ul,
+  .blog-article .prose ol {
+    font-family: 'Satoshi', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif !important;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #374151;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .blog-article .prose li {
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-article .prose strong {
+    font-weight: 600;
+    color: #1F4B47;
+  }
+
+  .blog-article .prose a {
+    color: #2D5A56;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+  }
+
+  .blog-article .prose a:hover {
+    color: #1F4B47;
   }
 }
 

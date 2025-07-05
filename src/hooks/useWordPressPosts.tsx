@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { SAMPLE_BLOG_POSTS } from '@/config/wordpress';
+import { SAMPLE_BLOG_POSTS, MANUAL_AUTHOR_OVERRIDE } from '@/config/wordpress';
 
 interface WordPressPost {
   id: number;
@@ -74,6 +74,8 @@ interface BlogPost {
   featuredImage?: string;
   link: string;
   category?: string;
+  authorImage?: string;
+  authorBio?: string;
 }
 
 // Since WordPress.com doesn't expose REST API for free sites,
@@ -82,19 +84,25 @@ const fetchBlogPosts = async (): Promise<BlogPost[]> => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 500));
   
-  return SAMPLE_BLOG_POSTS.map((post, index) => ({
-    id: post.id,
-    title: post.title,
-    excerpt: post.excerpt,
-    content: post.content,
-    slug: post.slug,
-    date: post.date,
-    author: post.author,
-    authorId: index + 1,
-    featuredImage: post.featuredImage,
-    link: `https://bernofco.wordpress.com/${post.slug}`,
-    category: post.category
-  }));
+  return SAMPLE_BLOG_POSTS.map((post, index) => {
+    const manualOverride = MANUAL_AUTHOR_OVERRIDE[post.slug as keyof typeof MANUAL_AUTHOR_OVERRIDE];
+    
+    return {
+      id: post.id,
+      title: post.title,
+      excerpt: post.excerpt,
+      content: post.content,
+      slug: post.slug,
+      date: manualOverride?.date || post.date,
+      author: manualOverride?.author || post.author,
+      authorId: index + 1,
+      featuredImage: post.featuredImage,
+      link: `https://bernofco.wordpress.com/${post.slug}`,
+      category: post.category,
+      authorImage: manualOverride?.authorImage,
+      authorBio: manualOverride?.authorBio
+    };
+  });
 };
 
 const fetchBlogPost = async (slug: string): Promise<BlogPost | null> => {
@@ -107,18 +115,22 @@ const fetchBlogPost = async (slug: string): Promise<BlogPost | null> => {
     return null;
   }
   
+  const manualOverride = MANUAL_AUTHOR_OVERRIDE[slug as keyof typeof MANUAL_AUTHOR_OVERRIDE];
+  
   return {
     id: post.id,
     title: post.title,
     excerpt: post.excerpt,
     content: post.content,
     slug: post.slug,
-    date: post.date,
-    author: post.author,
+    date: manualOverride?.date || post.date,
+    author: manualOverride?.author || post.author,
     authorId: post.id,
     featuredImage: post.featuredImage,
     link: `https://bernofco.wordpress.com/${post.slug}`,
-    category: post.category
+    category: post.category,
+    authorImage: manualOverride?.authorImage,
+    authorBio: manualOverride?.authorBio
   };
 };
 
