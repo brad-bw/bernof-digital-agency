@@ -19,7 +19,7 @@ export async function fetchBlogPosts() {
     featuredImage {
       asset->{url},
       alt
-    }?,
+    },
     excerpt,
     body,
     categories,
@@ -29,11 +29,11 @@ export async function fetchBlogPosts() {
       bio,
       image {
         asset->{url}
-      }?,
+      },
       twitter,
       linkedin,
       website
-    }?,
+    },
     publishedAt,
     focusKeyword,
     schemaType,
@@ -45,7 +45,7 @@ export async function fetchBlogPosts() {
     },
     openGraphImage {
       asset->{url}
-    }?,
+    },
     twitterCardType,
     socialDescription,
     canonicalUrl,
