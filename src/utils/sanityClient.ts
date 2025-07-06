@@ -4,7 +4,7 @@ const sanityClient = createClient({
   projectId: 'kvyko3sv', // Your Sanity project ID
   dataset: 'production', // Your dataset name
   apiVersion: '2023-10-01', // Use a recent date for the API version
-  useCdn: true, // `false` if you want to ensure fresh data
+  useCdn: false, // Use live data and full query support
 })
 
 export default sanityClient;
@@ -42,7 +42,7 @@ export async function fetchBlogPosts() {
       _id,
       metaTitle,
       slug
-    }?,
+    },
     openGraphImage {
       asset->{url}
     }?,
