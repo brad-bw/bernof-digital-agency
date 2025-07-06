@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, BookOpen, AlertCircle } from 'lucide-react';
 
 const HERO_BG = 'bg-[#1b5c56] bg-gradient-to-br from-[#1b5c56] to-[#133c38]'; // Dark teal with darker gradient
 const HERO_TEXT = 'text-white';
@@ -23,6 +23,7 @@ const Blog: React.FC = () => {
 
   useEffect(() => {
     setIsLoading(true);
+    setError(null);
     fetchBlogPostsDirect()
       .then((result) => {
         setPosts(Array.isArray(result) ? result : []);
@@ -30,7 +31,7 @@ const Blog: React.FC = () => {
         console.log('Direct fetch result:', result);
       })
       .catch((err) => {
-        setError(err.message || 'Unknown error');
+        setError(err.message || 'Unable to load blog posts');
         setIsLoading(false);
         console.error('Direct fetch error:', err);
       });
@@ -45,6 +46,7 @@ const Blog: React.FC = () => {
     date: post.publishedAt,
     author: post.author?.name || '',
     featuredImage: post.featuredImage?.asset?.url,
+    cardThumbnail: post.cardThumbnail?.asset?.url,
     category: post.categories?.[0] || '',
   })) || [];
 
@@ -105,23 +107,52 @@ const Blog: React.FC = () => {
       <div id="articles" className="max-w-7xl mx-auto py-12 px-4">
         <div>
           {isLoading ? (
-            <div className="text-center py-12">Loading blog posts...</div>
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-teal/10 rounded-full mb-6">
+                <BookOpen className="w-8 h-8 text-brand-teal-dark animate-pulse" />
+              </div>
+              <h2 className="text-2xl font-bold mb-2 text-brand-teal-dark">Loading insights...</h2>
+              <p className="text-gray-600">Fetching the latest articles for you</p>
+            </div>
           ) : error ? (
-            <div className="text-center py-12">
-              <h2 className="text-2xl font-bold mb-4 text-red-600">Unable to load articles</h2>
-              <p className="text-gray-600 mb-8">Please try again later.</p>
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-red-100 rounded-full mb-6">
+                <AlertCircle className="w-8 h-8 text-red-600" />
+              </div>
+              <h2 className="text-2xl font-bold mb-2 text-red-600">Unable to load articles</h2>
+              <p className="text-gray-600 mb-8">{error}</p>
+              <button 
+                onClick={() => window.location.reload()}
+                className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold"
+              >
+                Try Again
+              </button>
             </div>
           ) : filteredPosts.length > 0 ? (
             <BlogGridModern posts={filteredPosts} />
           ) : (
-            <div className="text-center py-12">
-              <h2 className="text-2xl font-bold mb-4">No blog posts found</h2>
+            <div className="text-center py-16">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-6">
+                <BookOpen className="w-8 h-8 text-gray-400" />
+              </div>
+              <h2 className="text-2xl font-bold mb-2 text-gray-700">No articles found</h2>
               <p className="text-gray-600 mb-8">
                 {searchTerm || selectedCategory 
-                  ? "Try adjusting your search or filter criteria."
-                  : "Check back soon for new articles!"
+                  ? "Try adjusting your search or filter criteria to find what you're looking for."
+                  : "We're working on new content. Check back soon for fresh insights!"
                 }
               </p>
+              {(searchTerm || selectedCategory) && (
+                <button 
+                  onClick={() => {
+                    setSearchTerm('');
+                    setSelectedCategory('');
+                  }}
+                  className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold"
+                >
+                  Clear Filters
+                </button>
+              )}
             </div>
           )}
         </div>

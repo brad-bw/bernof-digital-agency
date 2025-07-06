@@ -204,6 +204,39 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
           }
         };
       
+      case 'blog-post':
+        return {
+          title: 'Blog Post - Digital Insights & Industry Trends | Bernof Co',
+          description: 'Read expert insights on web development, startup growth, and digital innovation. Practical tips and industry analysis from Bernof Co professionals.',
+          keywords: 'web development blog, startup insights, digital marketing trends, tech innovation, business strategy, software development tips, digital transformation',
+          canonical: `${baseUrl}/blog`,
+          breadcrumbs: [
+            { name: 'Home', url: baseUrl },
+            { name: 'Blog', url: `${baseUrl}/blog` },
+            { name: 'Article', url: `${baseUrl}/blog` }
+          ],
+          schemaData: {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Blog Post",
+            "description": "Expert insights on web development, startup growth, and digital innovation",
+            "author": {
+              "@type": "Organization",
+              "name": "Bernof Co"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "@id": `${baseUrl}/#organization`
+            },
+            "datePublished": new Date().toISOString(),
+            "dateModified": new Date().toISOString(),
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": `${baseUrl}/blog`
+            }
+          }
+        };
+      
       case 'startup-development':
         return {
           title: 'Startup Development Services Europe/USA | MVP to Scale | Expert Tech Partner | Bernof Co',
