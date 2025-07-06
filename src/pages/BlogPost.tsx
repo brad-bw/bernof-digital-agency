@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { fetchBlogPosts } from '@/utils/sanityClient';
+import { fetchBlogPostsDirect } from '@/utils/sanityClient';
 import { ArrowLeft, Calendar, User, Share2 } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
 
@@ -67,15 +67,20 @@ const BlogPost: React.FC = () => {
   useEffect(() => {
     if (!slug) return;
     setIsLoading(true);
-    fetchBlogPosts()
+    fetchBlogPostsDirect()
       .then((posts) => {
+        console.log('Fetched posts for article:', posts);
         const found = posts.find((p: any) => (p.slug?.current || p.slug) === slug);
         setPost(found || null);
         setIsLoading(false);
+        if (!found) {
+          console.warn('No post found for slug:', slug);
+        }
       })
       .catch((err) => {
         setError(err.message || 'Error fetching blog post');
         setIsLoading(false);
+        console.error('Blog post fetch error:', err);
       });
   }, [slug]);
 
