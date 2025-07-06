@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchBlogPosts } from '@/utils/sanityClient';
+import { fetchBlogPosts, fetchBlogPostsDirect } from '@/utils/sanityClient';
 import { BlogGridModern } from '@/components/blog/BlogGridModern';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -16,15 +16,14 @@ const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchBlogPosts()
-      .then((data) => {
-        setPosts(data);
-        setIsLoading(false);
+    fetchBlogPostsDirect()
+      .then((result) => {
+        setPosts(result || []);
+        console.log('Direct fetch result:', result);
       })
       .catch((err) => {
-        setError(err.message || 'Error fetching blog posts');
-        setIsLoading(false);
+        setError(err.message || 'Unknown error');
+        console.error('Direct fetch error:', err);
       });
   }, []);
 
