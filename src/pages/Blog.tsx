@@ -7,6 +7,12 @@ import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
 import { Search, Filter } from 'lucide-react';
 
+const HERO_BG = 'bg-[#1b5c56] bg-gradient-to-br from-[#1b5c56] to-[#133c38]'; // Dark teal with darker gradient
+const HERO_TEXT = 'text-white';
+const HERO_ACCENT = 'text-[#2ed6c5]'; // Accent color for "Insights"
+const BUTTON_BG = 'bg-[#2ed6c5] text-[#1b5c56]';
+const BUTTON_OUTLINE = 'border border-white text-white';
+
 const Blog: React.FC = () => {
   const [posts, setPosts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -16,13 +22,16 @@ const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
+    setIsLoading(true);
     fetchBlogPostsDirect()
       .then((result) => {
-        setPosts(result || []);
+        setPosts(Array.isArray(result) ? result : []);
+        setIsLoading(false);
         console.log('Direct fetch result:', result);
       })
       .catch((err) => {
         setError(err.message || 'Unknown error');
+        setIsLoading(false);
         console.error('Direct fetch error:', err);
       });
   }, []);
@@ -55,24 +64,39 @@ const Blog: React.FC = () => {
     <div className="min-h-screen bg-white">
       <Header />
       <SEO {...seoData} />
-      <div className="max-w-7xl mx-auto py-12 px-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-          <h1 className="text-3xl font-bold mb-4 md:mb-0">Blog</h1>
-          <div className="flex gap-4 items-center">
-            <div className="relative">
+      {/* Hero Section */}
+      <section className={`${HERO_BG} ${HERO_TEXT} w-full py-16 px-4 md:px-0 relative`}>
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
+          <h1 className="text-5xl md:text-6xl font-bold mb-4">
+            Digital <span className={HERO_ACCENT}>Insights</span>
+          </h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl">
+            Explore the latest trends in web development, startup growth, and digital innovation. Your guide to building better digital experiences.
+          </p>
+          <div className="flex flex-col md:flex-row gap-4 mb-8">
+            <a href="#articles" className={`rounded-full px-6 py-3 font-semibold shadow ${BUTTON_BG} hover:opacity-90 transition`}>
+              Explore Articles
+            </a>
+            <a href="mailto:hello@bernofco.com" className={`rounded-full px-6 py-3 font-semibold shadow ${BUTTON_OUTLINE} hover:bg-white hover:text-[#1b5c56] transition`}>
+              Subscribe to Newsletter
+            </a>
+          </div>
+          {/* Filters and Search */}
+          <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl justify-center items-center">
+            <div className="relative w-full md:w-1/2">
               <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
               <input
                 type="text"
                 placeholder="Search posts..."
-                className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-teal"
+                className="pl-10 pr-4 py-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="relative">
+            <div className="relative w-full md:w-1/2">
               <Filter className="absolute left-3 top-2.5 text-gray-400" size={18} />
               <select
-                className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-teal"
+                className="pl-10 pr-4 py-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black"
                 value={selectedCategory}
                 onChange={e => setSelectedCategory(e.target.value)}
               >
@@ -84,13 +108,16 @@ const Blog: React.FC = () => {
             </div>
           </div>
         </div>
+      </section>
+      {/* Articles Section */}
+      <div id="articles" className="max-w-7xl mx-auto py-12 px-4">
         <div>
           {isLoading ? (
             <div className="text-center py-12">Loading blog posts...</div>
           ) : error ? (
             <div className="text-center py-12">
-              <h2 className="text-2xl font-bold mb-4 text-red-600">Error loading blog posts</h2>
-              <p className="text-gray-600 mb-8">{String(error)}</p>
+              <h2 className="text-2xl font-bold mb-4 text-red-600">Unable to load articles</h2>
+              <p className="text-gray-600 mb-8">Please try again later.</p>
             </div>
           ) : filteredPosts.length > 0 ? (
             <BlogGridModern posts={filteredPosts} />
