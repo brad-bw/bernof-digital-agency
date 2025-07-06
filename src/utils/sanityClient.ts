@@ -24,12 +24,25 @@ export async function fetchBlogPosts() {
     body,
     categories,
     tags,
-    author,
+    author {
+      name,
+      bio,
+      image {
+        asset->{url}
+      },
+      twitter,
+      linkedin,
+      website
+    },
     publishedAt,
     focusKeyword,
     schemaType,
     readingTime,
-    relatedPosts[]->{_id, metaTitle, slug},
+    relatedPosts[]->{
+      _id,
+      metaTitle,
+      slug
+    },
     openGraphImage {
       asset->{url}
     },
