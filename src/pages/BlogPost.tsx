@@ -1,27 +1,86 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
-import { useWordPressPost } from '@/hooks/useWordPressPosts';
+import { fetchBlogPosts } from '@/utils/sanityClient';
 import { ArrowLeft, Calendar, User, Share2 } from 'lucide-react';
+import { PortableText } from '@portabletext/react';
 
-// Utility to extract headings from HTML string for TOC
-function extractHeadings(html: string) {
-  if (!html) return [];
-  const div = document.createElement('div');
-  div.innerHTML = html;
-  const headings = Array.from(div.querySelectorAll('h2, h3')).map((el) => ({
-    id: el.id || el.textContent?.toLowerCase().replace(/[^a-z0-9]+/g, '-') || '',
-    text: el.textContent || '',
-    level: el.tagName,
-  }));
-  return headings;
+// Utility to extract headings from Portable Text blocks for TOC
+function extractHeadings(blocks: any[]) {
+  if (!blocks) return [];
+  return blocks
+    .filter(block => block._type === 'block' && (block.style === 'h2' || block.style === 'h3'))
+    .map(block => ({
+      id: block._key,
+      text: block.children?.map((child: any) => child.text).join(' ') || '',
+      level: block.style,
+    }));
 }
+
+const portableTextComponents = {
+  types: {
+    image: ({ value }: any) => (
+      <img
+        src={value.asset?.url}
+        alt={value.alt || ''}
+        className="my-8 rounded-2xl mx-auto max-h-96 w-auto"
+        style={{ maxWidth: '100%' }}
+      />
+    ),
+    code: ({ value }: any) => (
+      <pre className="bg-gray-900 text-white rounded-lg p-4 overflow-x-auto my-6">
+        <code>{value.code}</code>
+      </pre>
+    ),
+  },
+  block: {
+    h1: ({ children }: any) => <h1 className="text-4xl font-bold my-6 text-brand-teal-dark">{children}</h1>,
+    h2: ({ children }: any) => <h2 className="text-3xl font-bold my-6 text-brand-teal-dark">{children}</h2>,
+    h3: ({ children }: any) => <h3 className="text-2xl font-bold my-6 text-brand-teal-dark">{children}</h3>,
+    blockquote: ({ children }: any) => (
+      <blockquote className="border-l-4 border-brand-teal-dark pl-6 italic text-gray-700 my-8">{children}</blockquote>
+    ),
+    normal: ({ children }: any) => <p className="my-4 text-lg text-gray-800">{children}</p>,
+  },
+  marks: {
+    link: ({ children, value }: any) => (
+      <a href={value.href} className="text-brand-teal-dark underline hover:text-brand-teal" target="_blank" rel="noopener noreferrer">{children}</a>
+    ),
+    strong: ({ children }: any) => <strong className="font-semibold text-brand-teal-dark">{children}</strong>,
+    em: ({ children }: any) => <em className="italic text-gray-700">{children}</em>,
+  },
+  list: {
+    bullet: ({ children }: any) => <ul className="list-disc ml-6 my-4">{children}</ul>,
+    number: ({ children }: any) => <ol className="list-decimal ml-6 my-4">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }: any) => <li className="mb-2">{children}</li>,
+    number: ({ children }: any) => <li className="mb-2">{children}</li>,
+  },
+};
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { data: post, isLoading, error } = useWordPressPost(slug || '');
+  const [post, setPost] = useState<any | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!slug) return;
+    setIsLoading(true);
+    fetchBlogPosts()
+      .then((posts) => {
+        const found = posts.find((p: any) => (p.slug?.current || p.slug) === slug);
+        setPost(found || null);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message || 'Error fetching blog post');
+        setIsLoading(false);
+      });
+  }, [slug]);
 
   // Memoize TOC extraction
-  const toc = useMemo(() => post?.content ? extractHeadings(post.content) : [], [post?.content]);
+  const toc = useMemo(() => post?.body ? extractHeadings(post.body) : [], [post?.body]);
 
   if (!slug) return <Navigate to="/blog" replace />;
   if (isLoading) {
@@ -41,112 +100,50 @@ const BlogPost: React.FC = () => {
   }
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto px-6">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-            </svg>
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Blog Post Not Found</h1>
-          <p className="text-gray-600 mb-8">The blog post you're looking for doesn't exist or has been moved.</p>
-          <Link 
-            to="/blog" 
-            className="inline-flex items-center gap-2 bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Blog
-          </Link>
-        </div>
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center">
+        <h2 className="text-2xl font-bold mb-4 text-red-600">Blog post not found</h2>
+        <p className="text-gray-600 mb-8">{error || 'No post found for this slug.'}</p>
+        <Link to="/blog" className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold">
+          <ArrowLeft className="inline-block mr-2" /> Back to Blog
+        </Link>
       </div>
     );
   }
+
   return (
-    <div className="min-h-screen bg-white blog-article font-satoshi">
-      <div className="max-w-7xl mx-auto py-16 px-4 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          {/* Main Content */}
-          <div className="lg:col-span-8">
-            {/* Breadcrumb */}
-            <div className="mb-6 flex items-center gap-2 text-xs text-gray-400 uppercase tracking-wider">
-              <Link to="/blog" className="hover:text-brand-teal-dark font-semibold">Blog</Link>
-              <span>/</span>
-              {post.category && <span className="text-brand-teal-dark font-semibold">{post.category}</span>}
-            </div>
-            {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-4 leading-tight">{post.title}</h1>
-            {/* Meta row */}
-            <div className="blog-meta flex items-center gap-4 text-sm text-gray-500 mb-8">
-              <div className="flex items-center gap-2">
-                <User className="w-4 h-4 text-brand-teal-dark" />
-                <span className="font-medium text-gray-700">{post.author}</span>
-              </div>
-              <span className="text-gray-300">•</span>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-brand-teal-dark" />
-                <span>{post.date}</span>
-              </div>
-              <span className="text-gray-300">•</span>
-              <button className="inline-flex items-center gap-1 text-brand-teal-dark hover:text-brand-teal font-semibold transition-colors">
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
-            </div>
-            {/* Featured Image */}
-            {post.featuredImage && (
-              <div className="mb-12 rounded-3xl overflow-hidden shadow-lg border border-gray-100">
-                <img 
-                  src={post.featuredImage} 
-                  alt={post.title} 
-                  className="w-full h-96 object-cover" 
-                />
-              </div>
-            )}
-            {/* Content */}
-            <article className="prose prose-lg max-w-none text-gray-800">
-              <div 
-                className="leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
-            </article>
-          </div>
-          {/* Sidebar: TOC + CTA */}
-          <aside className="hidden lg:block lg:col-span-4">
-            <div className="sticky top-32 flex flex-col gap-8">
-              {/* Table of Contents */}
-              {toc.length > 0 && (
-                <nav className="bg-gray-50 border border-gray-100 rounded-2xl p-6 mb-8 shadow-sm">
-                  <h2 className="text-lg font-bold text-brand-teal-dark mb-4">On this page</h2>
-                  <ul className="space-y-2">
-                    {toc.map((heading, i) => (
-                      <li key={i} className={heading.level === 'H2' ? 'ml-0' : 'ml-4'}>
-                        <a
-                          href={`#${heading.id}`}
-                          className="text-brand-teal-dark hover:text-brand-teal font-medium transition-colors text-sm"
-                        >
-                          {heading.text}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              )}
-              {/* Sticky CTA */}
-              <div className="bg-brand-teal-dark rounded-2xl p-8 text-white shadow-lg flex flex-col items-center gap-4">
-                <h3 className="text-2xl font-bold mb-2 text-white text-center">Start Your Project</h3>
-                <p className="text-white/80 mb-4 text-center">Get a free consultation and project estimate from our expert team.</p>
-                <a
-                  href="https://calendly.com/bernof-co"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-white text-brand-teal-dark font-bold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:bg-gray-100 hover:scale-105"
-                >
-                  Book Free Consultation
-                </a>
-              </div>
-            </div>
-          </aside>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-3xl mx-auto py-12 px-4">
+        <Link to="/blog" className="text-brand-teal-dark hover:underline flex items-center mb-8">
+          <ArrowLeft className="mr-2" /> Back to Blog
+        </Link>
+        <h1 className="text-4xl font-bold mb-4">{post.metaTitle}</h1>
+        <div className="flex items-center gap-4 text-gray-500 text-sm mb-6">
+          <Calendar size={16} />
+          <span>{post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : ''}</span>
+          {post.author?.name && (
+            <><User size={16} className="ml-4" />{post.author.name}</>
+          )}
         </div>
+        {post.featuredImage?.asset?.url && (
+          <img src={post.featuredImage.asset.url} alt={post.featuredImage.alt || post.metaTitle} className="w-full rounded-2xl mb-8" />
+        )}
+        <div className="prose prose-lg max-w-none mb-12">
+          <PortableText value={post.body} components={portableTextComponents} />
+        </div>
+        {/* Table of Contents (optional) */}
+        {toc.length > 0 && (
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold mb-2">On this page</h2>
+            <ul className="list-disc ml-6">
+              {toc.map((heading: any) => (
+                <li key={heading.id} className={heading.level === 'h3' ? 'ml-4' : ''}>
+                  {heading.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {/* Social/Share/SEO fields can be added here */}
       </div>
     </div>
   );
