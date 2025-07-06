@@ -19,6 +19,9 @@ interface BlogCardModernProps {
 export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = false }) => {
   const navigate = useNavigate();
 
+  // Format date as 'April 8, 2025'
+  const formattedDate = post.date ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+
   const handleClick = () => {
     navigate(`/blog/${post.slug}`);
   };
@@ -36,11 +39,14 @@ export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = fal
     >
       {/* Featured Image */}
       {post.featuredImage && (
-        <div className={hero ? 'md:w-1/2 w-full h-80 md:h-auto rounded-3xl overflow-hidden' : 'w-full h-56 rounded-2xl mb-4 overflow-hidden'}>
+        <div className={hero ? 'md:w-1/2 w-full aspect-[16/9] md:h-auto rounded-3xl overflow-hidden bg-gray-100' : 'w-full aspect-[16/9] rounded-2xl mb-4 overflow-hidden bg-gray-100'}>
+          {/* Recommended size: 1200x630px (16:9) */}
           <img
             src={post.featuredImage}
             alt={post.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            width={1200}
+            height={630}
           />
         </div>
       )}
@@ -55,7 +61,7 @@ export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = fal
           <span className="text-gray-400 text-xs">•</span>
           <span className="text-gray-700 text-xs font-medium">{post.author}</span>
           <span className="text-gray-400 text-xs">•</span>
-          <span className="text-gray-400 text-xs">{post.date}</span>
+          <span className="text-gray-400 text-xs">{formattedDate}</span>
         </div>
         {/* Title */}
         <h2 className={

@@ -99,10 +99,11 @@ const BlogPost: React.FC = () => {
     );
   }
   if (error || !post) {
+    console.error('Blog post error:', error);
     return (
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center">
-        <h2 className="text-2xl font-bold mb-4 text-red-600">Blog post not found</h2>
-        <p className="text-gray-600 mb-8">{error || 'No post found for this slug.'}</p>
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center blog-article font-satoshi">
+        <h2 className="text-2xl font-bold mb-4 text-red-600">Unable to load article</h2>
+        <p className="text-gray-600 mb-8">Please try again later.</p>
         <Link to="/blog" className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold">
           <ArrowLeft className="inline-block mr-2" /> Back to Blog
         </Link>

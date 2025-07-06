@@ -15,24 +15,29 @@ interface BlogCardProps {
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
+  // Format date as 'April 8, 2025'
+  const formattedDate = post.date ? new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
   return (
-    <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-white h-full overflow-hidden">
+    <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 bg-white h-full overflow-hidden blog-card font-satoshi">
       {post.featuredImage && (
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden aspect-[16/9] bg-gray-100">
+          {/* Recommended size: 1200x630px (16:9) */}
           <img 
             src={post.featuredImage} 
             alt={post.title}
-            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            width={1200}
+            height={630}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
       )}
       
       <CardContent className="p-6">
-        <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+        <div className="flex items-center gap-4 text-sm text-gray-500 mb-4 blog-meta">
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
-            <span>{post.date}</span>
+            <span>{formattedDate}</span>
           </div>
           <div className="flex items-center gap-1">
             <User className="w-4 h-4" />

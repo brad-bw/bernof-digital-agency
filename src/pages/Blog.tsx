@@ -66,37 +66,29 @@ const Blog: React.FC = () => {
       <SEO {...seoData} />
       {/* Hero Section */}
       <section className={`${HERO_BG} ${HERO_TEXT} w-full py-16 px-4 md:px-0 relative`}>
-        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center blog-hero font-satoshi">
           <h1 className="text-5xl md:text-6xl font-bold mb-4">
             Digital <span className={HERO_ACCENT}>Insights</span>
           </h1>
           <p className="text-lg md:text-xl mb-8 max-w-2xl">
             Explore the latest trends in web development, startup growth, and digital innovation. Your guide to building better digital experiences.
           </p>
-          <div className="flex flex-col md:flex-row gap-4 mb-8">
-            <a href="#articles" className={`rounded-full px-6 py-3 font-semibold shadow ${BUTTON_BG} hover:opacity-90 transition`}>
-              Explore Articles
-            </a>
-            <a href="mailto:hello@bernofco.com" className={`rounded-full px-6 py-3 font-semibold shadow ${BUTTON_OUTLINE} hover:bg-white hover:text-[#1b5c56] transition`}>
-              Subscribe to Newsletter
-            </a>
-          </div>
-          {/* Filters and Search */}
-          <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl justify-center items-center">
+          {/* Redesigned Filters and Search */}
+          <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl justify-center items-center mt-4">
             <div className="relative w-full md:w-1/2">
-              <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
+              <Search className="absolute left-4 top-3 text-gray-400" size={18} />
               <input
                 type="text"
                 placeholder="Search posts..."
-                className="pl-10 pr-4 py-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black"
+                className="pl-12 pr-4 py-2 w-full rounded-full bg-white/90 border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black font-satoshi placeholder-gray-400 transition"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="relative w-full md:w-1/2">
-              <Filter className="absolute left-3 top-2.5 text-gray-400" size={18} />
+              <Filter className="absolute left-4 top-3 text-gray-400" size={18} />
               <select
-                className="pl-10 pr-4 py-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black"
+                className="pl-12 pr-4 py-2 w-full rounded-full bg-white/90 border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black font-satoshi transition"
                 value={selectedCategory}
                 onChange={e => setSelectedCategory(e.target.value)}
               >
