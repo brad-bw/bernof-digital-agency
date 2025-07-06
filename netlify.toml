@@ -4,7 +4,7 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src *; font-src * data:; style-src * 'unsafe-inline'; img-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval';"
+    Content-Security-Policy = "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; connect-src 'self' https://kvyko3sv.api.sanity.io https://cdn.amplitude.com https://region1.google-analytics.com https://googletagmanager.com https://api.amplitude.com; font-src * data:; style-src * 'unsafe-inline'; img-src * data: blob:; script-src * 'unsafe-inline' 'unsafe-eval';"
 
 [[headers]]
   for = "/fonts/*"
