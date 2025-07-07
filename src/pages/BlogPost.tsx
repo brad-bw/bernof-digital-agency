@@ -37,7 +37,11 @@ const portableTextComponents = {
   },
   block: {
     h1: ({ children }: any) => <h1 className="text-4xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h1>,
-    h2: ({ children }: any) => <h2 className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h2>,
+    h2: ({ children, node }: any) => {
+      // Add id to h2 for anchor navigation
+      const id = node?._key || (typeof children === 'string' ? children.replace(/\s+/g, '-').toLowerCase() : undefined);
+      return <h2 id={id} className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h2>;
+    },
     h3: ({ children }: any) => <h3 className="text-2xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h3>,
     h4: ({ children }: any) => <h4 className="text-xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h4>,
     blockquote: ({ children }: any) => (
@@ -80,6 +84,10 @@ const BlogPost: React.FC = () => {
   // Ref for first paragraph/body text
   const firstParagraphRef = useRef<HTMLDivElement | null>(null);
   const [sidebarTop, setSidebarTop] = useState(0);
+
+  // Sticky logic for sidebar
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const [isSidebarSticky, setIsSidebarSticky] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -148,6 +156,20 @@ const BlogPost: React.FC = () => {
       setSidebarTop(rect.top + window.scrollY - 24); // 24px for a little breathing room
     }
   }, [post]);
+
+  // Sticky logic for sidebar
+  useEffect(() => {
+    function handleSidebarSticky() {
+      if (!firstParagraphRef.current || !sidebarRef.current) return;
+      const paraRect = firstParagraphRef.current.getBoundingClientRect();
+      const sidebarRect = sidebarRef.current.getBoundingClientRect();
+      // If the top of the first paragraph is above the viewport, make sidebar sticky
+      setIsSidebarSticky(paraRect.top <= 0);
+    }
+    window.addEventListener('scroll', handleSidebarSticky, { passive: true });
+    handleSidebarSticky();
+    return () => window.removeEventListener('scroll', handleSidebarSticky);
+  }, [firstParagraphRef, sidebarRef]);
 
   if (!slug) return <Navigate to="/blog" replace />;
 
@@ -290,7 +312,7 @@ const BlogPost: React.FC = () => {
           </div>
           {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
           <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
-            <div className="sticky" style={{ top: `${sidebarTop}px` }}>
+            <div ref={sidebarRef} className={isSidebarSticky ? 'sticky' : ''} style={isSidebarSticky ? { top: `${sidebarTop}px` } : {}}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
