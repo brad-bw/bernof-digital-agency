@@ -228,7 +228,7 @@ const BlogPost: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto py-12 px-4">
-        <div ref={wrapperRef} className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start relative">
+        <div ref={wrapperRef} className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
           {/* Article Content */}
           <div>
             {/* Article Header */}
@@ -314,7 +314,7 @@ const BlogPost: React.FC = () => {
             </div>
           </div>
           {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
-          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents" style={{ position: 'absolute', left: '100%', width: '14rem', top: `${sidebarTop}px` }}>
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents" style={{ top: `${sidebarTop}px` }}>
             <div ref={sidebarRef} className={isSidebarSticky ? 'sticky' : ''} style={isSidebarSticky ? { top: 0 } : {}}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
