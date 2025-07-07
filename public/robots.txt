@@ -1,12 +1,12 @@
 User-agent: *
-Disallow: /
-
-# Block admin and utility pages
+Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /_vite/
-Disallow: /node_modules/
-Disallow: /*.json$
+
+# Block admin and utility pages
+Allow: /_vite/
+Allow: /node_modules/
+Allow: /*.json$
 
 # Allow specific assets
 Allow: /assets/
