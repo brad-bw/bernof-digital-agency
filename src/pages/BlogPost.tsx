@@ -8,16 +8,27 @@ import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
 
-// Utility to extract headings from Portable Text blocks for TOC
-function extractHeadings(blocks: any[]) {
+// Utility to extract TOC: only h2 as main, h3 as children
+function extractTOC(blocks: any[]) {
   if (!blocks) return [];
-  return blocks
-    .filter(block => block._type === 'block' && (block.style === 'h2' || block.style === 'h3'))
-    .map(block => ({
-      id: block._key,
-      text: block.children?.map((child: any) => child.text).join(' ') || '',
-      level: block.style,
-    }));
+  const toc: any[] = [];
+  let currentH2: any = null;
+  blocks.forEach(block => {
+    if (block._type === 'block' && block.style === 'h2') {
+      currentH2 = {
+        id: block._key,
+        text: block.children?.map((child: any) => child.text).join(' ') || '',
+        children: [],
+      };
+      toc.push(currentH2);
+    } else if (block._type === 'block' && block.style === 'h3' && currentH2) {
+      currentH2.children.push({
+        id: block._key,
+        text: block.children?.map((child: any) => child.text).join(' ') || '',
+      });
+    }
+  });
+  return toc;
 }
 
 const portableTextComponents = {
@@ -75,6 +86,9 @@ const BlogPost: React.FC = () => {
   // Scrollspy state
   const [activeId, setActiveId] = useState<string | null>(null);
 
+  // Add state for expanded TOC sections
+  const [expandedToc, setExpandedToc] = useState<string | null>(null);
+
   useEffect(() => {
     if (!slug) return;
     setIsLoading(true);
@@ -96,7 +110,7 @@ const BlogPost: React.FC = () => {
   }, [slug]);
 
   // Memoize TOC extraction
-  const toc = useMemo(() => post?.body ? extractHeadings(post.body) : [], [post?.body]);
+  const toc = useMemo(() => post?.body ? extractTOC(post.body) : [], [post?.body]);
 
   // Calculate reading time (rough estimate: 200 words per minute)
   const readingTime = useMemo(() => {
@@ -277,19 +291,52 @@ const BlogPost: React.FC = () => {
                 <nav className="border-l-2 border-gray-200 pl-6 mb-8">
                   <h3 className="text-base font-semibold text-gray-700 mb-4 tracking-wide uppercase font-satoshi">On this page</h3>
                   <ul className="space-y-2">
-                    {toc.map((heading: any) => (
-                      <li key={heading.id}>
-                        <a
-                          href={`#${heading.id}`}
-                          className={`block text-sm transition-colors font-satoshi rounded-r-lg px-2 py-1
-                            ${heading.level === 'h3' ? 'ml-4 text-gray-500' : 'text-gray-700 font-medium'}
-                            ${activeId === heading.id ? 'bg-brand-teal/10 text-brand-teal-dark font-bold border-r-4 border-brand-teal-dark' : ''}
-                          `}
-                        >
-                          {heading.text}
-                        </a>
-                      </li>
-                    ))}
+                    {toc.map((h2: any) => {
+                      // Expand if activeId is this h2 or one of its children
+                      const isActiveOrChild = activeId === h2.id || (h2.children?.some((h3: any) => h3.id === activeId));
+                      const expanded = expandedToc === h2.id || isActiveOrChild;
+                      return (
+                        <li key={h2.id}>
+                          <button
+                            type="button"
+                            aria-expanded={expanded}
+                            onClick={() => setExpandedToc(expanded ? null : h2.id)}
+                            className={`block w-full text-left text-sm transition-colors font-satoshi rounded-r-lg px-2 py-1 text-gray-700 font-medium focus:outline-none
+                              ${activeId === h2.id ? 'bg-brand-teal/10 text-brand-teal-dark font-bold border-r-4 border-brand-teal-dark' : ''}
+                            `}
+                          >
+                            {h2.text}
+                            {h2.children && h2.children.length > 0 && (
+                              <span className="ml-2 text-xs text-gray-400">{expanded ? '▼' : '▶'}</span>
+                            )}
+                          </button>
+                          {h2.children && h2.children.length > 0 && expanded && (
+                            <ul className="ml-4 mt-1 space-y-1 border-l border-gray-100 pl-3">
+                              {h2.children.map((h3: any) => (
+                                <li key={h3.id}>
+                                  <a
+                                    href={`#${h3.id}`}
+                                    onClick={e => {
+                                      e.preventDefault();
+                                      const el = document.getElementById(h3.id);
+                                      if (el) {
+                                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                        window.history.replaceState(null, '', `#${h3.id}`);
+                                      }
+                                    }}
+                                    className={`block text-xs text-gray-500 font-satoshi px-2 py-1 rounded transition-colors
+                                      ${activeId === h3.id ? 'bg-brand-teal/10 text-brand-teal-dark font-semibold border-r-2 border-brand-teal-dark' : ''}
+                                    `}
+                                  >
+                                    {h3.text}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </nav>
               )}

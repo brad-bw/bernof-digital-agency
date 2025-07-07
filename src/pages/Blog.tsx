@@ -92,22 +92,22 @@ const Blog: React.FC = () => {
           <p className="text-lg md:text-xl mb-8 max-w-2xl">
             Explore the latest trends in web development, startup growth, and digital innovation. Your guide to building better digital experiences.
           </p>
-          {/* Modern Search & Filter UI - only show if >10 articles, desktop only */}
-          {mappedPosts.length > 10 && (
-            <div className="hidden md:flex w-full max-w-2xl justify-center items-center mt-4 gap-4 relative">
-              {/* Search Bar */}
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  placeholder="Search articles..."
-                  className="pl-12 pr-4 py-3 w-full rounded-full bg-white/90 border border-gray-200 shadow-md focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black font-satoshi placeholder-gray-400 text-lg transition"
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  style={{ minWidth: 280, maxWidth: 480 }}
-                />
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={22} />
-              </div>
-              {/* Filter Icon */}
+          {/* Modern Search & Filter UI - search always visible, filter only if >10 articles, desktop only */}
+          <div className="hidden md:flex w-full max-w-2xl justify-center items-center mt-4 gap-4 relative">
+            {/* Search Bar */}
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Search articles..."
+                className="pl-12 pr-4 py-3 w-full rounded-full bg-white/90 border border-gray-200 shadow-md focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black font-satoshi placeholder-gray-400 text-lg transition"
+                value={searchTerm}
+                onChange={e => setSearchTerm(e.target.value)}
+                style={{ minWidth: 280, maxWidth: 480 }}
+              />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={22} />
+            </div>
+            {/* Filter Icon - only if >10 articles */}
+            {mappedPosts.length > 10 && (
               <div className="relative" ref={filterRef}>
                 <button
                   className="flex items-center justify-center w-12 h-12 rounded-full bg-white/90 border border-gray-200 shadow-md hover:bg-[#2ed6c5]/10 transition"
@@ -133,8 +133,8 @@ const Blog: React.FC = () => {
                   </div>
                 )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </section>
       {/* Articles Section */}

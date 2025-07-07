@@ -36,7 +36,7 @@ export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = fal
         `blog-card relative rounded-3xl overflow-hidden shadow-lg transition-all duration-300 cursor-pointer group font-satoshi ` +
         (hero
           ? 'bg-white min-h-[420px] flex flex-col md:flex-row md:items-stretch md:gap-8 p-0 md:p-0'
-          : 'bg-white text-gray-900 p-6 hover:shadow-2xl hover:border-brand-teal-dark border border-gray-200')
+          : 'bg-white text-gray-900 p-8 hover:shadow-2xl hover:scale-[1.025] hover:border-brand-teal-dark border border-gray-200 rounded-3xl')
       }
       style={{ minHeight: hero ? 420 : 320 }}
       onClick={handleClick}
@@ -48,7 +48,7 @@ export const BlogCardModern: React.FC<BlogCardModernProps> = ({ post, hero = fal
           <img
             src={imageUrl}
             alt={post.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-105 group-hover:shadow-xl transition-transform duration-300 rounded-2xl"
             width={1200}
             height={630}
             loading="lazy"
