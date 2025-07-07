@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { fetchBlogPostsDirect } from '@/utils/sanityClient';
 import { ArrowLeft, Calendar, User, Share2, Clock, Tag } from 'lucide-react';
@@ -37,11 +37,7 @@ const portableTextComponents = {
   },
   block: {
     h1: ({ children }: any) => <h1 className="text-4xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h1>,
-    h2: ({ children, node }: any) => {
-      // Add id to h2 for anchor navigation
-      const id = node?._key || (typeof children === 'string' ? children.replace(/\s+/g, '-').toLowerCase() : undefined);
-      return <h2 id={id} className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h2>;
-    },
+    h2: ({ children }: any) => <h2 className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h2>,
     h3: ({ children }: any) => <h3 className="text-2xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h3>,
     h4: ({ children }: any) => <h4 className="text-xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h4>,
     blockquote: ({ children }: any) => (
@@ -80,15 +76,6 @@ const BlogPost: React.FC = () => {
 
   // Add state for expanded TOC sections
   const [expandedToc, setExpandedToc] = useState<string | null>(null);
-
-  // Ref for first paragraph/body text
-  const firstParagraphRef = useRef<HTMLDivElement | null>(null);
-  // Wrapper ref now points to the overall grid wrapper (used for paragraph offset calc)
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const [sidebarStickyTop, setSidebarStickyTop] = useState(0);
-
-  // Sidebar container ref (for highlight bar CSS vars)
-  const sidebarContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!slug) return;
@@ -130,56 +117,25 @@ const BlogPost: React.FC = () => {
     day: 'numeric' 
   }) : '';
 
-  // Sticky sidebar and scrollspy
   useEffect(() => {
-    if (!post?.body) return;
-    // Scrollspy: observe all H2s
-    const h2Ids = post.body
-      .filter((block: any) => block._type === 'block' && block.style === 'h2')
-      .map((block: any) => block._key);
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      // Find the first H2 that is in view (or closest to top)
-      const visible = entries.filter(e => e.isIntersecting);
-      if (visible.length > 0) {
-        // Pick the one closest to the top
-        const sorted = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        setActiveId(sorted[0].target.id);
-      } else {
-        // If none are visible, find the last one above the viewport
-        const above = entries.filter(e => e.boundingClientRect.top < 0);
-        if (above.length > 0) {
-          const sorted = above.sort((a, b) => b.boundingClientRect.top - a.boundingClientRect.top);
-          setActiveId(sorted[0].target.id);
+    if (!toc.length) return;
+    const handleScroll = () => {
+      let currentId = toc[0]?.id;
+      for (const heading of toc) {
+        const el = document.getElementById(heading.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            currentId = heading.id;
+          }
         }
       }
+      setActiveId(currentId);
     };
-    const observer = new window.IntersectionObserver(handleIntersect, {
-      root: null,
-      rootMargin: '0px 0px -60% 0px', // Trigger when heading is in top 40% of viewport
-      threshold: 0
-    });
-    h2Ids.forEach(id => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, [post]);
-
-  // Dynamically calculate sticky top for sidebar to align with first paragraph
-  useEffect(() => {
-    function updateSidebarStickyTop() {
-      if (firstParagraphRef.current && wrapperRef.current) {
-        const paraRect = firstParagraphRef.current.getBoundingClientRect();
-        const wrapperRect = wrapperRef.current.getBoundingClientRect();
-        // The offset from the top of the viewport to the first paragraph, minus the wrapper's top
-        const offset = paraRect.top - wrapperRect.top;
-        setSidebarStickyTop(offset > 0 ? offset : 0);
-      }
-    }
-    updateSidebarStickyTop();
-    window.addEventListener('resize', updateSidebarStickyTop);
-    return () => window.removeEventListener('resize', updateSidebarStickyTop);
-  }, [post]);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [toc]);
 
   if (!slug) return <Navigate to="/blog" replace />;
 
@@ -234,124 +190,116 @@ const BlogPost: React.FC = () => {
         </div>
       </div>
 
-      {/* Grid layout: article (3fr) + sidebar (1fr) */}
-      <div ref={wrapperRef} className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
-        {/* Article column: header/meta/featured image + content */}
-        <div>
-          {/* Article Header, Meta, Featured Image */}
-          <div className="mb-12">
-            {post.categories && post.categories.length > 0 && (
-              <div className="mb-4">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
-                  <Tag className="mr-1" size={12} />
-                  {post.categories[0]}
-                </span>
-              </div>
-            )}
-            <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
-              {post.metaTitle}
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
-              {post.excerpt}
-            </p>
-            {/* Meta Row */}
-            <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
-              {post.author?.name && (
-                <div className="flex items-center">
-                  {post.author.avatar && (
-                    <img 
-                      src={post.author.avatar} 
-                      alt={post.author.name}
-                      className="w-8 h-8 rounded-full mr-3"
-                    />
-                  )}
-                  <span className="font-medium text-gray-700">{post.author.name}</span>
+      <div className="max-w-7xl mx-auto py-12 px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
+          {/* Article Content */}
+          <div>
+            {/* Article Header */}
+            <div className="mb-8">
+              {post.categories && post.categories.length > 0 && (
+                <div className="mb-4">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
+                    <Tag className="mr-1" size={12} />
+                    {post.categories[0]}
+                  </span>
                 </div>
               )}
-              <div className="flex items-center">
-                <Calendar className="mr-2" size={16} />
-                <span>{formattedDate}</span>
-              </div>
-              <div className="flex items-center">
-                <Clock className="mr-2" size={16} />
-                <span>{readingTime} min read</span>
-              </div>
-            </div>
-            {/* Featured Image - fixed aspect ratio, proper margin */}
-            {post.featuredImage?.asset?.url && (
-              <div className="mb-10">
-                <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-                  <img 
-                    src={post.featuredImage.asset.url} 
-                    alt={post.featuredImage.alt || post.metaTitle} 
-                    className="w-full h-full object-cover"
-                  />
+              <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
+                {post.metaTitle}
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
+                {post.excerpt}
+              </p>
+              {/* Meta Row */}
+              <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
+                {post.author?.name && (
+                  <div className="flex items-center">
+                    {post.author.avatar && (
+                      <img 
+                        src={post.author.avatar} 
+                        alt={post.author.name}
+                        className="w-8 h-8 rounded-full mr-3"
+                      />
+                    )}
+                    <span className="font-medium text-gray-700">{post.author.name}</span>
+                  </div>
+                )}
+                <div className="flex items-center">
+                  <Calendar className="mr-2" size={16} />
+                  <span>{formattedDate}</span>
+                </div>
+                <div className="flex items-center">
+                  <Clock className="mr-2" size={16} />
+                  <span>{readingTime} min read</span>
                 </div>
               </div>
+            </div>
+            {/* Featured Image */}
+            {post.featuredImage?.asset?.url && (
+              <div className="mb-12">
+                <img 
+                  src={post.featuredImage.asset.url} 
+                  alt={post.featuredImage.alt || post.metaTitle} 
+                  className="w-full rounded-2xl shadow-lg"
+                />
+              </div>
             )}
+            {/* Article Content */}
+            <article className="prose prose-lg max-w-none font-satoshi">
+              <PortableText value={post.body} components={portableTextComponents} />
+            </article>
+            {/* CTA Section */}
+            <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
+              <h3 className="text-2xl font-bold mb-4">Ready to build something amazing?</h3>
+              <p className="text-lg mb-6 opacity-90">
+                Let's discuss your project and bring your vision to life with our expert development team.
+              </p>
+              <Link 
+                to="/#discovery-call" 
+                className="inline-flex items-center bg-white text-brand-teal-dark px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              >
+                Book Your Free Discovery Call
+              </Link>
+            </div>
           </div>
-          {/* Article Content */}
-          <article className="prose prose-lg max-w-none font-satoshi">
-            <PortableText value={post.body} components={portableTextComponents} />
-          </article>
-          {/* CTA Section */}
-          <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
-            <h3 className="text-2xl font-bold mb-4">Ready to build something amazing?</h3>
-            <p className="text-lg mb-6 opacity-90">
-              Let's discuss your project and bring your vision to life with our expert development team.
-            </p>
-            <Link 
-              to="/#discovery-call" 
-              className="inline-flex items-center bg-white text-brand-teal-dark px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-            >
-              Book Your Free Discovery Call
-            </Link>
-          </div>
-        </div>
-        {/* Sidebar - Modern sidebar container */}
-        <div className="relative hidden lg:block">
-          <aside id="blog-post-sidebar" className="z-5 relative h-max flex-col gap-2 lg:sticky lg:top-28 [font-feature-settings:normal]">
-            <div ref={sidebarContainerRef} className="px-3 md:px-4 relative border-l border-[#555555]">
-              {/* Animated highlight bar */}
-              <div className="absolute -left-px w-px bg-brand-teal-dark opacity-[var(--o,0)] transition-[transform,height,opacity] duration-[350ms] ease-out"
-                aria-hidden="true"
-                style={{
-                  height: `var(--h,24px)`,
-                  transform: `translateY(var(--y,0px))`,
-                  opacity: 'var(--o,0)'
-                }}
-              />
-              <ul className="flex flex-col gap-3">
-                {toc.map((heading: any, idx: number) => (
-                  <li key={heading.id} style={{ paddingLeft: 0 }}>
-                    <a
-                      className={`block h-full transition-colors duration-200 text-sm font-satoshi ${activeId === heading.id ? 'text-brand-teal-dark font-bold' : 'text-gray-600'}`}
-                      href={`#${heading.id}`}
-                      onClick={e => {
-                        e.preventDefault();
-                        const el = document.getElementById(heading.id);
-                        if (el) {
-                          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                          window.history.replaceState(null, '', `#${heading.id}`);
-                        }
-                      }}
-                      ref={el => {
-                        if (activeId === heading.id && el && sidebarContainerRef.current) {
-                          // Set highlight bar position/height via CSS vars on the sidebar container
-                          const rect = el.getBoundingClientRect();
-                          const containerRect = sidebarContainerRef.current.getBoundingClientRect();
-                          const y = rect.top - containerRect.top;
-                          sidebarContainerRef.current.style.setProperty('--y', `${y}px`);
-                          sidebarContainerRef.current.style.setProperty('--h', `${rect.height}px`);
-                          sidebarContainerRef.current.style.setProperty('--o', '1');
-                        }
-                      }}
-                    >
-                      {heading.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
+            <div className="sticky top-8">
+              <nav className="relative pl-6">
+                {/* Subtle vertical nav line */}
+                <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
+                {toc.length > 0 && (
+                  <ul className="space-y-1 relative z-10">
+                    {toc.map((heading: any) => (
+                      <li key={heading.id}>
+                        <a
+                          href={`#${heading.id}`}
+                          onClick={e => {
+                            e.preventDefault();
+                            const el = document.getElementById(heading.id);
+                            if (el) {
+                              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              window.history.replaceState(null, '', `#${heading.id}`);
+                            }
+                          }}
+                          className={`block px-4 py-1.5 text-sm font-satoshi transition-colors relative
+                            ${activeId === heading.id
+                              ? 'text-brand-teal-dark font-bold'
+                              : 'text-gray-600 hover:text-brand-teal-dark'}
+                          `}
+                          style={{marginLeft: 0}}
+                        >
+                          {/* Highlight on nav line itself */}
+                          <span className={`absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 rounded-full transition-colors
+                            ${activeId === heading.id ? 'bg-brand-teal-dark' : 'bg-transparent'}`}
+                            style={{zIndex:1}} />
+                          {heading.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </nav>
             </div>
           </aside>
         </div>
