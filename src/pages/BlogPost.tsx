@@ -90,8 +90,6 @@ const BlogPost: React.FC = () => {
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const [isSidebarSticky, setIsSidebarSticky] = useState(false);
 
-  const [sidebarMarginTop, setSidebarMarginTop] = useState(0);
-
   useEffect(() => {
     if (!slug) return;
     setIsLoading(true);
@@ -132,25 +130,39 @@ const BlogPost: React.FC = () => {
     day: 'numeric' 
   }) : '';
 
+  // IntersectionObserver scrollspy for H2s
   useEffect(() => {
-    if (!toc.length) return;
-    const handleScroll = () => {
-      let currentId = toc[0]?.id;
-      for (const heading of toc) {
-        const el = document.getElementById(heading.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 120) {
-            currentId = heading.id;
-          }
+    if (!post?.body) return;
+    const h2Ids = post.body
+      .filter((block: any) => block._type === 'block' && block.style === 'h2')
+      .map((block: any) => block._key);
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      // Find the first H2 that is in view (or closest to top)
+      const visible = entries.filter(e => e.isIntersecting);
+      if (visible.length > 0) {
+        // Pick the one closest to the top
+        const sorted = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        setActiveId(sorted[0].target.id);
+      } else {
+        // If none are visible, find the last one above the viewport
+        const above = entries.filter(e => e.boundingClientRect.top < 0);
+        if (above.length > 0) {
+          const sorted = above.sort((a, b) => b.boundingClientRect.top - a.boundingClientRect.top);
+          setActiveId(sorted[0].target.id);
         }
       }
-      setActiveId(currentId);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [toc]);
+    const observer = new window.IntersectionObserver(handleIntersect, {
+      root: null,
+      rootMargin: '0px 0px -60% 0px', // Trigger when heading is in top 40% of viewport
+      threshold: 0
+    });
+    h2Ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, [post]);
 
   // Calculate sidebar top so it aligns with first paragraph
   useEffect(() => {
@@ -175,22 +187,6 @@ const BlogPost: React.FC = () => {
     handleSidebarSticky();
     return () => window.removeEventListener('scroll', handleSidebarSticky);
   }, [firstParagraphRef, sidebarRef]);
-
-  // Calculate sidebar margin-top so first item aligns with first paragraph
-  useEffect(() => {
-    function updateSidebarMargin() {
-      if (firstParagraphRef.current && sidebarRef.current) {
-        const paraRect = firstParagraphRef.current.getBoundingClientRect();
-        const sidebarRect = sidebarRef.current.getBoundingClientRect();
-        // Calculate the offset between the first paragraph and the sidebar container
-        const offset = paraRect.top - sidebarRect.top;
-        setSidebarMarginTop(offset > 0 ? offset : 0);
-      }
-    }
-    updateSidebarMargin();
-    window.addEventListener('resize', updateSidebarMargin);
-    return () => window.removeEventListener('resize', updateSidebarMargin);
-  }, [post]);
 
   if (!slug) return <Navigate to="/blog" replace />;
 
@@ -333,7 +329,7 @@ const BlogPost: React.FC = () => {
           </div>
           {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
           <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
-            <div ref={sidebarRef} className={isSidebarSticky ? 'sticky' : ''} style={{ top: isSidebarSticky ? 0 : undefined, marginTop: `${sidebarMarginTop}px` }}>
+            <div ref={sidebarRef} className="sticky" style={{ top: 32 }}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
