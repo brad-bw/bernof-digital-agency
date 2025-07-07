@@ -234,63 +234,62 @@ const BlogPost: React.FC = () => {
         </div>
       </div>
 
-      {/* Article Header, Meta, Featured Image */}
-      <div className="mb-12">
-        {post.categories && post.categories.length > 0 && (
-          <div className="mb-4">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
-              <Tag className="mr-1" size={12} />
-              {post.categories[0]}
-            </span>
-          </div>
-        )}
-        <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
-          {post.metaTitle}
-        </h1>
-        <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
-          {post.excerpt}
-        </p>
-        {/* Meta Row */}
-        <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
-          {post.author?.name && (
-            <div className="flex items-center">
-              {post.author.avatar && (
-                <img 
-                  src={post.author.avatar} 
-                  alt={post.author.name}
-                  className="w-8 h-8 rounded-full mr-3"
-                />
-              )}
-              <span className="font-medium text-gray-700">{post.author.name}</span>
-            </div>
-          )}
-          <div className="flex items-center">
-            <Calendar className="mr-2" size={16} />
-            <span>{formattedDate}</span>
-          </div>
-          <div className="flex items-center">
-            <Clock className="mr-2" size={16} />
-            <span>{readingTime} min read</span>
-          </div>
-        </div>
-        {/* Featured Image - fixed aspect ratio, proper margin */}
-        {post.featuredImage?.asset?.url && (
-          <div className="mb-10">
-            <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-              <img 
-                src={post.featuredImage.asset.url} 
-                alt={post.featuredImage.alt || post.metaTitle} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Grid layout: body (3fr) + sidebar (1fr) */}
+      {/* Grid layout: article (3fr) + sidebar (1fr) */}
       <div ref={wrapperRef} className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
-        {/* Article body column */}
+        {/* Article column: header/meta/featured image + content */}
         <div>
+          {/* Article Header, Meta, Featured Image */}
+          <div className="mb-12">
+            {post.categories && post.categories.length > 0 && (
+              <div className="mb-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
+                  <Tag className="mr-1" size={12} />
+                  {post.categories[0]}
+                </span>
+              </div>
+            )}
+            <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
+              {post.metaTitle}
+            </h1>
+            <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
+              {post.excerpt}
+            </p>
+            {/* Meta Row */}
+            <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
+              {post.author?.name && (
+                <div className="flex items-center">
+                  {post.author.avatar && (
+                    <img 
+                      src={post.author.avatar} 
+                      alt={post.author.name}
+                      className="w-8 h-8 rounded-full mr-3"
+                    />
+                  )}
+                  <span className="font-medium text-gray-700">{post.author.name}</span>
+                </div>
+              )}
+              <div className="flex items-center">
+                <Calendar className="mr-2" size={16} />
+                <span>{formattedDate}</span>
+              </div>
+              <div className="flex items-center">
+                <Clock className="mr-2" size={16} />
+                <span>{readingTime} min read</span>
+              </div>
+            </div>
+            {/* Featured Image - fixed aspect ratio, proper margin */}
+            {post.featuredImage?.asset?.url && (
+              <div className="mb-10">
+                <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
+                  <img 
+                    src={post.featuredImage.asset.url} 
+                    alt={post.featuredImage.alt || post.metaTitle} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
           {/* Article Content */}
           <article className="prose prose-lg max-w-none font-satoshi">
             <PortableText value={post.body} components={portableTextComponents} />
