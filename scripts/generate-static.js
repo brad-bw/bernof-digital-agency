@@ -50,6 +50,17 @@ routes.forEach(route => {
   console.log(`✅ Generated: ${routePath}`)
 })
 
+// Copy static files from public/ to dist/ if they exist
+const staticFiles = ['404.html', '_redirects', 'robots.txt', 'sitemap.xml'];
+staticFiles.forEach(file => {
+  const src = path.resolve('public', file);
+  const dest = path.resolve('dist', file);
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dest);
+    console.log(`✅ Copied ${file} to dist/`);
+  }
+});
+
 console.log('🎉 Static generation complete!')
 console.log('📝 Note: This creates static HTML files for Netlify routing.')
 console.log('🔧 Your existing React app will handle client-side routing and SEO.') 
