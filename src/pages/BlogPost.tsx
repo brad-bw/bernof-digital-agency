@@ -83,6 +83,7 @@ const BlogPost: React.FC = () => {
 
   // Ref for first paragraph/body text
   const firstParagraphRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [sidebarTop, setSidebarTop] = useState(0);
 
   // Sticky logic for sidebar
@@ -149,11 +150,13 @@ const BlogPost: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [toc]);
 
-  // After mount, measure first paragraph offset and set sidebar top
+  // Calculate sidebar top so it aligns with first paragraph
   useEffect(() => {
-    if (firstParagraphRef.current) {
-      const rect = firstParagraphRef.current.getBoundingClientRect();
-      setSidebarTop(rect.top + window.scrollY - 24); // 24px for a little breathing room
+    if (firstParagraphRef.current && wrapperRef.current) {
+      const paraRect = firstParagraphRef.current.getBoundingClientRect();
+      const wrapperRect = wrapperRef.current.getBoundingClientRect();
+      const offset = paraRect.top - wrapperRect.top;
+      setSidebarTop(offset);
     }
   }, [post]);
 
@@ -225,7 +228,7 @@ const BlogPost: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto py-12 px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
+        <div ref={wrapperRef} className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start relative">
           {/* Article Content */}
           <div>
             {/* Article Header */}
@@ -311,8 +314,8 @@ const BlogPost: React.FC = () => {
             </div>
           </div>
           {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
-          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
-            <div ref={sidebarRef} className={isSidebarSticky ? 'sticky' : ''} style={isSidebarSticky ? { top: `${sidebarTop}px` } : {}}>
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents" style={{ position: 'absolute', left: '100%', width: '14rem', top: `${sidebarTop}px` }}>
+            <div ref={sidebarRef} className={isSidebarSticky ? 'sticky' : ''} style={isSidebarSticky ? { top: 0 } : {}}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
