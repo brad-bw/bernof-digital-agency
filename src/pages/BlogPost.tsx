@@ -83,12 +83,12 @@ const BlogPost: React.FC = () => {
 
   // Ref for first paragraph/body text
   const firstParagraphRef = useRef<HTMLDivElement | null>(null);
+  // Wrapper ref now points to the overall grid wrapper (used for paragraph offset calc)
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [sidebarStickyTop, setSidebarStickyTop] = useState(0);
 
-  // Sticky logic for sidebar
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
-  const [isSidebarSticky, setIsSidebarSticky] = useState(false);
+  // Sidebar container ref (for highlight bar CSS vars)
+  const sidebarContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!slug) return;
@@ -235,62 +235,64 @@ const BlogPost: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto py-12 px-4">
-        {/* Article Header, Meta, Featured Image */}
-        <div className="mb-12">
-          {post.categories && post.categories.length > 0 && (
-            <div className="mb-4">
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
-                <Tag className="mr-1" size={12} />
-                {post.categories[0]}
-              </span>
-            </div>
-          )}
-          <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
-            {post.metaTitle}
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
-            {post.excerpt}
-          </p>
-          {/* Meta Row */}
-          <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
-            {post.author?.name && (
-              <div className="flex items-center">
-                {post.author.avatar && (
-                  <img 
-                    src={post.author.avatar} 
-                    alt={post.author.name}
-                    className="w-8 h-8 rounded-full mr-3"
-                  />
-                )}
-                <span className="font-medium text-gray-700">{post.author.name}</span>
-              </div>
-            )}
-            <div className="flex items-center">
-              <Calendar className="mr-2" size={16} />
-              <span>{formattedDate}</span>
-            </div>
-            <div className="flex items-center">
-              <Clock className="mr-2" size={16} />
-              <span>{readingTime} min read</span>
-            </div>
-          </div>
-          {/* Featured Image - fixed aspect ratio, proper margin */}
-          {post.featuredImage?.asset?.url && (
-            <div className="mb-10">
-              <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-                <img 
-                  src={post.featuredImage.asset.url} 
-                  alt={post.featuredImage.alt || post.metaTitle} 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Grid starts at first paragraph/body text */}
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
-          {/* Article Content */}
+        {/* Grid layout: article (3fr) + sidebar (1fr) */}
+        <div ref={wrapperRef} className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
+          {/* Article column */}
           <div>
+            {/* Article Header, Meta, Featured Image */}
+            <div className="mb-12">
+              {post.categories && post.categories.length > 0 && (
+                <div className="mb-4">
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
+                    <Tag className="mr-1" size={12} />
+                    {post.categories[0]}
+                  </span>
+                </div>
+              )}
+              <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
+                {post.metaTitle}
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
+                {post.excerpt}
+              </p>
+              {/* Meta Row */}
+              <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
+                {post.author?.name && (
+                  <div className="flex items-center">
+                    {post.author.avatar && (
+                      <img 
+                        src={post.author.avatar} 
+                        alt={post.author.name}
+                        className="w-8 h-8 rounded-full mr-3"
+                      />
+                    )}
+                    <span className="font-medium text-gray-700">{post.author.name}</span>
+                  </div>
+                )}
+                <div className="flex items-center">
+                  <Calendar className="mr-2" size={16} />
+                  <span>{formattedDate}</span>
+                </div>
+                <div className="flex items-center">
+                  <Clock className="mr-2" size={16} />
+                  <span>{readingTime} min read</span>
+                </div>
+              </div>
+              {/* Featured Image - fixed aspect ratio, proper margin */}
+              {post.featuredImage?.asset?.url && (
+                <div className="mb-10">
+                  <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
+                    <img 
+                      src={post.featuredImage.asset.url} 
+                      alt={post.featuredImage.alt || post.metaTitle} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Article Content */}
             <article className="prose prose-lg max-w-none font-satoshi">
               <PortableText value={post.body} components={portableTextComponents} />
             </article>
@@ -311,7 +313,7 @@ const BlogPost: React.FC = () => {
           {/* Sidebar - Modern sidebar container */}
           <div className="relative hidden py-[120px] lg:block">
             <aside id="blog-post-sidebar" className="z-5 relative h-max flex-col gap-2 lg:sticky lg:top-28 [font-feature-settings:normal]">
-              <div className="px-3 md:px-4 relative border-l border-[#555555]">
+              <div ref={sidebarContainerRef} className="px-3 md:px-4 relative border-l border-[#555555]">
                 {/* Animated highlight bar */}
                 <div className="absolute -left-px w-px bg-brand-teal-dark opacity-[var(--o,0)] transition-[transform,height,opacity] duration-[350ms] ease-out"
                   aria-hidden="true"
@@ -336,16 +338,14 @@ const BlogPost: React.FC = () => {
                           }
                         }}
                         ref={el => {
-                          if (activeId === heading.id && el) {
-                            // Set highlight bar position/height via CSS vars
+                          if (activeId === heading.id && el && sidebarContainerRef.current) {
+                            // Set highlight bar position/height via CSS vars on the sidebar container
                             const rect = el.getBoundingClientRect();
-                            const sidebarRect = el.parentElement?.parentElement?.getBoundingClientRect();
-                            if (sidebarRect) {
-                              const y = rect.top - sidebarRect.top;
-                              el.parentElement?.parentElement?.style.setProperty('--y', `${y}px`);
-                              el.parentElement?.parentElement?.style.setProperty('--h', `${rect.height}px`);
-                              el.parentElement?.parentElement?.style.setProperty('--o', '1');
-                            }
+                            const containerRect = sidebarContainerRef.current.getBoundingClientRect();
+                            const y = rect.top - containerRect.top;
+                            sidebarContainerRef.current.style.setProperty('--y', `${y}px`);
+                            sidebarContainerRef.current.style.setProperty('--h', `${rect.height}px`);
+                            sidebarContainerRef.current.style.setProperty('--o', '1');
                           }
                         }}
                       >
