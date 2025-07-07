@@ -203,9 +203,9 @@ const BlogPost: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto py-12 px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div className="">
             {/* Article Header */}
             <div className="mb-8">
               {post.categories && post.categories.length > 0 && (
@@ -284,59 +284,63 @@ const BlogPost: React.FC = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1 hidden lg:block">
-            <div className="sticky top-8">
+          <aside className="hidden lg:block sticky top-12 self-start" aria-label="Table of contents">
+            <div>
               {/* Table of Contents */}
               {toc.length > 0 && (
-                <nav className="border-l-2 border-gray-200 pl-6 mb-8">
-                  <h3 className="text-base font-semibold text-gray-700 mb-4 tracking-wide uppercase font-satoshi">On this page</h3>
-                  <ul className="space-y-2">
-                    {toc.map((h2: any) => {
-                      // Expand if activeId is this h2 or one of its children
-                      const isActiveOrChild = activeId === h2.id || (h2.children?.some((h3: any) => h3.id === activeId));
-                      const expanded = expandedToc === h2.id || isActiveOrChild;
-                      return (
-                        <li key={h2.id}>
-                          <button
-                            type="button"
-                            aria-expanded={expanded}
-                            onClick={() => setExpandedToc(expanded ? null : h2.id)}
-                            className={`block w-full text-left text-sm transition-colors font-satoshi rounded-r-lg px-2 py-1 text-gray-700 font-medium focus:outline-none
-                              ${activeId === h2.id ? 'bg-brand-teal/10 text-brand-teal-dark font-bold border-r-4 border-brand-teal-dark' : ''}
-                            `}
-                          >
-                            {h2.text}
-                            {h2.children && h2.children.length > 0 && (
-                              <span className="ml-2 text-xs text-gray-400">{expanded ? '▼' : '▶'}</span>
-                            )}
-                          </button>
-                          {h2.children && h2.children.length > 0 && expanded && (
-                            <ul className="ml-4 mt-1 space-y-1 border-l border-gray-100 pl-3">
-                              {h2.children.map((h3: any) => (
-                                <li key={h3.id}>
-                                  <a
-                                    href={`#${h3.id}`}
-                                    onClick={e => {
-                                      e.preventDefault();
-                                      const el = document.getElementById(h3.id);
-                                      if (el) {
-                                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                        window.history.replaceState(null, '', `#${h3.id}`);
-                                      }
-                                    }}
-                                    className={`block text-xs text-gray-500 font-satoshi px-2 py-1 rounded transition-colors
-                                      ${activeId === h3.id ? 'bg-brand-teal/10 text-brand-teal-dark font-semibold border-r-2 border-brand-teal-dark' : ''}
-                                    `}
-                                  >
-                                    {h3.text}
-                                  </a>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </li>
-                      );
-                    })}
+                <nav className="border-l-2 border-gray-200 pl-4 mb-8">
+                  <h3 className="text-xs font-semibold text-gray-500 mb-3 tracking-widest uppercase font-satoshi">On this page</h3>
+                  <ul className="space-y-0.5">
+                    {toc.map((h2: any) => (
+                      <li key={h2.id}>
+                        <a
+                          href={`#${h2.id}`}
+                          onClick={e => {
+                            e.preventDefault();
+                            const el = document.getElementById(h2.id);
+                            if (el) {
+                              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              window.history.replaceState(null, '', `#${h2.id}`);
+                            }
+                          }}
+                          className={`block text-[15px] leading-tight font-satoshi px-2 py-1 border-l-4 transition-colors
+                            ${activeId === h2.id
+                              ? 'border-brand-teal-dark bg-brand-teal/10 text-brand-teal-dark font-bold'
+                              : 'border-transparent text-gray-800 hover:text-brand-teal-dark hover:bg-brand-teal/5'}
+                          `}
+                          style={{ fontWeight: activeId === h2.id ? 700 : 500 }}
+                        >
+                          {h2.text}
+                        </a>
+                        {h2.children && h2.children.length > 0 && (
+                          <ul className="ml-4 mt-0.5 space-y-0.5 border-l border-gray-100 pl-3">
+                            {h2.children.map((h3: any) => (
+                              <li key={h3.id}>
+                                <a
+                                  href={`#${h3.id}`}
+                                  onClick={e => {
+                                    e.preventDefault();
+                                    const el = document.getElementById(h3.id);
+                                    if (el) {
+                                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                      window.history.replaceState(null, '', `#${h3.id}`);
+                                    }
+                                  }}
+                                  className={`block text-[14px] leading-tight font-satoshi px-2 py-1 border-l-4 transition-colors
+                                    ${activeId === h3.id
+                                      ? 'border-brand-teal-dark bg-brand-teal/10 text-brand-teal-dark font-semibold'
+                                      : 'border-transparent text-gray-500 hover:text-brand-teal-dark hover:bg-brand-teal/5'}
+                                  `}
+                                  style={{ fontWeight: activeId === h3.id ? 600 : 400 }}
+                                >
+                                  {h3.text}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
                   </ul>
                 </nav>
               )}
@@ -352,7 +356,7 @@ const BlogPost: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
       
