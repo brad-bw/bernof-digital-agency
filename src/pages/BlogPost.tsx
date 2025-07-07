@@ -274,13 +274,16 @@ const BlogPost: React.FC = () => {
               <span>{readingTime} min read</span>
             </div>
           </div>
+          {/* Featured Image - fixed aspect ratio, proper margin */}
           {post.featuredImage?.asset?.url && (
-            <div className="mb-12">
-              <img 
-                src={post.featuredImage.asset.url} 
-                alt={post.featuredImage.alt || post.metaTitle} 
-                className="w-full rounded-2xl shadow-lg"
-              />
+            <div className="mb-10">
+              <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
+                <img 
+                  src={post.featuredImage.asset.url} 
+                  alt={post.featuredImage.alt || post.metaTitle} 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           )}
         </div>
@@ -305,46 +308,55 @@ const BlogPost: React.FC = () => {
               </Link>
             </div>
           </div>
-          {/* Sidebar - sticky, no JS offset, starts at first paragraph */}
-          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
-            <div className="sticky" style={{ top: 32 }}>
-              <nav className="relative pl-6">
-                {/* Subtle vertical nav line */}
-                <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
-                {toc.length > 0 && (
-                  <ul className="space-y-1 relative z-10">
-                    {toc.map((heading: any) => (
-                      <li key={heading.id}>
-                        <a
-                          href={`#${heading.id}`}
-                          onClick={e => {
-                            e.preventDefault();
-                            const el = document.getElementById(heading.id);
-                            if (el) {
-                              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              window.history.replaceState(null, '', `#${heading.id}`);
+          {/* Sidebar - Modern sidebar container */}
+          <div className="relative hidden py-[120px] lg:block">
+            <aside id="blog-post-sidebar" className="z-5 relative h-max flex-col gap-2 lg:sticky lg:top-28 [font-feature-settings:normal]">
+              <div className="px-3 md:px-4 relative border-l border-[#555555]">
+                {/* Animated highlight bar */}
+                <div className="absolute -left-px w-px bg-brand-teal-dark opacity-[var(--o,0)] transition-[transform,height,opacity] duration-[350ms] ease-out"
+                  aria-hidden="true"
+                  style={{
+                    height: `var(--h,24px)`,
+                    transform: `translateY(var(--y,0px))`,
+                    opacity: 'var(--o,0)'
+                  }}
+                />
+                <ul className="flex flex-col gap-3">
+                  {toc.map((heading: any, idx: number) => (
+                    <li key={heading.id} style={{ paddingLeft: 0 }}>
+                      <a
+                        className={`block h-full transition-colors duration-200 text-sm font-satoshi ${activeId === heading.id ? 'text-brand-teal-dark font-bold' : 'text-gray-600'}`}
+                        href={`#${heading.id}`}
+                        onClick={e => {
+                          e.preventDefault();
+                          const el = document.getElementById(heading.id);
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            window.history.replaceState(null, '', `#${heading.id}`);
+                          }
+                        }}
+                        ref={el => {
+                          if (activeId === heading.id && el) {
+                            // Set highlight bar position/height via CSS vars
+                            const rect = el.getBoundingClientRect();
+                            const sidebarRect = el.parentElement?.parentElement?.getBoundingClientRect();
+                            if (sidebarRect) {
+                              const y = rect.top - sidebarRect.top;
+                              el.parentElement?.parentElement?.style.setProperty('--y', `${y}px`);
+                              el.parentElement?.parentElement?.style.setProperty('--h', `${rect.height}px`);
+                              el.parentElement?.parentElement?.style.setProperty('--o', '1');
                             }
-                          }}
-                          className={`block px-4 py-1.5 text-sm font-satoshi transition-colors relative
-                            ${activeId === heading.id
-                              ? 'text-brand-teal-dark font-bold'
-                              : 'text-gray-600 hover:text-brand-teal-dark'}
-                          `}
-                          style={{marginLeft: 0}}
-                        >
-                          {/* Highlight on nav line itself */}
-                          <span className={`absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-6 rounded-full transition-colors
-                            ${activeId === heading.id ? 'bg-brand-teal-dark' : 'bg-transparent'}`}
-                            style={{zIndex:1}} />
-                          {heading.text}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </nav>
-            </div>
-          </aside>
+                          }
+                        }}
+                      >
+                        {heading.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </aside>
+          </div>
         </div>
       </div>
       
