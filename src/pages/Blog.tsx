@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { fetchBlogPosts, fetchBlogPostsDirect } from '@/utils/sanityClient';
 import { BlogGridModern } from '@/components/blog/BlogGridModern';
 import Header from '@/components/Header';
@@ -20,6 +20,8 @@ const Blog: React.FC = () => {
   const seoData = useSEO('blog');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [showFilter, setShowFilter] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -62,6 +64,21 @@ const Blog: React.FC = () => {
   // Get unique categories
   const categories = [...new Set(mappedPosts.map(post => post.category).filter(Boolean))];
 
+  // Close filter dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setShowFilter(false);
+      }
+    }
+    if (showFilter) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showFilter]);
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
@@ -75,32 +92,49 @@ const Blog: React.FC = () => {
           <p className="text-lg md:text-xl mb-8 max-w-2xl">
             Explore the latest trends in web development, startup growth, and digital innovation. Your guide to building better digital experiences.
           </p>
-          {/* Redesigned Filters and Search */}
-          <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl justify-center items-center mt-4">
-            <div className="relative w-full md:w-1/2">
-              <Search className="absolute left-4 top-3 text-gray-400" size={18} />
-              <input
-                type="text"
-                placeholder="Search posts..."
-                className="pl-12 pr-4 py-2 w-full rounded-full bg-white/90 border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black font-satoshi placeholder-gray-400 transition"
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-              />
+          {/* Modern Search & Filter UI - only show if >10 articles, desktop only */}
+          {mappedPosts.length > 10 && (
+            <div className="hidden md:flex w-full max-w-2xl justify-center items-center mt-4 gap-4 relative">
+              {/* Search Bar */}
+              <div className="relative flex-1">
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  className="pl-12 pr-4 py-3 w-full rounded-full bg-white/90 border border-gray-200 shadow-md focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black font-satoshi placeholder-gray-400 text-lg transition"
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  style={{ minWidth: 280, maxWidth: 480 }}
+                />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={22} />
+              </div>
+              {/* Filter Icon */}
+              <div className="relative" ref={filterRef}>
+                <button
+                  className="flex items-center justify-center w-12 h-12 rounded-full bg-white/90 border border-gray-200 shadow-md hover:bg-[#2ed6c5]/10 transition"
+                  onClick={() => setShowFilter(v => !v)}
+                  aria-label="Filter articles"
+                >
+                  <Filter className="text-[#2ed6c5]" size={24} />
+                </button>
+                {/* Dropdown */}
+                {showFilter && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-lg z-20 p-4">
+                    <div className="mb-2 text-sm font-semibold text-gray-700">Filter by category</div>
+                    <select
+                      className="w-full p-2 rounded-lg border border-gray-200 bg-gray-50 text-gray-700 font-satoshi"
+                      value={selectedCategory}
+                      onChange={e => { setSelectedCategory(e.target.value); setShowFilter(false); }}
+                    >
+                      <option value="">All Categories</option>
+                      {categories.map(cat => (
+                        <option key={cat} value={cat}>{cat}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="relative w-full md:w-1/2">
-              <Filter className="absolute left-4 top-3 text-gray-400" size={18} />
-              <select
-                className="pl-12 pr-4 py-2 w-full rounded-full bg-white/90 border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2ed6c5] text-black font-satoshi transition"
-                value={selectedCategory}
-                onChange={e => setSelectedCategory(e.target.value)}
-              >
-                <option value="">All Categories</option>
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+          )}
         </div>
       </section>
       {/* Articles Section */}

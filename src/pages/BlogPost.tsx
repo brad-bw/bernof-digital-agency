@@ -72,6 +72,9 @@ const BlogPost: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const seoData = useSEO('blog-post');
 
+  // Scrollspy state
+  const [activeId, setActiveId] = useState<string | null>(null);
+
   useEffect(() => {
     if (!slug) return;
     setIsLoading(true);
@@ -111,6 +114,26 @@ const BlogPost: React.FC = () => {
     month: 'long', 
     day: 'numeric' 
   }) : '';
+
+  useEffect(() => {
+    if (!toc.length) return;
+    const handleScroll = () => {
+      let currentId = toc[0]?.id;
+      for (const heading of toc) {
+        const el = document.getElementById(heading.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            currentId = heading.id;
+          }
+        }
+      }
+      setActiveId(currentId);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [toc]);
 
   if (!slug) return <Navigate to="/blog" replace />;
 
@@ -238,35 +261,37 @@ const BlogPost: React.FC = () => {
                 Let's discuss your project and bring your vision to life with our expert development team.
               </p>
               <Link 
-                to="/contact" 
+                to="/#discovery-call" 
                 className="inline-flex items-center bg-white text-brand-teal-dark px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
-                Start Your Project
+                Book Your Free Discovery Call
               </Link>
             </div>
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 hidden lg:block">
             <div className="sticky top-8">
               {/* Table of Contents */}
               {toc.length > 0 && (
-                <div className="bg-gray-50 rounded-2xl p-6 mb-8">
-                  <h3 className="text-lg font-bold text-brand-teal-dark mb-4 font-satoshi">On this page</h3>
-                  <nav className="space-y-2">
+                <nav className="border-l-2 border-gray-200 pl-6 mb-8">
+                  <h3 className="text-base font-semibold text-gray-700 mb-4 tracking-wide uppercase font-satoshi">On this page</h3>
+                  <ul className="space-y-2">
                     {toc.map((heading: any) => (
-                      <a
-                        key={heading.id}
-                        href={`#${heading.id}`}
-                        className={`block text-sm hover:text-brand-teal-dark transition-colors ${
-                          heading.level === 'h3' ? 'ml-4 text-gray-600' : 'text-gray-700 font-medium'
-                        }`}
-                      >
-                        {heading.text}
-                      </a>
+                      <li key={heading.id}>
+                        <a
+                          href={`#${heading.id}`}
+                          className={`block text-sm transition-colors font-satoshi rounded-r-lg px-2 py-1
+                            ${heading.level === 'h3' ? 'ml-4 text-gray-500' : 'text-gray-700 font-medium'}
+                            ${activeId === heading.id ? 'bg-brand-teal/10 text-brand-teal-dark font-bold border-r-4 border-brand-teal-dark' : ''}
+                          `}
+                        >
+                          {heading.text}
+                        </a>
+                      </li>
                     ))}
-                  </nav>
-                </div>
+                  </ul>
+                </nav>
               )}
 
               {/* Share Section */}
