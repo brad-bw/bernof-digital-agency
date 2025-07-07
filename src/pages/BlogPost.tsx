@@ -130,9 +130,10 @@ const BlogPost: React.FC = () => {
     day: 'numeric' 
   }) : '';
 
-  // IntersectionObserver scrollspy for H2s
+  // Sticky sidebar and scrollspy
   useEffect(() => {
     if (!post?.body) return;
+    // Scrollspy: observe all H2s
     const h2Ids = post.body
       .filter((block: any) => block._type === 'block' && block.style === 'h2')
       .map((block: any) => block._key);
