@@ -11,7 +11,5 @@
   [headers.values]
     Access-Control-Allow-Origin = "*"
 
-[[redirects]]
-  from = "/blog/*"
-  to = "https://blog.bernofco.com/:splat"
-  status = 200 
+[dev]
+targetPort = 3000 
