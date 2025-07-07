@@ -8,27 +8,16 @@ import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
 
-// Utility to extract TOC: only h2 as main, h3 as children
+// Utility to extract TOC: only h3 and h4, flat list
 function extractTOC(blocks: any[]) {
   if (!blocks) return [];
-  const toc: any[] = [];
-  let currentH2: any = null;
-  blocks.forEach(block => {
-    if (block._type === 'block' && block.style === 'h2') {
-      currentH2 = {
-        id: block._key,
-        text: block.children?.map((child: any) => child.text).join(' ') || '',
-        children: [],
-      };
-      toc.push(currentH2);
-    } else if (block._type === 'block' && block.style === 'h3' && currentH2) {
-      currentH2.children.push({
-        id: block._key,
-        text: block.children?.map((child: any) => child.text).join(' ') || '',
-      });
-    }
-  });
-  return toc;
+  return blocks
+    .filter(block => block._type === 'block' && (block.style === 'h3' || block.style === 'h4'))
+    .map(block => ({
+      id: block._key,
+      text: block.children?.map((child: any) => child.text).join(' ') || '',
+      level: block.style,
+    }));
 }
 
 const portableTextComponents = {
@@ -285,77 +274,37 @@ const BlogPost: React.FC = () => {
 
           {/* Sidebar */}
           <aside className="hidden lg:block sticky top-12 self-start" aria-label="Table of contents">
-            <div>
-              {/* Table of Contents */}
+            <nav className="relative pl-6 mb-8">
+              {/* Vertical nav line */}
+              <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200 rounded" style={{zIndex:0}} />
               {toc.length > 0 && (
-                <nav className="border-l-2 border-gray-200 pl-4 mb-8">
-                  <h3 className="text-xs font-semibold text-gray-500 mb-3 tracking-widest uppercase font-satoshi">On this page</h3>
-                  <ul className="space-y-0.5">
-                    {toc.map((h2: any) => (
-                      <li key={h2.id}>
-                        <a
-                          href={`#${h2.id}`}
-                          onClick={e => {
-                            e.preventDefault();
-                            const el = document.getElementById(h2.id);
-                            if (el) {
-                              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                              window.history.replaceState(null, '', `#${h2.id}`);
-                            }
-                          }}
-                          className={`block text-[15px] leading-tight font-satoshi px-2 py-1 border-l-4 transition-colors
-                            ${activeId === h2.id
-                              ? 'border-brand-teal-dark bg-brand-teal/10 text-brand-teal-dark font-bold'
-                              : 'border-transparent text-gray-800 hover:text-brand-teal-dark hover:bg-brand-teal/5'}
-                          `}
-                          style={{ fontWeight: activeId === h2.id ? 700 : 500 }}
-                        >
-                          {h2.text}
-                        </a>
-                        {h2.children && h2.children.length > 0 && (
-                          <ul className="ml-4 mt-0.5 space-y-0.5 border-l border-gray-100 pl-3">
-                            {h2.children.map((h3: any) => (
-                              <li key={h3.id}>
-                                <a
-                                  href={`#${h3.id}`}
-                                  onClick={e => {
-                                    e.preventDefault();
-                                    const el = document.getElementById(h3.id);
-                                    if (el) {
-                                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                      window.history.replaceState(null, '', `#${h3.id}`);
-                                    }
-                                  }}
-                                  className={`block text-[14px] leading-tight font-satoshi px-2 py-1 border-l-4 transition-colors
-                                    ${activeId === h3.id
-                                      ? 'border-brand-teal-dark bg-brand-teal/10 text-brand-teal-dark font-semibold'
-                                      : 'border-transparent text-gray-500 hover:text-brand-teal-dark hover:bg-brand-teal/5'}
-                                  `}
-                                  style={{ fontWeight: activeId === h3.id ? 600 : 400 }}
-                                >
-                                  {h3.text}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                <ul className="space-y-1 relative z-10">
+                  {toc.map((heading: any) => (
+                    <li key={heading.id}>
+                      <a
+                        href={`#${heading.id}`}
+                        onClick={e => {
+                          e.preventDefault();
+                          const el = document.getElementById(heading.id);
+                          if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            window.history.replaceState(null, '', `#${heading.id}`);
+                          }
+                        }}
+                        className={`block px-4 py-2 text-base font-satoshi transition-colors border-l-4
+                          ${activeId === heading.id
+                            ? 'border-brand-teal-dark bg-white text-brand-teal-dark font-bold shadow-sm'
+                            : 'border-transparent text-gray-700 hover:text-brand-teal-dark hover:bg-gray-50'}
+                        `}
+                        style={{marginLeft: heading.level === 'h4' ? '1.25rem' : 0}}
+                      >
+                        {heading.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               )}
-
-              {/* Share Section */}
-              <div className="bg-gray-50 rounded-2xl p-6">
-                <h3 className="text-lg font-bold text-brand-teal-dark mb-4 font-satoshi">Share this article</h3>
-                <div className="flex space-x-3">
-                  <button className="p-2 bg-brand-teal-dark text-white rounded-lg hover:bg-brand-teal transition-colors">
-                    <Share2 size={16} />
-                  </button>
-                  {/* Add more share buttons as needed */}
-                </div>
-              </div>
-            </div>
+            </nav>
           </aside>
         </div>
       </div>
