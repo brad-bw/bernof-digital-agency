@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { fetchBlogPostsDirect } from '@/utils/sanityClient';
 import { ArrowLeft, Calendar, User, Share2, Clock, Tag } from 'lucide-react';
@@ -77,6 +77,10 @@ const BlogPost: React.FC = () => {
   // Add state for expanded TOC sections
   const [expandedToc, setExpandedToc] = useState<string | null>(null);
 
+  // Ref for first paragraph/body text
+  const firstParagraphRef = useRef<HTMLDivElement | null>(null);
+  const [sidebarTop, setSidebarTop] = useState(0);
+
   useEffect(() => {
     if (!slug) return;
     setIsLoading(true);
@@ -136,6 +140,14 @@ const BlogPost: React.FC = () => {
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, [toc]);
+
+  // After mount, measure first paragraph offset and set sidebar top
+  useEffect(() => {
+    if (firstParagraphRef.current) {
+      const rect = firstParagraphRef.current.getBoundingClientRect();
+      setSidebarTop(rect.top + window.scrollY - 24); // 24px for a little breathing room
+    }
+  }, [post]);
 
   if (!slug) return <Navigate to="/blog" replace />;
 
@@ -246,7 +258,21 @@ const BlogPost: React.FC = () => {
             )}
             {/* Article Content */}
             <article className="prose prose-lg max-w-none font-satoshi">
-              <PortableText value={post.body} components={portableTextComponents} />
+              {post.body && post.body.map((block: any, i: number) => {
+                if (
+                  block._type === 'block' &&
+                  block.style === 'normal' &&
+                  !post.body.slice(0, i).some((b: any) => b._type === 'block' && b.style === 'normal')
+                ) {
+                  // First normal paragraph
+                  return (
+                    <div ref={firstParagraphRef} key={block._key}>
+                      <PortableText value={[block]} components={portableTextComponents} />
+                    </div>
+                  );
+                }
+                return <PortableText key={block._key} value={[block]} components={portableTextComponents} />;
+              })}
             </article>
             {/* CTA Section */}
             <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
@@ -264,7 +290,7 @@ const BlogPost: React.FC = () => {
           </div>
           {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
           <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
-            <div className="sticky top-8">
+            <div className="sticky" style={{ top: `${sidebarTop}px` }}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
