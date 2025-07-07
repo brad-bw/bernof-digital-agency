@@ -83,7 +83,6 @@ const App = () => {
                       <Route path="/it/startup-development" element={<ItalyStartupDevelopment />} />
                       
                       <Route path="/blog/:slug" element={<BlogPost />} />
-                      <Route path="/blog/wp-admin/*" element={<WordPressAdmin />} />
                       
                       <Route path="*" element={<NotFound />} />
                     </Routes>
@@ -95,24 +94,6 @@ const App = () => {
         </ThemeProvider>
       </HelmetProvider>
     </ErrorBoundary>
-  );
-};
-
-// WordPress Admin Redirect Component
-const WordPressAdmin: React.FC = () => {
-  React.useEffect(() => {
-    // Redirect to WordPress.com admin
-    window.location.href = 'https://bernofco.wordpress.com/wp-admin/';
-  }, []);
-
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-        <h2 className="text-xl font-semibold mb-2">Redirecting to WordPress Admin...</h2>
-        <p className="text-gray-600">You will be redirected to the WordPress.com admin panel.</p>
-      </div>
-    </div>
   );
 };
 
