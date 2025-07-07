@@ -90,6 +90,8 @@ const BlogPost: React.FC = () => {
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const [isSidebarSticky, setIsSidebarSticky] = useState(false);
 
+  const [sidebarMarginTop, setSidebarMarginTop] = useState(0);
+
   useEffect(() => {
     if (!slug) return;
     setIsLoading(true);
@@ -173,6 +175,22 @@ const BlogPost: React.FC = () => {
     handleSidebarSticky();
     return () => window.removeEventListener('scroll', handleSidebarSticky);
   }, [firstParagraphRef, sidebarRef]);
+
+  // Calculate sidebar margin-top so first item aligns with first paragraph
+  useEffect(() => {
+    function updateSidebarMargin() {
+      if (firstParagraphRef.current && sidebarRef.current) {
+        const paraRect = firstParagraphRef.current.getBoundingClientRect();
+        const sidebarRect = sidebarRef.current.getBoundingClientRect();
+        // Calculate the offset between the first paragraph and the sidebar container
+        const offset = paraRect.top - sidebarRect.top;
+        setSidebarMarginTop(offset > 0 ? offset : 0);
+      }
+    }
+    updateSidebarMargin();
+    window.addEventListener('resize', updateSidebarMargin);
+    return () => window.removeEventListener('resize', updateSidebarMargin);
+  }, [post]);
 
   if (!slug) return <Navigate to="/blog" replace />;
 
@@ -314,8 +332,8 @@ const BlogPost: React.FC = () => {
             </div>
           </div>
           {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
-          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents" style={{ top: `${sidebarTop}px` }}>
-            <div ref={sidebarRef} className={isSidebarSticky ? 'sticky' : ''} style={isSidebarSticky ? { top: 0 } : {}}>
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
+            <div ref={sidebarRef} className={isSidebarSticky ? 'sticky' : ''} style={{ top: isSidebarSticky ? 0 : undefined, marginTop: `${sidebarMarginTop}px` }}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
