@@ -84,7 +84,7 @@ const BlogPost: React.FC = () => {
   // Ref for first paragraph/body text
   const firstParagraphRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  const [sidebarTop, setSidebarTop] = useState(0);
+  const [sidebarStickyTop, setSidebarStickyTop] = useState(0);
 
   // Sticky logic for sidebar
   const sidebarRef = useRef<HTMLDivElement | null>(null);
@@ -165,29 +165,21 @@ const BlogPost: React.FC = () => {
     return () => observer.disconnect();
   }, [post]);
 
-  // Calculate sidebar top so it aligns with first paragraph
+  // Dynamically calculate sticky top for sidebar to align with first paragraph
   useEffect(() => {
-    if (firstParagraphRef.current && wrapperRef.current) {
-      const paraRect = firstParagraphRef.current.getBoundingClientRect();
-      const wrapperRect = wrapperRef.current.getBoundingClientRect();
-      const offset = paraRect.top - wrapperRect.top;
-      setSidebarTop(offset);
+    function updateSidebarStickyTop() {
+      if (firstParagraphRef.current && wrapperRef.current) {
+        const paraRect = firstParagraphRef.current.getBoundingClientRect();
+        const wrapperRect = wrapperRef.current.getBoundingClientRect();
+        // The offset from the top of the viewport to the first paragraph, minus the wrapper's top
+        const offset = paraRect.top - wrapperRect.top;
+        setSidebarStickyTop(offset > 0 ? offset : 0);
+      }
     }
+    updateSidebarStickyTop();
+    window.addEventListener('resize', updateSidebarStickyTop);
+    return () => window.removeEventListener('resize', updateSidebarStickyTop);
   }, [post]);
-
-  // Sticky logic for sidebar
-  useEffect(() => {
-    function handleSidebarSticky() {
-      if (!firstParagraphRef.current || !sidebarRef.current) return;
-      const paraRect = firstParagraphRef.current.getBoundingClientRect();
-      const sidebarRect = sidebarRef.current.getBoundingClientRect();
-      // If the top of the first paragraph is above the viewport, make sidebar sticky
-      setIsSidebarSticky(paraRect.top <= 0);
-    }
-    window.addEventListener('scroll', handleSidebarSticky, { passive: true });
-    handleSidebarSticky();
-    return () => window.removeEventListener('scroll', handleSidebarSticky);
-  }, [firstParagraphRef, sidebarRef]);
 
   if (!slug) return <Navigate to="/blog" replace />;
 
@@ -330,7 +322,7 @@ const BlogPost: React.FC = () => {
           </div>
           {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
           <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
-            <div ref={sidebarRef} className="sticky" style={{ top: 32 }}>
+            <div ref={sidebarRef} className="sticky" style={{ top: sidebarStickyTop }}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
