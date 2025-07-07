@@ -3,6 +3,13 @@ const path = require('path');
 const fetch = require('node-fetch');
 
 const BASE_URL = 'https://bernofco.com';
+const sitemapPath = path.join(__dirname, '../public/sitemap.xml');
+
+// Pre-build: Delete old sitemap if it exists
+if (fs.existsSync(sitemapPath)) {
+  fs.unlinkSync(sitemapPath);
+  console.log('🗑️  Deleted old sitemap.xml before generating new one.');
+}
 
 // 1. Use the real public routes from App.tsx
 const staticRoutes = [
@@ -83,8 +90,15 @@ function generateSitemap(urls) {
   }));
   const allUrls = [...staticUrls, ...blogUrls];
   const sitemap = generateSitemap(allUrls);
-  const outPath = path.join(__dirname, '../public/sitemap.xml');
-  fs.writeFileSync(outPath, sitemap, 'utf-8');
+  fs.writeFileSync(sitemapPath, sitemap, 'utf-8');
   console.log(`🎉 Sitemap generated with ${allUrls.length} URLs → public/sitemap.xml`);
   allUrls.forEach(u => console.log('  -', u.loc));
+
+  // Post-generation validation: ensure sitemap.xml exists
+  if (fs.existsSync(sitemapPath)) {
+    console.log('✅ sitemap.xml exists after generation.');
+  } else {
+    console.error('❌ ERROR: sitemap.xml was not generated! This is critical for SEO.');
+    process.exit(1);
+  }
 })(); 
