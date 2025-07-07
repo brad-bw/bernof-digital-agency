@@ -235,76 +235,61 @@ const BlogPost: React.FC = () => {
       </div>
 
       <div className="max-w-7xl mx-auto py-12 px-4">
-        <div ref={wrapperRef} className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
-          {/* Article Content */}
-          <div>
-            {/* Article Header */}
-            <div className="mb-8">
-              {post.categories && post.categories.length > 0 && (
-                <div className="mb-4">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
-                    <Tag className="mr-1" size={12} />
-                    {post.categories[0]}
-                  </span>
-                </div>
-              )}
-              <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
-                {post.metaTitle}
-              </h1>
-              <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
-                {post.excerpt}
-              </p>
-              {/* Meta Row */}
-              <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
-                {post.author?.name && (
-                  <div className="flex items-center">
-                    {post.author.avatar && (
-                      <img 
-                        src={post.author.avatar} 
-                        alt={post.author.name}
-                        className="w-8 h-8 rounded-full mr-3"
-                      />
-                    )}
-                    <span className="font-medium text-gray-700">{post.author.name}</span>
-                  </div>
-                )}
-                <div className="flex items-center">
-                  <Calendar className="mr-2" size={16} />
-                  <span>{formattedDate}</span>
-                </div>
-                <div className="flex items-center">
-                  <Clock className="mr-2" size={16} />
-                  <span>{readingTime} min read</span>
-                </div>
-              </div>
+        {/* Article Header, Meta, Featured Image */}
+        <div className="mb-12">
+          {post.categories && post.categories.length > 0 && (
+            <div className="mb-4">
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
+                <Tag className="mr-1" size={12} />
+                {post.categories[0]}
+              </span>
             </div>
-            {/* Featured Image */}
-            {post.featuredImage?.asset?.url && (
-              <div className="mb-12">
-                <img 
-                  src={post.featuredImage.asset.url} 
-                  alt={post.featuredImage.alt || post.metaTitle} 
-                  className="w-full rounded-2xl shadow-lg"
-                />
+          )}
+          <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
+            {post.metaTitle}
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
+            {post.excerpt}
+          </p>
+          {/* Meta Row */}
+          <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
+            {post.author?.name && (
+              <div className="flex items-center">
+                {post.author.avatar && (
+                  <img 
+                    src={post.author.avatar} 
+                    alt={post.author.name}
+                    className="w-8 h-8 rounded-full mr-3"
+                  />
+                )}
+                <span className="font-medium text-gray-700">{post.author.name}</span>
               </div>
             )}
-            {/* Article Content */}
+            <div className="flex items-center">
+              <Calendar className="mr-2" size={16} />
+              <span>{formattedDate}</span>
+            </div>
+            <div className="flex items-center">
+              <Clock className="mr-2" size={16} />
+              <span>{readingTime} min read</span>
+            </div>
+          </div>
+          {post.featuredImage?.asset?.url && (
+            <div className="mb-12">
+              <img 
+                src={post.featuredImage.asset.url} 
+                alt={post.featuredImage.alt || post.metaTitle} 
+                className="w-full rounded-2xl shadow-lg"
+              />
+            </div>
+          )}
+        </div>
+        {/* Grid starts at first paragraph/body text */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(260px,1fr)] gap-12 items-start">
+          {/* Article Content */}
+          <div>
             <article className="prose prose-lg max-w-none font-satoshi">
-              {post.body && post.body.map((block: any, i: number) => {
-                if (
-                  block._type === 'block' &&
-                  block.style === 'normal' &&
-                  !post.body.slice(0, i).some((b: any) => b._type === 'block' && b.style === 'normal')
-                ) {
-                  // First normal paragraph
-                  return (
-                    <div ref={firstParagraphRef} key={block._key}>
-                      <PortableText value={[block]} components={portableTextComponents} />
-                    </div>
-                  );
-                }
-                return <PortableText key={block._key} value={[block]} components={portableTextComponents} />;
-              })}
+              <PortableText value={post.body} components={portableTextComponents} />
             </article>
             {/* CTA Section */}
             <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
@@ -320,9 +305,9 @@ const BlogPost: React.FC = () => {
               </Link>
             </div>
           </div>
-          {/* Sidebar - outside content area, right-aligned, sticky, small font, subtle nav line */}
+          {/* Sidebar - sticky, no JS offset, starts at first paragraph */}
           <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Table of contents">
-            <div ref={sidebarRef} className="sticky" style={{ top: sidebarStickyTop }}>
+            <div className="sticky" style={{ top: 32 }}>
               <nav className="relative pl-6">
                 {/* Subtle vertical nav line */}
                 <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-gray-200" style={{zIndex:0}} />
