@@ -1,3 +1,4 @@
+console.log("=== SITEMAP SCRIPT RAN AT: " + new Date().toISOString());
 const fs = require('fs');
 const path = require('path');
 const fetch = require('node-fetch');
