@@ -7,7 +7,7 @@ exports.handler = async function(event, context) {
     };
   }
 
-  const query = '*[_type == "blogPost"] | order(publishedAt desc) { _id, metaTitle, metaDescription, slug, featuredImage { asset->{url}, alt }, excerpt, body, categories, tags, author { name, bio, image { asset->{url} }, twitter, linkedin, website }, publishedAt, focusKeyword, schemaType, readingTime, relatedPosts[]->{ _id, metaTitle, slug }, openGraphImage { asset->{url} }, twitterCardType, socialDescription, canonicalUrl, noIndex, customScripts }';
+  const query = '*[_type == "blogPost"] | order(publishedAt desc) { _id, metaTitle, metaDescription, slug, featuredImage { asset->{url}, alt }, cardThumbnail { asset->{url}, alt }, excerpt, body, categories, tags, author { name, bio, image { asset->{url} }, twitter, linkedin, website }, publishedAt, focusKeyword, schemaType, readingTime, relatedPosts[]->{ _id, metaTitle, slug }, openGraphImage { asset->{url} }, twitterCardType, socialDescription, canonicalUrl, noIndex, customScripts }';
   const encodedQuery = encodeURIComponent(query);
   const url = `https://kvyko3sv.api.sanity.io/v2023-10-01/data/query/production?query=${encodedQuery}`;
 
