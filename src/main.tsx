@@ -14,3 +14,12 @@ if (container) {
     </HelmetProvider>
   )
 }
+
+// Unregister any existing service worker (after removing sw.js)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      registrations.forEach(reg => reg.unregister());
+    });
+  });
+}
