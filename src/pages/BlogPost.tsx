@@ -285,7 +285,7 @@ const BlogPost: React.FC = () => {
                   <span>{readingTime} min read</span>
                 </div>
               </div>
-              {/* Featured Image - fixed aspect ratio, proper margin */}
+              {/* Featured Image - fixed aspect ratio, proper margin, always same width as article body */}
               {post.featuredImage?.asset?.url && (
                 <div className="mb-10">
                   <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
@@ -297,22 +297,74 @@ const BlogPost: React.FC = () => {
                   </div>
                 </div>
               )}
-              {/* Article Content */}
-              <article className="prose prose-lg max-w-none font-satoshi">
-                <PortableText value={post.body} components={portableTextComponents} />
-              </article>
-              {/* CTA Section */}
-              <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
-                <h3 className="text-2xl font-bold mb-4">Ready to build something amazing?</h3>
-                <p className="text-lg mb-6 opacity-90">
-                  Let's discuss your project and bring your vision to life with our expert development team.
-                </p>
-                <Link 
-                  to="/#discovery-call" 
-                  className="inline-flex items-center bg-white text-brand-teal-dark px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-                >
-                  Book Your Free Discovery Call
-                </Link>
+              {/* Grid: sidebar + article body, starts at first paragraph */}
+              <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,180px)_1fr] gap-0 items-start">
+                {/* Sidebar - left, sticky, desktop only */}
+                <div className="hidden lg:block pt-0">
+                  <aside id="blog-post-sidebar" className="sticky top-28 z-5 h-max flex-col gap-2">
+                    <div ref={sidebarContainerRef} className="px-2 relative border-l border-[#555555]">
+                      {/* Animated highlight bar */}
+                      <div className="absolute -left-px w-px bg-brand-teal-dark opacity-[var(--o,0)] transition-[transform,height,opacity] duration-[350ms] ease-out"
+                        aria-hidden="true"
+                        style={{
+                          height: `var(--h,24px)`,
+                          transform: `translateY(var(--y,0px))`,
+                          opacity: 'var(--o,0)'
+                        }}
+                      />
+                      <ul className="flex flex-col gap-3">
+                        {toc.map((heading: any, idx: number) => (
+                          <li key={heading.id} style={{ paddingLeft: 0 }}>
+                            <a
+                              className={`block h-full transition-colors duration-200 text-sm font-satoshi ${activeId === heading.id ? 'text-brand-teal-dark font-bold' : 'text-gray-600'}`}
+                              href={`#${heading.id}`}
+                              onClick={e => {
+                                e.preventDefault();
+                                const el = document.getElementById(heading.id);
+                                if (el) {
+                                  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                  window.history.replaceState(null, '', `#${heading.id}`);
+                                }
+                              }}
+                              ref={el => {
+                                if (activeId === heading.id && el && sidebarContainerRef.current) {
+                                  // Set highlight bar position/height via CSS vars on the sidebar container
+                                  const rect = el.getBoundingClientRect();
+                                  const containerRect = sidebarContainerRef.current.getBoundingClientRect();
+                                  const y = rect.top - containerRect.top;
+                                  sidebarContainerRef.current.style.setProperty('--y', `${y}px`);
+                                  sidebarContainerRef.current.style.setProperty('--h', `${rect.height}px`);
+                                  sidebarContainerRef.current.style.setProperty('--o', '1');
+                                }
+                              }}
+                            >
+                              {heading.text}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </aside>
+                </div>
+                {/* Article body column, filter out first h1 from PortableText body */}
+                <div>
+                  <article className="prose prose-lg max-w-none font-satoshi">
+                    <PortableText value={post.body?.filter((block: any, i: number) => !(i === 0 && block.style === 'h1'))} components={portableTextComponents} />
+                  </article>
+                  {/* CTA Section */}
+                  <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
+                    <h3 className="text-2xl font-bold mb-4">Ready to build something amazing?</h3>
+                    <p className="text-lg mb-6 opacity-90">
+                      Let's discuss your project and bring your vision to life with our expert development team.
+                    </p>
+                    <Link 
+                      to="/#discovery-call" 
+                      className="inline-flex items-center bg-white text-brand-teal-dark px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                    >
+                      Book Your Free Discovery Call
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
