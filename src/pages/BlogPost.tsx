@@ -48,9 +48,30 @@ const portableTextComponents = {
     normal: ({ children }: any) => <p className="my-6 text-lg text-gray-800 leading-relaxed font-satoshi">{children}</p>,
   },
   marks: {
-    link: ({ children, value }: any) => (
-      <a href={value.href} className="text-brand-teal-dark underline hover:text-brand-teal transition-colors" target="_blank" rel="noopener noreferrer">{children}</a>
-    ),
+    link: ({ children, value }: any) => {
+      const href = value.href || '';
+      const isInternal = href.startsWith('/') || href.startsWith('https://bernofco.com');
+
+      if (isInternal) {
+        // Remove domain if present for internal react-router Link
+        const to = href.startsWith('https://bernofco.com') ? href.substring('https://bernofco.com'.length) || '/' : href;
+        return (
+          <Link to={to} className="text-brand-teal-dark underline hover:text-brand-teal transition-colors">
+            {children}
+          </Link>
+        );
+      }
+      return (
+        <a
+          href={href}
+          className="text-brand-teal-dark underline hover:text-brand-teal transition-colors"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {children}
+        </a>
+      );
+    },
     strong: ({ children }: any) => <strong className="font-semibold text-brand-teal-dark">{children}</strong>,
     em: ({ children }: any) => <em className="italic text-gray-700">{children}</em>,
   },
@@ -69,7 +90,7 @@ const BlogPost: React.FC = () => {
   const [post, setPost] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const seoData = useSEO('blog-post');
+  const defaultSeoData = useSEO('blog-post'); // Get default/fallback SEO data
 
   // Scrollspy state
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -180,10 +201,60 @@ const BlogPost: React.FC = () => {
     );
   }
 
+  const dynamicSeoProps = useMemo(() => {
+    if (!post) return defaultSeoData;
+
+    const canonicalUrl = `https://bernofco.com/blog/${post.slug?.current || slug}`;
+    // Assuming 'updatedAt' might come from Sanity, otherwise fallback to publishedAt
+    const modifiedDate = post.updatedAt || post.publishedAt || new Date().toISOString();
+    const publishedDate = post.publishedAt || new Date().toISOString();
+
+    return {
+      title: `${post.metaTitle || 'Blog Post'} | Bernof Co`,
+      description: post.excerpt || defaultSeoData.description,
+      keywords: post.keywords || defaultSeoData.keywords, // Assuming 'post.keywords' is an array or string
+      canonical: canonicalUrl,
+      ogType: 'article',
+      ogImage: post.featuredImage?.asset?.url || defaultSeoData.ogImage,
+      url: canonicalUrl,
+      type: 'article',
+      schemaData: {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": canonicalUrl
+        },
+        "headline": post.metaTitle || 'Blog Post',
+        "image": post.featuredImage?.asset?.url ? [post.featuredImage.asset.url] : (defaultSeoData.schemaData as any)?.image || [],
+        "datePublished": new Date(publishedDate).toISOString(),
+        "dateModified": new Date(modifiedDate).toISOString(),
+        "author": {
+          // Assuming author is a person. If it can be an organization, add logic
+          "@type": "Person",
+          "name": post.author?.name || "Bernof Co"
+        },
+        "publisher": (defaultSeoData.schemaData as any)?.publisher || {
+          "@type": "Organization",
+          "name": "Bernof Co",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://bernofco.com/favicon.ico" // Standard logo
+          }
+        },
+        "description": post.excerpt || defaultSeoData.description,
+        // Optional: Add articleSection if categories are relevant
+        ...(post.categories && post.categories.length > 0 && { "articleSection": post.categories[0] }),
+        // Optional: Add keywords to schema if available and it's a string/array
+        ...(post.keywords && (typeof post.keywords === 'string' || Array.isArray(post.keywords)) && { "keywords": post.keywords }),
+      }
+    };
+  }, [post, slug, defaultSeoData]);
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <SEO {...seoData} />
+      <SEO {...dynamicSeoProps} />
       
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b">
@@ -216,10 +287,13 @@ const BlogPost: React.FC = () => {
             {post.author?.name && (
               <div className="flex items-center">
                 {post.author.avatar && (
-                  <img 
+                  <OptimizedImage
                     src={post.author.avatar} 
-                    alt={post.author.name}
+                    alt={post.author.name || 'Author avatar'}
                     className="w-8 h-8 rounded-full mr-3"
+                    width={32} // Small image, eager loading is fine, specify dimensions
+                    height={32}
+                    priority={false} // Not critical for LCP
                   />
                 )}
                 <span className="font-medium text-gray-700">{post.author.name}</span>
@@ -238,10 +312,13 @@ const BlogPost: React.FC = () => {
           {post.featuredImage?.asset?.url && (
             <div className="mb-10">
               <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-                <img 
+                <OptimizedImage
                   src={post.featuredImage.asset.url} 
-                  alt={post.featuredImage.alt || post.metaTitle} 
+                  alt={post.featuredImage.alt || post.metaTitle || 'Blog post featured image'}
                   className="w-full h-full object-cover"
+                  priority // Main blog post image is likely LCP
+                  // Consider adding width/height if easily determinable and consistent
+                  // For example, if max width of content area is 800px, then width={800} height={450} for 16:9
                 />
               </div>
             </div>

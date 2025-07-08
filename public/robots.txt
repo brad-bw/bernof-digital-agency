@@ -4,9 +4,9 @@ Disallow: /admin/
 Disallow: /api/
 
 # Block admin and utility pages
-Allow: /_vite/
-Allow: /node_modules/
-Allow: /*.json$
+# Allow: /_vite/ # Development path, should not be needed in production
+# Allow: /node_modules/ # Should not be publicly accessible or crawlable
+# Allow: /*.json$ # Assuming .json files are not primary content for direct indexing
 
 # Allow specific assets
 Allow: /assets/

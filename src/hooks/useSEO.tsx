@@ -237,6 +237,122 @@ export const useSEO = (page: string = 'home'): SEOConfig => {
           }
         };
       
+      case 'global-services':
+        return {
+          title: 'Global Digital Services | European Excellence, Worldwide Reach | Bernof Co',
+          description: 'Premium digital development services across Europe and beyond. 60% cost savings on web development, software solutions, and startup services. Choose your market and start saving today.',
+          keywords: 'global digital services, international web development, European software development, multi-country digital agency, cost-effective development services, software outsourcing',
+          canonical: `${baseUrl}/global-services`,
+          breadcrumbs: [
+            { name: 'Home', url: baseUrl },
+            { name: 'Global Services', url: `${baseUrl}/global-services` }
+          ],
+          schemaData: {
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebPage",
+                "@id": `${baseUrl}/global-services#webpage`,
+                "url": `${baseUrl}/global-services`,
+                "name": "Global Digital Services | Bernof Co",
+                "description": "Premium digital development services across Europe and beyond with significant cost savings.",
+                "isPartOf": { "@id": `${baseUrl}/#website` },
+                "breadcrumb": { "@id": `${baseUrl}/global-services#breadcrumb` },
+                "publisher": { "@id": `${baseUrl}/#organization` }
+              },
+              {
+                "@type": "BreadcrumbList",
+                "@id": `${baseUrl}/global-services#breadcrumb`,
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+                  { "@type": "ListItem", "position": 2, "name": "Global Services", "item": `${baseUrl}/global-services` }
+                ]
+              },
+              {
+                "@type": "Service",
+                "@id": `${baseUrl}/global-services#service`,
+                "name": "Global Digital Development Services",
+                "description": "Comprehensive digital development services including web, software, and startup solutions, offered globally with European quality and significant cost savings.",
+                "provider": { "@id": `${baseUrl}/#organization` },
+                "areaServed": [
+                  { "@type": "Country", "name": "United States" },
+                  { "@type": "Country", "name": "United Kingdom" },
+                  { "@type": "Country", "name": "Switzerland" },
+                  { "@type": "Country", "name": "Italy" },
+                  { "@type": "Place", "name": "Europe" },
+                  { "@type": "Place", "name": "North America" }
+                ],
+                "serviceType": ["Web Development", "Software Development", "Startup Development", "Digital Transformation"],
+                "hasOfferCatalog": {
+                  "@type": "OfferCatalog",
+                  "name": "Global Service Offerings",
+                  "itemListElement": [
+                    {
+                      "@type": "Offer",
+                      "itemOffered": { "@type": "Service", "name": "Web Development Solutions" }
+                    },
+                    {
+                      "@type": "Offer",
+                      "itemOffered": { "@type": "Service", "name": "Custom Software Development" }
+                    },
+                    {
+                      "@type": "Offer",
+                      "itemOffered": { "@type": "Service", "name": "Startup Development & MVP" }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        };
+
+      case 'vibe-coding':
+        return {
+          title: 'AI Coding Help & Vibe Coding Support | Fix Cursor, Lovable, Bubble Issues | Bernof Co',
+          description: 'When your AI-built app hits a wall, we break through. Expert help for Cursor crashes, Lovable scaling issues, Bubble debugging, and production-ready optimization for AI-assisted projects.',
+          keywords: 'AI coding help, vibe coding support, Cursor debugging, Bubble.io troubleshooting, Lovable app deployment, no-code development issues, AI app production scaling, AI code assistance, low-code support',
+          canonical: `${baseUrl}/vibe-coding`,
+          breadcrumbs: [
+            { name: 'Home', url: baseUrl },
+            { name: 'Vibe Coding Support', url: `${baseUrl}/vibe-coding` }
+          ],
+          schemaData: {
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebPage",
+                "@id": `${baseUrl}/vibe-coding#webpage`,
+                "url": `${baseUrl}/vibe-coding`,
+                "name": "AI & Vibe Coding Support | Bernof Co",
+                "description": "Expert assistance for AI-generated code and low-code/no-code platform challenges (Cursor, Lovable, Bubble.io).",
+                "isPartOf": { "@id": `${baseUrl}/#website` },
+                "breadcrumb": { "@id": `${baseUrl}/vibe-coding#breadcrumb` },
+                "publisher": { "@id": `${baseUrl}/#organization` }
+              },
+              {
+                "@type": "BreadcrumbList",
+                "@id": `${baseUrl}/vibe-coding#breadcrumb`,
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": baseUrl },
+                  { "@type": "ListItem", "position": 2, "name": "Vibe Coding Support", "item": `${baseUrl}/vibe-coding` }
+                ]
+              },
+              {
+                "@type": "Service",
+                "@id": `${baseUrl}/vibe-coding#service`,
+                "name": "AI & Vibe Coding Support",
+                "description": "Specialized support services for applications built with AI coding assistants (e.g., Cursor) and low-code/no-code platforms (e.g., Bubble.io, Lovable). We help debug, scale, and productionize these projects.",
+                "provider": { "@id": `${baseUrl}/#organization` },
+                "serviceType": ["Technical Support", "Software Development Consulting", "Debugging Services", "Application Scaling"],
+                "keywords": "Cursor AI, Lovable.ai, Bubble.io, AI code generation, low-code development, no-code development, debugging, scaling, production support",
+                "areaServed": [ // Assuming global remote service
+                    { "@type": "Place", "name": "Global" }
+                ]
+              }
+            ]
+          }
+        };
+
       case 'startup-development':
         return {
           title: 'Startup Development Services Europe/USA | MVP to Scale | Expert Tech Partner | Bernof Co',
