@@ -1,11 +1,19 @@
-import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Globe, TrendingUp, Users, Clock, Zap, Shield, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
+import { useSEO } from "@/hooks/useSEO";
+import Breadcrumb from "@/components/Breadcrumb"; // Assuming you might want a visual breadcrumb too
 
 const GlobalServices = () => {
+  const seoData = useSEO('global-services');
+  const breadcrumbItems = seoData.breadcrumbs || [
+    { name: "Home", url: "/" },
+    { name: "Global Services", url: "/global-services" }
+  ];
+
   const countries = [
     {
       code: 'ch',
@@ -69,14 +77,13 @@ const GlobalServices = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Helmet>
-        <title>Global Digital Services | European Excellence, Worldwide Reach | Bernof Co</title>
-        <meta name="description" content="Premium digital development services across Europe and beyond. 60% cost savings on web development, software solutions, and startup services. Choose your market and start saving today." />
-        <meta name="keywords" content="global digital services, international web development, European software development, multi-country digital agency, cost-effective development services" />
-        <link rel="canonical" href="https://bernofco.com/global-services" />
-      </Helmet>
-
+      <SEO {...seoData} />
       <Header />
+
+      {/* Optional: Visual Breadcrumb if desired, matching the schema */}
+      <div className="container mx-auto px-6 py-4">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
 
       {/* Hero Section - Fixed spacing */}
       <section className="relative min-h-[80vh] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">

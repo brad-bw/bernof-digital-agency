@@ -33,49 +33,75 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
 
+  // Determine if width/height are numbers for attribute vs style application
+  const numericWidth = typeof width === 'number' ? width : undefined;
+  const numericHeight = typeof height === 'number' ? height : undefined;
+
   useEffect(() => {
     if (priority) {
       const img = new window.Image();
       img.onload = () => setIsLoaded(true);
       img.onerror = () => setError(true);
-      img.src = src;
+      img.src = src; // Preload the main src
     }
   }, [src, priority]);
 
   const handleLoad = () => setIsLoaded(true);
-  const handleError = () => setError(true);
+  const handleError = () => {
+    setError(true);
+    setIsLoaded(true); // Stop showing placeholder if image fails
+  };
 
   const sources = getNextGenSources(src);
 
-  // Generate responsive srcSet for different screen sizes
+  // NOTE: The generateSrcSet and generateSizes functions are currently unused
+  // because scripts/convert-images.cjs only produces single-size next-gen formats.
+  // To enable responsive sizes, convert-images.cjs would need to generate multiple
+  // size variants (e.g., image-320w.webp), and these functions would need to
+  // be updated to point to those files. Then, srcSet and sizes attributes should be
+  // added to the <source> elements and the fallback <img>.
+  /*
   const generateSrcSet = (imageSrc: string) => {
+    // This is a placeholder for how it might work if image service supported ?w=
+    // Or if multiple pre-rendered sizes existed (e.g. image-320w.webp)
     const sizes = [320, 640, 768, 1024, 1280];
     return sizes
-      .map(size => `${imageSrc}?w=${size} ${size}w`)
+      .map(size => `${imageSrc}?w=${size} ${size}w`) // Example, adjust if pre-rendered
       .join(', ');
   };
 
-  // Generate sizes attribute for responsive images
   const generateSizes = () => {
-    if (width && height) {
-      return `(max-width: 640px) 100vw, (max-width: 1024px) 50vw, ${width}px`;
+    if (numericWidth) {
+      return `(max-width: 640px) 100vw, (max-width: 1024px) 50vw, ${numericWidth}px`;
     }
     return '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
   };
+  */
 
   if (error) {
     return (
       <div 
-        className={`bg-gray-100 flex items-center justify-center ${className}`}
-        style={{ width: width || 'auto', height: height || 'auto' }}
+        className={`bg-gray-200 flex items-center justify-center text-gray-500 ${className}`}
+        style={{
+          width: numericWidth ? `${numericWidth}px` : (width || '100%'),
+          height: numericHeight ? `${numericHeight}px` : (height || 'auto'),
+          aspectRatio: numericWidth && numericHeight ? `${numericWidth}/${numericHeight}` : undefined
+        }}
       >
-        <span className="text-gray-400 text-sm">Image failed to load</span>
+        <span className="text-xs p-2 text-center">Image failed to load: {alt}</span>
       </div>
     );
   }
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ width: width || undefined, height: height || undefined }}>
+    <div
+      className={`relative overflow-hidden ${className}`}
+      style={{
+        width: numericWidth ? `${numericWidth}px` : (width || undefined),
+        height: numericHeight ? `${numericHeight}px` : (height || undefined),
+        aspectRatio: numericWidth && numericHeight ? `${numericWidth}/${numericHeight}` : undefined
+      }}
+    >
       {/* Placeholder */}
       {!isLoaded && (
         <div 
@@ -83,7 +109,9 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
           style={{ 
             backgroundImage: `url(${placeholder})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            width: '100%',
+            height: '100%'
           }}
         />
       )}
@@ -93,18 +121,16 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         <img
           src={src}
           alt={alt}
-          width={width}
-          height={height}
-          className={`transition-opacity duration-300 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          width={numericWidth} // Use numeric width for attribute
+          height={numericHeight} // Use numeric height for attribute
+          className={`transition-opacity duration-300 w-full h-full ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           onLoad={handleLoad}
           onError={handleError}
           style={{
-            width: width ? `${width}px` : 'auto',
-            height: height ? `${height}px` : 'auto',
-            objectFit: 'cover',
-            aspectRatio: width && height ? `${width} / ${height}` : undefined
+            objectFit: 'cover', // Applied via className or explicitly if needed
+            // aspectRatio is handled by the parent div or Tailwind's aspect classes
           }}
         />
       </picture>

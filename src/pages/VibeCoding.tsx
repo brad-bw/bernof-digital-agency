@@ -1,7 +1,9 @@
 
-import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import SEO from '@/components/SEO';
+import { useSEO } from '@/hooks/useSEO';
+import Breadcrumb from '@/components/Breadcrumb'; // Assuming you might want a visual breadcrumb too
 import VibeHero from '@/components/vibe/VibeHero';
 import VibeProblem from '@/components/vibe/VibeProblem';
 import VibeSolution from '@/components/vibe/VibeSolution';
@@ -11,20 +13,22 @@ import VibeCTA from '@/components/vibe/VibeCTA';
 import VibeMarketInsights from '@/components/vibe/VibeMarketInsights';
 
 const VibeCoding = () => {
+  const seoData = useSEO('vibe-coding');
+  const breadcrumbItems = seoData.breadcrumbs || [
+    { name: "Home", url: "/" },
+    { name: "Vibe Coding Support", url: "/vibe-coding" }
+  ];
+
   return (
     <div className="min-h-screen bg-white font-inter">
-      <Helmet>
-        <title>AI Coding Help & Vibe Coding Support | Fix Cursor, Lovable, Bubble Issues | Bernof Co</title>
-        <meta name="description" content="When your AI-built app hits a wall, we break through. Expert help for Cursor crashes, Lovable scaling issues, Bubble debugging, and production-ready optimization." />
-        <meta name="keywords" content="AI coding help, vibe coding support, Cursor debugging, Bubble troubleshooting, Lovable app deployment, no-code development issues, AI app production scaling" />
-        <meta property="og:title" content="AI Coding Help & Vibe Coding Support | Bernof Co" />
-        <meta property="og:description" content="From Cursor crashes to Bubble breakdowns - get expert help to scale your vibe-coded dreams into production-ready reality." />
-        <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://bernofco.com/vibe-coding" />
-      </Helmet>
-      
+      <SEO {...seoData} />
       <Header />
       
+      {/* Optional: Visual Breadcrumb if desired, matching the schema */}
+      <div className="container mx-auto px-6 py-4">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
+
       <main>
         <VibeHero />
         <VibeMarketInsights />
