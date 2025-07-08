@@ -7,6 +7,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
+import logError from '@/utils/logError';
+import OptimizedImage from '@/components/OptimizedImage';
 
 // Utility to extract TOC: only h2
 function extractTOC(blocks: any[]) {
@@ -116,9 +118,9 @@ const BlogPost: React.FC = () => {
         }
       })
       .catch((err) => {
-        setError(err.message || 'Error fetching blog post');
+        const errorId = logError(err, { context: 'BlogPost fetch', extra: { slug } });
+        setError(`Error ID: ${errorId} - ${err.message || 'Error fetching blog post'}`);
         setIsLoading(false);
-        console.error('Blog post fetch error:', err);
       });
   }, [slug]);
 
@@ -185,13 +187,13 @@ const BlogPost: React.FC = () => {
   }
 
   if (error || !post) {
-    console.error('Blog post error:', error);
+    // Log error to console (already done in logError)
     return (
       <div className="min-h-screen bg-white">
         <Header />
         <div className="max-w-3xl mx-auto py-32 px-4 flex flex-col items-center justify-center blog-article font-satoshi">
           <h2 className="text-2xl font-bold mb-4 text-red-600">Unable to load article</h2>
-          <p className="text-gray-600 mb-8">Please try again later.</p>
+          <p className="text-gray-600 mb-8">{error ? `An error occurred. Please contact support with this code: ${error}` : 'Please try again later.'}</p>
           <Link to="/blog" className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold">
             <ArrowLeft className="inline-block mr-2" /> Back to Blog
           </Link>
@@ -215,9 +217,9 @@ const BlogPost: React.FC = () => {
       keywords: post.keywords || defaultSeoData.keywords, // Assuming 'post.keywords' is an array or string
       canonical: canonicalUrl,
       ogType: 'article',
-      ogImage: post.featuredImage?.asset?.url || defaultSeoData.ogImage,
+      ogImage: post.featuredImage?.asset?.url || (defaultSeoData as any).ogImage,
       url: canonicalUrl,
-      type: 'article',
+      type: 'article' as const, // Fix type to match SEOProps
       schemaData: {
         "@context": "https://schema.org",
         "@type": "Article",
@@ -226,7 +228,7 @@ const BlogPost: React.FC = () => {
           "@id": canonicalUrl
         },
         "headline": post.metaTitle || 'Blog Post',
-        "image": post.featuredImage?.asset?.url ? [post.featuredImage.asset.url] : (defaultSeoData.schemaData as any)?.image || [],
+        "image": post.featuredImage?.asset?.url ? [post.featuredImage.asset.url] : ((defaultSeoData.schemaData as any)?.image || []),
         "datePublished": new Date(publishedDate).toISOString(),
         "dateModified": new Date(modifiedDate).toISOString(),
         "author": {

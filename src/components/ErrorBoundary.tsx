@@ -1,6 +1,7 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
+import logError from '@/utils/logError';
 
 interface Props {
   children: ReactNode;
@@ -18,24 +19,26 @@ class ErrorBoundary extends Component<Props, State> {
     error: null
   };
 
+  private errorId: string | null = null;
+
   public static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-
-    // Track error in analytics
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', 'exception', {
-        description: error.message,
-        fatal: false
-      });
-    }
+    // Use centralized error logger
+    this.errorId = logError(error, {
+      context: 'ErrorBoundary',
+      extra: {
+        errorInfo,
+        url: typeof window !== 'undefined' ? window.location.href : undefined
+      }
+    });
   }
 
   private handleReset = () => {
     this.setState({ hasError: false, error: null });
+    this.errorId = null;
   };
 
   public render() {
@@ -54,6 +57,11 @@ class ErrorBoundary extends Component<Props, State> {
               <p className="text-gray-600 mb-6">
                 We're sorry, but something unexpected happened. Please try refreshing the page.
               </p>
+              {this.errorId && (
+                <div className="mb-4 text-xs text-gray-500">
+                  Error ID: <span className="font-mono">{this.errorId}</span>
+                </div>
+              )}
               {process.env.NODE_ENV === 'development' && this.state.error && (
                 <details className="text-left bg-red-50 p-4 rounded-lg mb-4">
                   <summary className="cursor-pointer text-red-800 font-medium">
