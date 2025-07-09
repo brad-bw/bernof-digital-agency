@@ -131,6 +131,7 @@ const BlogPost: React.FC = () => {
     setIsLoading(true);
     fetchBlogPostsDirect()
       .then((posts) => {
+        console.log('[BlogPost DEBUG] Posts fetched:', posts, 'Slug:', slug); // Always log posts and slug
         const found = posts.find((p: any) => (p.slug?.current || p.slug) === slug);
         setPost(found || null);
         setIsLoading(false);
