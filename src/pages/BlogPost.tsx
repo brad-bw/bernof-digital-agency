@@ -1,42 +1,50 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { fetchBlogPostsDirect } from '@/utils/sanityClient';
-import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react'; // Removed Share2 as it's not used
+import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
-import OptimizedImage from '@/components/OptimizedImage'; // Import OptimizedImage
+import OptimizedImage from '@/components/OptimizedImage';
 
 // Helper function to safely convert date inputs to ISO string
 const safeToISOString = (dateInput: any, fallbackDate: Date = new Date()): string => {
-  if (!dateInput) { // Handles null, undefined, empty string
+  if (!dateInput) {
     return fallbackDate.toISOString();
   }
   const date = new Date(dateInput);
-  // Check if date is invalid (getTime() returns NaN for invalid dates)
   if (isNaN(date.getTime())) { 
     return fallbackDate.toISOString();
   }
   return date.toISOString();
 };
 
-// Utility to extract TOC: only h2
-function extractTOC(blocks: any[]) {
-  if (!blocks) return [];
+// Revised Utility to extract TOC
+function extractTOC(blocks: any[]): Array<{ id: string; text: string }> {
+  if (!blocks || !Array.isArray(blocks)) return [];
   return blocks
-    .filter(block => block._type === 'block' && block.style === 'h2')
+    .filter(block => 
+      block && 
+      block._type === 'block' && 
+      block.style === 'h2' && 
+      block._key && // Ensure _key exists for ID
+      Array.isArray(block.children) && 
+      block.children.length > 0
+    )
     .map(block => ({
-      id: block._key, // Using _key for TOC id is more reliable
-      text: block.children?.map((child: any) => child.text).join(' ') || '',
+      id: block._key, // Use _key as the ID
+      text: block.children
+                .map((child: any) => child && typeof child.text === 'string' ? child.text : '')
+                .join('') || 'Unnamed Section', // Fallback text
     }));
 }
 
 const portableTextComponents = {
   types: {
     image: ({ value }: any) => (
-      <img // This is for images directly in PortableText, not the featured/author images
+      <img
         src={value.asset?.url}
         alt={value.alt || ''}
         className="my-8 rounded-2xl mx-auto max-h-96 w-auto shadow-lg"
@@ -50,9 +58,9 @@ const portableTextComponents = {
     ),
   },
   block: {
-    // Ensure heading IDs are unique and valid for DOM
     h1: ({ children }: any) => <h1 className="text-4xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h1>,
-    h2: ({ children, value }: any) => <h2 id={value?._key || children?.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')} className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi scroll-mt-20">{children}</h2>,
+    // Ensure H2 elements get an ID corresponding to block._key for TOC linking
+    h2: ({ children, value }: any) => <h2 id={value?._key || undefined} className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi scroll-mt-20">{children}</h2>,
     h3: ({ children }: any) => <h3 className="text-2xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h3>,
     h4: ({ children }: any) => <h4 className="text-xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h4>,
     blockquote: ({ children }: any) => (
@@ -149,23 +157,29 @@ const BlogPost: React.FC = () => {
     });
   }, [post?.publishedAt]);
 
+  // Revised useEffect for scroll handling
   useEffect(() => {
-    if (!toc.length) return;
+    if (!toc || toc.length === 0) { // More robust check
+      setActiveId(null); // Ensure activeId is cleared if no TOC
+      return;
+    }
+
     const handleScroll = () => {
-      let currentId = toc[0]?.id; // Use the ID from TOC data (block._key)
+      let currentId = toc[0]?.id; // Default to first item if available
       for (const heading of toc) {
+        if (!heading || !heading.id) continue; // Skip if heading or id is invalid
         const el = document.getElementById(heading.id); 
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 120) { // Adjust offset as needed
+          if (rect.top <= 120) { 
             currentId = heading.id;
           }
         }
       }
-      setActiveId(currentId);
+      setActiveId(currentId || null); // Ensure setActiveId gets null if no currentId found
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll(); 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [toc]);
 
@@ -176,7 +190,7 @@ const BlogPost: React.FC = () => {
       <div className="min-h-screen bg-white">
         <Header />
         <div className="max-w-7xl mx-auto py-12 px-4">
-          <div className="animate-pulse"> {/* Skeleton Loader */}
+          <div className="animate-pulse">
             <div className="h-4 w-32 bg-gray-200 rounded mb-8"></div>
             <div className="h-12 w-3/4 bg-gray-200 rounded mb-6"></div>
             <div className="h-4 w-1/2 bg-gray-200 rounded mb-8"></div>
@@ -232,7 +246,7 @@ const BlogPost: React.FC = () => {
       ogType: 'article',
       ogImage: post.featuredImage?.asset?.url || (defaultSeoData as any).ogImage,
       url: canonicalUrl,
-      type: 'article' as const, // for SEO component, if it uses it
+      type: 'article' as const,
       schemaData: {
         "@context": "https://schema.org",
         "@type": "Article",
@@ -270,8 +284,8 @@ const BlogPost: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto py-12 px-4"> {/* Main content container */}
-        <div className="max-w-3xl mx-auto"> {/* Article column */}
+      <div className="max-w-7xl mx-auto py-12 px-4">
+        <div className="max-w-3xl mx-auto">
           {post.categories && post.categories.length > 0 && (
             <div className="mb-4">
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
@@ -326,7 +340,8 @@ const BlogPost: React.FC = () => {
           )}
           
           <article className="prose prose-lg max-w-none font-satoshi">
-            <PortableText value={post.body?.filter((block: any, i: number) => !(i === 0 && block.style === 'h1')) || []} components={portableTextComponents} />
+             {/* Ensure post.body is not null/undefined before passing to PortableText */}
+            <PortableText value={post.body || []} components={portableTextComponents} />
           </article>
           
           <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
