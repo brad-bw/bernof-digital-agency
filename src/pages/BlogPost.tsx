@@ -1,14 +1,26 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { fetchBlogPostsDirect } from '@/utils/sanityClient';
-import { ArrowLeft, Calendar, User, Share2, Clock, Tag } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Clock, Tag } from 'lucide-react'; // Removed Share2 as it's not used
 import { PortableText } from '@portabletext/react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
-import logError from '@/utils/logError';
-import OptimizedImage from '@/components/OptimizedImage';
+import OptimizedImage from '@/components/OptimizedImage'; // Import OptimizedImage
+
+// Helper function to safely convert date inputs to ISO string
+const safeToISOString = (dateInput: any, fallbackDate: Date = new Date()): string => {
+  if (!dateInput) { // Handles null, undefined, empty string
+    return fallbackDate.toISOString();
+  }
+  const date = new Date(dateInput);
+  // Check if date is invalid (getTime() returns NaN for invalid dates)
+  if (isNaN(date.getTime())) { 
+    return fallbackDate.toISOString();
+  }
+  return date.toISOString();
+};
 
 // Utility to extract TOC: only h2
 function extractTOC(blocks: any[]) {
@@ -16,7 +28,7 @@ function extractTOC(blocks: any[]) {
   return blocks
     .filter(block => block._type === 'block' && block.style === 'h2')
     .map(block => ({
-      id: block._key,
+      id: block._key, // Using _key for TOC id is more reliable
       text: block.children?.map((child: any) => child.text).join(' ') || '',
     }));
 }
@@ -24,7 +36,7 @@ function extractTOC(blocks: any[]) {
 const portableTextComponents = {
   types: {
     image: ({ value }: any) => (
-      <img
+      <img // This is for images directly in PortableText, not the featured/author images
         src={value.asset?.url}
         alt={value.alt || ''}
         className="my-8 rounded-2xl mx-auto max-h-96 w-auto shadow-lg"
@@ -38,8 +50,9 @@ const portableTextComponents = {
     ),
   },
   block: {
+    // Ensure heading IDs are unique and valid for DOM
     h1: ({ children }: any) => <h1 className="text-4xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h1>,
-    h2: ({ children }: any) => <h2 className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi">{children}</h2>,
+    h2: ({ children, value }: any) => <h2 id={value?._key || children?.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')} className="text-3xl font-bold my-8 text-brand-teal-dark font-satoshi scroll-mt-20">{children}</h2>,
     h3: ({ children }: any) => <h3 className="text-2xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h3>,
     h4: ({ children }: any) => <h4 className="text-xl font-bold my-6 text-brand-teal-dark font-satoshi">{children}</h4>,
     blockquote: ({ children }: any) => (
@@ -53,9 +66,8 @@ const portableTextComponents = {
     link: ({ children, value }: any) => {
       const href = value.href || '';
       const isInternal = href.startsWith('/') || href.startsWith('https://bernofco.com');
-
+      
       if (isInternal) {
-        // Remove domain if present for internal react-router Link
         const to = href.startsWith('https://bernofco.com') ? href.substring('https://bernofco.com'.length) || '/' : href;
         return (
           <Link to={to} className="text-brand-teal-dark underline hover:text-brand-teal transition-colors">
@@ -64,10 +76,10 @@ const portableTextComponents = {
         );
       }
       return (
-        <a
-          href={href}
-          className="text-brand-teal-dark underline hover:text-brand-teal transition-colors"
-          target="_blank"
+        <a 
+          href={href} 
+          className="text-brand-teal-dark underline hover:text-brand-teal transition-colors" 
+          target="_blank" 
           rel="noopener noreferrer"
         >
           {children}
@@ -92,24 +104,15 @@ const BlogPost: React.FC = () => {
   const [post, setPost] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const defaultSeoData = useSEO('blog-post'); // Get default/fallback SEO data
+  const defaultSeoData = useSEO('blog-post'); 
 
-  // Scrollspy state
   const [activeId, setActiveId] = useState<string | null>(null);
-
-  // Add state for expanded TOC sections
-  const [expandedToc, setExpandedToc] = useState<string | null>(null);
-
-  // Refs for sidebar and wrapper
-  const wrapperRef = React.useRef<HTMLDivElement | null>(null);
-  const sidebarContainerRef = React.useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!slug) return;
     setIsLoading(true);
     fetchBlogPostsDirect()
       .then((posts) => {
-        console.log('Fetched posts for article:', posts);
         const found = posts.find((p: any) => (p.slug?.current || p.slug) === slug);
         setPost(found || null);
         setIsLoading(false);
@@ -118,16 +121,14 @@ const BlogPost: React.FC = () => {
         }
       })
       .catch((err) => {
-        const errorId = logError(err, { context: 'BlogPost fetch', extra: { slug } });
-        setError(`Error ID: ${errorId} - ${err.message || 'Error fetching blog post'}`);
+        setError(err.message || 'Error fetching blog post');
         setIsLoading(false);
+        console.error('Blog post fetch error:', err);
       });
   }, [slug]);
 
-  // Memoize TOC extraction
   const toc = useMemo(() => post?.body ? extractTOC(post.body) : [], [post?.body]);
 
-  // Calculate reading time (rough estimate: 200 words per minute)
   const readingTime = useMemo(() => {
     if (!post?.body) return 0;
     const text = post.body.map((block: any) => 
@@ -137,22 +138,26 @@ const BlogPost: React.FC = () => {
     return Math.ceil(wordCount / 200);
   }, [post?.body]);
 
-  // Format date
-  const formattedDate = post?.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  }) : '';
+  const formattedDate = useMemo(() => {
+    if (!post?.publishedAt) return '';
+    const date = new Date(post.publishedAt);
+    if (isNaN(date.getTime())) return 'Invalid Date'; 
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    });
+  }, [post?.publishedAt]);
 
   useEffect(() => {
     if (!toc.length) return;
     const handleScroll = () => {
-      let currentId = toc[0]?.id;
+      let currentId = toc[0]?.id; // Use the ID from TOC data (block._key)
       for (const heading of toc) {
-        const el = document.getElementById(heading.id);
+        const el = document.getElementById(heading.id); 
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 120) {
+          if (rect.top <= 120) { // Adjust offset as needed
             currentId = heading.id;
           }
         }
@@ -160,7 +165,7 @@ const BlogPost: React.FC = () => {
       setActiveId(currentId);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, [toc]);
 
@@ -171,7 +176,7 @@ const BlogPost: React.FC = () => {
       <div className="min-h-screen bg-white">
         <Header />
         <div className="max-w-7xl mx-auto py-12 px-4">
-          <div className="animate-pulse">
+          <div className="animate-pulse"> {/* Skeleton Loader */}
             <div className="h-4 w-32 bg-gray-200 rounded mb-8"></div>
             <div className="h-12 w-3/4 bg-gray-200 rounded mb-6"></div>
             <div className="h-4 w-1/2 bg-gray-200 rounded mb-8"></div>
@@ -187,13 +192,12 @@ const BlogPost: React.FC = () => {
   }
 
   if (error || !post) {
-    // Log error to console (already done in logError)
     return (
       <div className="min-h-screen bg-white">
         <Header />
         <div className="max-w-3xl mx-auto py-32 px-4 flex flex-col items-center justify-center blog-article font-satoshi">
           <h2 className="text-2xl font-bold mb-4 text-red-600">Unable to load article</h2>
-          <p className="text-gray-600 mb-8">{error ? `An error occurred. Please contact support with this code: ${error}` : 'Please try again later.'}</p>
+          <p className="text-gray-600 mb-8">{error || "The article could not be found or there was an issue loading it."} Please try again later.</p>
           <Link to="/blog" className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold">
             <ArrowLeft className="inline-block mr-2" /> Back to Blog
           </Link>
@@ -204,50 +208,50 @@ const BlogPost: React.FC = () => {
   }
 
   const dynamicSeoProps = useMemo(() => {
-    if (!post) return defaultSeoData;
+    if (!post) return defaultSeoData; 
 
     const canonicalUrl = `https://bernofco.com/blog/${post.slug?.current || slug}`;
-    // Assuming 'updatedAt' might come from Sanity, otherwise fallback to publishedAt
-    const modifiedDate = post.updatedAt || post.publishedAt || new Date().toISOString();
-    const publishedDate = post.publishedAt || new Date().toISOString();
+    const defaultFallbackDate = new Date(); 
+    const publishedDateString = safeToISOString(post.publishedAt, defaultFallbackDate);
+    
+    let modifiedDateForSchemaInput: any = post.updatedAt || post.publishedAt;
+    if (post.updatedAt && post.publishedAt) {
+        const pDate = new Date(post.publishedAt);
+        const uDate = new Date(post.updatedAt);
+        if (!isNaN(pDate.getTime()) && !isNaN(uDate.getTime()) && uDate < pDate) {
+            modifiedDateForSchemaInput = post.publishedAt; 
+        }
+    }
+    const modifiedDateString = safeToISOString(modifiedDateForSchemaInput, new Date(publishedDateString));
 
     return {
       title: `${post.metaTitle || 'Blog Post'} | Bernof Co`,
       description: post.excerpt || defaultSeoData.description,
-      keywords: post.keywords || defaultSeoData.keywords, // Assuming 'post.keywords' is an array or string
+      keywords: post.keywords || defaultSeoData.keywords, 
       canonical: canonicalUrl,
       ogType: 'article',
       ogImage: post.featuredImage?.asset?.url || (defaultSeoData as any).ogImage,
       url: canonicalUrl,
-      type: 'article' as const, // Fix type to match SEOProps
+      type: 'article' as const, // for SEO component, if it uses it
       schemaData: {
         "@context": "https://schema.org",
         "@type": "Article",
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": canonicalUrl
-        },
+        "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
         "headline": post.metaTitle || 'Blog Post',
-        "image": post.featuredImage?.asset?.url ? [post.featuredImage.asset.url] : ((defaultSeoData.schemaData as any)?.image || []),
-        "datePublished": new Date(publishedDate).toISOString(),
-        "dateModified": new Date(modifiedDate).toISOString(),
+        "image": post.featuredImage?.asset?.url ? [post.featuredImage.asset.url] : (defaultSeoData.schemaData as any)?.image || [],
+        "datePublished": publishedDateString,
+        "dateModified": modifiedDateString,
         "author": {
-          // Assuming author is a person. If it can be an organization, add logic
-          "@type": "Person",
+          "@type": "Person", 
           "name": post.author?.name || "Bernof Co"
         },
         "publisher": (defaultSeoData.schemaData as any)?.publisher || {
           "@type": "Organization",
           "name": "Bernof Co",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://bernofco.com/favicon.ico" // Standard logo
-          }
+          "logo": { "@type": "ImageObject", "url": "https://bernofco.com/favicon.ico" }
         },
         "description": post.excerpt || defaultSeoData.description,
-        // Optional: Add articleSection if categories are relevant
         ...(post.categories && post.categories.length > 0 && { "articleSection": post.categories[0] }),
-        // Optional: Add keywords to schema if available and it's a string/array
         ...(post.keywords && (typeof post.keywords === 'string' || Array.isArray(post.keywords)) && { "keywords": post.keywords }),
       }
     };
@@ -258,7 +262,6 @@ const BlogPost: React.FC = () => {
       <Header />
       <SEO {...dynamicSeoProps} />
       
-      {/* Breadcrumb */}
       <div className="bg-gray-50 border-b">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <Link to="/blog" className="text-brand-teal-dark hover:text-brand-teal transition-colors flex items-center font-satoshi">
@@ -267,9 +270,8 @@ const BlogPost: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto py-12 px-4">
-        <div className="max-w-3xl mx-auto">
-          {/* Article Header, Meta */}
+      <div className="max-w-7xl mx-auto py-12 px-4"> {/* Main content container */}
+        <div className="max-w-3xl mx-auto"> {/* Article column */}
           {post.categories && post.categories.length > 0 && (
             <div className="mb-4">
               <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-teal/10 text-brand-teal-dark uppercase tracking-wide">
@@ -279,21 +281,20 @@ const BlogPost: React.FC = () => {
             </div>
           )}
           <h1 className="text-4xl md:text-5xl font-bold text-brand-teal-dark mb-6 font-satoshi leading-tight">
-            {post.metaTitle}
+            {post.metaTitle || "Blog Post Title"}
           </h1>
           <p className="text-xl text-gray-600 mb-8 font-satoshi leading-relaxed">
-            {post.excerpt}
+            {post.excerpt || "Brief excerpt about the blog post."}
           </p>
-          {/* Meta Row */}
           <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
             {post.author?.name && (
               <div className="flex items-center">
-                {post.author?.image?.asset?.url && (
-                  <OptimizedImage
-                    src={post.author.image.asset.url}
+                {post.author.avatar && typeof post.author.avatar === 'string' && (
+                  <OptimizedImage 
+                    src={post.author.avatar} 
                     alt={post.author.name || 'Author avatar'}
                     className="w-8 h-8 rounded-full mr-3"
-                    width={32}
+                    width={32} 
                     height={32}
                     priority={false}
                   />
@@ -310,26 +311,24 @@ const BlogPost: React.FC = () => {
               <span>{readingTime} min read</span>
             </div>
           </div>
-          {/* Featured Image - fixed aspect ratio, proper margin, always same width as article body */}
-          {post.featuredImage?.asset?.url && (
+          
+          {post.featuredImage?.asset?.url && typeof post.featuredImage.asset.url === 'string' && (
             <div className="mb-10">
               <div className="w-full aspect-[16/9] bg-gray-100 rounded-2xl overflow-hidden shadow-lg">
-                <OptimizedImage
+                <OptimizedImage 
                   src={post.featuredImage.asset.url} 
                   alt={post.featuredImage.alt || post.metaTitle || 'Blog post featured image'}
                   className="w-full h-full object-cover"
-                  priority // Main blog post image is likely LCP
-                  // Consider adding width/height if easily determinable and consistent
-                  // For example, if max width of content area is 800px, then width={800} height={450} for 16:9
+                  priority 
                 />
               </div>
             </div>
           )}
-          {/* Article body, filter out first h1 from PortableText body */}
+          
           <article className="prose prose-lg max-w-none font-satoshi">
-            <PortableText value={post.body?.filter((block: any, i: number) => !(i === 0 && block.style === 'h1'))} components={portableTextComponents} />
+            <PortableText value={post.body?.filter((block: any, i: number) => !(i === 0 && block.style === 'h1')) || []} components={portableTextComponents} />
           </article>
-          {/* CTA Section */}
+          
           <div className="mt-16 p-8 bg-gradient-to-r from-brand-teal-dark to-brand-teal rounded-2xl text-white">
             <h3 className="text-2xl font-bold mb-4">Ready to build something amazing?</h3>
             <p className="text-lg mb-6 opacity-90">
