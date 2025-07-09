@@ -122,7 +122,7 @@ ${urlElements}
 
 export const downloadSitemap = () => {
   // Check if we're in a browser environment
-  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  if (typeof globalThis !== 'undefined' && 'document' in globalThis && 'URL' in globalThis) {
     const sitemap = generateSitemap();
     const blob = new Blob([sitemap], { type: 'application/xml' });
     const url = URL.createObjectURL(blob);
@@ -140,6 +140,6 @@ export const downloadSitemap = () => {
 };
 
 // Make downloadSitemap available globally for console use (browser only)
-if (typeof window !== 'undefined') {
-  (window as any).downloadSitemap = downloadSitemap;
+if (typeof globalThis !== 'undefined' && 'window' in globalThis) {
+  (globalThis as any).downloadSitemap = downloadSitemap;
 }

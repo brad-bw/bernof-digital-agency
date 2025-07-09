@@ -1,6 +1,7 @@
+
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, TrendingUp, Shield, Clock, Users, ChevronRight, ExternalLink } from "lucide-react";
+import { ArrowRight, CheckCircle, TrendingUp, Shield, Clock, Users, ChevronRight, Code, Rocket, Zap, Coins, Globe, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,84 +10,100 @@ import { useSitemapGenerator } from "@/hooks/useSitemapGenerator";
 const SwitzerlandHub = () => {
   useSitemapGenerator();
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const services = [
     {
       title: 'Web Development',
-      challenge: '€15,000-€35,000 local cost',
-      solution: '€6,000-€14,000 delivery',
+      challenge: 'CHF 15,000-35,000 local cost',
+      solution: 'CHF 6,000-14,000 delivery',
       savings: '60% savings',
       link: '/ch/web-development',
-      description: 'Custom websites with Swiss compliance built-in'
+      description: 'Premium Swiss websites with global standards',
+      icon: Code,
+      features: ['Responsive Design', 'E-commerce Ready', 'SEO Optimized', 'Multi-language']
     },
     {
       title: 'Software Development',
-      challenge: '€200,000+ annual talent cost',
-      solution: '€80,000-€100,000 delivery',
+      challenge: 'CHF 200,000+ annual talent cost',
+      solution: 'CHF 80,000-140,000 delivery',
       savings: '60% savings',
       link: '/ch/software-development',
-      description: 'Enterprise software with FINMA compliance'
+      description: 'Enterprise software with Swiss precision',
+      icon: Zap,
+      features: ['Custom Solutions', 'API Integration', 'Cloud Deploy', 'Bank-grade Security']
     },
     {
       title: 'Startup Development',
-      challenge: '€100,000+ MVP costs',
-      solution: '€32,000-€60,000 delivery',
+      challenge: 'CHF 120,000+ MVP costs',
+      solution: 'CHF 40,000-70,000 delivery',
       savings: '60% savings',
       link: '/ch/startup-development',
-      description: 'Launch your Swiss startup faster and cheaper'
+      description: 'Launch your Swiss startup with European talent',
+      icon: Rocket,
+      features: ['MVP Development', 'Market Validation', 'User Testing', 'Investor Ready']
     }
   ];
 
-  const blogArticles = [
+  const testimonials = [
     {
-      title: 'Swiss Startup Funding: How to Maximize Your Runway in 2024',
-      excerpt: 'Learn how Swiss startups can extend their funding runway by 8+ months through smart development partnerships.',
-      readTime: '8 min read',
-      category: 'Startup Strategy'
+      quote: "Bernof Co nous a fait économiser CHF 45,000 sur notre plateforme fintech tout en livrant une qualité exceptionnelle. Leur compréhension du marché suisse était remarquable.",
+      author: "Jean-Pierre Müller",
+      role: "CEO, Zurich Fintech",
+      location: "Zurich"
     },
     {
-      title: 'GDPR vs Swiss DSG: Development Compliance Guide',
-      excerpt: 'Complete guide to navigating Swiss data protection laws and GDPR compliance in software development.',
-      readTime: '12 min read',
-      category: 'Compliance'
+      quote: "Als Schweizer Startup brauchten wir kosteneffiziente Entwicklung ohne Qualitätsverlust. Bernof Co hat beide Anforderungen perfekt erfüllt.",
+      author: "Anna Schneider",
+      role: "CTO, Basel Innovation Lab",
+      location: "Basel"
     },
     {
-      title: 'Zurich vs Geneva: Where to Launch Your Tech Startup',
-      excerpt: 'Comprehensive analysis of Switzerland\'s top tech hubs and their advantages for different types of startups.',
-      readTime: '10 min read',
-      category: 'Market Analysis'
-    },
-    {
-      title: 'Swiss Fintech Regulations: FINMA-Compliant Development',
-      excerpt: 'Essential guide for fintech startups navigating FINMA regulations and compliance requirements.',
-      readTime: '15 min read',
-      category: 'Fintech'
+      quote: "Their understanding of Swiss banking regulations and precision requirements was impressive. We launched 3 months ahead of schedule.",
+      author: "Marco Bianchi",
+      role: "Founder, Geneva Tech Hub",
+      location: "Geneva"
     }
   ];
 
-  const caseStudies = [
+  const process = [
     {
-      type: 'Zurich FinTech Startup',
-      result: 'Reduced MVP development from €120,000 to €45,000',
-      industry: 'Financial Technology'
+      step: "1",
+      title: "Swiss Market Analysis",
+      description: "We analyze your target market, competitors, and Switzerland-specific requirements including banking regulations.",
+      icon: TrendingUp
     },
     {
-      type: 'Geneva E-commerce Company',
-      result: 'Saved €30,000 on platform development',
-      industry: 'E-commerce'
+      step: "2",
+      title: "Swiss Standards & Planning",
+      description: "Ensure Swiss compliance, banking standards, and create a detailed development roadmap with Swiss precision.",
+      icon: Shield
     },
     {
-      type: 'Basel Manufacturing Software',
-      result: 'Cut annual development costs by 65%',
-      industry: 'Manufacturing'
+      step: "3",
+      title: "European Development",
+      description: "Our European team develops your solution with Swiss market focus and precision engineering standards.",
+      icon: Users
+    },
+    {
+      step: "4",
+      title: "Swiss Launch & Support",
+      description: "Launch in the Swiss market with ongoing support and optimization for Swiss users and regulations.",
+      icon: Rocket
     }
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white font-inter">
       <Helmet>
         <title>Switzerland Digital Services Hub | Swiss Web Development & Software Solutions | Bernof Co</title>
-        <meta name="description" content="Switzerland's premier digital development partner. Save 60% on web development, software solutions, and startup services. GDPR-compliant, serving Zurich, Geneva, Basel with European excellence." />
-        <meta name="keywords" content="Switzerland digital services, Swiss web development, Zurich software development, Geneva startup development, Swiss GDPR compliance, Switzerland tech solutions" />
+        <meta name="description" content="Switzerland's premier digital development partner. Save 60% on web development, software solutions, and startup services. Swiss precision at European prices, serving Zurich, Geneva, Basel." />
+        <meta name="keywords" content="Switzerland digital services, Swiss web development, Zurich software development, Geneva startup development, Swiss fintech development, Switzerland tech solutions" />
         <link rel="canonical" href="https://bernofco.com/global-services/ch" />
         <link rel="hreflang" hrefLang="en-ch" href="https://bernofco.com/global-services/ch" />
         <link rel="hreflang" hrefLang="x-default" href="https://bernofco.com/global-services" />
@@ -94,64 +111,164 @@ const SwitzerlandHub = () => {
 
       <Header />
 
-      {/* Hero Section - Optimized spacing and removed badge */}
-      <section className="relative min-h-[85vh] bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white overflow-hidden">
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-brand-sage-light via-white to-brand-sage-light relative overflow-hidden">
         {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-32 h-32 border-2 border-white/20 rotate-45 rounded-lg"></div>
-          <div className="absolute top-40 right-32 w-24 h-24 bg-accent/20 rounded-full"></div>
-          <div className="absolute bottom-32 left-40 w-40 h-2 bg-gradient-to-r from-white/30 to-transparent"></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-32 w-96 h-96 bg-brand-teal/5 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute -bottom-32 -left-40 w-80 h-80 bg-brand-teal-dark/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          
+          {/* Switzerland Flag accent */}
+          <div className="absolute top-20 right-20 w-16 h-16 opacity-10">
+            <div className="text-4xl">🇨🇭</div>
+          </div>
+          
+          {/* Geometric elements */}
+          <div className="absolute top-1/3 left-10 w-8 h-8 bg-brand-teal/20 rotate-45 rounded-lg animate-pulse"></div>
+          <div className="absolute bottom-1/3 right-16 w-12 h-12 border-2 border-brand-teal/20 rounded-full animate-pulse delay-2000"></div>
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 pt-24 pb-16">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h1 className="text-5xl lg:text-7xl font-bold leading-tight mb-8">
-                <span className="bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
-                  Switzerland's Premier
-                </span>
-                <br />
-                <span className="text-accent">Digital Development Partner</span>
-              </h1>
-              
-              <p className="text-xl lg:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-                Save 60% on development costs while accessing Europe's top talent. Serving Swiss businesses from Zurich to Geneva with GDPR-compliant, cost-effective digital solutions.
-              </p>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Content */}
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <div className="inline-flex items-center px-4 py-2 bg-brand-sage-light/50 rounded-full text-brand-teal-dark font-semibold text-sm">
+                    <span className="text-xl mr-2">🇨🇭</span>
+                    Switzerland's Premier Digital Partner
+                  </div>
+                  
+                  <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                    Precision{" "}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-teal-light">
+                      Swiss Digital
+                    </span>{" "}
+                    Solutions
+                  </h1>
+                  
+                  <p className="text-xl text-gray-600 leading-relaxed">
+                    Overcome Switzerland's talent shortage with Swiss precision and European excellence. 
+                    Save 60% on development costs while maintaining the highest quality standards for Swiss businesses.
+                  </p>
+                </div>
 
-              {/* Key Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">€15,000+</div>
-                  <div className="text-white/80 text-sm">Project Savings</div>
+                {/* Switzerland Market Stats */}
+                <div className="bg-white rounded-2xl p-6 shadow-lg border border-brand-sage/30">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Swiss Digital Market 2024</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center space-x-3">
+                      <Coins className="w-5 h-5 text-brand-teal" />
+                      <span className="text-sm text-gray-700">CHF 67B Tech Sector</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <TrendingUp className="w-5 h-5 text-brand-teal" />
+                      <span className="text-sm text-gray-700">Talent Shortage: 76%</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Clock className="w-5 h-5 text-brand-teal" />
+                      <span className="text-sm text-gray-700">Highest Dev Costs in EU</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Globe className="w-5 h-5 text-brand-teal" />
+                      <span className="text-sm text-gray-700">European Talent Access</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">50+</div>
-                  <div className="text-white/80 text-sm">Swiss Businesses</div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button 
+                    onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
+                    className="bg-gradient-to-r from-brand-teal to-brand-teal-light hover:from-brand-teal-dark hover:to-brand-teal text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+                  >
+                    Get Your Swiss Quote
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => scrollToSection('swiss-process')}
+                    className="border-2 border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-semibold px-8 py-3 rounded-xl text-lg transition-all duration-300"
+                  >
+                    How It Works
+                  </Button>
                 </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">100%</div>
-                  <div className="text-white/80 text-sm">GDPR & DSG Compliant</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
-                  <div className="text-3xl font-bold text-white mb-2">48h</div>
-                  <div className="text-white/80 text-sm">Project Start</div>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-brand-teal">CHF 30k+</div>
+                    <div className="text-sm text-gray-600">Project Savings</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-brand-teal">48hrs</div>
+                    <div className="text-sm text-gray-600">Project Start</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-brand-teal">100%</div>
+                    <div className="text-sm text-gray-600">Swiss Standards</div>
+                  </div>
                 </div>
               </div>
 
-              <Button 
-                onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-                className="bg-accent hover:bg-accent/90 text-white font-bold px-10 py-5 rounded-xl text-xl h-auto transition-all duration-300 hover:scale-105 shadow-lg"
-              >
-                Get Your Swiss Market Quote
-                <ArrowRight className="w-6 h-6 ml-3" />
-              </Button>
+              {/* Right Content - Enhanced Visual */}
+              <div className="relative">
+                <div className="bg-white rounded-2xl shadow-2xl p-8 border border-brand-sage/30 relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-brand-sage-light/30 to-transparent rounded-full -translate-y-8 translate-x-8"></div>
+                  
+                  <div className="space-y-6 relative z-10">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-3">
+                        <h3 className="text-lg font-semibold text-gray-900">Swiss Success Story</h3>
+                        <span className="text-2xl">🇨🇭</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-brand-teal rounded-full animate-pulse"></div>
+                        <span className="text-sm text-brand-teal font-medium">Live</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      {process.map((item, index) => (
+                        <div key={index} className="flex items-center space-x-3 p-4 bg-gradient-to-r from-brand-sage-light/30 to-brand-sage-light/10 rounded-xl border border-brand-sage/20">
+                          <div className="w-10 h-10 bg-gradient-to-r from-brand-teal to-brand-teal-light rounded-full flex items-center justify-center shadow-lg">
+                            <span className="text-white text-sm font-bold">{item.step}</span>
+                          </div>
+                          <div>
+                            <span className="text-gray-900 font-medium">{item.title}</span>
+                            <div className="text-sm text-gray-600">{item.description.split('.')[0]}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Success Indicator */}
+                    <div className="mt-6 p-4 bg-gradient-to-r from-brand-teal to-brand-teal-light rounded-xl text-white">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="text-sm opacity-90">Swiss Client Success Rate</div>
+                          <div className="text-2xl font-bold">97%</div>
+                        </div>
+                        <Star className="w-8 h-8 opacity-80" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Floating Icons */}
+                <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-r from-brand-teal to-brand-teal-light rounded-full flex items-center justify-center animate-float shadow-lg">
+                  <Code className="w-6 h-6 text-white" />
+                </div>
+                <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-r from-brand-teal-light to-brand-teal rounded-full flex items-center justify-center animate-float delay-1000 shadow-lg">
+                  <Rocket className="w-6 h-6 text-white" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-24 bg-white">
+      {/* Services Section */}
+      <section className="py-24 bg-white" id="swiss-services">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
@@ -159,37 +276,55 @@ const SwitzerlandHub = () => {
                 Complete Digital Solutions for Swiss Businesses
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-                Comprehensive services tailored for the Swiss market with local expertise and European excellence.
+                Comprehensive services tailored for the Swiss market with precision engineering and European excellence.
               </p>
             </div>
 
-            <div className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {services.map((service, index) => (
-                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border-2 border-gray-200 hover:border-primary hover:shadow-xl transition-all duration-300">
-                  <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-center">
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{service.title}</h3>
-                      <p className="text-gray-600">{service.description}</p>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-sm text-gray-500 mb-1">Swiss Market Challenge</div>
-                      <div className="text-lg font-semibold text-red-600">{service.challenge}</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-sm text-gray-500 mb-1">Bernof Co Solution</div>
-                      <div className="text-lg font-semibold text-primary">{service.solution}</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="bg-primary text-white px-4 py-2 rounded-lg font-bold text-lg mb-4">
+                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border-2 border-gray-200 hover:border-brand-teal hover:shadow-xl transition-all duration-300 group">
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <div className="w-12 h-12 bg-gradient-to-r from-brand-teal to-brand-teal-light rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <service.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="bg-brand-teal text-white px-3 py-1 rounded-full text-sm font-bold">
                         {service.savings}
                       </div>
-                      <Link
-                        to={service.link}
-                        className="inline-flex items-center text-accent hover:text-accent/80 font-semibold transition-colors"
-                      >
-                        Explore Service <ChevronRight className="w-4 h-4 ml-1" />
-                      </Link>
                     </div>
+                    
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{service.title}</h3>
+                      <p className="text-gray-600 mb-4">{service.description}</p>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="text-center">
+                        <div className="text-sm text-gray-500">Swiss Market Challenge</div>
+                        <div className="text-lg font-semibold text-red-600">{service.challenge}</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-sm text-gray-500">Bernof Co Solution</div>
+                        <div className="text-lg font-semibold text-brand-teal">{service.solution}</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center space-x-2">
+                          <CheckCircle className="w-4 h-4 text-brand-teal flex-shrink-0" />
+                          <span className="text-sm text-gray-600">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Link
+                      to={service.link}
+                      className="inline-flex items-center justify-center w-full bg-brand-teal text-white py-3 px-6 rounded-xl font-semibold hover:bg-brand-teal-dark transition-all duration-300 group"
+                    >
+                      Explore {service.title}
+                      <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -198,174 +333,117 @@ const SwitzerlandHub = () => {
         </div>
       </section>
 
-      {/* Swiss Market Insights */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      {/* Process Section */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white" id="swiss-process">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Understanding the Swiss Digital Landscape
+                Our Swiss-Focused Development Process
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-                Market research and insights that drive our Swiss-focused solutions.
+                A proven approach that combines European expertise with Swiss precision and quality standards.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Market Reality</h3>
-                <div className="space-y-4">
-                  {[
-                    'Switzerland faces a 15,000 IT specialist shortage (Swiss ICT Report 2024)',
-                    'Swiss development costs are 3.2x higher than EU average',
-                    '67% of Swiss startups struggle with funding due to high development costs',
-                    'Average project delays of 4-6 months due to talent shortage'
-                  ].map((stat, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-4 bg-blue-50 rounded-lg">
-                      <TrendingUp className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{stat}</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {process.map((step, index) => (
+                <div key={index} className="relative">
+                  <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 h-full">
+                    <div className="space-y-6">
+                      <div className="w-16 h-16 bg-gradient-to-r from-brand-teal to-brand-teal-light rounded-full flex items-center justify-center shadow-lg">
+                        <step.icon className="w-8 h-8 text-white" />
+                      </div>
+                      
+                      <div>
+                        <div className="text-sm text-brand-teal font-bold mb-2">STEP {step.step}</div>
+                        <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                        <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                      </div>
                     </div>
-                  ))}
+                  </div>
+                  
+                  {/* Connection line for desktop */}
+                  {index < process.length - 1 && (
+                    <div className="hidden lg:block absolute top-8 left-full w-8 h-0.5 bg-gradient-to-r from-brand-teal to-brand-teal-light transform translate-x-4"></div>
+                  )}
                 </div>
-              </div>
-
-              <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Swiss Expertise</h3>
-                <div className="space-y-4">
-                  {[
-                    'Multi-language support (German, French, Italian)',
-                    'Swiss payment integration (Twint, PostFinance)',
-                    'FINMA compliance for fintech startups',
-                    'Zurich and Geneva market understanding'
-                  ].map((expertise, index) => (
-                    <div key={index} className="flex items-start space-x-3 p-4 bg-primary/5 rounded-lg">
-                      <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{expertise}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Swiss Blog Articles */}
+      {/* Testimonials Section */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
               <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Latest Insights for Swiss Businesses
+                Trusted by Swiss Businesses
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-                Expert analysis, market insights, and strategic guidance for Swiss companies.
+                From Zurich fintech to Geneva innovations, see how we've helped Swiss businesses excel.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {blogArticles.map((article, index) => (
-                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border-2 border-gray-200 hover:border-primary hover:shadow-xl transition-all duration-300 group cursor-pointer">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                      {article.category}
-                    </span>
-                    <span className="text-gray-500 text-sm">{article.readTime}</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors">
-                    {article.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center text-accent hover:text-accent/80 font-semibold transition-colors">
-                    Read Article <ExternalLink className="w-4 h-4 ml-2" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Success Stories */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-                Swiss Businesses We've Helped Succeed
-              </h2>
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-                Real results from Swiss companies who chose Bernof Co for their digital transformation.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {caseStudies.map((study, index) => (
-                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 text-center">
-                  <div className="text-4xl mb-4">🏆</div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{study.type}</h3>
-                  <p className="text-gray-600 mb-4">{study.industry}</p>
-                  <div className="bg-primary/10 border border-primary/20 rounded-xl p-4">
-                    <p className="text-primary font-bold">{study.result}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Swiss Compliance Credentials */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Swiss Compliance Credentials</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {[
-                  { icon: Shield, text: 'GDPR Certified Development' },
-                  { icon: CheckCircle, text: 'Swiss DSG Compliance' },
-                  { icon: Users, text: 'FINMA Regulatory Understanding' },
-                  { icon: Clock, text: 'Swiss Hosting Options Available' }
-                ].map((credential, index) => {
-                  const IconComponent = credential.icon;
-                  return (
-                    <div key={index} className="text-center">
-                      <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <IconComponent className="w-8 h-8 text-primary" />
-                      </div>
-                      <p className="text-gray-700 font-medium">{credential.text}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="bg-white rounded-3xl p-8 shadow-lg border-2 border-gray-200 hover:border-brand-teal hover:shadow-xl transition-all duration-300">
+                  <div className="space-y-6">
+                    <div className="flex items-center space-x-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
                     </div>
-                  );
-                })}
-              </div>
+                    
+                    <blockquote className="text-gray-700 leading-relaxed">
+                      "{testimonial.quote}"
+                    </blockquote>
+                    
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-gradient-to-r from-brand-teal to-brand-teal-light rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold text-lg">
+                          {testimonial.author.split(' ').map(n => n[0]).join('')}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-900">{testimonial.author}</div>
+                        <div className="text-sm text-gray-600">{testimonial.role}</div>
+                        <div className="text-sm text-brand-teal">{testimonial.location}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-white">
+      <section className="py-24 bg-gradient-to-br from-brand-teal via-brand-teal/90 to-brand-teal-dark text-white">
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Save €15,000+ on Your Next Project?
+              Ready to Save CHF 30,000+ on Your Next Project?
             </h2>
             <p className="text-xl mb-12 opacity-90">
-              Join successful Swiss businesses who chose Bernof Co over expensive local agencies. Start your project in 48 hours.
+              Join Swiss businesses leveraging European talent for digital transformation. 
+              Swiss precision at European prices.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Button 
                 onClick={() => window.open('https://calendly.com/bernof-co', '_blank')}
-                className="bg-accent hover:bg-accent/90 text-white font-bold px-10 py-5 rounded-xl text-xl h-auto"
+                className="bg-white text-brand-teal hover:bg-gray-100 font-bold px-10 py-5 rounded-xl text-xl h-auto transition-all duration-300 hover:scale-105"
               >
                 Get Swiss Market Quote
+                <ArrowRight className="w-6 h-6 ml-2" />
               </Button>
               <Button 
                 variant="outline"
-                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-primary font-bold px-10 py-5 rounded-xl text-xl h-auto"
-                onClick={() => {
-                  const element = document.getElementById('contact');
-                  if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
+                className="border-2 border-white text-white bg-transparent hover:bg-white hover:text-brand-teal font-bold px-10 py-5 rounded-xl text-xl h-auto transition-all duration-300"
+                onClick={() => scrollToSection('contact')}
               >
                 Schedule Consultation
               </Button>
