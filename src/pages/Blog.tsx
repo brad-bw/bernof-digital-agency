@@ -6,6 +6,8 @@ import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
 import { useSEO } from '@/hooks/useSEO';
 import { Search, Filter, BookOpen, AlertCircle } from 'lucide-react';
+import useErrorLogger from '@/hooks/useErrorLogger';
+import { Link } from 'react-router-dom';
 
 const HERO_BG = 'bg-[#1b5c56] bg-gradient-to-br from-[#1b5c56] to-[#133c38]'; // Dark teal with darker gradient
 const HERO_TEXT = 'text-white';
@@ -22,22 +24,20 @@ const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showFilter, setShowFilter] = useState(false);
   const filterRef = useRef<HTMLDivElement>(null);
+  const { error: loggerError, log, clearError } = useErrorLogger();
 
   useEffect(() => {
     setIsLoading(true);
-    setError(null);
     fetchBlogPostsDirect()
-      .then((result) => {
-        setPosts(Array.isArray(result) ? result : []);
+      .then((posts) => {
+        setPosts(posts);
         setIsLoading(false);
-        console.log('Direct fetch result:', result);
       })
       .catch((err) => {
-        setError(err.message || 'Unable to load blog posts');
+        log(err, { context: 'Blog fetch' });
         setIsLoading(false);
-        console.error('Direct fetch error:', err);
       });
-  }, []);
+  }, [log]);
 
   // Map Sanity post data to BlogGridModern format
   const mappedPosts = posts?.map((post) => ({
@@ -78,6 +78,21 @@ const Blog: React.FC = () => {
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showFilter]);
+
+  if (loggerError) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Header />
+        <div className="max-w-3xl mx-auto py-32 px-4 flex flex-col items-center justify-center blog-article font-satoshi">
+          <h2 className="text-2xl font-bold mb-4 text-red-600">Unable to load blog</h2>
+          <p className="text-gray-600 mb-8">An error occurred. Please contact support with this code: {loggerError.errorId}</p>
+          <button onClick={clearError} className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold mb-4">Try Again</button>
+          <Link to="/" className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors font-semibold">Go Home</Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
