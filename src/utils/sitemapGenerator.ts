@@ -122,16 +122,16 @@ ${urlElements}
 
 export const downloadSitemap = () => {
   // Check if we're in a browser environment
-  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  if (typeof globalThis !== 'undefined' && 'window' in globalThis && 'document' in globalThis) {
     const sitemap = generateSitemap();
     const blob = new Blob([sitemap], { type: 'application/xml' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = globalThis.document.createElement('a');
     a.href = url;
     a.download = 'sitemap.xml';
-    document.body.appendChild(a);
+    globalThis.document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
+    globalThis.document.body.removeChild(a);
     URL.revokeObjectURL(url);
   } else {
     console.log('downloadSitemap can only be called in browser environment');
@@ -140,6 +140,6 @@ export const downloadSitemap = () => {
 };
 
 // Make downloadSitemap available globally for console use (browser only)
-if (typeof window !== 'undefined') {
-  (window as any).downloadSitemap = downloadSitemap;
+if (typeof globalThis !== 'undefined' && 'window' in globalThis) {
+  (globalThis as any).downloadSitemap = downloadSitemap;
 }
