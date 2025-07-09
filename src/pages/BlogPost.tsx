@@ -41,6 +41,14 @@ function extractTOC(blocks: any[]): Array<{ id: string; text: string }> {
     }));
 }
 
+// Utility to log detailed error information for debugging
+function logBlogPostError(context: string, error: any, extra?: Record<string, any>) {
+  // eslint-disable-next-line no-console
+  console.error(`\n[BlogPost Error] Context: ${context}`);
+  if (error) console.error('Error:', error);
+  if (extra) console.error('Extra:', extra);
+}
+
 const portableTextComponents = {
   types: {
     image: ({ value }: any) => (
@@ -125,13 +133,14 @@ const BlogPost: React.FC = () => {
         setPost(found || null);
         setIsLoading(false);
         if (!found) {
+          logBlogPostError('No post found for slug', null, { slug, posts });
           console.warn('No post found for slug:', slug);
         }
       })
       .catch((err) => {
+        logBlogPostError('Error fetching blog post', err, { slug });
         setError(err.message || 'Error fetching blog post');
         setIsLoading(false);
-        console.error('Blog post fetch error:', err);
       });
   }, [slug]);
 
@@ -206,6 +215,7 @@ const BlogPost: React.FC = () => {
   }
 
   if (error || !post) {
+    logBlogPostError('Render error or missing post', error, { slug, post });
     return (
       <div className="min-h-screen bg-white">
         <Header />
