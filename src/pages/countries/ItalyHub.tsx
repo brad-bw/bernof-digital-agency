@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, TrendingUp, Shield, Clock, Users, ChevronRight, Code, Rocket, Zap, Euro, Globe, Star } from "lucide-react";

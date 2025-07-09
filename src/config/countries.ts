@@ -31,15 +31,15 @@ export const countriesConfig: Record<string, CountryConfig> = {
   ch: {
     code: 'ch',
     name: 'Switzerland',
-    currency: 'CHF',
+    currency: 'EUR',
     currencySymbol: '€',
     flag: '🇨🇭',
     marketContext: {
       painPoints: [
-        'Swiss web agencies charge €120-€180 per hour - 3.2x higher than EU average',
+        'Swiss web agencies charge €90-€135 per hour - 3.2x higher than EU average',
         'Switzerland faces a 15,000 IT specialist shortage with 4-6 month hiring delays',
         'Swiss web projects take 3-6 months longer than EU average due to overbooked agencies',
-        'Average Swiss business website costs €15,000-€35,000 vs €6,000-€14,000 with Bernof Co'
+        'Average Swiss business website costs €13,500-€31,500 vs €5,400-€12,600 with Bernof Co'
       ],
       opportunities: [
         'Access top European talent without Swiss premium pricing',
@@ -48,14 +48,14 @@ export const countriesConfig: Record<string, CountryConfig> = {
         'Immediate project start - no waiting lists or recruitment delays'
       ],
       keyStats: [
-        'Swiss Agency Average: €120-€180/hour vs Bernof Co: €50-€70/hour',
-        'Local Website Cost: €15,000-€35,000 vs Bernof Co: €6,000-€14,000',
+        'Swiss Agency Average: €90-€135/hour vs Bernof Co: €38-€53/hour',
+        'Local Website Cost: €13,500-€31,500 vs Bernof Co: €5,400-€12,600',
         'IT Talent Shortage: 15,000+ unfilled positions',
         'Average Hiring Time: 4-6 months vs Bernof Co: 48 hours project start'
       ],
       heroStats: {
-        localCost: '€15,000-€35,000',
-        bernofCost: '€6,000-€14,000',
+        localCost: '€13,500-€31,500',
+        bernofCost: '€5,400-€12,600',
         savings: '60% less'
       }
     },
@@ -65,9 +65,9 @@ export const countriesConfig: Record<string, CountryConfig> = {
       startup: ['startup development Switzerland', 'Swiss MVP development', 'Zurich startup services', 'Geneva startup consulting', 'Swiss tech startup', 'MVP development Switzerland cost']
     },
     pricing: {
-      web: { min: 6000, max: 14000, localMin: 15000, localMax: 35000 },
-      software: { min: 32000, max: 60000, localMin: 80000, localMax: 150000 },
-      startup: { min: 32000, max: 60000, localMin: 80000, localMax: 150000 }
+      web: { min: 5400, max: 12600, localMin: 13500, localMax: 31500 },
+      software: { min: 28800, max: 54000, localMin: 72000, localMax: 135000 },
+      startup: { min: 28800, max: 54000, localMin: 72000, localMax: 135000 }
     }
   },
   uk: {

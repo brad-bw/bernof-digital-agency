@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, TrendingUp, Shield, Clock, Users, ChevronRight, Code, Rocket, Zap, Coins, Globe, Star } from "lucide-react";
@@ -20,8 +19,8 @@ const SwitzerlandHub = () => {
   const services = [
     {
       title: 'Web Development',
-      challenge: 'CHF 15,000-35,000 local cost',
-      solution: 'CHF 6,000-14,000 delivery',
+      challenge: '€13,500-€31,500 local cost',
+      solution: '€5,400-€12,600 delivery',
       savings: '60% savings',
       link: '/ch/web-development',
       description: 'Premium Swiss websites with global standards',
@@ -30,8 +29,8 @@ const SwitzerlandHub = () => {
     },
     {
       title: 'Software Development',
-      challenge: 'CHF 200,000+ annual talent cost',
-      solution: 'CHF 80,000-140,000 delivery',
+      challenge: '€180,000+ annual talent cost',
+      solution: '€72,000-€135,000 delivery',
       savings: '60% savings',
       link: '/ch/software-development',
       description: 'Enterprise software with Swiss precision',
@@ -40,8 +39,8 @@ const SwitzerlandHub = () => {
     },
     {
       title: 'Startup Development',
-      challenge: 'CHF 120,000+ MVP costs',
-      solution: 'CHF 40,000-70,000 delivery',
+      challenge: '€108,000+ MVP costs',
+      solution: '€36,000-€63,000 delivery',
       savings: '60% savings',
       link: '/ch/startup-development',
       description: 'Launch your Swiss startup with European talent',
@@ -159,7 +158,7 @@ const SwitzerlandHub = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="flex items-center space-x-3">
                       <Coins className="w-5 h-5 text-brand-teal" />
-                      <span className="text-sm text-gray-700">CHF 67B Tech Sector</span>
+                      <span className="text-sm text-gray-700">€60B Tech Sector</span>
                     </div>
                     <div className="flex items-center space-x-3">
                       <TrendingUp className="w-5 h-5 text-brand-teal" />
@@ -196,7 +195,7 @@ const SwitzerlandHub = () => {
                 {/* Quick Stats */}
                 <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-brand-teal">CHF 30k+</div>
+                    <div className="text-2xl font-bold text-brand-teal">€27k+</div>
                     <div className="text-sm text-gray-600">Project Savings</div>
                   </div>
                   <div className="text-center">
@@ -426,7 +425,7 @@ const SwitzerlandHub = () => {
         <div className="container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Ready to Save CHF 30,000+ on Your Next Project?
+              Ready to Save €27,000+ on Your Next Project?
             </h2>
             <p className="text-xl mb-12 opacity-90">
               Join Swiss businesses leveraging European talent for digital transformation. 
