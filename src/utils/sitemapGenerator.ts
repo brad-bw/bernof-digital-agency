@@ -126,12 +126,12 @@ export const downloadSitemap = () => {
     const sitemap = generateSitemap();
     const blob = new Blob([sitemap], { type: 'application/xml' });
     const url = URL.createObjectURL(blob);
-    const a = globalThis.document.createElement('a');
+    const a = (globalThis as any).document.createElement('a');
     a.href = url;
     a.download = 'sitemap.xml';
-    globalThis.document.body.appendChild(a);
+    (globalThis as any).document.body.appendChild(a);
     a.click();
-    globalThis.document.body.removeChild(a);
+    (globalThis as any).document.body.removeChild(a);
     URL.revokeObjectURL(url);
   } else {
     console.log('downloadSitemap can only be called in browser environment');
