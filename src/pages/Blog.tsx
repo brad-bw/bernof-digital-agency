@@ -85,7 +85,7 @@ const Blog: React.FC = () => {
         <Header />
         <div className="max-w-3xl mx-auto py-32 px-4 flex flex-col items-center justify-center blog-article font-satoshi">
           <h2 className="text-2xl font-bold mb-4 text-red-600">Unable to load blog</h2>
-          <p className="text-gray-600 mb-8">An error occurred. Please contact support with this code: {loggerError.errorId}</p>
+          <p className="text-gray-600 mb-8">Something went wrong. Please try again later.</p>
           <button onClick={clearError} className="bg-brand-teal-dark text-white px-6 py-3 rounded-lg hover:bg-brand-teal transition-colors font-semibold mb-4">Try Again</button>
           <Link to="/" className="bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300 transition-colors font-semibold">Go Home</Link>
         </div>
