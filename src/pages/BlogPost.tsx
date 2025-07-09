@@ -43,10 +43,12 @@ function extractTOC(blocks: any[]): Array<{ id: string; text: string }> {
 
 // Utility to log detailed error information for debugging
 function logBlogPostError(context: string, error: any, extra?: Record<string, any>) {
-  // eslint-disable-next-line no-console
-  console.error(`\n[BlogPost Error] Context: ${context}`);
-  if (error) console.error('Error:', error);
-  if (extra) console.error('Extra:', extra);
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.error(`\n[BlogPost Error] Context: ${context}`);
+    if (error) console.error('Error:', error);
+    if (extra) console.error('Extra:', extra);
+  }
 }
 
 const portableTextComponents = {
