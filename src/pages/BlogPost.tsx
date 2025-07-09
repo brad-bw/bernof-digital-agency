@@ -288,14 +288,14 @@ const BlogPost: React.FC = () => {
           <div className="flex flex-wrap items-center gap-6 text-gray-500 text-sm mb-8 pb-8 border-b border-gray-200">
             {post.author?.name && (
               <div className="flex items-center">
-                {post.author.avatar && (
+                {post.author?.image?.asset?.url && (
                   <OptimizedImage
-                    src={post.author.avatar} 
+                    src={post.author.image.asset.url}
                     alt={post.author.name || 'Author avatar'}
                     className="w-8 h-8 rounded-full mr-3"
-                    width={32} // Small image, eager loading is fine, specify dimensions
+                    width={32}
                     height={32}
-                    priority={false} // Not critical for LCP
+                    priority={false}
                   />
                 )}
                 <span className="font-medium text-gray-700">{post.author.name}</span>
