@@ -119,6 +119,7 @@ const portableTextComponents = {
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  console.log('[BlogPost DEBUG] Component mounted, slug:', slug);
   const [post, setPost] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
