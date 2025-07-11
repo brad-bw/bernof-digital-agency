@@ -1,6 +1,6 @@
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Globe, Zap, Shield } from "lucide-react";
+import { ArrowRight, CheckCircle, Globe, Zap, Shield, TrendingDown } from "lucide-react";
 
 export const UKWebHero = () => {
   return (
@@ -35,23 +35,45 @@ export const UKWebHero = () => {
                 </p>
               </div>
 
-              {/* Cost Comparison */}
-              <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 space-y-4">
-                <h3 className="text-lg font-satoshi font-semibold text-gray-900">UK Market Reality</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center">
-                    <div className="text-sm text-gray-500 font-satoshi mb-1">UK Agencies</div>
-                    <div className="text-2xl font-satoshi font-bold text-red-600">£12,000-£28,000</div>
+              {/* Modern Cost Comparison */}
+              <div className="relative bg-gradient-to-br from-white to-slate-50/50 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 space-y-6 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-2 h-2 bg-brand-teal rounded-full"></div>
+                  <h3 className="text-lg font-satoshi font-medium text-slate-800">Market insight</h3>
+                </div>
+                
+                <div className="grid grid-cols-1 gap-6">
+                  {/* UK Agencies */}
+                  <div className="flex items-center justify-between p-4 bg-red-50/50 rounded-2xl border border-red-100/50">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-red-400 rounded-full opacity-60"></div>
+                      <span className="text-sm font-satoshi text-slate-600">UK agencies</span>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-satoshi font-semibold text-slate-800">£12k–£28k</div>
+                      <div className="text-xs font-satoshi text-red-600">typical range</div>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-sm text-gray-500 font-satoshi mb-1">Bernof Co</div>
-                    <div className="text-2xl font-satoshi font-bold text-brand-teal">£4,800-£11,200</div>
+
+                  {/* Bernof Co */}
+                  <div className="flex items-center justify-between p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100/50">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-emerald-400 rounded-full"></div>
+                      <span className="text-sm font-satoshi text-slate-600">Our approach</span>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-satoshi font-semibold text-slate-800">£4.8k–£11k</div>
+                      <div className="text-xs font-satoshi text-emerald-600">same quality</div>
+                    </div>
                   </div>
                 </div>
-                <div className="text-center">
-                  <span className="inline-flex items-center bg-green-100 text-green-800 text-sm font-satoshi font-medium px-3 py-1 rounded-full">
-                    60% cost savings
-                  </span>
+
+                {/* Savings Indicator */}
+                <div className="flex items-center justify-center pt-4 border-t border-slate-200/50">
+                  <div className="flex items-center space-x-2 bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-2 rounded-full border border-emerald-200/50">
+                    <TrendingDown className="w-4 h-4 text-emerald-600" />
+                    <span className="text-sm font-satoshi font-medium text-emerald-700">60% cost reduction</span>
+                  </div>
                 </div>
               </div>
 
