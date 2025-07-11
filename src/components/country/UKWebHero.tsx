@@ -17,18 +17,18 @@ export const UKWebHero = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
             <div className="space-y-8">
-              {/* Trust Badge */}
-              <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-4 py-2 text-sm font-satoshi">
-                <CheckCircle className="w-4 h-4 text-green-500" />
-                <span className="text-gray-700">Trusted by 100+ UK businesses</span>
-              </div>
-
               {/* Main Headline */}
-              <div className="space-y-6">
+              <div className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-satoshi font-bold text-gray-900 leading-tight">
                   Web development
                   <span className="block text-brand-teal">that works</span>
                 </h1>
+
+                {/* Trust Badge - moved below title */}
+                <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-4 py-2 text-sm font-satoshi">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span className="text-gray-700">Trusted by 100+ UK businesses</span>
+                </div>
                 
                 <p className="text-xl lg:text-2xl text-gray-600 font-satoshi leading-relaxed max-w-2xl">
                   Navigate post-Brexit challenges with cost-effective, high-quality websites that help British businesses thrive in the digital economy.
