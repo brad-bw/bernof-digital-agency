@@ -5,7 +5,7 @@ import SEO from "@/components/SEO";
 import Breadcrumb from "@/components/Breadcrumb";
 import { ItalyWebHero } from "@/components/country/ItalyWebHero";
 import { UKWebServices } from "@/components/country/UKWebServices";
-import { UKWebComparison } from "@/components/country/UKWebComparison";
+import { ItalyWebComparison } from "@/components/country/ItalyWebComparison";
 import ContactSection from "@/components/ContactSection";
 import { useSEO } from "@/hooks/useSEO";
 
@@ -28,7 +28,7 @@ const ItalyWebDevelopment = () => {
         </div>
         <ItalyWebHero />
         <UKWebServices />
-        <UKWebComparison />
+        <ItalyWebComparison />
         <ContactSection />
       </main>
       <Footer />
