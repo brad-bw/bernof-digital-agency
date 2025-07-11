@@ -1,10 +1,7 @@
-
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Globe, Zap, Shield, TrendingDown } from "lucide-react";
-
 export const UKWebHero = () => {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
+  return <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute top-20 left-20 w-72 h-72 bg-brand-teal/10 rounded-full blur-3xl animate-pulse" />
@@ -12,7 +9,7 @@ export const UKWebHero = () => {
         <div className="absolute top-1/2 left-1/3 w-8 h-8 bg-brand-teal/20 rotate-45 rounded-lg animate-float" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 relative z-10 py-[24px]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
@@ -79,20 +76,11 @@ export const UKWebHero = () => {
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  size="lg" 
-                  className="bg-brand-teal hover:bg-brand-teal-dark text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg group"
-                  onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}
-                >
+                <Button size="lg" className="bg-brand-teal hover:bg-brand-teal-dark text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg group" onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}>
                   Get Your Website Quote
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="border-2 border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg"
-                  onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}
-                >
+                <Button variant="outline" size="lg" className="border-2 border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg" onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}>
                   Schedule Free Consultation
                 </Button>
               </div>
@@ -168,6 +156,5 @@ export const UKWebHero = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
