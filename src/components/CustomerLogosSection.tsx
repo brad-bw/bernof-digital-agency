@@ -11,7 +11,7 @@ const CustomerLogosSection = () => {
     { name: "Dropbox", src: "https://images.ctfassets.net/w6r2i5d8q73s/5wsL1M2LKRoe0jbv5yj0kM/77b1eb193453975bc2b6b931b0da3b55/Logo-Dropbox.svg" },
     { name: "Hanes", src: "https://images.ctfassets.net/w6r2i5d8q73s/FRhbgj2OqoAKNalplKqwC/084b68e4be26647cdd82cf54ac7941ad/Logo-Hanes.svg" },
     { name: "H&R Block", src: "https://images.ctfassets.net/w6r2i5d8q73s/7eMrWKnItcRdYc7KJfKjOs/75ad57cac9321832e74714107f27f3fd/Logo-Hr-block.svg" },
-    { name: "Kimberly-Clark", src: "https://images.ctfassets.net/w6r2i5d8q73s/4Sl71c85CSimVrBQ6OIdI0/1e954c70c12bca3947b91e14-62afb51/Logo-Kimberly-Clark.svg" }
+    { name: "Kimberly-Clark", src: "https://images.ctfassets.net/w6r2i5d8q73s/4Sl71c85CSimVrBQ6OIdI0/1e954c70c12bca3947b91e14462afb51/Logo-Kimberly-Clark.svg" }
   ];
 
   return (
