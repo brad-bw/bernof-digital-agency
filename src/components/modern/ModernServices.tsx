@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Code, Palette, TrendingUp, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import CustomerLogos from "@/components/CustomerLogos";
 
 const ModernServices = () => {
   const services = [
@@ -114,7 +115,7 @@ const ModernServices = () => {
           </div>
 
           {/* CTA section */}
-          <div className="text-center bg-gray-50 rounded-3xl p-12">
+          <div className="text-center bg-gray-50 rounded-3xl p-12 mb-20">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Ready to start your project?
             </h3>
@@ -133,6 +134,9 @@ const ModernServices = () => {
           </div>
         </div>
       </div>
+      
+      {/* Customer Logos Section */}
+      <CustomerLogos />
     </section>
   );
 };
