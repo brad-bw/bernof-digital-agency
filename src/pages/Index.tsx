@@ -3,7 +3,6 @@ import React from 'react';
 import Header from "@/components/Header";
 import ModernHero from "@/components/modern/ModernHero";
 import ModernServices from "@/components/modern/ModernServices";
-import CustomerSection from "@/components/CustomerSection";
 import ModernAbout from "@/components/modern/ModernAbout";
 import DiscoveryCallSection from "@/components/DiscoveryCallSection";
 import ContactSection from "@/components/ContactSection";
@@ -24,7 +23,6 @@ const Index: React.FC = () => {
           <ModernHero />
         </section>
         <ModernServices />
-        <CustomerSection />
         <ModernAbout />
         <DiscoveryCallSection />
         <ContactSection />
