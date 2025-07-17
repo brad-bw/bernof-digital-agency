@@ -16,60 +16,62 @@ const CustomerLogosSection = () => {
 
   return (
     <section className="bg-gray-900 text-white py-20 overflow-hidden">
-      <style jsx>{`
-        .logo-ticker-wrapper {
-          display: flex;
-          flex-wrap: nowrap;
-          overflow: hidden;
-          position: relative;
-          padding: 1rem 0;
-        }
-        
-        .logo-ticker-container {
-          display: flex;
-          width: max-content;
-          flex-wrap: nowrap;
-          animation: ticker-scroll 60s linear infinite;
-        }
-
-        .logo-ticker-wrapper:hover .logo-ticker-container {
-          animation-play-state: paused;
-        }
-        
-        .logo-ticker-item {
-          display: flex;
-          align-items: center;
-          padding: 0 40px;
-          flex-shrink: 0;
-        }
-
-        .logo-ticker-item img {
-          max-height: 48px;
-          width: auto;
-          filter: brightness(0) invert(1);
-          opacity: 0.7;
-          transition: opacity 0.3s ease;
-        }
-
-        .logo-ticker-item:hover img {
-          opacity: 1;
-        }
-
-        @keyframes ticker-scroll {
-          0% {
-            transform: translateX(0%);
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .logo-ticker-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow: hidden;
+            position: relative;
+            padding: 1rem 0;
           }
-          100% {
-            transform: translateX(-50%);
+          
+          .logo-ticker-container {
+            display: flex;
+            width: max-content;
+            flex-wrap: nowrap;
+            animation: ticker-scroll 60s linear infinite;
           }
-        }
 
-        @media (max-width: 768px) {
+          .logo-ticker-wrapper:hover .logo-ticker-container {
+            animation-play-state: paused;
+          }
+          
           .logo-ticker-item {
-            padding: 0 25px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            flex-shrink: 0;
           }
-        }
-      `}</style>
+
+          .logo-ticker-item img {
+            max-height: 48px;
+            width: auto;
+            filter: brightness(0) invert(1);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+          }
+
+          .logo-ticker-item:hover img {
+            opacity: 1;
+          }
+
+          @keyframes ticker-scroll {
+            0% {
+              transform: translateX(0%);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+
+          @media (max-width: 768px) {
+            .logo-ticker-item {
+              padding: 0 25px;
+            }
+          }
+        `
+      }} />
 
       <div className="container mx-auto px-6">
         <h2 className="text-white text-center text-2xl md:text-3xl font-semibold mb-15">
