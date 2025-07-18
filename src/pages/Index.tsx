@@ -1,32 +1,33 @@
 
 import React from 'react';
 import Header from "@/components/Header";
+import ModernHero from "@/components/modern/ModernHero";
+import ModernServices from "@/components/modern/ModernServices";
+import ModernAbout from "@/components/modern/ModernAbout";
+import DiscoveryCallSection from "@/components/DiscoveryCallSection";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { useSEO } from "@/hooks/useSEO";
-
-// New homepage components
-import HeroSection from "@/components/homepage/HeroSection";
-import ClientLogoMarquee from "@/components/homepage/ClientLogoMarquee";
-import CoreServices from "@/components/homepage/CoreServices";
-import FeaturedWork from "@/components/homepage/FeaturedWork";
-import FinalCTA from "@/components/homepage/FinalCTA";
-import NewFooter from "@/components/homepage/NewFooter";
 
 const Index: React.FC = () => {
   const seoData = useSEO('home');
 
   return (
-    <div className="min-h-screen bg-off-white font-ibm-plex-sans">
+    <div className="min-h-screen bg-white font-inter">
       <SEO {...seoData} />
       <Header />
       <main>
-        <HeroSection />
-        <ClientLogoMarquee />
-        <CoreServices />
-        <FeaturedWork />
-        <FinalCTA />
+        <section>
+          <h1 className="sr-only">Bernof Co - Premier Digital Solutions & Growth Services</h1>
+          <ModernHero />
+        </section>
+        <ModernServices />
+        <ModernAbout />
+        <DiscoveryCallSection />
+        <ContactSection />
       </main>
-      <NewFooter />
+      <Footer />
     </div>
   );
 };

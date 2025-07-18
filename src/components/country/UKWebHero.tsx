@@ -1,7 +1,10 @@
+
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Globe, Zap, Shield, TrendingDown } from "lucide-react";
+import { ArrowRight, CheckCircle, Globe, Zap, Shield } from "lucide-react";
+
 export const UKWebHero = () => {
-  return <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
+  return (
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute top-20 left-20 w-72 h-72 bg-brand-teal/10 rounded-full blur-3xl animate-pulse" />
@@ -9,78 +12,65 @@ export const UKWebHero = () => {
         <div className="absolute top-1/2 left-1/3 w-8 h-8 bg-brand-teal/20 rotate-45 rounded-lg animate-float" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10 py-[24px]">
+      <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
             <div className="space-y-8">
+              {/* Trust Badge */}
+              <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-4 py-2 text-sm font-satoshi">
+                <CheckCircle className="w-4 h-4 text-green-500" />
+                <span className="text-gray-700">Trusted by 100+ UK businesses</span>
+              </div>
+
               {/* Main Headline */}
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <h1 className="text-5xl lg:text-7xl font-satoshi font-bold text-gray-900 leading-tight">
                   Web development
                   <span className="block text-brand-teal">that works</span>
                 </h1>
-
-                {/* Trust Badge - moved below title */}
-                <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full px-4 py-2 text-sm font-satoshi">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span className="text-gray-700">Trusted by 100+ UK businesses</span>
-                </div>
                 
                 <p className="text-xl lg:text-2xl text-gray-600 font-satoshi leading-relaxed max-w-2xl">
                   Navigate post-Brexit challenges with cost-effective, high-quality websites that help British businesses thrive in the digital economy.
                 </p>
               </div>
 
-              {/* Modern Cost Comparison */}
-              <div className="relative bg-gradient-to-br from-white to-slate-50/50 backdrop-blur-sm border border-slate-200/60 rounded-3xl p-8 space-y-6 shadow-sm hover:shadow-md transition-all duration-300">
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-2 h-2 bg-brand-teal rounded-full"></div>
-                  <h3 className="text-lg font-satoshi font-medium text-slate-800">Market insight</h3>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-6">
-                  {/* UK Agencies */}
-                  <div className="flex items-center justify-between p-4 bg-red-50/50 rounded-2xl border border-red-100/50">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-red-400 rounded-full opacity-60"></div>
-                      <span className="text-sm font-satoshi text-slate-600">UK agencies</span>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-satoshi font-semibold text-slate-800">£12k–£28k</div>
-                      <div className="text-xs font-satoshi text-red-600">typical range</div>
-                    </div>
+              {/* Cost Comparison */}
+              <div className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl p-6 space-y-4">
+                <h3 className="text-lg font-satoshi font-semibold text-gray-900">UK Market Reality</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-sm text-gray-500 font-satoshi mb-1">UK Agencies</div>
+                    <div className="text-2xl font-satoshi font-bold text-red-600">£12,000-£28,000</div>
                   </div>
-
-                  {/* Bernof Co */}
-                  <div className="flex items-center justify-between p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100/50">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-emerald-400 rounded-full"></div>
-                      <span className="text-sm font-satoshi text-slate-600">Our approach</span>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-satoshi font-semibold text-slate-800">£4.8k–£11k</div>
-                      <div className="text-xs font-satoshi text-emerald-600">same quality</div>
-                    </div>
+                  <div className="text-center">
+                    <div className="text-sm text-gray-500 font-satoshi mb-1">Bernof Co</div>
+                    <div className="text-2xl font-satoshi font-bold text-brand-teal">£4,800-£11,200</div>
                   </div>
                 </div>
-
-                {/* Savings Indicator */}
-                <div className="flex items-center justify-center pt-4 border-t border-slate-200/50">
-                  <div className="flex items-center space-x-2 bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-2 rounded-full border border-emerald-200/50">
-                    <TrendingDown className="w-4 h-4 text-emerald-600" />
-                    <span className="text-sm font-satoshi font-medium text-emerald-700">60% cost reduction</span>
-                  </div>
+                <div className="text-center">
+                  <span className="inline-flex items-center bg-green-100 text-green-800 text-sm font-satoshi font-medium px-3 py-1 rounded-full">
+                    60% cost savings
+                  </span>
                 </div>
               </div>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-brand-teal hover:bg-brand-teal-dark text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg group" onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}>
+                <Button 
+                  size="lg" 
+                  className="bg-brand-teal hover:bg-brand-teal-dark text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg group"
+                  onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}
+                >
                   Get Your Website Quote
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button variant="outline" size="lg" className="border-2 border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg" onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="border-2 border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-satoshi font-semibold px-8 py-4 rounded-xl text-lg"
+                  onClick={() => window.open("https://calendly.com/bernof-co", "_blank")}
+                >
                   Schedule Free Consultation
                 </Button>
               </div>
@@ -156,5 +146,6 @@ export const UKWebHero = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };

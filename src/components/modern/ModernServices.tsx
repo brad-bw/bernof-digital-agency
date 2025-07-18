@@ -22,13 +22,13 @@ const ModernServices = () => {
     },
     {
       icon: <Palette className="w-8 h-8 text-primary" />,
-      title: "Brand & Design", 
-      subtitle: "Visual identity systems",
+      title: "Brand & Design",
+      subtitle: "Visual identity systems", 
       description: "Comprehensive brand development and UI/UX design that tells your story and converts visitors into customers.",
       features: [
         "Brand identity & logo design",
         "UI/UX design & prototyping",
-        "Design systems & guidelines", 
+        "Design systems & guidelines",
         "Motion graphics & video"
       ],
       pricing: "From €800",
@@ -37,7 +37,7 @@ const ModernServices = () => {
     {
       icon: <TrendingUp className="w-8 h-8 text-primary" />,
       title: "Digital Marketing",
-      subtitle: "Growth-driven strategies", 
+      subtitle: "Growth-driven strategies",
       description: "Data-driven marketing campaigns that increase visibility, drive qualified traffic, and convert leads into revenue.",
       features: [
         "SEO & content strategy",
@@ -51,7 +51,7 @@ const ModernServices = () => {
   ];
 
   return (
-    <section id="services" className="bg-white py-0">
+    <section id="services" className="py-32 bg-white">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           
@@ -114,7 +114,7 @@ const ModernServices = () => {
           </div>
 
           {/* CTA section */}
-          <div className="text-center bg-gray-50 rounded-3xl p-12 mb-20 py-0 px-[44px]">
+          <div className="text-center bg-gray-50 rounded-3xl p-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Ready to start your project?
             </h3>
@@ -123,8 +123,8 @@ const ModernServices = () => {
               tailored to your specific needs and budget.
             </p>
             <Button 
-              onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })} 
-              size="lg" 
+              onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })}
+              size="lg"
               className="bg-primary hover:bg-primary/90 text-white font-medium px-10 py-4 rounded-xl text-lg transition-all duration-300 hover:scale-[1.02] group"
             >
               <span>Book free consultation</span>
