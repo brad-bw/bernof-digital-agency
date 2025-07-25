@@ -1,45 +1,29 @@
 
+import { Helmet } from "react-helmet-async";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import SEO from "@/components/SEO";
-import Breadcrumb from "@/components/Breadcrumb";
-import CountryHero from "@/components/country/CountryHero";
-import CountryPainPoints from "@/components/country/CountryPainPoints";
-import { CountryServices } from "@/components/country/CountryServices";
-import CountryCTA from "@/components/country/CountryCTA";
+import { UKWebHero } from "@/components/country/UKWebHero";
+import { UKWebServices } from "@/components/country/UKWebServices";
+import { UKWebComparison } from "@/components/country/UKWebComparison";
 import ContactSection from "@/components/ContactSection";
-import { useSEO } from "@/hooks/useSEO";
-import { getCountryConfig } from "@/config/countries";
 
 const UKWebDevelopment = () => {
-  const seoData = useSEO('uk/web-development');
-  const country = getCountryConfig('uk')!;
-
-  const breadcrumbItems = [
-    { name: "Home", url: "/" },
-    { name: "United Kingdom", url: "/global-services/uk" },
-    { name: "Web Development Services", url: "/uk/web-development" }
-  ];
-
   return (
-    <div className="min-h-screen font-inter">
-      <SEO {...seoData} />
+    <div className="min-h-screen font-satoshi">
+      <Helmet>
+        <title>UK Web Development Services | British Website Design & Development | Bernof Co</title>
+        <meta name="description" content="UK web development services with 60% cost savings. Post-Brexit compliant websites, e-commerce solutions, and digital platforms for British businesses." />
+        <meta name="keywords" content="UK web development, British website design, London web agency, Manchester web development, post-Brexit web solutions" />
+        <link rel="canonical" href="https://bernofco.com/uk/web-development" />
+        <link rel="hreflang" hrefLang="en-gb" href="https://bernofco.com/uk/web-development" />
+        <link rel="hreflang" hrefLang="x-default" href="https://bernofco.com/global-services" />
+      </Helmet>
+      
       <Header />
       <main>
-        <div className="container mx-auto px-6">
-          <Breadcrumb items={breadcrumbItems} />
-        </div>
-        <CountryHero 
-          country={country}
-          service="web"
-          title="Professional Web Development Services in the UK"
-          subtitle="Navigate post-Brexit challenges with cost-effective, high-quality websites and e-commerce solutions that help British businesses thrive in the digital economy."
-          ctaPrimary="Get Your Website Quote"
-          ctaSecondary="Schedule Free Consultation"
-        />
-        <CountryPainPoints country={country} serviceType="web" />
-        <CountryServices country={country} serviceType="web" />
-        <CountryCTA country={country} serviceType="web" />
+        <UKWebHero />
+        <UKWebServices />
+        <UKWebComparison />
         <ContactSection />
       </main>
       <Footer />
