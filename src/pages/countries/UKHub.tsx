@@ -135,7 +135,7 @@ const UKHub = () => {
                 <div className="space-y-6">
                   <div className="inline-flex items-center px-4 py-2 bg-brand-sage-light/50 rounded-full text-brand-teal-dark font-semibold text-sm">
                     <span className="text-xl mr-2">🇬🇧</span>
-                    UK's Premier Digital Partner
+                    UK's Premier Digital Partner - Updated
                   </div>
                   
                   <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
