@@ -14,7 +14,7 @@ const Index: React.FC = () => {
   const seoData = useSEO('home');
 
   return (
-    <div className="min-h-screen bg-background font-inter text-foreground">
+    <div className="min-h-screen bg-white font-inter">
       <SEO {...seoData} />
       <Header />
       <main>
