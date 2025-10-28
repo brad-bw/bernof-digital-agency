@@ -33,7 +33,7 @@ const ModernAbout = () => {
   ];
 
   return (
-    <section className="py-32 bg-gray-50">
+    <section className="py-32 bg-muted/30">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           
@@ -42,10 +42,10 @@ const ModernAbout = () => {
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               Why choose us
             </div>
-            <h2 className="font-inter text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h2 className="font-inter text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
               Built for the modern web
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-light leading-relaxed">
               We combine technical excellence with business acumen to deliver solutions 
               that not only work flawlessly but drive real business results.
             </p>
@@ -62,8 +62,8 @@ const ModernAbout = () => {
                     {value.icon}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{value.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                    <h3 className="text-xl font-semibold text-foreground mb-2">{value.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{value.description}</p>
                   </div>
                 </div>
               ))}
@@ -71,10 +71,10 @@ const ModernAbout = () => {
 
             {/* Right column - Achievements */}
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              <h3 className="text-2xl font-bold text-foreground mb-6">
                 Enterprise-grade standards
               </h3>
-              <p className="text-gray-600 mb-8 leading-relaxed">
+              <p className="text-muted-foreground mb-8 leading-relaxed">
                 Every project is delivered with the same attention to detail and quality 
                 standards we use for Fortune 500 companies.
               </p>
@@ -82,7 +82,7 @@ const ModernAbout = () => {
                 {achievements.map((achievement, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-gray-700">{achievement}</span>
+                    <span className="text-card-foreground">{achievement}</span>
                   </div>
                 ))}
               </div>
@@ -90,29 +90,29 @@ const ModernAbout = () => {
           </div>
 
           {/* Stats section */}
-          <div className="bg-white rounded-3xl p-12 mb-16">
+          <div className="bg-card rounded-3xl p-12 mb-16 border border-border">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">50+</div>
-                <div className="text-gray-600 text-sm">Projects delivered</div>
+                <div className="text-3xl font-bold text-foreground mb-2">50+</div>
+                <div className="text-muted-foreground text-sm">Projects delivered</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">3</div>
-                <div className="text-gray-600 text-sm">Years experience</div>
+                <div className="text-3xl font-bold text-foreground mb-2">3</div>
+                <div className="text-muted-foreground text-sm">Years experience</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">100%</div>
-                <div className="text-gray-600 text-sm">Client satisfaction</div>
+                <div className="text-3xl font-bold text-foreground mb-2">100%</div>
+                <div className="text-muted-foreground text-sm">Client satisfaction</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">24/7</div>
-                <div className="text-gray-600 text-sm">Support available</div>
+                <div className="text-3xl font-bold text-foreground mb-2">24/7</div>
+                <div className="text-muted-foreground text-sm">Support available</div>
               </div>
             </div>
           </div>
 
           {/* CTA Section */}
-          <div className="text-center bg-primary rounded-3xl p-12 text-white">
+          <div className="text-center bg-primary rounded-3xl p-12 text-primary-foreground">
             <h3 className="text-3xl md:text-4xl font-bold mb-4">
               Let's build something great together
             </h3>
@@ -123,7 +123,7 @@ const ModernAbout = () => {
             <Button 
               onClick={() => document.getElementById('discovery-call')?.scrollIntoView({ behavior: 'smooth' })}
               size="lg"
-              className="bg-white text-primary hover:bg-gray-50 font-medium px-10 py-4 rounded-xl text-lg transition-all duration-300 hover:scale-[1.02] group"
+              className="bg-background text-foreground hover:bg-muted font-medium px-10 py-4 rounded-xl text-lg transition-all duration-300 hover:scale-[1.02] group"
             >
               <span>Start your project</span>
               <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />

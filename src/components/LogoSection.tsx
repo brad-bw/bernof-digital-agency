@@ -5,7 +5,7 @@ const LogoSection = () => {
   return (
     <div className="flex items-center space-x-4">
       <img 
-        src="/images/1ae84dd7-47db-491c-9099-013be249fce1.png"
+        src="/images/bernof-logo-white.png"
         alt="Bernof Co. Logo"
         width="240"
         height="60"
