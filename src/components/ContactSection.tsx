@@ -83,16 +83,14 @@ const ContactSection = () => {
       
       const { data, error } = await supabase
         .from('contact_submissions')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            company: formData.company || null,
-            service_interest: formData.serviceInterest,
-            sub_service: formData.subService || null,
-            message: formData.message
-          }
-        ]);
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || null,
+          service_interest: formData.serviceInterest,
+          sub_service: formData.subService || null,
+          message: formData.message
+        });
 
       console.log('Supabase response:', { data, error });
 
