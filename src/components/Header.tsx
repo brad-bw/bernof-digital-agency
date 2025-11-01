@@ -57,6 +57,14 @@ const Header = () => {
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
             </button>
             
+            <button 
+              onClick={() => scrollToSection('portfolio')}
+              className="text-gray-600 hover:text-primary transition-colors font-medium relative group"
+            >
+              Portfolio
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></div>
+            </button>
+            
             <div className="relative group">
               <Link 
                 to="/global-services"
@@ -134,6 +142,12 @@ const Header = () => {
               className="block w-full text-left text-gray-700 hover:text-primary font-medium transition-colors"
             >
               Services
+            </button>
+            <button 
+              onClick={() => scrollToSection('portfolio')}
+              className="block w-full text-left text-gray-700 hover:text-primary font-medium transition-colors"
+            >
+              Portfolio
             </button>
             <div>
               <button 

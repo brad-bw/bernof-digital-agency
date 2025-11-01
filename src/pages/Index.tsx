@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import ModernHero from "@/components/modern/ModernHero";
 import ModernServices from "@/components/modern/ModernServices";
 import ModernAbout from "@/components/modern/ModernAbout";
+import PortfolioShowcase from "@/components/portfolio/PortfolioShowcase";
 import DiscoveryCallSection from "@/components/DiscoveryCallSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -23,6 +24,7 @@ const Index: React.FC = () => {
           <ModernHero />
         </section>
         <ModernServices />
+        <PortfolioShowcase />
         <ModernAbout />
         <DiscoveryCallSection />
         <ContactSection />
