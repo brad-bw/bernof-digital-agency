@@ -8,34 +8,48 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 215 25% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 192 75% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 20% 96%;
+    --secondary-foreground: 215 25% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 180 65% 55%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 215 20% 90%;
+    --input: 215 20% 90%;
+    --ring: 192 75% 35%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Modern design tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(192, 75%, 35%) 0%, hsl(180, 65%, 55%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(210, 20%, 98%) 0%, hsl(0, 0%, 100%) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(192, 75%, 35%, 0.15) 0%, transparent 70%);
+    
+    --shadow-sm: 0 1px 2px 0 hsl(215, 25%, 15%, 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(215, 25%, 15%, 0.08), 0 2px 4px -2px hsl(215, 25%, 15%, 0.05);
+    --shadow-lg: 0 10px 15px -3px hsl(215, 25%, 15%, 0.08), 0 4px 6px -4px hsl(215, 25%, 15%, 0.05);
+    --shadow-xl: 0 20px 25px -5px hsl(215, 25%, 15%, 0.08), 0 8px 10px -6px hsl(215, 25%, 15%, 0.05);
+    --shadow-glow: 0 0 40px hsl(192, 75%, 35%, 0.2);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -107,40 +121,48 @@
   }
 }
 
-/* Custom geometric pattern utilities */
+/* Modern utilities */
 @layer utilities {
-  .geometric-bg-primary {
-    background-image: url('/images/5f456e34-181a-4162-b70e-4047975ae6b3.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #f8fafc; /* Fallback color */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
-  .geometric-pattern {
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(45, 90, 90, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(244, 162, 97, 0.1) 0%, transparent 50%);
+  .gradient-primary {
+    background: var(--gradient-primary);
   }
   
-  .flowing-curves::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(ellipse at center, rgba(45, 90, 90, 0.03) 0%, transparent 70%);
-    animation: float 20s ease-in-out infinite;
-    pointer-events: none;
+  .gradient-soft {
+    background: var(--gradient-soft);
   }
   
-  .organic-shape {
-    clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 15% 100%);
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
   }
   
-  .curved-element {
-    border-radius: 50% 20% / 10% 40%;
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
   }
 }
 
